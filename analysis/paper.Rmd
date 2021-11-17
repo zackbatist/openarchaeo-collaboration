@@ -83,25 +83,50 @@ oarch <- mutate(oarch,
 ```
 
 ## Introduction
+In applying either physical or digital methods, archaeology has a long tradition of adopting common or 'off the shelf' tools to serve our own unique purposes, which are not typically unanticipated by their original designers. In other words, the apparatus of archaeology is an open system that relies on products and skillsets from outside the discipline, but which exhibit enough flexibility to be used in novel ways. For example, archaeologists are content to outsource the metallurgical skills needed to forge their trowels, and delegate the manufacture and acquisition of key electronic tools, like laptop computers and cameras, to the global supply chains and labour networks that produce consumer-grade products for purchase. However, an increasingly large number of archaeologists are taking it upon themselves to program their own software, rather than rely on generic and commercially-produced information processing systems. In fact, archaeologists are prolific computer programmers and have been coding a variety of functions and libraries that serve uniquely archaeological problems and purposes.
 
-In applying either physical or digital methods, archaeology has a long tradition of adopting common or 'off the shelf' tools, and leveraging them in ways to serve our own unique needs that are typically unanticipated by their original designers.
+This article presents a survey of archaeological software development with two goals in mind:
 
-A lot of this is surely due to resourcing and budgeting constraints, but holding prerequisite knowledge to create new tools, specifically designed for archaeology, may be a significant factor as well.
+(1) we identify _what_ kinds of software archaeologists are making;
+(2) and evaluate _how_ archaeologists create these tools, with particular emphasis on practices of collaboration.
 
-And while most archaeologists are probably content to outsource the metallurgical skills needed to forge their trowels, an increasingly large number of us are able to code our own programs and libraries, which serve functions that warrant archaeological input and initiative.
+We examine archaeological software development as reflections of a unique set of cultural practices.
 
-In fact, archaeologists are prolific programmers, as this paper will demonstrate.
-
-Here, we present a survey of archaeological software development with a couple goals in mind.
-
-First, we want to see what kinds of software archaeologists are making, and for what general purposes.
-
-And second, we are interested in seeing how archaeologists collaborate in their programming work, and experience open source development processes, which have their own benefits, challenges and organizing principles that may conflict with or relate to means of collaboration and sharing that archaeologists are already generally accustomed to.
-
-In this sense, we want to see how archaeological software is benefitting from, or missing out on, the affordances that open source development models -- particularly, the value added by a broader community of invested stakeholders, the pragmatic implementation of iterative updates, and increased transparency -- and consider how our own unique software development culture emerged and continues to grow.
-
+Our investigation considers how archaeological software development may be benefiting from or missing out on the affordances that open source development models-- specifically, the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.
 
 ## Background
+- The notion of the archaeological toolbox, and its inclusion of digital tools and skillsets
+  - The use of off-the-shelf tools like MS Access, Excel, Agisoft PhotoScan, Dropbox, etc
+  - Link to related factors:
+    - Lack of experienced programmers among archaeologists
+    - The built-in flexibility of these tools
+    - Ease of administrative purchasing through university departments
+  - What changed?
+    - Software is expensive, shift to subscription models, locking into a dependency on a commercial service provider
+    - Archaeologists are better at computer programming, digital literacy on the rise, digital archaeologists grows into its own legitimate sub-discipline
+    - Open source is cool, everyone has a github profile (even if not really)
+
+- About open source practices and their influence on archaeology
+  - What is open source software and open source software development?
+    - Free cost as an end-user
+    - Free to manipulate and extend
+    - Community-based support and development
+  - Software as product vs software as collective process
+    - Basically what distinguishes abandonware from thriving software ecosystems
+    - Technical, legal and social notions of open
+      - Technical: source code is open, use of a platform and systems that support software integration and implementations
+      - Legal: open licenses, backing by the courts
+      - Social: inviting community, meaningful contributions provided by users, common vision and values directing the project into future directions
+    - Consider how these aspects of open have been implemented or prioritized by digital archaeologists in different ways
+      - Technical: reproducible research, archiving and publishing
+      - Legal: archiving and publishing, budgeting for projects
+      - Social: ensuring that software is actually useful for general use and not just one-off implementation, coordinating to reduce redundant effort and not reinvent the wheel, writing documentation, making it fit within existing systems or infrastructures (i.e. allocation of credit, citing software directly versus articles that present software, sustainable development after funding runs out, etc)
+    - This paper largely focuses on the social aspect of open, which is arguably the most important for ensuring a positive future for archaeological software development
+
+The 'archaeological toolbox' is a common metaphor that describes the set of physical and informational tools and processes that archaeologists rely upon in their work.
+
+collaborate in their programming work, and how they experience open source development processes which have their own benefits, challenges and organizing principles that may conflict with or relate to means of collaboration and sharing that archaeologists are already generally accustomed to.
+
 
 ## Data and evidence
 
