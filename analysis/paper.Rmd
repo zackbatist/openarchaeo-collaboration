@@ -26,6 +26,8 @@ library("lubridate")
 library("openarchaeoCollaboration")
 library("khroma")
 library("gt")
+library("fs")
+library("here")
 ```
 
 ```{r plot-theme}
@@ -72,14 +74,31 @@ oarch <- mutate(oarch, rough_category = recode(category,
 ```
 
 ```{r data-github}
-# Warning: slow
-oarch <- mutate(oarch,
-                gh_langs = map(oarch$gh_repo, gh_lang),
-                gh_contribs = map(oarch$gh_repo, gh_contrib),
-                gh_issues = map(oarch$gh_repo, gh_issue),
-                gh_comments = map(oarch$gh_repo, gh_comment),
-                gh_commits = map(oarch$gh_repo, gh_commit)
-)
+# If cached data at `analysis/data/derived_data/oarch.RData` is present, this
+# chunk will prefer to load it rather than make requests to the GitHub API.
+# Delete this file to fetch fresh data from the GitHub or modify 
+# `cached_gh_data` to read a different cached version.
+#
+# Note that fetching data from the GitHub API takes some time and is subject to
+# a rate limit:
+# <https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting>
+#
+# You will need to authenticate authenticate with GitHub credentials to get a
+# rate limit sufficient to obtain the required data, see 
+# <https://gh.r-lib.org/articles/managing-personal-access-tokens.html>
+# for options on how to do this.
+cached_gh_data <- here("analysis/data/derived_data/oarch.RData")
+if (!file_exists(cached_gh_data)) {
+  oarch <- mutate(oarch,
+                  gh_langs = map(oarch$gh_repo, gh_lang),
+                  gh_contribs = map(oarch$gh_repo, gh_contrib),
+                  gh_issues = map(oarch$gh_repo, gh_issue),
+                  gh_comments = map(oarch$gh_repo, gh_comment),
+                  gh_commits = map(oarch$gh_repo, gh_commit)
+  )
+  saveRDS(oarch, cached_gh_data)
+}
+oarch <- readRDS(cached_gh_data)
 ```
 
 ## Introduction
