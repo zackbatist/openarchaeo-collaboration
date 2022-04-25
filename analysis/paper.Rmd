@@ -124,6 +124,7 @@ Our investigation considers how archaeological software development may be benef
     - Software is expensive, shift to subscription models, locking into a dependency on a commercial service provider
     - Archaeologists are better at computer programming, digital literacy on the rise, digital archaeologists grows into its own legitimate sub-discipline
     - Open source is cool, everyone has a github profile (even if not really)
+      - (JR:) People are presumably guided towards GitHub (or at least git) via other routes, because it's seen as the standard platform for 'open' digital work. For example, the literature on reproducible compendiums recommends GitHub, and almost all R development work is now done there. And once there, you're sort of forced into engaging in a (particular set of) open source development. I know there's controversy about how dominant this has become and people who say it's not 'true' (free and) open source, and perhaps we could add to that the question of whether it's the right model for archaeology.
 
 - About open source practices and their influence on archaeology
   - What is open source software and open source software development?
