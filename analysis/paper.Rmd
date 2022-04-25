@@ -492,6 +492,7 @@ This latter pattern in turn appears to be explained by the number of contributor
 **ZB NOTE:** Use patchwork package to combine these plots into a unified figure.
 
 ```{r plot-lifespan-hist}
+# TODO: where does oarch_lifespan come from?
 oarch_lifespan %>%
   ggplot(aes(x = lifespan)) +
   geom_histogram(binwidth = 100) +
@@ -586,7 +587,7 @@ oarch %>%
   filter(n_contributors > 1) %>%
   mutate(big_boy = ifelse(contributions == max(contributions),
                           "Main contributor", "Other contributors"),
-         big_boy_pct = max(contributions) / sum(contributions)) ->x %>%
+         big_boy_pct = max(contributions) / sum(contributions)) %>%
   ggplot(aes(x = fct_reorder(item_name, big_boy_pct, .desc = FALSE),
              y = contributions,
              # group = contributor,
@@ -594,7 +595,7 @@ oarch %>%
                                            "Main contributor")))) +
   geom_col(position = "fill", colour = "white", size = 0.1) +
   scale_y_continuous(labels = scales::percent) +
-  scale_fill_contrast(guide = guide_legend(reverse = TRUE)) +
+  scale_fill_highcontrast(guide = guide_legend(reverse = TRUE)) +
   labs(title = "Repository contributors by proportion of contributions",
        x = NULL, y = "Contributions",
        fill = NULL,
@@ -740,6 +741,7 @@ filter(oarch, none == "") %>%
 The measures of activity may also be compared with the tags and categories.
 
 ```{r plot-lifespan-activity-tags}
+# TODO: where does oarch_lifespan come from?
 left_join(oarch_lifespan, oarch, by = c("item_name")) %>%
   pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
                values_drop_na = TRUE) %>%
