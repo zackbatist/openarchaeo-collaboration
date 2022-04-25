@@ -28,6 +28,8 @@ library("khroma")
 library("gt")
 library("fs")
 library("here")
+library("tidygraph")
+library("ggraph")
 ```
 
 ```{r plot-theme}
@@ -664,6 +666,91 @@ oarch %>%
 If we construct a network linking repositories by their common contributors, can we identify emerging networks of collaboration, or are individual projects still largely isolated? If there are networks, what characterises their links?
 
 **ZB NOTE:** I'm speculating that there are going to be various users who have their fingers in many projects, and that those projects tend to be the most active. If this is the case, I would further speculate that these people hold a different attitude regarding authorship and the dividuality of projects that is more in sync with the collaborative capabilities of open source, which are at odds with traditional academic norms regarding how contributions are credited and how products are produced are disseminated.
+
+To construct our graphs we need a table linking users to repos by collaborative activity.
+For this purpose commits, issues, and comments are all considered contributions.
+
+```{r graph-data}
+oarch |>
+  drop_na(gh_repo) |>
+  nest(tags = c(tag1, tag2, tag3, tag4, tag5)) |>
+  select(gh_repo, category, tags, gh_commits, gh_issues, gh_comments) ->
+  oarch_graph
+
+oarch_graph <- bind_rows(
+  oarch_graph |>
+    unnest(gh_comments) |>
+    group_by(repo, author) |>
+    summarise(category, tags,
+              contrib = "comment", n_contrib = n(), .groups = "drop"),
+  oarch_graph |>
+    unnest(gh_issues) |>
+    group_by(repo, author) |>
+    summarise(category, tags,
+              contrib = "issue", n_contrib = n(), .groups = "drop"),
+  oarch_graph |>
+    unnest(gh_commits) |>
+    group_by(repo, author) |>
+    summarise(category, tags,
+              contrib = "commit", n_contrib = n(), .groups = "drop")
+)
+
+oarch_graph <- rename(oarch_graph, user = author)
+```
+
+With this, we can construct our three graphs: repo–user, repo–repo (by common users), and user–user (by common repos).
+
+### Repo–user
+
+```{r plot-graph-repo-user}
+oarch_graph |>
+  pivot_longer(c(repo, user), names_to = "node_type", values_to = "node") |>
+  select(node, node_type) |>
+  distinct() ->
+  nodes
+
+oarch_graph |>
+  rename(to = repo, from = user) ->
+  edges
+
+tbl_graph(nodes, edges) |>
+  ggraph(layout = "graphopt") +
+  geom_edge_fan(aes(colour = contrib, alpha = n_contrib)) +
+  geom_node_point(aes(colour = node_type)) +
+  scale_edge_alpha(trans = "log")
+```
+
+### Repo–repo
+
+```{r plot-graph-repo-repo}
+oarch_graph |>
+  select(repo, category) |>
+  distinct() ->
+  nodes
+
+oarch_graph |>
+  left_join(oarch_graph, by = "user") |>
+  select(repo.x, user, repo.y) |>
+  filter(repo.x != repo.y) |>
+  filter(!str_detect(user, coll("[bot]"))) |>
+  distinct() |>
+  count(repo.x, repo.y) |>
+  rename(to = repo.x, from = repo.y) ->
+  edges
+
+tbl_graph(nodes, edges) |>
+  ggraph(layout = "graphopt") +
+  geom_edge_fan(aes(alpha = n)) +
+  geom_node_point(aes(colour = category)) +
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common contributors")
+```
+
+### User–user
+
+```{r plot-graph-repo-user}
+# TODO
+```
 
 ## Conclusions
 
