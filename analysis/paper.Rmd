@@ -734,6 +734,18 @@ oarch_graph_repo_repo |>
   labs(edge_alpha = "Common contributors")
 ```
 
+```{r iplot-graph-repo-repo}
+iplot <- oarch_graph_repo_repo |>
+    ggraph(layout = "graphopt") +
+    geom_edge_link(aes(alpha = n)) +
+    geom_point_interactive(aes(x, y, colour = category, tooltip = repo)) + 
+    scale_edge_alpha(trans = "log") +
+    labs(edge_alpha = "Common contributors") +
+    theme_graph()
+
+girafe(ggobj = iplot)
+```
+
 #### User–user
 
 ```{r plot-graph-repo-user}
