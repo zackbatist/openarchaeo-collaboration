@@ -673,84 +673,76 @@ For this purpose commits, issues, and comments are all considered contributions.
 ```{r graph-data}
 oarch |>
   drop_na(gh_repo) |>
-  nest(tags = c(tag1, tag2, tag3, tag4, tag5)) |>
+  unite(tags, c(tag1, tag2, tag3, tag4, tag5)) |>
   select(gh_repo, category, tags, gh_commits, gh_issues, gh_comments) ->
   oarch_graph
 
 oarch_graph <- bind_rows(
   oarch_graph |>
-    unnest(gh_comments) |>
+    unnest(gh_commits) |>
+    drop_na(author) |> # Apparently real commits, but we can't connect them
     group_by(repo, author) |>
-    summarise(category, tags,
+    summarise(category = first(category), tags = first(tags),
+              contrib = "commit", n_contrib = n(), .groups = "drop"),
+  oarch_graph |>
+    unnest(gh_comments) |>
+    drop_na(author) |> # Repos with no comments
+    group_by(repo, author) |>
+    summarise(category = first(category), tags = first(tags),
               contrib = "comment", n_contrib = n(), .groups = "drop"),
   oarch_graph |>
     unnest(gh_issues) |>
+    drop_na(author) |> # Repos with no issues
     group_by(repo, author) |>
-    summarise(category, tags,
-              contrib = "issue", n_contrib = n(), .groups = "drop"),
-  oarch_graph |>
-    unnest(gh_commits) |>
-    group_by(repo, author) |>
-    summarise(category, tags,
-              contrib = "commit", n_contrib = n(), .groups = "drop")
+    summarise(category = first(category), tags = first(tags),
+              contrib = "issue", n_contrib = n(), .groups = "drop")
 )
 
-oarch_graph <- rename(oarch_graph, user = author)
+# Cleaning
+oarch_graph |>
+  rename(user = author) |>
+  filter(!str_detect(user, coll("[bot]"))) ->
+  oarch_graph
 ```
 
 With this, we can construct our three graphs: repo–user, repo–repo (by common users), and user–user (by common repos).
 
-### Repo–user
+#### Repo–user
 
 ```{r plot-graph-repo-user}
-oarch_graph |>
-  pivot_longer(c(repo, user), names_to = "node_type", values_to = "node") |>
-  select(node, node_type) |>
-  distinct() ->
-  nodes
+oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
+                                   edges_user_to_repo(oarch_graph))
 
-oarch_graph |>
-  rename(to = repo, from = user) ->
-  edges
-
-tbl_graph(nodes, edges) |>
+oarch_graph_repo_user |>
   ggraph(layout = "graphopt") +
   geom_edge_fan(aes(colour = contrib, alpha = n_contrib)) +
   geom_node_point(aes(colour = node_type)) +
   scale_edge_alpha(trans = "log")
 ```
 
-### Repo–repo
+#### Repo–repo
 
 ```{r plot-graph-repo-repo}
-oarch_graph |>
-  select(repo, category) |>
-  distinct() ->
-  nodes
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
+                                   edges_common_users(oarch_graph))
 
-oarch_graph |>
-  left_join(oarch_graph, by = "user") |>
-  select(repo.x, user, repo.y) |>
-  filter(repo.x != repo.y) |>
-  filter(!str_detect(user, coll("[bot]"))) |>
-  distinct() |>
-  count(repo.x, repo.y) |>
-  rename(to = repo.x, from = repo.y) ->
-  edges
-
-tbl_graph(nodes, edges) |>
+oarch_graph_repo_repo |>
   ggraph(layout = "graphopt") +
-  geom_edge_fan(aes(alpha = n)) +
+  geom_edge_link(aes(alpha = n)) +
   geom_node_point(aes(colour = category)) +
   scale_edge_alpha(trans = "log") +
   labs(edge_alpha = "Common contributors")
 ```
 
-### User–user
+#### User–user
 
 ```{r plot-graph-repo-user}
 # TODO
 ```
+
+#### Over time
+
+Could animate the graphs??
 
 ## Conclusions
 
