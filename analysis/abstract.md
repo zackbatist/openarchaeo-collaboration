@@ -1,13 +1,17 @@
 ---
-title: "Open archaeology: a survey of collaborative software engineering in archaeological research"
+title: "Open archaeology: a survey of collaborative commitments in archaeological software development"
 author:
-  - Zack Batist
-  - Joe Roe
+  - name: Zack Batist
+    url: https://zackbatist.github.io
+    affiliation: University of Toronto
+  - name: Joe Roe
+    url: https://joeroe.io
+    affiliation: University of Copenhagen
 desc: "Abstract to be submitted to the Journal of Computer Applications in Archaeology, special collection on 50 years of computational archaeology. See https://journal.caa-international.org/about/special-collections and https://github.com/zackbatist/openarchaeo-collaboration."
 bibliography: bibliography.bib
 ---
 
-Surveying the first quarter-century of computer applications in archaeology, [@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.
+Surveying the first quarter-century of computer applications in archaeology [@scollar1999], lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.
 25 years later, this is no longer the case.
 Computational archaeologists today often find themselves practicing the dual roles of data analyst and "research software engineer" [@baxter2012], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods.
 Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparently unquestioned embrace of practices from free and open source software (FOSS).
