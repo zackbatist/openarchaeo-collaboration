@@ -1,13 +1,27 @@
 ---
-title: "Open archaeology: a survey of collaborative software engineering in archaeological research"
+title: 'Open archaeology: a survey of collaborative software engineering in archaeological
+  research'
 author:
-  - Zack Batist
-  - Joe Roe
-desc: "Abstract to be submitted to the Journal of Computer Applications in Archaeology, special collection on 50 years of computational archaeology. See https://journal.caa-international.org/about/special-collections and https://github.com/zackbatist/openarchaeo-collaboration."
+  - Zack Batist:
+      institute: University of Toronto
+      correspondence: "yes"
+      email: z.batist@mail.utoronto.ca
+  - Joe Roe:
+      institute: University of Bern
+      correspondence: "yes"
+      email: joe@joeroe.io
+desc: Abstract to be submitted to the Journal of Computer Applications in Archaeology,
+  special collection on 50 years of computational archaeology. See https://journal.caa-international.org/about/special-collections
+  and https://github.com/zackbatist/openarchaeo-collaboration.
 bibliography: bibliography.bib
+output: 
+  pdf_document:
+    pandoc_args:
+      - --lua-filter=scholarly-metadata.lua
+      - --lua-filter=author-info-blocks.lua
 ---
 
-Surveying the first quarter-century of computer applications in archaeology, [@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.
+Surveying the first quarter-century of computer applications in archaeology, Scollar [-@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.
 25 years later, this is no longer the case:
 computational archaeologists often find themselves practicing the dual roles of data analyst and "research software engineer" [@baxter2012], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods.
 Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS).
@@ -21,3 +35,7 @@ A majority of repositories have 1–3 contributors, with only a few projects dis
 More community-oriented features, such as GitHub's "issues" and "comments", are used in only a minority of repositories.
 Preliminary findings from ongoing work also shows how collaborative behaviours vary across different subcommunities.
 By analyzing interactions among archaeologists using the GitHub platform, including the ways they contribute to collective code bases, we demonstrate how archaeological software engineering is beginning to foster new kinds of collaborative commitments that blend open source protocols, DIY work ethic, conventional forms of scholarly communication, and cultural practices unique to archaeology.
+
+\newpage
+
+# References
