@@ -1,6 +1,7 @@
 ---
-title: 'Open archaeology: a survey of collaborative software engineering in archaeological
-  research'
+title: 'Open archaeology, open source?'
+subtitle: 'Collaborative practices in the emerging community of archaeological 
+  software engineers'
 author:
   - Zack Batist:
       institute: University of Toronto
@@ -10,9 +11,6 @@ author:
       institute: University of Bern
       correspondence: "yes"
       email: joe@joeroe.io
-desc: Abstract to be submitted to the Journal of Computer Applications in Archaeology,
-  special collection on 50 years of computational archaeology. See https://journal.caa-international.org/about/special-collections
-  and https://github.com/zackbatist/openarchaeo-collaboration.
 bibliography: bibliography.bib
 output: 
   pdf_document:
@@ -20,6 +18,10 @@ output:
       - --lua-filter=scholarly-metadata.lua
       - --lua-filter=author-info-blocks.lua
 ---
+
+Abstract submission to the *Journal of Computer Applications in Archaeology*, special collection on 50 years of computational archaeology (volume 2).
+
+# Abstract
 
 Surveying the first quarter-century of computer applications in archaeology, Scollar [-@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.
 25 years later, this is no longer the case:
