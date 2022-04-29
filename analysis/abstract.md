@@ -8,9 +8,9 @@ bibliography: bibliography.bib
 ---
 
 Surveying the first quarter-century of computer applications in archaeology, [@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.
-25 years later, this is no longer the case.
-Computational archaeologists today often find themselves practicing the dual roles of data analyst and "research software engineer" [@baxter2012], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods.
-Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparently unquestioned embrace of practices from free and open source software (FOSS).
+25 years later, this is no longer the case:
+computational archaeologists often find themselves practicing the dual roles of data analyst and "research software engineer" [@baxter2012], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods.
+Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS).
 Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system `git` and associated online source code management platforms (e.g. GitHub, GitLab).
 These tools facilitate collaboration among developers and users of FOSS software using patterns that can diverge quite radically from conventional scholarly norms [@tennant2020].
 
