@@ -874,3 +874,18 @@ Generally speaking, we believe that this is because people do not want to step o
 This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are 'owned' by individuals or communities, and how work should be iteratively improved upon.
 
 We intend to look deeper at the social aspects of collaborative software engineering among archaeologists with a network analysis, and perhaps by leveraging more data from documentation included in each repository.
+
+
+---
+
+#### Notes from January 30, end of day
+In cleaning the data we made a few significant decisions that revealed insights into our dataset. 
+We constructed the user-user graph and filtered out several bots. 
+We filtered out several large non-archaeology projects that effected the network in ways that distracted us from what we wanted to say about the archaeological community. 
+We filtered isolates. 
+We calculated the degree and betweenness to assess whether this was realistic representation of what we know. 
+We wanted to figure out who are the key nodes, what they had in common. 
+The people who are high betweenness are people who primarily produce computational archaeology code as a job. 
+We can investgate further by comparing with some other measures of activity, like volume of commits or something else. 
+We also looked at the same thing, but with only commits, or without commits. 
+For the subgraph of non-commits, it includes many people from the commits-only or commits-included graphs, but also more people who do not commit as much.
