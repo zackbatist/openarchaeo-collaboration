@@ -299,6 +299,20 @@ Tags that are notable for having a higher proportion of standalone software incl
 These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
 
 ```{r plot-tags-cats}
+detail_tags <- c("Instrumental Neutron activation analysis",
+                 "Harris Matrix",
+                 "aDNA Simulators",
+                 "Damage profilers",
+                 "Metagenomic classifers",
+                 "aDNA simulators",
+                 "aDNA damage-aware genotypers",
+                 "Low-coverage contamination estimation",
+                 "Low-coverage adapted population-genetics tools",
+                 "aDNA preprocessing",
+                 "aDNA aligner",
+                 "aDNA assembler",
+                 "aDNA toolkit")
+
 oarch %>%
   pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
                values_drop_na = TRUE) %>%
