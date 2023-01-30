@@ -907,8 +907,9 @@ oarch_lifespan_by_tag %>%
 
 ```{r plot-lifespan-activity-cats}
 #TODO: Eliminate Infs
-
-left_join(oarch_lifespan, oarch, by = c("item_name")) %>%
+oarch_lifespan %>% 
+  select(-category) %>% 
+  left_join(oarch, by = c("item_name")) %>%
   drop_na(category) %>%
   group_by(category) %>%
   summarise(avg_lifespan = mean(lifespan),
