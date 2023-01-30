@@ -7,16 +7,16 @@ nodes_repos_users <- function(oarch_graph) {
 }
 
 #' @export
-nodes_repos <- function(oarch_graph) {
+nodes_repos <- function(oarch_graph, ...) {
   oarch_graph |>
-    select(repo, category) |>
+    select(repo, ...) |>
     distinct()
 }
 
 #' @export
-nodes_users <- function(oarch_graph) {
+nodes_users <- function(oarch_graph, ...) {
   oarch_graph |>
-    select(user, category) |>
+    select(user, ...) |>
     distinct()
 }
 

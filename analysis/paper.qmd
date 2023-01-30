@@ -768,7 +768,7 @@ oarch_graph_repo_user |>
 #### Repo--repo
 
 ```{r plot-graph-repo-repo}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
                                    edges_common_users(oarch_graph))
 
 oarch_graph_repo_repo |>
@@ -794,7 +794,7 @@ girafe(ggobj = iplot)
 #### User--user
 
 ```{r plot-graph-user-user}
-oarch_graph_user_user <- tbl_graph(nodes_users(oarch_graph), 
+oarch_graph_user_user <- tbl_graph(nodes_users(oarch_graph, category), 
                                    edges_common_repos(oarch_graph))
 
 oarch_graph_user_user |>
