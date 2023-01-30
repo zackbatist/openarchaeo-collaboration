@@ -33,7 +33,6 @@ library("ggraph")
 
 ```{r plot-theme}
 theme_oarch <- function() theme(
-  text = element_text(family = "Lato")
 )
 ```
 
