@@ -104,51 +104,51 @@ oarch <- readRDS(cached_gh_data)
 ```
 
 ## Introduction
+
 In applying either physical or digital methods, archaeology has a long tradition of adopting common or 'off the shelf' tools to serve our own unique purposes, which are not typically unanticipated by their original designers. In other words, the apparatus of archaeology is an open system that relies on products and skillsets from outside the discipline, but which exhibit enough flexibility to be used in novel ways. For example, archaeologists are content to outsource the metallurgical skills needed to forge their trowels, and delegate the manufacture and acquisition of key electronic tools, like laptop computers and cameras, to the global supply chains and labour networks that produce consumer-grade products for purchase. However, an increasingly large number of archaeologists are taking it upon themselves to program their own software, rather than rely on generic and commercially-produced information processing systems. In fact, archaeologists are prolific computer programmers and have been coding a variety of functions and libraries that serve uniquely archaeological problems and purposes.
 
 This article presents a survey of archaeological software development with two goals in mind:
 
-(1) we identify _what_ kinds of software archaeologists are making;
-(2) and evaluate _how_ archaeologists create these tools, with particular emphasis on practices of collaboration.
+(1) we identify *what* kinds of software archaeologists are making;
+(2) and evaluate *how* archaeologists create these tools, with particular emphasis on practices of collaboration.
 
 We examine archaeological software development as reflections of a unique set of cultural practices.
 
 Our investigation considers how archaeological software development may be benefiting from or missing out on the affordances that open source development models-- specifically, the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.
 
 ## Background
-- The notion of the archaeological toolbox, and its inclusion of digital tools and skillsets
-  - The use of off-the-shelf tools like MS Access, Excel, Agisoft PhotoScan, Dropbox, etc
-  - Link to related factors:
-    - Lack of experienced programmers among archaeologists
-    - The built-in flexibility of these tools
-    - Ease of administrative purchasing through university departments
-  - What changed?
-    - Software is expensive, shift to subscription models, locking into a dependency on a commercial service provider
-    - Archaeologists are better at computer programming, digital literacy on the rise, digital archaeologists grows into its own legitimate sub-discipline
-    - Open source is cool, everyone has a github profile (even if not really)
-      - (JR:) People are presumably guided towards GitHub (or at least git) via other routes, because it's seen as the standard platform for 'open' digital work. For example, the literature on reproducible compendiums recommends GitHub, and almost all R development work is now done there. And once there, you're sort of forced into engaging in a (particular set of) open source development. I know there's controversy about how dominant this has become and people who say it's not 'true' (free and) open source, and perhaps we could add to that the question of whether it's the right model for archaeology.
 
-- About open source practices and their influence on archaeology
-  - What is open source software and open source software development?
-    - Free cost as an end-user
-    - Free to manipulate and extend
-    - Community-based support and development
-  - Software as product vs software as collective process
-    - Basically what distinguishes abandonware from thriving software ecosystems
-    - Technical, legal and social notions of open
-      - Technical: source code is open, use of a platform and systems that support software integration and implementations
-      - Legal: open licenses, backing by the courts
-      - Social: inviting community, meaningful contributions provided by users, common vision and values directing the project into future directions
-    - Consider how these aspects of open have been implemented or prioritized by digital archaeologists in different ways
-      - Technical: reproducible research, archiving and publishing
-      - Legal: archiving and publishing, budgeting for projects
-      - Social: ensuring that software is actually useful for general use and not just one-off implementation, coordinating to reduce redundant effort and not reinvent the wheel, writing documentation, making it fit within existing systems or infrastructures (i.e. allocation of credit, citing software directly versus articles that present software, sustainable development after funding runs out, etc)
-    - This paper largely focuses on the social aspect of open, which is arguably the most important for ensuring a positive future for archaeological software development
+-   The notion of the archaeological toolbox, and its inclusion of digital tools and skillsets
+    -   The use of off-the-shelf tools like MS Access, Excel, Agisoft PhotoScan, Dropbox, etc
+    -   Link to related factors:
+        -   Lack of experienced programmers among archaeologists
+        -   The built-in flexibility of these tools
+        -   Ease of administrative purchasing through university departments
+    -   What changed?
+        -   Software is expensive, shift to subscription models, locking into a dependency on a commercial service provider
+        -   Archaeologists are better at computer programming, digital literacy on the rise, digital archaeologists grows into its own legitimate sub-discipline
+        -   Open source is cool, everyone has a github profile (even if not really)
+            -   (JR:) People are presumably guided towards GitHub (or at least git) via other routes, because it's seen as the standard platform for 'open' digital work. For example, the literature on reproducible compendiums recommends GitHub, and almost all R development work is now done there. And once there, you're sort of forced into engaging in a (particular set of) open source development. I know there's controversy about how dominant this has become and people who say it's not 'true' (free and) open source, and perhaps we could add to that the question of whether it's the right model for archaeology.
+-   About open source practices and their influence on archaeology
+    -   What is open source software and open source software development?
+        -   Free cost as an end-user
+        -   Free to manipulate and extend
+        -   Community-based support and development
+    -   Software as product vs software as collective process
+        -   Basically what distinguishes abandonware from thriving software ecosystems
+        -   Technical, legal and social notions of open
+            -   Technical: source code is open, use of a platform and systems that support software integration and implementations
+            -   Legal: open licenses, backing by the courts
+            -   Social: inviting community, meaningful contributions provided by users, common vision and values directing the project into future directions
+        -   Consider how these aspects of open have been implemented or prioritized by digital archaeologists in different ways
+            -   Technical: reproducible research, archiving and publishing
+            -   Legal: archiving and publishing, budgeting for projects
+            -   Social: ensuring that software is actually useful for general use and not just one-off implementation, coordinating to reduce redundant effort and not reinvent the wheel, writing documentation, making it fit within existing systems or infrastructures (i.e. allocation of credit, citing software directly versus articles that present software, sustainable development after funding runs out, etc)
+        -   This paper largely focuses on the social aspect of open, which is arguably the most important for ensuring a positive future for archaeological software development
 
 The 'archaeological toolbox' is a common metaphor that describes the set of physical and informational tools and processes that archaeologists rely upon in their work.
 
 collaborate in their programming work, and how they experience open source development processes which have their own benefits, challenges and organizing principles that may conflict with or relate to means of collaboration and sharing that archaeologists are already generally accustomed to.
-
 
 ## Data and evidence
 
@@ -164,10 +164,10 @@ Open-archaeo is a relatively comprehensive list, however it generally lacks code
 
 It is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in your field, to contribute.
 
-Please get in touch if you’re interested in adding to the list or doing a deep dive relating to your area of expertise!
-
+Please get in touch if you're interested in adding to the list or doing a deep dive relating to your area of expertise!
 
 ### Tags and categories
+
 Each record is also annotated with tags that describe the aspects of archaeological work that each tool contributes to.
 
 Items are tagged based on how they have been generally identified or presented by their maintainers.
@@ -182,15 +182,15 @@ This gives us a sense of the pervasiveness of various development models, and th
 
 In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.
 
-|Category|Kind|Scope|
-|:-------|:---|:----|
-|Packages and libraries|Software|Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.|
-|Standalone software|Software|Software that may be operated without needing to first access an underlying platform.|
-|Scripts|Software|Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.|
-|Specifications, protocols and schemas|Documents|A formal data structure or framework intended to be used as a model.|
-|Products|Documents|Stable outcomes of creative work.|
-|Guides|Documents|An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.|
-|Lists and datasets|Documents|A series of consistently organized observations assembled with purpose.|
+| Category                              | Kind      | Scope                                                                                                                                                                                                        |
+|:--------------------------------------|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Packages and libraries                | Software  | Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.                                                                                   |
+| Standalone software                   | Software  | Software that may be operated without needing to first access an underlying platform.                                                                                                                        |
+| Scripts                               | Software  | Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation. |
+| Specifications, protocols and schemas | Documents | A formal data structure or framework intended to be used as a model.                                                                                                                                         |
+| Products                              | Documents | Stable outcomes of creative work.                                                                                                                                                                            |
+| Guides                                | Documents | An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.                                                                                          |
+| Lists and datasets                    | Documents | A series of consistently organized observations assembled with purpose.                                                                                                                                      |
 
 Two kinds of categories have been defined: software and documents.
 
@@ -214,18 +214,19 @@ Guides are educational resources or documented protocols meant to instruct reade
 
 And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
 
-
 ## Findings
+
 ### What archaeologists are making
+
 Our first set of analyses were focused on these questions:
 
 What kinds of software are archaeologists making?
 
 And what are the general purposes of their software?
 
----
+------------------------------------------------------------------------
 
-Most projects included in open-archaeo are designed to be used as a package or library atop am existing ‘platform’ – for example a package for a programming language like R, or a plugin for an application like QGIS.
+Most projects included in open-archaeo are designed to be used as a package or library atop am existing 'platform' -- for example a package for a programming language like R, or a plugin for an application like QGIS.
 
 The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes.
 
@@ -257,7 +258,7 @@ oarch %>%
 # ggsave("figures/categories.png", width = 127, height = 127, units = "mm")
 ```
 
----
+------------------------------------------------------------------------
 
 R is overwhelmingly dominant as a platform, closely followed by Python.
 
@@ -265,7 +266,7 @@ Plugins for QGIS and mobile apps are also relatively popular.
 
 Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS); a number of lesser used programming languages; and a genre consisting of custom forms and spreadsheet templates.
 
-In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms—for example Excel templates—are targeted by only one or two developers. The larger platforms tend to be more diverse.
+In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
 
 ```{r plot-platforms}
 oarch %>%
@@ -288,7 +289,7 @@ oarch %>%
 # ggsave("figures/platforms.png", width = 127, height = 127, units = "mm")
 ```
 
----
+------------------------------------------------------------------------
 
 If we compare categories with tags, we can see the general domains that each kind of resource is designed to serve.
 
@@ -333,21 +334,21 @@ oarch %>%
 # ggsave("figures/tags-cats.png", width = 254, height = 127, units = "mm")
 ```
 
-
 **ZB NOTE:** Do a temporal analysis to get a sense of when platforms, tags and categories have been gaining popularity. There may not be a need for extreme detail here, but simply noting the dates of first commits might be helpful. I'm imagining a stacked bar chart, with each bar representing a month or a year, and with the stacked portions of each bar representing a platform or category.
 
 ### Development processes
-While somewhat informative, breaking down the distribution of categories and tags does not really tell us that much about _how_ archaeologists develop software.
+
+While somewhat informative, breaking down the distribution of categories and tags does not really tell us that much about *how* archaeologists develop software.
 
 The remainder of the paper is driven by a concern about how archaeologists collaborate in their programming work.
 
 How is their work sustained, and how does it leverage distributed work processes that are a key aspect of open source software development in general?
 
-To address these questions, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API.
+To address these questions, we augmented the core open-archaeo dataset with data obtained from GitHub's public API.
 
 That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh].
 
-This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but as yu can see in the figure below, amongst those that do, GitHub is by far the most popular host.
+This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but as yu can see in the figure below, amongst those that do, GitHub is by far the most popular host.
 
 ```{r plot-repo-hosts}
 oarch <- mutate(oarch, none = ifelse(is.na(github) &
@@ -381,13 +382,13 @@ oarch %>%
 
 We obtained this data in R using the {gh} package; those data, and the analysis code, are available in our research compendium on GitHub.
 
----
+------------------------------------------------------------------------
 
 Starting with a relatively simple plot, this is a chart of the cumulative growth of open archaeology over the years, measured by code contributions committed and pushed to GitHub repositories.
 
-As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But they really began to get into it around 2014–2015, when we see an uptick in the rate of growth that has continued ever since.
+As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But they really began to get into it around 2014--2015, when we see an uptick in the rate of growth that has continued ever since.
 
-Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub’s ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work, especially work or manifestations of undervalued skills that may not necessarily be easily represented using traditional publication venues, in an open and somewhat nerdy way.
+Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work, especially work or manifestations of undervalued skills that may not necessarily be easily represented using traditional publication venues, in an open and somewhat nerdy way.
 
 ```{r plot-gh_commits-cum}
 oarch %>%
@@ -427,11 +428,11 @@ oarch %>%
 # ggsave("figures/commits-cum.png", width = 254, height = 127, units = "mm")
 ```
 
----
+------------------------------------------------------------------------
 
 But how is this activity distributed across repositories?
 
-This visualizes the ‘pulse’ of active projects.
+This visualizes the 'pulse' of active projects.
 
 Each vertical line represents the lifespan of a repository; the points on the line are individual commits.
 
@@ -476,7 +477,7 @@ oarch %>%
 # ggsave("figures/lifespan.png", width = 254, height = 127, units = "mm")
 ```
 
----
+------------------------------------------------------------------------
 
 The span of time between the first and latest commits is visualized more clearly in summary here.
 
@@ -543,11 +544,11 @@ oarch_lifespan %>%
 
 ```
 
----
+------------------------------------------------------------------------
 
-Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed [<3%].
+Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed [\<3%].
 
-A “contribution”, in this case, is a commit, issue, comment applied by a user to a repository.
+A "contribution", in this case, is a commit, issue, comment applied by a user to a repository.
 
 ```{r plot-gh_contributors-histogram}
 oarch %>%
@@ -569,7 +570,7 @@ oarch %>%
 # ggsave("figures/contrib-hist.png", width = 127, height = 127, units = "mm")
 ```
 
----
+------------------------------------------------------------------------
 
 Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly.
 
@@ -663,12 +664,12 @@ oarch %>%
 ```
 
 ### Formation of collaborative development communities
+
 If we construct a network linking repositories by their common contributors, can we identify emerging networks of collaboration, or are individual projects still largely isolated? If there are networks, what characterises their links?
 
 **ZB NOTE:** I'm speculating that there are going to be various users who have their fingers in many projects, and that those projects tend to be the most active. If this is the case, I would further speculate that these people hold a different attitude regarding authorship and the dividuality of projects that is more in sync with the collaborative capabilities of open source, which are at odds with traditional academic norms regarding how contributions are credited and how products are produced are disseminated.
 
-To construct our graphs we need a table linking users to repos by collaborative activity.
-For this purpose commits, issues, and comments are all considered contributions.
+To construct our graphs we need a table linking users to repos by collaborative activity. For this purpose commits, issues, and comments are all considered contributions.
 
 ```{r graph-data}
 oarch |>
@@ -705,9 +706,9 @@ oarch_graph |>
   oarch_graph
 ```
 
-With this, we can construct our three graphs: repo–user, repo–repo (by common users), and user–user (by common repos).
+With this, we can construct our three graphs: repo--user, repo--repo (by common users), and user--user (by common repos).
 
-#### Repo–user
+#### Repo--user
 
 ```{r plot-graph-repo-user}
 oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
@@ -720,7 +721,7 @@ oarch_graph_repo_user |>
   scale_edge_alpha(trans = "log")
 ```
 
-#### Repo–repo
+#### Repo--repo
 
 ```{r plot-graph-repo-repo}
 oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
@@ -746,7 +747,7 @@ iplot <- oarch_graph_repo_repo |>
 girafe(ggobj = iplot)
 ```
 
-#### User–user
+#### User--user
 
 ```{r plot-graph-repo-user}
 # TODO
@@ -762,25 +763,23 @@ Collaborative open source software development in archaeology has seen a rapid a
 
 In terms of collaboration, our analysis shows an uneven use of git and GitHub's extended features, beyond their basic usage as a version control system and repository host.
 
-The vast majority of repositories have 1–3 contributors, with only a few distinguished by an active and diverse developer base.
+The vast majority of repositories have 1--3 contributors, with only a few distinguished by an active and diverse developer base.
 
-Generally speaking, we believe that this is because people do not want to step on other people’s shoes by raising issues or intruding on other people’s projects.
+Generally speaking, we believe that this is because people do not want to step on other people's shoes by raising issues or intruding on other people's projects.
 
-This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are ‘owned’ by individuals or communities, and how work should be iteratively improved upon.
+This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are 'owned' by individuals or communities, and how work should be iteratively improved upon.
 
 We intend to look deeper at the social aspects of collaborative software engineering among archaeologists with a network analysis, and perhaps by leveraging more data from documentation included in each repository.
-
-
 
 # Scrap
 
 The GitHub API provides data on the languages used in a repository based on an automated machine learning algorithm.
 
-Since most repositories use more than one language—if only one for the actual software, and another (e.g. HTML) for documentation—this data is presented as a table of languages and the number of bytes of code in that language detected in the repository.
+Since most repositories use more than one language---if only one for the actual software, and another (e.g. HTML) for documentation---this data is presented as a table of languages and the number of bytes of code in that language detected in the repository.
 
 We can therefore measure the popularity of languages across repositories in a couple of ways: based on how many repositories use a language at all; or based on how many bytes of that language are present.
 
-Looking at number of bytes puts C++ and the web languages (HTML, PHP, and Javascript) on top, but this is probably affected by the relative verboseness of these languages and the popularity of web-based documentation across implementation languages. The number of repositories is probably more reliable and shows the popularity of scientific programming languages—R and Python—followed by web languages and then compiled C and C++.
+Looking at number of bytes puts C++ and the web languages (HTML, PHP, and Javascript) on top, but this is probably affected by the relative verboseness of these languages and the popularity of web-based documentation across implementation languages. The number of repositories is probably more reliable and shows the popularity of scientific programming languages---R and Python---followed by web languages and then compiled C and C++.
 
 This largely confirms the pattern seen in our manual classification of the 'platform' of each project.
 
@@ -814,7 +813,7 @@ oarch %>%
        x = NULL, y = "Bytes")
 ```
 
----
+------------------------------------------------------------------------
 
 About one in eight projects do not use one of these repository host.
 
@@ -828,7 +827,7 @@ filter(oarch, none == "") %>%
   count(category)
 ```
 
----
+------------------------------------------------------------------------
 
 The measures of activity may also be compared with the tags and categories.
 
