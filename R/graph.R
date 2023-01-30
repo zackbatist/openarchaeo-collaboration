@@ -15,7 +15,9 @@ nodes_repos <- function(oarch_graph) {
 
 #' @export
 nodes_users <- function(oarch_graph) {
-
+  oarch_graph |>
+    select(user, category) |>
+    distinct()
 }
 
 #' @export
@@ -42,4 +44,18 @@ edges_common_users <- function(oarch_graph) {
     select(-repo.xy) |>
     count(repo.x, repo.y) |>
     rename(to = repo.x, from = repo.y)
+}
+
+#' @export
+edges_common_repos <- function(oarch_graph) {
+  oarch_graph |>
+    left_join(oarch_graph, by = "repo") |>
+    select(user.x, repo, user.y) |>
+    filter(user.x != user.y) |>
+    mutate(user.xy = map2_chr(user.x, user.y,
+                              ~paste0(sort(c(.x, .y)), collapse = ""))) |>
+    distinct(repo, user.xy, .keep_all = TRUE) |>
+    select(-user.xy) |>
+    count(user.x, user.y) |>
+    rename(to = user.x, from = user.y)
 }

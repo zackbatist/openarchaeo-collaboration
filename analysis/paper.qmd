@@ -755,7 +755,8 @@ With this, we can construct our three graphs: repo--user, repo--repo (by common 
 
 ```{r plot-graph-repo-user}
 oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
-                                   edges_user_to_repo(oarch_graph))
+                                   edges_user_to_repo(oarch_graph),
+                                   directed = FALSE)
 
 oarch_graph_repo_user |>
   ggraph(layout = "graphopt") +
@@ -793,7 +794,17 @@ girafe(ggobj = iplot)
 #### User--user
 
 ```{r plot-graph-user-user}
-# TODO
+oarch_graph_user_user <- tbl_graph(nodes_users(oarch_graph), 
+                                   edges_common_repos(oarch_graph))
+
+oarch_graph_user_user |>
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 0) |>
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  geom_node_point(aes(colour = category)) +
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common repositories")
 ```
 
 #### Over time
