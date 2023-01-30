@@ -620,14 +620,20 @@ oarch %>%
   mutate(n_contributors = n()) %>%
   filter(n_contributors > 1) %>%
   mutate(big_boy = ifelse(contributions == max(contributions),
-                          "Main contributor", "Other contributors"),
-         big_boy_pct = max(contributions) / sum(contributions)) %>%
-  ggplot(aes(x = fct_reorder(item_name, big_boy_pct, .desc = FALSE),
-             y = contributions,
-             # group = contributor,
+                          "Leading contributor", "Other contributors")) %>% 
+  group_by(item_name, big_boy) %>%
+  summarise(contributions = sum(contributions)) %>%
+  mutate(
+    p_contributions = contributions / sum(contributions),
+    p_big_boy = first(p_contributions)
+  ) %>%
+  ungroup() %>%
+  mutate(item_name = fct_reorder(item_name, p_big_boy)) %>% 
+  ggplot(aes(x = item_name, y = contributions,
              fill = fct_relevel(big_boy, c("Other contributors",
-                                           "Main contributor")))) +
+                                           "Leading contributor")))) +
   geom_col(position = "fill", colour = "white", size = 0.1) +
+  geom_hline(yintercept = c(0.25, 0.5, 0.75), alpha = 0.5) +
   scale_y_continuous(labels = scales::percent) +
   scale_fill_highcontrast(guide = guide_legend(reverse = TRUE)) +
   labs(title = "Repository contributors by proportion of contributions",
