@@ -29,6 +29,7 @@ library("fs")
 library("here")
 library("tidygraph")
 library("ggraph")
+library("ggiraph")
 ```
 
 ```{r plot-theme}
