@@ -507,6 +507,24 @@ This latter pattern in turn appears to be explained by the number of contributor
 
 **ZB NOTE:** Use patchwork package to combine these plots into a unified figure.
 
+```{r lifespan-stats}
+oarch %>% 
+  unnest(gh_commits) %>% 
+  drop_na(datetime) %>% 
+  group_by(item_name) %>%
+  mutate(n_contribs = map_int(gh_contribs, vctrs::vec_size)) %>% 
+  summarise(
+    category = first(category),
+    n_contribs = first(n_contribs),
+    n = n(),
+    first_commit = min(datetime),
+    last_commit = max(datetime),
+    lifespan = as.integer(last_commit - first_commit),
+    commit_rate = n / lifespan
+  ) ->
+  oarch_lifespan
+```
+
 ```{r plot-lifespan-hist}
 # TODO: where does oarch_lifespan come from?
 oarch_lifespan %>%
