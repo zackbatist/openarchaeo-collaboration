@@ -714,6 +714,17 @@ If we construct a network linking repositories by their common contributors, can
 
 To construct our graphs we need a table linking users to repos by collaborative activity. For this purpose commits, issues, and comments are all considered contributions.
 
+Q's:
+
+1. Are there significant networks? If so, how big and how many?
+  * Only one, it seems!
+2. What proportion of users and repos are connected to this network?
+3. What predicts membership in this network?
+4. Does centrality in the network correlate with general rate of activity?
+5. Who are the most central nodes in this network? Is there anything they have in common?
+   * High activity?
+   * Certain platforms/categories/languages?
+  
 ```{r graph-data}
 oarch |>
   drop_na(gh_repo) |>
@@ -745,7 +756,14 @@ oarch_graph <- bind_rows(
 # Cleaning
 oarch_graph |>
   rename(user = author) |>
-  filter(!str_detect(user, coll("[bot]"))) ->
+  # Remove non-human users
+  filter(!str_detect(user, coll("[bot]"))) |>
+  filter(!user %in% c("ghost", "codecov-io", "coveralls", "codecov-commenter",
+                      "gitter-badger", "dependabot-support")) |>
+  # Remove big, non-archaeology projects that flood the network
+  filter(!repo %in% c("Stellarium/stellarium", 
+                     "opengisch/QField",
+                     "lutraconsulting/input")) ->
   oarch_graph
 ```
 
@@ -755,21 +773,24 @@ With this, we can construct our three graphs: repo--user, repo--repo (by common 
 
 ```{r plot-graph-repo-user}
 oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
-                                   edges_user_to_repo(oarch_graph),
-                                   directed = FALSE)
+                                   edges_user_to_repo(oarch_graph))
 
-oarch_graph_repo_user |>
+g_repo_user <- oarch_graph_repo_user |>
   ggraph(layout = "graphopt") +
   geom_edge_fan(aes(colour = contrib, alpha = n_contrib)) +
   geom_node_point(aes(colour = node_type)) +
   scale_edge_alpha(trans = "log")
+
+#g_repo_user
+girafe(g_repo_user)
 ```
 
 #### Repo--repo
 
 ```{r plot-graph-repo-repo}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category, tags),
-                                   edges_common_users(oarch_graph))
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
+                                   edges_common_users(oarch_graph),
+                                   directed = FALSE)
 
 oarch_graph_repo_repo |>
   ggraph(layout = "graphopt") +
@@ -843,16 +864,31 @@ oarch_graph_repo_repo |>
 
 #### User--user
 
-```{r plot-graph-user-user}
-oarch_graph_user_user <- tbl_graph(nodes_users(oarch_graph, category), 
-                                   edges_common_repos(oarch_graph))
+```{r graph-user-user}
+oarch_graph_user_user <- tbl_graph(
+  nodes = nodes_users(oarch_graph), 
+  edges = edges_common_repos(oarch_graph),
+  directed = FALSE
+)
+```
 
+```{r summary-graph-user-user}
 oarch_graph_user_user |>
-  mutate(degree = centrality_degree()) |>
+  mutate(degree = centrality_degree(), 
+         betweenness = centrality_betweenness(weights = n), 
+         strength = centrality_degree(weights = n)) |>
+  filter(degree > 0) |> 
+  data.frame() |> 
+  View()
+```
+
+```{r plot-graph-user-user}
+oarch_graph_user_user |>
+  mutate(degree = centrality_degree(), strength = centrality_degree(weights = n)) |>
   filter(degree > 0) |>
   ggraph(layout = "graphopt") +
   geom_edge_link(aes(alpha = n)) +
-  geom_node_point(aes(colour = category)) +
+  # geom_node_point(aes(colour = category)) +
   scale_edge_alpha(trans = "log") +
   labs(edge_alpha = "Common repositories")
 ```
