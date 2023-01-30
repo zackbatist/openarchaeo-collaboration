@@ -768,7 +768,7 @@ oarch_graph_repo_user |>
 #### Repo--repo
 
 ```{r plot-graph-repo-repo}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category, tags),
                                    edges_common_users(oarch_graph))
 
 oarch_graph_repo_repo |>
@@ -779,16 +779,66 @@ oarch_graph_repo_repo |>
   labs(edge_alpha = "Common contributors")
 ```
 
-```{r iplot-graph-repo-repo}
+```{r plot-graph-repo-repo-edge-betweenness}
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph,category,tags),
+                                   edges_common_users(oarch_graph),
+                                   directed = FALSE)
+
+oarch_graph_repo_repo |>
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 1) |>
+  mutate(group = as.character(group_edge_betweenness())) ->
+  oarch_graph_repo_repo
+
 iplot <- oarch_graph_repo_repo |>
-    ggraph(layout = "graphopt") +
-    geom_edge_link(aes(alpha = n)) +
-    geom_point_interactive(aes(x, y, colour = category, tooltip = repo)) + 
-    scale_edge_alpha(trans = "log") +
-    labs(edge_alpha = "Common contributors") +
-    theme_graph()
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  #geom_node_point(aes(colour = group)) +
+  #geom_node_text(aes(label = group)) +
+  geom_point_interactive(aes(x, y, colour = group, tooltip = repo)) + 
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common contributors")
 
 girafe(ggobj = iplot)
+```
+
+
+```{r plot-graph-repo-repo-edge-betweenness-dendrogram}
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
+                                   edges_common_users(oarch_graph),
+                                   directed = TRUE)
+
+oarch_graph_repo_repo |>
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 1) |>
+  mutate(group = as.character(group_edge_betweenness())) ->
+  oarch_graph_repo_repo
+
+xx <- igraph::edge.betweenness.community(oarch_graph_repo_repo)
+xx <- as.dendrogram(xx)
+plot(xx)
+
+ggraph(xx, 'dendrogram', height = height)
+
+```
+
+```{r plot-graph-repo-repo-louvain}
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
+                                   edges_common_users(oarch_graph),
+                                   directed = FALSE)
+
+oarch_graph_repo_repo |>
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 1) |>
+  mutate(group = as.character(group_louvain())) ->
+  oarch_graph_repo_repo
+
+oarch_graph_repo_repo |>
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  geom_node_point(aes(colour = group)) +
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common contributors")
 ```
 
 #### User--user
