@@ -8,7 +8,6 @@ author:
     url: https://joeroe.io
     affiliation: University of Copenhagen
 date: "`r Sys.Date()`"
-output: distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
@@ -183,7 +182,7 @@ This gives us a sense of the pervasiveness of various development models, and th
 In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.
 
 | Category                              | Kind      | Scope                                                                                                                                                                                                        |
-|:--------------------------------------|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:-----------|:-----------|:------------------------------------------------|
 | Packages and libraries                | Software  | Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.                                                                                   |
 | Standalone software                   | Software  | Software that may be operated without needing to first access an underlying platform.                                                                                                                        |
 | Scripts                               | Software  | Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation. |
@@ -546,7 +545,7 @@ oarch_lifespan %>%
 
 ------------------------------------------------------------------------
 
-Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed [\<3%].
+Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\].
 
 A "contribution", in this case, is a commit, issue, comment applied by a user to a repository.
 
@@ -749,7 +748,7 @@ girafe(ggobj = iplot)
 
 #### User--user
 
-```{r plot-graph-repo-user}
+```{r plot-graph-user-user}
 # TODO
 ```
 
