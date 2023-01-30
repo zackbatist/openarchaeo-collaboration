@@ -14,8 +14,7 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(
 	echo = FALSE,
 	message = FALSE,
-	warning = FALSE,
-	layout = "l-body-outset"
+	warning = FALSE
 )
 ```
 
@@ -364,6 +363,7 @@ That is, for each project in open-archaeo with a GitHub repository, we added inf
 This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but as yu can see in the figure below, amongst those that do, GitHub is by far the most popular host.
 
 ```{r plot-repo-hosts}
+# TODO: turn into table or just text
 oarch <- mutate(oarch, none = ifelse(is.na(github) &
                                        is.na(gitlab) &
                                        is.na(bitbucket) &
@@ -391,6 +391,12 @@ oarch %>%
 
 # Export for slides (half slide)
 # ggsave("figures/repo-hosts.png", width = 127, height = 127, units = "mm")
+```
+
+```{r table-no-repo}
+# TODO: prettify with gt()
+filter(oarch, none == "") %>%
+  count(category)
 ```
 
 We obtained this data in R using the {gh} package; those data, and the analysis code, are available in our research compendium on GitHub.
@@ -807,139 +813,3 @@ Generally speaking, we believe that this is because people do not want to step o
 This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are 'owned' by individuals or communities, and how work should be iteratively improved upon.
 
 We intend to look deeper at the social aspects of collaborative software engineering among archaeologists with a network analysis, and perhaps by leveraging more data from documentation included in each repository.
-
-# Scrap
-
-The GitHub API provides data on the languages used in a repository based on an automated machine learning algorithm.
-
-Since most repositories use more than one language---if only one for the actual software, and another (e.g. HTML) for documentation---this data is presented as a table of languages and the number of bytes of code in that language detected in the repository.
-
-We can therefore measure the popularity of languages across repositories in a couple of ways: based on how many repositories use a language at all; or based on how many bytes of that language are present.
-
-Looking at number of bytes puts C++ and the web languages (HTML, PHP, and Javascript) on top, but this is probably affected by the relative verboseness of these languages and the popularity of web-based documentation across implementation languages. The number of repositories is probably more reliable and shows the popularity of scientific programming languages---R and Python---followed by web languages and then compiled C and C++.
-
-This largely confirms the pattern seen in our manual classification of the 'platform' of each project.
-
-```{r plot-gh_langs, fig.show="hold", out.width="50%"}
-oarch %>%
-  unnest(gh_langs) %>%
-  drop_na(lang, bytes) %>%
-  group_by(lang) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  arrange(-n) %>%
-  slice(1:10) %>%
-  ggplot(aes(fct_reorder(lang, n, .desc = TRUE), n)) +
-  geom_col() +
-  labs(title = "Repository languages",
-       subtitle = "Number of repositories using top 10 languages",
-       caption = "Data: open-archaeo.info and GitHub API",
-       x = NULL, y = "Number of repositories")
-
-oarch %>%
-  unnest(gh_langs) %>%
-  drop_na(lang, bytes) %>%
-  group_by(lang) %>%
-  summarise(bytes = sum(bytes), .groups = "drop") %>%
-  arrange(-bytes) %>%
-  slice(1:10) %>%
-  ggplot(aes(fct_reorder(lang, bytes, .desc = TRUE), bytes)) +
-  geom_col() +
-  labs(title = "Repository languages",
-       subtitle = "Total bytes of code in top 10 languages",
-       caption = "Data: open-archaeo.info and GitHub API",
-       x = NULL, y = "Bytes")
-```
-
-------------------------------------------------------------------------
-
-About one in eight projects do not use one of these repository host.
-
-Some may use a different host, or not make their repositories publicly available, but it is probably safe to assume that the majority simply do not use version control.
-
-Many of these are standalone documents or code fragments (scripts) hosted, for example, as 'gists', but there are also some pieces of standalone software that apparently do not include version control.
-
-```{r table-no-repo}
-# TODO: prettify with gt()
-filter(oarch, none == "") %>%
-  count(category)
-```
-
-------------------------------------------------------------------------
-
-The measures of activity may also be compared with the tags and categories.
-
-```{r plot-lifespan-activity-tags}
-# TODO: where does oarch_lifespan come from?
-left_join(oarch_lifespan, oarch, by = c("item_name")) %>%
-  pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
-               values_drop_na = TRUE) %>%
-  drop_na(tag) %>%
-  group_by(tag) %>%
-  summarise(avg_lifespan = mean(lifespan),
-            avg_commit_rate = mean(commit_rate)) ->
-  oarch_lifespan_by_tag
-
-oarch_lifespan_by_tag %>%
-  arrange(-avg_lifespan) %>%
-  slice(1:10) %>%
-  ggplot(aes(x = fct_reorder(tag, avg_lifespan, .desc = TRUE),
-             y = avg_lifespan)) +
-  geom_col() +
-  labs(
-    title = "Project lifespan by tag",
-    subtitle = "Top 10 longest-lived tags",
-    x = NULL, y = "Average lifespan (days)",
-    caption = "Data: open-archaeo.info and GitHub API"
-  )
-
-oarch_lifespan_by_tag %>%
-  arrange(-avg_commit_rate) %>%
-  slice(1:10) %>%
-  ggplot(aes(x = fct_reorder(tag, avg_commit_rate, .desc = TRUE),
-             y = avg_commit_rate)) +
-  geom_col() +
-  labs(
-    title = "Project activity by tag",
-    subtitle = "Top 10 most activity tags",
-    x = NULL, y = "Average activity (commits per day)",
-    caption = "Data: open-archaeo.info and GitHub API"
-  )
-```
-
-```{r plot-lifespan-activity-cats}
-#TODO: Eliminate Infs
-oarch_lifespan %>% 
-  select(-category) %>% 
-  left_join(oarch, by = c("item_name")) %>%
-  drop_na(category) %>%
-  group_by(category) %>%
-  summarise(avg_lifespan = mean(lifespan),
-            avg_commit_rate = mean(commit_rate)) ->
-  oarch_lifespan_by_cat
-
-oarch_lifespan_by_cat %>%
-  arrange(-avg_lifespan) %>%
-  slice(1:10) %>%
-  ggplot(aes(x = fct_reorder(category, avg_lifespan, .desc = TRUE),
-             y = avg_lifespan)) +
-  geom_col() +
-  labs(
-    title = "Project lifespan by category",
-    subtitle = "Top 10 longest-lived categories",
-    x = NULL, y = "Average lifespan (days)",
-    caption = "Data: open-archaeo.info and GitHub API"
-  )
-
-oarch_lifespan_by_cat %>%
-  arrange(-avg_commit_rate) %>%
-  slice(1:10) %>%
-  ggplot(aes(x = fct_reorder(category, avg_commit_rate, .desc = TRUE),
-             y = avg_commit_rate)) +
-  geom_col() +
-  labs(
-    title = "Project activity by categories",
-    subtitle = "Top 10 most activity categories",
-    x = NULL, y = "Average activity (commits per day)",
-    caption = "Data: open-archaeo.info and GitHub API"
-  )
-```
