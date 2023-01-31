@@ -110,8 +110,6 @@ This article presents a survey of archaeological software development with two g
 (1) we identify *what* kinds of software archaeologists are making;
 (2) and evaluate *how* archaeologists create these tools, with particular emphasis on practices of collaboration.
 
-We examine archaeological software development as reflections of a unique set of cultural practices.
-
 Our investigation considers how archaeological software development may be benefiting from or missing out on the affordances that open source development models-- specifically, the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.
 
 ## Background
@@ -617,7 +615,7 @@ Of multi-contributor repositories, 92% have a third of contributions made by a s
 
 and 36% have three quarters of all contributions made a single person.
 
-Just to clarify, the two rows near the bottom with what seem like very long yellow bars are actually projects that have equal number of contributions made by the top contributors.
+**ZB NOTE:** Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic.
 
 ```{r plot-contrib-dist}
 oarch %>%
@@ -661,6 +659,8 @@ oarch %>%
 Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right).
 
 Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10.
+
+**ZB NOTE:** Recalcute these numbers.
 
 However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity.
 
@@ -708,22 +708,9 @@ oarch %>%
 
 ### Formation of collaborative development communities
 
-If we construct a network linking repositories by their common contributors, can we identify emerging networks of collaboration, or are individual projects still largely isolated? If there are networks, what characterises their links?
+We constructed and analyzed networks representing users' contributions to GitHub repositories in order to examine the emergence of collaborative tendencies.
 
-**ZB NOTE:** I'm speculating that there are going to be various users who have their fingers in many projects, and that those projects tend to be the most active. If this is the case, I would further speculate that these people hold a different attitude regarding authorship and the dividuality of projects that is more in sync with the collaborative capabilities of open source, which are at odds with traditional academic norms regarding how contributions are credited and how products are produced are disseminated.
-
-To construct our graphs we need a table linking users to repos by collaborative activity. For this purpose commits, issues, and comments are all considered contributions.
-
-Q's:
-
-1. Are there significant networks? If so, how big and how many?
-  * Only one, it seems!
-2. What proportion of users and repos are connected to this network?
-3. What predicts membership in this network?
-4. Does centrality in the network correlate with general rate of activity?
-5. Who are the most central nodes in this network? Is there anything they have in common?
-   * High activity?
-   * Certain platforms/categories/languages?
+We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
   
 ```{r graph-data}
 oarch |>
@@ -767,7 +754,7 @@ oarch_graph |>
   oarch_graph
 ```
 
-With this, we can construct our three graphs: repo--user, repo--repo (by common users), and user--user (by common repos).
+We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations. We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.
 
 #### Repo--user
 
@@ -786,6 +773,12 @@ girafe(g_repo_user)
 ```
 
 #### Repo--repo
+
+We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate notes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.
+
+Are the clusters associated with particular topics or tags? Are there some sorts of associations between clusters that break down from a parent in the community detection dendrogram? How does all of this differ when we differentiate commits from issues and comments?
+
+**ZB NOTE:** Remove the cells titled `plot-graph-repo-repo` and `plot-graph-repo-repo-louvain`. Use patchwork to compare sets of graphs and dendrograms with links based on all contributions, only commits, and only issues and comments.
 
 ```{r plot-graph-repo-repo}
 oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
@@ -863,6 +856,16 @@ oarch_graph_repo_repo |>
 ```
 
 #### User--user
+
+We assembled graphs linking users based on common contributions to the same repositories. We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network.
+
+We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as a job.
+
+**ZB NOTE:** We can further investigate this point made above by comparing with some other measures of activity, like volume of commits or something else.
+
+We applied the same betweenness centrality algorithm on user-user networks whose links are based on only commits and on only issues and comments. For the latter, people who commit less code are more represented with higher betweenness scores, but many of the people with high betweenness from the all-contributions graph also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters.
+
+**ZB NOTE:** Look at the histogram that maps the distribution of betweenness scores across all users. Interesting double hump of low-moderate betweenness scores, which may correspond with distinct or protruding components.
 
 ```{r graph-user-user}
 oarch_graph_user_user <- tbl_graph(
