@@ -19,16 +19,18 @@ knitr::opts_chunk$set(
 ```
 
 ```{r dependencies, include=FALSE}
-library("tidyverse")
+library("fs")
+library("geomtextpath")
+library("ggiraph")
+library("ggraph")
+library("gt")
+library("here")
+library("khroma")
 library("lubridate")
 library("openarchaeoCollaboration")
-library("khroma")
-library("gt")
-library("fs")
-library("here")
+library("patchwork")
 library("tidygraph")
-library("ggraph")
-library("ggiraph")
+library("tidyverse")
 ```
 
 ```{r plot-theme}
@@ -348,6 +350,28 @@ oarch %>%
 
 **ZB NOTE:** Do a temporal analysis to get a sense of when platforms, tags and categories have been gaining popularity. There may not be a need for extreme detail here, but simply noting the dates of first commits might be helpful. I'm imagining a stacked bar chart, with each bar representing a month or a year, and with the stacked portions of each bar representing a platform or category.
 
+### Who's doing what?
+
+```{r user-contributors}
+oarch |>
+  unnest(gh_contribs) |>
+  drop_na(contributor) |>
+  group_by(contributor) |>
+  mutate(
+    repo_owner = if_else(str_extract(repo, "[^/]+") == contributor, "own", "other")
+  ) |>
+  group_by(contributor, repo_owner) |>
+  summarise(repos = n(), contribs = sum(contributions)) |>
+  pivot_wider(c(contributor), names_from = repo_owner, 
+              values_from = c(repos, contribs), values_fill = 0) |>
+  mutate(
+    repos = repos_other + repos_own,
+    contribs = contribs_other + contribs_own,
+    .after = contributor
+  ) ->
+  oarch_contributors
+```
+
 ### Development processes
 
 While somewhat informative, breaking down the distribution of categories and tags does not really tell us that much about *how* archaeologists develop software.
@@ -409,39 +433,88 @@ As we can see, archaeologists have been using git from even before GitHub was la
 
 Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work, especially work or manifestations of undervalued skills that may not necessarily be easily represented using traditional publication venues, in an open and somewhat nerdy way.
 
-```{r plot-gh_commits-cum}
-oarch %>%
+```{r plot-gh-cum}
+oarch %>% 
+  mutate(
+    lumped_category = recode(category,
+                             "Specifications etc." = "Documents",
+                             "Products" = "Documents",
+                             "Guides" = "Documents",
+                             "Lists and datasets" = "Documents",
+                             .default = category),
+    lumped_category = factor(lumped_category, c("Scripts",
+                                                "Documents",
+                                                "Packages and libraries",
+                                                "Standalone software")) ) ->
+  oarch_lumped
+
+p_gh_commits_cum <- oarch_lumped %>%
   unnest(gh_commits) %>%
   drop_na(sha) %>%
   mutate(date = floor_date(datetime, "week")) %>%
-  mutate(lumped_category = recode(category,
-                                  "Specifications etc." = "Documents",
-                                  "Products" = "Documents",
-                                  "Guides" = "Documents",
-                                  "Lists and datasets" = "Documents",
-                                  .default = category)) %>%
+  group_by(lumped_category, date) %>%
+  summarise(n_commits = n(), .groups = "drop_last") %>%
+  mutate(cum_commits = cumsum(n_commits)) %>%
+  ggplot(aes(date, cum_commits,
+             fill = lumped_category,
+             colour = lumped_category,
+             label = lumped_category)) +
+  geom_area() +
+  annotate("segment", 
+           x = ymd("2008-04-01", tz = "UTC"), 
+           xend = ymd("2008-04-01", tz = "UTC"),
+           y = 16000, yend = 4000,
+           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
+  annotate("text", 
+           x = ymd("2008-04-01", tz = "UTC"), y = 19000,
+           label = "GitHub\nlaunched",
+           vjust = 0) +
+  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_colour_bright(guide = guide_none()) +
+  scale_fill_bright() +
+  labs(
+    y = "cumulative commits",
+    x = NULL, fill = NULL
+  ) +
+  theme_oarch() +
+  theme(legend.position = "top")
+
+# TODO: extend to end
+p_gh_repos_cum <- oarch_lumped %>%
+  unnest(gh_commits) %>%
+  drop_na(sha) %>%
+  group_by(repo) %>% 
+  filter(datetime == min(datetime)) %>% # Only first commits
+  mutate(date = floor_date(datetime, "week")) %>%
   group_by(lumped_category, date) %>%
   summarise(n_commits = n(), .groups = "drop_last") %>%
   mutate(cat_total = sum(n_commits)) %>%
   mutate(cum_commits = cumsum(n_commits)) %>%
   ggplot(aes(date, cum_commits,
-             fill = fct_reorder(lumped_category, cat_total),
-             colour = fct_reorder(lumped_category, cat_total))) +
+             fill = lumped_category,
+             colour = lumped_category)) +
   geom_area() +
-  scale_x_datetime(limits = c(ymd("2005-01-01", tz = "UTC"),
-                              ymd("2021-05-31", tz = "UTC")),
-                   date_breaks = "2 years",
-                   date_labels = "%Y") +
+  annotate("segment",
+           x = ymd("2008-04-01", tz = "UTC"),
+           xend = ymd("2008-04-01", tz = "UTC"),
+           y = 40, yend = 10,
+           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
+  annotate("text",
+           x = ymd("2008-04-01", tz = "UTC"), y = 50,
+           label = "GitHub\nlaunched",
+           vjust = 0) +
+  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
   scale_y_continuous(labels = scales::comma) +
-  scale_colour_bright(guide = NULL) +
-  scale_fill_bright(guide = guide_legend(reverse = TRUE)) +
+  scale_colour_bright(guide = guide_none()) +
+  scale_fill_bright(guide = guide_none()) +
   labs(
-    title = "Growth of open archaeology",
-    subtitle = "Measured by cumulative commits in GitHub repositories",
-    caption = "Data: open-archaeo.info and GitHub API",
-    x = NULL, y = NULL, fill = NULL
+    y = "cumulative repositories",
+    x = NULL, fill = NULL
   ) +
   theme_oarch()
+
+p_gh_commits_cum / p_gh_repos_cum
 
 # Export for slides (full slide)
 # ggsave("figures/commits-cum.png", width = 254, height = 127, units = "mm")
@@ -878,19 +951,48 @@ oarch_graph_user_user |>
          betweenness = centrality_betweenness(weights = n), 
          strength = centrality_degree(weights = n)) |>
   filter(degree > 0) |> 
-  data.frame() |> 
-  View()
+  data.frame()
 ```
 
 ```{r plot-graph-user-user}
 oarch_graph_user_user |>
-  mutate(degree = centrality_degree(), strength = centrality_degree(weights = n)) |>
-  filter(degree > 0) |>
+  mutate(betweenness = centrality_betweenness(weights = n)) ->
+  oarch_graph_user_user
+
+oarch_graph_user_user |> 
   ggraph(layout = "graphopt") +
   geom_edge_link(aes(alpha = n)) +
-  # geom_node_point(aes(colour = category)) +
+  # geom_node_point() +
   scale_edge_alpha(trans = "log") +
   labs(edge_alpha = "Common repositories")
+```
+
+
+```{r plot-user-betweenness-dist}
+oarch_graph_user_user |>
+  mutate(
+    betweenness = centrality_betweenness(weights = n)
+  ) |>
+  data.frame() |>
+  ggplot(aes(x = betweenness)) +
+  geom_density(bw = "nrd") +
+  scale_x_log10(labels = scales::number)
+```
+
+```{r plot-user-betweenness-activity}
+oarch_graph_user_user |>
+  mutate(
+    degree = centrality_degree(), 
+    betweenness = centrality_betweenness(weights = n), 
+    strength = centrality_degree(weights = n)
+  ) |>
+  as_tibble() |> 
+  left_join(oarch_contributors, by = c("user" = "contributor")) |>
+  ggplot(aes(betweenness, contribs)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(method = "lm")
 ```
 
 #### Over time
