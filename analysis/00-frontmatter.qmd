@@ -1,0 +1,41 @@
+---
+title: "openarchaeoCollaboration"
+author:
+  - name: Zack Batist
+    url: https://zackbatist.info
+    affiliation: Faculty of Information, University of Toronto
+    orcid: 0000-0003-0435-508X 
+  - name: Joe Roe
+    url: https://joeroe.io
+    affiliation: Institute of Archaeological Sciences, University of Bern
+    orcid: 0000-0002-1011-1244
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r dependencies, include=FALSE}
+library("fs")
+library("geomtextpath")
+library("ggiraph")
+library("ggraph")
+library("gt")
+library("here")
+library("khroma")
+library("lubridate")
+library("openarchaeoCollaboration")
+library("patchwork")
+library("tidygraph")
+library("tidyverse")
+```
+
+```{r plot-theme}
+theme_oarch <- function() theme(
+)
+```
