@@ -1,0 +1,25 @@
+Collaborative open source software development in archaeology has seen a rapid and sustained increase beginning around 2014 or 2015.
+
+In terms of collaboration, our analysis shows an uneven use of git and GitHub's extended features, beyond their basic usage as a version control system and repository host.
+
+The vast majority of repositories have 1--3 contributors, with only a few distinguished by an active and diverse developer base.
+
+Generally speaking, we believe that this is because people do not want to step on other people's shoes by raising issues or intruding on other people's projects.
+
+This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are 'owned' by individuals or communities, and how work should be iteratively improved upon.
+
+We intend to look deeper at the social aspects of collaborative software engineering among archaeologists with a network analysis, and perhaps by leveraging more data from documentation included in each repository.
+
+---
+
+There is an emerging community of practice around open source in archaeology.
+
+But:
+
+* It is limited and fragmented
+  * A small set of subfields are represented
+  * Probably most people still haven't heard it?
+* Collaboration is limited
+  * Most work remains solo & short-lived
+  * Perhaps because open source norms conflict with academic norms?
+* The members of this community face structural challenges in academia

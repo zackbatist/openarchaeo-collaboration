@@ -1,11 +1,6 @@
-* open-archaeo
-
 Our findings are based on an exploratory analysis of open-archaeo, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are nicely rendered at open-archaeo.info. The dataset was compiled by browsing collaborative software development platforms. This entailed manually crawling through the profiles of users who identify as archaeologists or who have contributed to tools that pertain to archaeological work. This quasi-systematic collection strategy is also supplemented by contributions made by interested individuals who identified relevant work that was initially overlooked. The main criteria for inclusion is whether a project is identified by its maintainers as relating to archaeological work.
 
 Open-archaeo is a relatively comprehensive list, however it generally lacks code written before the growth and general use of collaborative software development platforms, such as GitHub, among archaeologists. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their field, to contribute.
-
-* GitHub API
-* Indicate how much is on GitHub or elsewhere
 
 For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host.
 
