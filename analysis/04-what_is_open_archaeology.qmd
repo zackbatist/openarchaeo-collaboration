@@ -1,8 +1,8 @@
 ## Breakdown of tags and categories
 
-Each record is annotated with tags that describe the aspects of archaeological work that each tool contributes to. Items are tagged based on how they have been generally identified or presented by their maintainers. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
+We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
 
-Records are also categorized based on how each tool or resource is accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.
+We also categorized records based on how each tool or resource is meant to be accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.
 
 | Category                              | Kind      | Scope                                                                                                                                                                                                        |
 |:-----------|:-----------|:------------------------------------------------|
@@ -14,30 +14,26 @@ Records are also categorized based on how each tool or resource is accessed or u
 | Guides                                | Documents | An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.                                                                                          |
 | Lists and datasets                    | Documents | A series of consistently organized observations assembled with purpose.                                                                                                                                      |
 
-We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that may be operated without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation. Things like code generalized sets of code snippets.
+We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that users may operate without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.
 
-As for documents, specifications, protocols and schemas are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
+The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
 
 ## Breakdown of platforms and languages
 
-Our first set of analyses were focused on these questions:
+Our first set of analyses focused on these questions:
 
-What kinds of software are archaeologists making?
+* What kinds of software are archaeologists making?
+* What are the general purposes of their software?
 
-And what are the general purposes of their software?
-
-Most projects included in open-archaeo are designed to be used as a package or library atop am existing 'platform' -- for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
+Most projects included in open-archaeo are designed to be used as a package or library atop am existing "platform" -- for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
 
 {r plot-categories}
 
-R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS); a number of lesser used programming languages; and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
+R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
 
 {r plot-platforms}
 
-If we compare categories with tags, we can see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
+When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
 
 {r plot-tags-cats}
 
----
-
-- Add in a breakdown on licensing practices here too
