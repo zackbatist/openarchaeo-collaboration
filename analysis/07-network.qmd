@@ -21,42 +21,37 @@ We applied the edge-betweenness community detection method to identify clusters 
 {r plot-graph-repo-repo-edge-betweenness}
 {r plot-graph-repo-repo-edge-betweenness-dendrogram}
 
-This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.^[**NOTE:** I wonder what these repositories that prompt greater integration are? They should correspond with the nodes of highest betweenness centrality among those in the core cluster.]^[**NOTE:** I also wonder how recently these connections were forged, or how they are situated within users' history of commits.]
+This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.
 
-The three core clusters also have distinct character. One is characterized by its focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work.^[**NOTE:** How does this map onto real-world research centres or partnerships? I'm wary of getting too into the weeds on specific people or relationships, but we might highlight the fact that projects led by people who are more active in the SSLA are well represented in this cluster, as well as members of ISAA-Kiel. Note that this observation is not backed by statistics, it is just a casual remark based on me browsing the network visualization.]
+**NOTE:** Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.
+
+The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
 
 **NOTE:** What happens to this interpretation when we differentiate commits from issues and comments?
 
 ## user-user
 
-We assembled graphs linking users based on common contributions to the same repositories. We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job.
+We assembled graphs linking users based on common contributions to the same repositories.
 
-**NOTE:** Create a graph visualization showing either edge-betweenness clustering or rendering nodes' relative betweenness by size.
-**NOTE:** We can further investigate this point made above by comparing with some other measures of activity, like volume of commits.
-
-We applied the same betweenness centrality algorithm on user-user networks whose links are based on only commits and on only issues and comments. For the latter, people who commit less code are more represented with higher betweenness scores, but many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters.
+**NOTE:** Plot a graph that renders nodes' sizes based on their betweenness centrality.
 
 {r summary-graph-user-user}
+
+We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.
+
+**NOTE:** Create a table containing the top 10 users based on betweenness centrality values, with columns specifying theur username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).
+
+We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study's scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.
+
+**NOTE:** Create a table containing the top 10 users based on betweenness centrality values derived from the issues and comments only subnetwork, with columns specifying theur username, real name, job title/affiliation.
+
+---
 
 **NOTE:** I have no idea what these next two charts depict.
 
 {r plot-user-betweenness-dist}
 {r plot-user-betweenness-activity}
 
----
 
-* What proportion of users and repos are connected to this network?
-* What predicts membership in this network?
-* Does centrality in the network correlate with general rate of activity?
-*  Who are the most central nodes in this network? Is there anything they have in common?
-   * High activity?
-   * Certain platforms/categories/languages?
-* Qualitative analysis of top 50? 100? most connected users
-  * Career stage? Precarity? Employer? Location?
 
----
-
-In cleaning the data we made a few significant decisions that revealed insights into our dataset. We constructed the user-user graph and filtered out several bots. We filtered out several large non-archaeology projects that effected the network in ways that distracted us from what we wanted to say about the archaeological community. We filtered isolates. We calculated the degree and betweenness to assess whether this was a realistic representation of what we know. We wanted to figure out who are the key nodes, what they had in common.
-
-The people who are high betweenness are people who primarily produce computational archaeology code as a job. We can investgate further by comparing with some other measures of activity, like volume of commits or something else. We also looked at the same thing, but with only commits, or without commits. For the subgraph of non-commits, it includes many people from the commits-only or commits-included graphs, but also more people who do not commit as much.
 
