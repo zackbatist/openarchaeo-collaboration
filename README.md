@@ -10,13 +10,13 @@ Preliminary results were presented at the [CAA2021 Virtual Conference](https://2
 ## Usage
 
 This compendium is an R package.
-The main analysis is described in `analysis/paper.html`, which is generated from `analysis/paper.Rmd`.
+The main analysis is described in `analysis/openarchaeo_collaboration.html`, which is generated from `analysis/openarchaeo_collaboration.qmd`.
 
 To reproduce the analysis yourself:
 
 1. Download or clone the latest version of this repository
 2. Build and install the package with `devtools::build()` (or `Ctrl+Shift+B` in RStudio)
-3. Run the code chunks in `analysis/paper.Rmd`
+3. Run `quarto render analysis/openarchaeo_collaboration.qmd` to render the analysis document
 
 You will need to set up a personal access token (PAT) to access the GitHub API:
 

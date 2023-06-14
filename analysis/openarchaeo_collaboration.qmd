@@ -39,3 +39,12 @@ library("tidyverse")
 theme_oarch <- function() theme(
 )
 ```
+
+{{< include _01-introduction.qmd >}}
+{{< include _02-background.qmd >}}
+{{< include _03-data_methodology.qmd >}}
+{{< include _04-what_is_open_archaeology.qmd >}}
+{{< include _05-history_of_open_archaeology.qmd >}}
+{{< include _06-project_activity.qmd >}}
+{{< include _07-network.qmd >}}
+{{< include _99-conclusion.qmd >}}
