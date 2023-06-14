@@ -42,68 +42,11 @@ theme_oarch <- function() theme(
 ```
 
 ```{r data-oarch}
-read_csv("https://raw.githubusercontent.com/zackbatist/open-archaeo/master/open-archaeo.csv") %>%
-  mutate(category = na_if(category, "?")) ->
-  oarch
-
-# Extract clean repos from GitHub URLs
-oarch %>%
-  mutate(
-    gh_repo = str_match(oarch$github, "^https://github.com/([\\w-\\.]+/[\\w-\\.]+)/?.*?$")[,2]
-  ) ->
-  oarch
-
-# Amalgamate categories into fewer rough categories
-# TODO: redo
-oarch <- mutate(oarch, rough_category = recode(category,
-                                 "R" = "Packages (R, Python, etc.)",
-                                 "Web apps" = "Standalone apps",
-                                 "Datasets" = "Analyses & datasets",
-                                 "Tutorials" = "Lists & tutorials",
-                                 "Python" = "Packages (R, Python, etc.)",
-                                 "Desktop apps" = "Standalone apps",
-                                 "QGIS" = "Plugins",
-                                 "Lists" = "Lists & tutorials",
-                                 "Mobile apps" = "Standalone apps",
-                                 "Analyses" = "Analyses & datasets",
-                                 "Spreadsheets" = "Forms & spreadsheets",
-                                 "Command line tools" = "Standalone apps",
-                                 "Plugins" = "Plugins",
-                                 "ArcGis" = "Plugins",
-                                 "Filemaker" = "Plugins",
-                                 "ODK" = "Forms & spreadsheets",
-                                 "Lisp" = "Packages (R, Python, etc.)",
-                                 .default = "Other",
-                                 .missing = "Other"
-                                 ))
+#merged
 ```
 
 ```{r data-github}
-# If cached data at `analysis/data/derived_data/oarch.RData` is present, this
-# chunk will prefer to load it rather than make requests to the GitHub API.
-# Delete this file to fetch fresh data from the GitHub or modify 
-# `cached_gh_data` to read a different cached version.
-#
-# Note that fetching data from the GitHub API takes some time and is subject to
-# a rate limit:
-# <https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting>
-#
-# You will need to authenticate authenticate with GitHub credentials to get a
-# rate limit sufficient to obtain the required data, see 
-# <https://gh.r-lib.org/articles/managing-personal-access-tokens.html>
-# for options on how to do this.
-cached_gh_data <- here("analysis/data/derived_data/oarch.RData")
-if (!file_exists(cached_gh_data)) {
-  oarch <- mutate(oarch,
-                  gh_langs = map(oarch$gh_repo, gh_lang),
-                  gh_contribs = map(oarch$gh_repo, gh_contrib),
-                  gh_issues = map(oarch$gh_repo, gh_issue),
-                  gh_comments = map(oarch$gh_repo, gh_comment),
-                  gh_commits = map(oarch$gh_repo, gh_commit)
-  )
-  saveRDS(oarch, cached_gh_data)
-}
-oarch <- readRDS(cached_gh_data)
+#merged
 ```
 
 ## Introduction
@@ -236,27 +179,7 @@ Others create standalone software that can be run independently of such platform
 A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
 
 ```{r plot-categories}
-oarch <- mutate(oarch,
-                category = recode(category,
-                                  "Specifications, protocols and schemas" = "Specifications etc.",
-                                  .default = category))
-oarch %>%
-  drop_na(category) %>%
-  group_by(category) %>%
-  summarise(n = n()) %>%
-  ggplot(aes(fct_reorder(category, n), n)) +
-  geom_col() +
-  coord_flip() +
-  labs(
-    title = "Most popular categories",
-    subtitle = "By number of projects",
-    caption = "Data: open-archaeo.info",
-    x = NULL, y = NULL
-  ) +
-  theme_oarch()
-
-# Export for slides (half slide)
-# ggsave("figures/categories.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ------------------------------------------------------------------------
@@ -270,24 +193,7 @@ Beyond that, there is a rather fragmented landscape of plugins for other desktop
 In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
 
 ```{r plot-platforms}
-oarch %>%
-  drop_na(platform) %>%
-  group_by(platform, author1_name) %>%
-  summarise(n = n(), .groups = "drop_last") %>%
-  mutate(total = sum(n)) %>%
-  ggplot(aes(fct_reorder(platform, total), n, group = author1_name)) +
-  geom_col(colour = "#333333") +
-  coord_flip() +
-  labs(
-    title = "Most popular platforms",
-    subtitle = "By number of projects, split by primary author",
-    caption = "Data: open-archaeo.info",
-    x = NULL, y = NULL
-  ) +
-  theme_oarch()
-
-# Export for slides (half slide)
-# ggsave("figures/platforms.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ------------------------------------------------------------------------
@@ -301,52 +207,7 @@ Tags that are notable for having a higher proportion of standalone software incl
 These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
 
 ```{r plot-tags-cats}
-detail_tags <- c("Instrumental Neutron activation analysis",
-                 "Harris Matrix",
-                 "aDNA Simulators",
-                 "Damage profilers",
-                 "Metagenomic classifers",
-                 "aDNA simulators",
-                 "aDNA damage-aware genotypers",
-                 "Low-coverage contamination estimation",
-                 "Low-coverage adapted population-genetics tools",
-                 "aDNA preprocessing",
-                 "aDNA aligner",
-                 "aDNA assembler",
-                 "aDNA toolkit")
-
-oarch %>%
-  pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
-               values_drop_na = TRUE) %>%
-  drop_na(tag) %>%
-  filter(!tag %in% detail_tags) %>%
-  mutate(category = recode(category,
-                                  "Specifications etc." = "Documents",
-                                  "Products" = "Documents",
-                                  "Guides" = "Documents",
-                                  "Lists and datasets" = "Documents",
-                                  .default = category)) %>%
-  group_by(tag, category) %>%
-  summarise(n = n(), .groups = "drop_last") %>%
-  mutate(total = sum(n)) %>%
-  ggplot(aes(fct_reorder(tag, total), n, fill = category)) +
-  # facet_wrap(vars(category)) +
-  geom_col() +
-  scale_fill_bright() +
-  coord_flip() +
-  labs(
-    title = "Tags by category",
-    caption = "Data: open-archaeo.info",
-    x = NULL, y = "Number of projects",
-    fill = NULL
-  ) +
-  theme_oarch() +
-  theme(
-    axis.text.y = element_text(size = 7)
-  )
-
-# Export for slides (full slide)
-# ggsave("figures/tags-cats.png", width = 254, height = 127, units = "mm")
+#merged
 ```
 
 **ZB NOTE:** Do a temporal analysis to get a sense of when platforms, tags and categories have been gaining popularity. There may not be a need for extreme detail here, but simply noting the dates of first commits might be helpful. I'm imagining a stacked bar chart, with each bar representing a month or a year, and with the stacked portions of each bar representing a platform or category.
@@ -388,40 +249,11 @@ That is, for each project in open-archaeo with a GitHub repository, we added inf
 This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but as yu can see in the figure below, amongst those that do, GitHub is by far the most popular host.
 
 ```{r plot-repo-hosts}
-# TODO: turn into table or just text
-oarch <- mutate(oarch, none = ifelse(is.na(github) &
-                                       is.na(gitlab) &
-                                       is.na(bitbucket) &
-                                       is.na(launchpad) &
-                                       is.na(codeberg),
-                                     "", NA))
-
-oarch %>%
-  pivot_longer(c(github, gitlab, bitbucket, launchpad, codeberg, none),
-               names_to = "repo_host", values_to = "repo_url") %>%
-  drop_na(repo_url) %>%
-  group_by(repo_host, author1_name) %>%
-  summarise(n = n(), .groups = "drop_last") %>%
-  mutate(total = sum(n)) %>%
-  ungroup() %>%
-  mutate(repo_host = fct_reorder(repo_host, total),
-         repo_host = fct_relevel(repo_host, "none")) %>%
-  ggplot(aes(repo_host, n, group = author1_name)) +
-  geom_col(colour = "#333333") +
-  coord_flip() +
-  labs(title = "Most popular repository hosts",
-       subtitle = "By number of projects, split by primary author",
-       caption = "Data: open-archaeo.info",
-       x = NULL, y = NULL)
-
-# Export for slides (half slide)
-# ggsave("figures/repo-hosts.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ```{r table-no-repo}
-# TODO: prettify with gt()
-filter(oarch, none == "") %>%
-  count(category)
+#merged
 ```
 
 We obtained this data in R using the {gh} package; those data, and the analysis code, are available in our research compendium on GitHub.
@@ -435,90 +267,7 @@ As we can see, archaeologists have been using git from even before GitHub was la
 Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work, especially work or manifestations of undervalued skills that may not necessarily be easily represented using traditional publication venues, in an open and somewhat nerdy way.
 
 ```{r plot-gh-cum}
-oarch %>% 
-  mutate(
-    lumped_category = recode(category,
-                             "Specifications etc." = "Documents",
-                             "Products" = "Documents",
-                             "Guides" = "Documents",
-                             "Lists and datasets" = "Documents",
-                             .default = category),
-    lumped_category = factor(lumped_category, c("Scripts",
-                                                "Documents",
-                                                "Packages and libraries",
-                                                "Standalone software")) ) ->
-  oarch_lumped
-
-p_gh_commits_cum <- oarch_lumped %>%
-  unnest(gh_commits) %>%
-  drop_na(sha) %>%
-  mutate(date = floor_date(datetime, "week")) %>%
-  group_by(lumped_category, date) %>%
-  summarise(n_commits = n(), .groups = "drop_last") %>%
-  mutate(cum_commits = cumsum(n_commits)) %>%
-  ggplot(aes(date, cum_commits,
-             fill = lumped_category,
-             colour = lumped_category,
-             label = lumped_category)) +
-  geom_area() +
-  annotate("segment", 
-           x = ymd("2008-04-01", tz = "UTC"), 
-           xend = ymd("2008-04-01", tz = "UTC"),
-           y = 16000, yend = 4000,
-           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
-  annotate("text", 
-           x = ymd("2008-04-01", tz = "UTC"), y = 19000,
-           label = "GitHub\nlaunched",
-           vjust = 0) +
-  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
-  scale_y_continuous(labels = scales::comma) +
-  scale_colour_bright(guide = guide_none()) +
-  scale_fill_bright() +
-  labs(
-    y = "cumulative commits",
-    x = NULL, fill = NULL
-  ) +
-  theme_oarch() +
-  theme(legend.position = "top")
-
-# TODO: extend to end
-p_gh_repos_cum <- oarch_lumped %>%
-  unnest(gh_commits) %>%
-  drop_na(sha) %>%
-  group_by(repo) %>% 
-  filter(datetime == min(datetime)) %>% # Only first commits
-  mutate(date = floor_date(datetime, "week")) %>%
-  group_by(lumped_category, date) %>%
-  summarise(n_commits = n(), .groups = "drop_last") %>%
-  mutate(cat_total = sum(n_commits)) %>%
-  mutate(cum_commits = cumsum(n_commits)) %>%
-  ggplot(aes(date, cum_commits,
-             fill = lumped_category,
-             colour = lumped_category)) +
-  geom_area() +
-  annotate("segment",
-           x = ymd("2008-04-01", tz = "UTC"),
-           xend = ymd("2008-04-01", tz = "UTC"),
-           y = 40, yend = 10,
-           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
-  annotate("text",
-           x = ymd("2008-04-01", tz = "UTC"), y = 50,
-           label = "GitHub\nlaunched",
-           vjust = 0) +
-  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
-  scale_y_continuous(labels = scales::comma) +
-  scale_colour_bright(guide = guide_none()) +
-  scale_fill_bright(guide = guide_none()) +
-  labs(
-    y = "cumulative repositories",
-    x = NULL, fill = NULL
-  ) +
-  theme_oarch()
-
-p_gh_commits_cum / p_gh_repos_cum
-
-# Export for slides (full slide)
-# ggsave("figures/commits-cum.png", width = 254, height = 127, units = "mm")
+#merged
 ```
 
 ------------------------------------------------------------------------
@@ -532,42 +281,7 @@ Each vertical line represents the lifespan of a repository; the points on the li
 This is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.
 
 ```{r plot-lifespan}
-oarch %>%
-  unnest(gh_commits) %>%
-  drop_na(datetime) %>%
-  group_by(item_name) %>%
-  add_tally() %>%
-  filter(n > 1) %>%
-  mutate(first_commit = min(datetime),
-         mid_commit = median(datetime),
-         last_commit = max(datetime)) %>%
-  ggplot(aes(x = fct_reorder(item_name, last_commit, .desc = FALSE),
-             y = datetime,
-             ymin = first_commit,
-             ymax = last_commit)) +
-  geom_linerange(size = 0.05) +
-  geom_point(size = 0.1) +
-  scale_y_datetime(limits = c(ymd("2005-01-01", tz = "UTC"),
-                              ymd("2021-05-31", tz = "UTC")),
-                   date_breaks = "2 years", date_labels = "%Y") +
-  # coord_flip() +
-  labs(
-    title = "Project lifespan",
-    subtitle = glue("Individual commits in GitHub repositories (with more than 1 commit)"),
-    x = NULL, y = NULL,
-    caption = "Data: open-archaeo.info and GitHub API"
-  ) +
-  theme_oarch() +
-  theme(
-    axis.line.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.text.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.major.x = element_blank()
-  )
-
-# Export for slides (full slide)
-# ggsave("figures/lifespan.png", width = 254, height = 127, units = "mm")
+#merged
 ```
 
 ------------------------------------------------------------------------
@@ -589,70 +303,15 @@ This latter pattern in turn appears to be explained by the number of contributor
 **ZB NOTE:** Use patchwork package to combine these plots into a unified figure.
 
 ```{r lifespan-stats}
-oarch %>% 
-  unnest(gh_commits) %>% 
-  drop_na(datetime) %>% 
-  group_by(item_name) %>%
-  mutate(n_contribs = map_int(gh_contribs, vctrs::vec_size)) %>% 
-  summarise(
-    category = first(category),
-    n_contribs = first(n_contribs),
-    n = n(),
-    first_commit = min(datetime),
-    last_commit = max(datetime),
-    lifespan = as.integer(last_commit - first_commit),
-    commit_rate = n / lifespan
-  ) ->
-  oarch_lifespan
+#merged
 ```
 
 ```{r plot-lifespan-hist}
-# TODO: where does oarch_lifespan come from?
-oarch_lifespan %>%
-  ggplot(aes(x = lifespan)) +
-  geom_histogram(binwidth = 100) +
-  scale_x_continuous(breaks = scales::breaks_width(1000)) +
-  labs(
-    title = "Project lifespan",
-    subtitle = "Time between first and latest commit, by repository",
-    x = "Days", y = NULL,
-    caption = "Data: open-archaeo.info and GitHub API"
-  ) +
-  theme_oarch()
-
-# Export for slides (half slide)
-# ggsave("figures/lifespan-hist.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ```{r plot-lifespan-vs-rate}
-oarch_lifespan %>%
-  ggplot(aes(x = lifespan, y = commit_rate, size = n)) +
-  geom_point(shape = 21, fill = NA) +
-  scale_x_log10() +
-  scale_y_log10() +
-  labs(
-    title = "Project lifespan vs. average commit rate",
-    x = "Lifespan (days)", y = "Commits per day", size = "Total commits",
-    caption = NULL
-  ) +
-  theme_oarch()
-# Export for slides (half slide)
-# ggsave("figures/lifespan-vs-rate-total.png", width = 127, height = 60, units = "mm")
-
-oarch_lifespan %>%
-  ggplot(aes(x = lifespan, y = commit_rate, size = n_contribs)) +
-  geom_point(shape = 21, fill = NA) +
-  scale_x_log10() +
-  scale_y_log10() +
-  labs(
-    title = NULL,
-    x = "Lifespan (days)", y = "Commits per day", size = "Contributors",
-    caption = "Data: open-archaeo.info and GitHub API"
-  ) +
-  theme_oarch()
-# Export for slides (half slide)
-# ggsave("figures/lifespan-vs-rate-contrib.png", width = 127, height = 60, units = "mm")
-
+#merged
 ```
 
 ------------------------------------------------------------------------
@@ -662,23 +321,7 @@ Perhaps unfortunately then, we also find that nearly 60% of projects have only a
 A "contribution", in this case, is a commit, issue, comment applied by a user to a repository.
 
 ```{r plot-gh_contributors-histogram}
-oarch %>%
-  drop_na(gh_repo) %>%
-  unnest(gh_contribs) %>%
-  group_by(gh_repo) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  ggplot(aes(x = n)) +
-  geom_histogram() +
-  scale_x_log10() +
-  labs(
-    title = "Repository contributors",
-    x = "Number of contributors", y = "Repositories",
-    caption = "Data: open-archaeo.info and GitHub API"
-  ) +
-  theme_oarch()
-
-# Export for slides (half slide)
-# ggsave("figures/contrib-hist.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ------------------------------------------------------------------------
@@ -694,42 +337,7 @@ and 36% have three quarters of all contributions made a single person.
 **ZB NOTE:** Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic.
 
 ```{r plot-contrib-dist}
-oarch %>%
-  unnest(gh_contribs) %>%
-  drop_na(contributor) %>%
-  group_by(item_name) %>%
-  mutate(n_contributors = n()) %>%
-  filter(n_contributors > 1) %>%
-  mutate(big_boy = ifelse(contributions == max(contributions),
-                          "Leading contributor", "Other contributors")) %>% 
-  group_by(item_name, big_boy) %>%
-  summarise(contributions = sum(contributions)) %>%
-  mutate(
-    p_contributions = contributions / sum(contributions),
-    p_big_boy = first(p_contributions)
-  ) %>%
-  ungroup() %>%
-  mutate(item_name = fct_reorder(item_name, p_big_boy)) %>% 
-  ggplot(aes(x = item_name, y = contributions,
-             fill = fct_relevel(big_boy, c("Other contributors",
-                                           "Leading contributor")))) +
-  geom_col(position = "fill", colour = "white", size = 0.1) +
-  geom_hline(yintercept = c(0.25, 0.5, 0.75), alpha = 0.5) +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_highcontrast(guide = guide_legend(reverse = TRUE)) +
-  labs(title = "Repository contributors by proportion of contributions",
-       x = NULL, y = "Contributions",
-       fill = NULL,
-       caption = "Data: open-archaeo.info and GitHub API") +
-  coord_flip() +
-  theme_oarch() +
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank()
-  )
-
-# Export for slides (half slide)
-# ggsave("figures/contrib-dist.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right).
@@ -743,43 +351,11 @@ However, of all repositories that have any comments posted in reply to issues an
 This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
 
 ```{r plot-issues-hist}
-oarch %>%
-  unnest(gh_issues) %>%
-  drop_na(title) %>%
-  group_by(repo) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  ggplot(aes(x = n)) +
-  geom_histogram() +
-  scale_x_log10() +
-  labs(
-    title = "Use of issues",
-    caption = "Data: open-archaeo.info and GitHub API",
-    x = "Number of issues", y = "Repositories"
-  ) +
-  theme_oarch()
-
-# Export for slides (half slide)
-# ggsave("figures/issues-hist.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ```{r plot-comments-hist}
-oarch %>%
-  unnest(gh_comments) %>%
-  drop_na(issue_num) %>%
-  group_by(repo) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  ggplot(aes(x = n)) +
-  geom_histogram() +
-  scale_x_log10() +
-  labs(
-    title = "Use of comments",
-    caption = "Data: open-archaeo.info and GitHub API",
-    x = "Number of comments", y = "Repositories"
-  ) +
-  theme_oarch()
-
-# Export for slides (half slide)
-# ggsave("figures/comments-hist.png", width = 127, height = 127, units = "mm")
+#merged
 ```
 
 ### Formation of collaborative development communities
@@ -789,45 +365,7 @@ We constructed and analyzed networks representing users' contributions to GitHub
 We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
 
 ```{r graph-data}
-oarch |>
-  drop_na(gh_repo) |>
-  unite(tags, c(tag1, tag2, tag3, tag4, tag5)) |>
-  select(gh_repo, category, tags, gh_commits, gh_issues, gh_comments) ->
-  oarch_graph
-
-oarch_graph <- bind_rows(
-  oarch_graph |>
-    unnest(gh_commits) |>
-    drop_na(author) |> # Apparently real commits, but we can't connect them
-    group_by(repo, author) |>
-    summarise(category = first(category), tags = first(tags),
-              contrib = "commit", n_contrib = n(), .groups = "drop"),
-  oarch_graph |>
-    unnest(gh_comments) |>
-    drop_na(author) |> # Repos with no comments
-    group_by(repo, author) |>
-    summarise(category = first(category), tags = first(tags),
-              contrib = "comment", n_contrib = n(), .groups = "drop"),
-  oarch_graph |>
-    unnest(gh_issues) |>
-    drop_na(author) |> # Repos with no issues
-    group_by(repo, author) |>
-    summarise(category = first(category), tags = first(tags),
-              contrib = "issue", n_contrib = n(), .groups = "drop")
-)
-
-# Cleaning
-oarch_graph |>
-  rename(user = author) |>
-  # Remove non-human users
-  filter(!str_detect(user, coll("[bot]"))) |>
-  filter(!user %in% c("ghost", "codecov-io", "coveralls", "codecov-commenter",
-                      "gitter-badger", "dependabot-support")) |>
-  # Remove big, non-archaeology projects that flood the network
-  filter(!repo %in% c("Stellarium/stellarium", 
-                     "opengisch/QField",
-                     "lutraconsulting/input")) ->
-  oarch_graph
+#merged
 ```
 
 We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations. We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.
@@ -835,17 +373,7 @@ We started by constructing a graph connecting users to the repositories that the
 #### Repo--user
 
 ```{r plot-graph-repo-user}
-oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
-                                   edges_user_to_repo(oarch_graph))
-
-g_repo_user <- oarch_graph_repo_user |>
-  ggraph(layout = "graphopt") +
-  geom_edge_fan(aes(colour = contrib, alpha = n_contrib)) +
-  geom_node_point(aes(colour = node_type)) +
-  scale_edge_alpha(trans = "log")
-
-#g_repo_user
-girafe(g_repo_user)
+#merged
 ```
 
 #### Repo--repo
@@ -857,58 +385,15 @@ Are the clusters associated with particular topics or tags? Are there some sorts
 **ZB NOTE:** Remove the cells titled `plot-graph-repo-repo` and `plot-graph-repo-repo-louvain`. Use patchwork to compare sets of graphs and dendrograms with links based on all contributions, only commits, and only issues and comments.
 
 ```{r plot-graph-repo-repo}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
-                                   edges_common_users(oarch_graph),
-                                   directed = FALSE)
-
-oarch_graph_repo_repo |>
-  ggraph(layout = "graphopt") +
-  geom_edge_link(aes(alpha = n)) +
-  geom_node_point(aes(colour = category)) +
-  scale_edge_alpha(trans = "log") +
-  labs(edge_alpha = "Common contributors")
+#merged
 ```
 
 ```{r plot-graph-repo-repo-edge-betweenness}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph,category,tags),
-                                   edges_common_users(oarch_graph),
-                                   directed = FALSE)
-
-oarch_graph_repo_repo |>
-  mutate(degree = centrality_degree()) |>
-  filter(degree > 1) |>
-  mutate(group = as.character(group_edge_betweenness())) ->
-  oarch_graph_repo_repo
-
-iplot <- oarch_graph_repo_repo |>
-  ggraph(layout = "graphopt") +
-  geom_edge_link(aes(alpha = n)) +
-  #geom_node_point(aes(colour = group)) +
-  #geom_node_text(aes(label = group)) +
-  geom_point_interactive(aes(x, y, colour = group, tooltip = repo)) + 
-  scale_edge_alpha(trans = "log") +
-  labs(edge_alpha = "Common contributors")
-
-girafe(ggobj = iplot)
+#merged
 ```
 
 ```{r plot-graph-repo-repo-edge-betweenness-dendrogram}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
-                                   edges_common_users(oarch_graph),
-                                   directed = TRUE)
-
-oarch_graph_repo_repo |>
-  mutate(degree = centrality_degree()) |>
-  filter(degree > 1) |>
-  mutate(group = as.character(group_edge_betweenness())) ->
-  oarch_graph_repo_repo
-
-xx <- igraph::edge.betweenness.community(oarch_graph_repo_repo)
-xx <- as.dendrogram(xx)
-plot(xx)
-
-ggraph(xx, 'dendrogram', height = height)
-
+#merged
 ```
 
 ```{r plot-graph-repo-repo-louvain}
@@ -943,60 +428,23 @@ We applied the same betweenness centrality algorithm on user-user networks whose
 **ZB NOTE:** Look at the histogram that maps the distribution of betweenness scores across all users. Interesting double hump of low-moderate betweenness scores, which may correspond with distinct or protruding components.
 
 ```{r graph-user-user}
-oarch_graph_user_user <- tbl_graph(
-  nodes = nodes_users(oarch_graph), 
-  edges = edges_common_repos(oarch_graph),
-  directed = FALSE
-)
+#merged
 ```
 
 ```{r summary-graph-user-user}
-oarch_graph_user_user |>
-  mutate(degree = centrality_degree(), 
-         betweenness = centrality_betweenness(weights = n), 
-         strength = centrality_degree(weights = n)) |>
-  filter(degree > 0) |> 
-  data.frame()
+#merged
 ```
 
 ```{r plot-graph-user-user}
-oarch_graph_user_user |>
-  mutate(betweenness = centrality_betweenness(weights = n)) ->
-  oarch_graph_user_user
-
-oarch_graph_user_user |> 
-  ggraph(layout = "graphopt") +
-  geom_edge_link(aes(alpha = n)) +
-  # geom_node_point() +
-  scale_edge_alpha(trans = "log") +
-  labs(edge_alpha = "Common repositories")
+#merged
 ```
 
 ```{r plot-user-betweenness-dist}
-oarch_graph_user_user |>
-  mutate(
-    betweenness = centrality_betweenness(weights = n)
-  ) |>
-  data.frame() |>
-  ggplot(aes(x = betweenness)) +
-  geom_density(bw = "nrd") +
-  scale_x_log10(labels = scales::number)
+#merged
 ```
 
 ```{r plot-user-betweenness-activity}
-oarch_graph_user_user |>
-  mutate(
-    degree = centrality_degree(), 
-    betweenness = centrality_betweenness(weights = n), 
-    strength = centrality_degree(weights = n)
-  ) |>
-  as_tibble() |> 
-  left_join(oarch_contributors, by = c("user" = "contributor")) |>
-  ggplot(aes(betweenness, contribs)) +
-  geom_point() +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_smooth(method = "lm")
+#merged
 ```
 
 #### Over time

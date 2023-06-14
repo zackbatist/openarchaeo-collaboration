@@ -24,6 +24,18 @@ Depends:
     purrr,
     gh,
     glue
+Suggests:
+    fs,
+    geomtextpath,
+    ggiraph,
+    ggraph,
+    gt,
+    here,
+    khroma,
+    lubridate,
+    patchwork,
+    tidygraph,
+    tidyverse
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Imports: 

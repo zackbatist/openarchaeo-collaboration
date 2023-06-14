@@ -1,4 +1,6 @@
-## Breakdown of tags and categories
+# Open archaeology <!-- Results I (description of what's there) -->
+
+Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.
 
 We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
 
@@ -18,7 +20,7 @@ We defined two kinds of categories: software and documents. Software comprise co
 
 The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
 
-## Breakdown of platforms and languages
+## Platforms and languages
 
 Our first set of analyses focused on these questions:
 
@@ -27,13 +29,91 @@ Our first set of analyses focused on these questions:
 
 Most projects included in open-archaeo are designed to be used as a package or library atop am existing "platform" -- for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
 
-{r plot-categories}
+```{r plot-categories}
+oarch <- mutate(oarch,
+                category = recode(category,
+                                  "Specifications, protocols and schemas" = "Specifications etc.",
+                                  .default = category))
+oarch %>%
+  drop_na(category) %>%
+  group_by(category) %>%
+  summarise(n = n()) %>%
+  ggplot(aes(fct_reorder(category, n), n)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Most popular categories",
+    subtitle = "By number of projects",
+    caption = "Data: open-archaeo.info",
+    x = NULL, y = NULL
+  ) +
+  theme_oarch()
+```
 
 R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
 
-{r plot-platforms}
+```{r plot-platforms}
+oarch %>%
+  drop_na(platform) %>%
+  group_by(platform, author1_name) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(total = sum(n)) %>%
+  ggplot(aes(fct_reorder(platform, total), n, group = author1_name)) +
+  geom_col(colour = "#333333") +
+  coord_flip() +
+  labs(
+    title = "Most popular platforms",
+    subtitle = "By number of projects, split by primary author",
+    caption = "Data: open-archaeo.info",
+    x = NULL, y = NULL
+  ) +
+  theme_oarch()
+```
 
 When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
 
-{r plot-tags-cats}
+```{r plot-tags-cats}
+detail_tags <- c("Instrumental Neutron activation analysis",
+                 "Harris Matrix",
+                 "aDNA Simulators",
+                 "Damage profilers",
+                 "Metagenomic classifers",
+                 "aDNA simulators",
+                 "aDNA damage-aware genotypers",
+                 "Low-coverage contamination estimation",
+                 "Low-coverage adapted population-genetics tools",
+                 "aDNA preprocessing",
+                 "aDNA aligner",
+                 "aDNA assembler",
+                 "aDNA toolkit")
 
+oarch %>%
+  pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
+               values_drop_na = TRUE) %>%
+  drop_na(tag) %>%
+  filter(!tag %in% detail_tags) %>%
+  mutate(category = recode(category,
+                                  "Specifications etc." = "Documents",
+                                  "Products" = "Documents",
+                                  "Guides" = "Documents",
+                                  "Lists and datasets" = "Documents",
+                                  .default = category)) %>%
+  group_by(tag, category) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(total = sum(n)) %>%
+  ggplot(aes(fct_reorder(tag, total), n, fill = category)) +
+  # facet_wrap(vars(category)) +
+  geom_col() +
+  scale_fill_bright() +
+  coord_flip() +
+  labs(
+    title = "Tags by category",
+    caption = "Data: open-archaeo.info",
+    x = NULL, y = "Number of projects",
+    fill = NULL
+  ) +
+  theme_oarch() +
+  theme(
+    axis.text.y = element_text(size = 7)
+  )
+```
