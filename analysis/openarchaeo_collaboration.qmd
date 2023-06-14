@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r dependencies, include=FALSE}
+library("openarchaeoCollaboration") # this package, install with devtools::build()
+
 library("fs")
 library("geomtextpath")
 library("ggiraph")
@@ -29,7 +31,6 @@ library("gt")
 library("here")
 library("khroma")
 library("lubridate")
-library("openarchaeoCollaboration")
 library("patchwork")
 library("tidygraph")
 library("tidyverse")
