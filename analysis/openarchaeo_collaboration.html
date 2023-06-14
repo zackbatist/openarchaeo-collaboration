@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zack Batist">
+<meta name="author" content="Joe Roe">
+<meta name="dcterms.date" content="2023-06-14">
+
+<title>openarchaeoCollaboration</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="openarchaeo_collaboration_files/libs/clipboard/clipboard.min.js"></script>
+<script src="openarchaeo_collaboration_files/libs/quarto-html/quarto.js"></script>
+<script src="openarchaeo_collaboration_files/libs/quarto-html/popper.min.js"></script>
+<script src="openarchaeo_collaboration_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="openarchaeo_collaboration_files/libs/quarto-html/anchor.min.js"></script>
+<link href="openarchaeo_collaboration_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="openarchaeo_collaboration_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="openarchaeo_collaboration_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="openarchaeo_collaboration_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="openarchaeo_collaboration_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">openarchaeoCollaboration</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://zackbatist.info">Zack Batist</a> <a href="https://orcid.org/0000-0003-0435-508X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Faculty of Information, University of Toronto
+          </p>
+      </div>
+      <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://joeroe.io">Joe Roe</a> <a href="https://orcid.org/0000-0002-1011-1244" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Institute of Archaeological Sciences, University of Bern
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 14, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Open archaeology constitutes a series of practices and principles in support greater transparency and access to research processes and outputs. The open science movement operates in various domains of research operations, such as publishing, data-sharing, and education, and continues to expand its reach into the arenas of bibliographic metadata, review processes, and grantsmanship. While these venues for transformation represent relatively novel ways of doing research, academic ventures into open source is more complicated. The open source movement has its own distinct history and developed out of pressures and circumstances beyond those in which the open science movement operates. However, the open source movement directly inspires many aspects of open science, and, crucially, informs how the open science movement has operationalized itself. For instance, the open science movement relies on infrastructures and protocols that closely resemble systems and processes designed to develop open source software (e.g., the use of plaintext, diffs, emphasis on formal licencing, the whole hacker aesthetic). But academic open source is distinct from open source that underlies massive projects that literally run the internet (and by extension the global economy), such as the Linux kernel, the Firefox web browser, and openSSL. While they may use similar tools and technical protocols, they are governed by different social and professional pressures. In other words, making your code open source has different meanings, impacts and implications for archaeologists and professional software developers.</p>
+<p>This is also complicated by the kind of rhetoric about academic open source that, based on our personal experiences, is discordant with how academics actually <em>do</em> open source. Is open source actually making research processes more transparent and improve research outcomes? Is it actually boosting efficiency by establishing a common store of knowledge and productive code? Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass? These outcomes are not a given. They only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. Beyond simply making their code available on the web, do archaeologists also implement social strategies to advance open source ideals? Does archaeological open source actually help achieve greater transparency, sustainability, and community participation? And if not, what does it actually achieve?</p>
+<p>This article presents a survey of archaeological software development with two goals in mind:</p>
+<ol type="1">
+<li>we identify <em>what</em> kinds of software archaeologists are making;</li>
+<li>and evaluate <em>how</em> archaeologists create these tools, with particular emphasis on practices of collaboration.</li>
+</ol>
+<p>Our investigation considers how archaeological software development may be benefiting from or missing out on the affordances that open source development models– specifically, the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.</p>
+<section id="what-is-open-source" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-open-source">What is open source?</h2>
+<p>Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., “free software”, as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development (Kelty 2008: chapter 3, especially starting at page 99). By putting one’s code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be “forked”, or taken in a new direction if contributors are dissatisfied with how core developers run things.</p>
+<p>Open source has traditionally been referred to as being based on meritocratic principles. A good test of whether a contribution should be included in a published software release is whether it is functional. Moreover, with more eyes looking over a code base, it is easier to identify flaws with a contribution and flag potential bugs or security issues. This is all done in the spirit of producing functional code, and in ideal circumstances faulty contributions will be corrected before inclusion. Personal ego is minimized in favour of co-creating stable and functional outcomes. (Coleman 2012)</p>
+<p>However, this is not the same as saying that open source is completely anarchic or based on the “wisdom of crowds”. In fact, successful open source projects incorporate complex organizational structures, governance strategies, and forms or social mediation to help delegate and vet contributions made by distributed participants. They rely on, rather than eschew, institutional support structures, in order to motivate work, keep volunteer maintainers involved, and generally ensure that the project can be sustained over the long-term. Open source is more than just putting your code online; to be successful, it requires participation in a social experience. (Kelty 2008; O’Neill 2009; Ratto dissertation and derived works)</p>
+<p>In other words, as with many so-called “soft skills” that are crucial for academic professional development, additional competencies relating to the maintenance, management, and distribution of software, such as the ability to receive and implement feedback, set and stick with long-term goals, coordinate labour, document work practices, and collaborate with others, are grossly underappreciated factors that contribute to an open source project’s success.</p>
+<p>We therefore consider open source to be a means of collaboration more than a means of transmitting information. It involves developing software as part of a group, developing consensus, and working with common purpose. Crucially, it also involves having a welcoming attitude, a sense of humility, and an understanding that one’s work may be appropriated and used in unanticipated ways.</p>
+</section>
+<section id="how-does-open-source-relate-to-open-science" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-open-source-relate-to-open-science">How does open source relate to open science?</h2>
+<p>The open science movement comprises a series of practices and principles intended to make research more accessible, transparent, and efficient. Although the concept of “open” is somewhat nebulous, in terms of its abstract definition and with regards to what real-world applications count as being open, one commonly-cited definition describes content that “can be freely used, modified, and shared by anyone for any purpose” (https://opendefinition.org/). This definition does not state what open is for, how to be open, or any sort of social or discursive framing behind the open movement. However, most open science advocates claim that they are motivated by a desire to facilitate novel research opportunities, make participation in scienctific research more equitable, reclaim science as a public good, and enhance how findings are validated and legitimized.</p>
+<p>The idea that scientistis should generally contribute to a public domain of knowledge without profit motive has led to open science being heralded as revolutionary, community-oriented, and anti-capitalist means of production. However, while open science does have the <em>potential</em> to effect radical change, this is not a given. The social and institutional contexts in which we do science is firmly embedded within capitalist and neoliberal power structures that reward individualistic competition and do little to actually encourage equitable and accessible research practices, and as such, make it difficult to fully embrace open science ideals. Moreover, the open science movement, which is dominated by STEM disciplines, prioritizes a grossly simplified and asocial notion of what science is and entails. Namely, it considers science as the accumulation and assembly of a species-level understanding of the world, which is not held by any one individual but is stored in seemingly value-neutral and disembodied media, facts and observations. This is manifested by digital telecommunications systems that host files, document processes, facilitate co-working opportunities, and perform automated processes. However, these systems have become so emblematic of open science that the use of these tools and resources designed to <em>support</em> open science is often mistaken for <em>actually doing</em> open science.</p>
+<p>Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (inlcuding: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed and credit has been allocated, it is common for scientists to mark their projects as completed and move onto new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly, and contributors may remain actively or sporadically involved to satisfy users’ needs.</p>
+</section>
+<section id="open-archaeology-at-a-crossroads" class="level2">
+<h2 class="anchored" data-anchor-id="open-archaeology-at-a-crossroads">Open archaeology at a crossroads</h2>
+<p>The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a desire to facilitate novel research opportunities, to make participation in scienctific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. Open science advocates, including archaeologists, have put a lot of effort into developing information infrastructures, or systems designed to facilitate the transmission of data on a global scale. And as with open science in general, open archaeology has been wrapped up in discourse on the best tools to use, optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards (cf.&nbsp;Kansa and Kansa 2014; Kintigh 2014; Roosevelt 2015). This continues to be a prominent part of discourse on the development of open infrastructures (cf.&nbsp;Kansa 2022 on unique identifiers; something about aDNA pipelines; Hacıgüzeller 2021 on CIDOC-CRM (though she is actually very critical); Huvila and his team on formal paradata), but more recent reflections on the use of these infrastructures recognize underlying and systemtic commitments and assumptions that inform how these systems are used and valued by various stakeholders. For instance, the pressures and circumstances of being an archaeologist, such as the need to publish stable research outputs, and archaeologists’ tendency to move on from projects after they are completed, contribute towards shaping data sharing platforms as delegated archival services, whereupon the obligation to care for data over the long-term is passed on to others. In response to criticisms that highlight how these systems add little practical downstream value (Huggett 2018; Sobotkova 2018), open archaeology advocates have begun to prioritize the role that information infrastructures may play in contexts of data reuse, namely by implementing the FAIR principles in order to ensure that data are findable, accessible, interoperable, and reusable (Kansa 2023 in that recent special issue in Advances in Archaeological Practice; one or two additional sources). This example is matched by similar efforts to raise the value proposition of using open science tools and systems, such as through an emphasis on enhancing R package development and documentation skills so that code may be run and evaluated in alternative computing environments (cite Marwick and/or Roe), and [another example].</p>
+<p>Additionally, archaeologists are becoming more comfortable showcasing and actively discussing undervalued research ouputs such as software and datasets, which are reviewed and published by venues like Peer Community In, the Journal of Archaeological Data, and the Journal of Open Source Software. Professional blogs, social media and podcasts are also gaining traction as proper venues for disseminating one’s work. This is consistent with archaeology’s historical willingness to experiment with new methods and media and its casual attitude towards scholarly communication. Archaeologists’ embrace of methodological plurality and their positions as interdisciplinary scholars scattered across institutional boundaries has prepared them for this kind of pragmatic, improvisatory approach to scholarly communication via the web. There is enormous potential for archaeologists to reinvent novel forms of scholarly communication and extend a new set of collaborative commitments that go beyond those typically recognized by scholarly institutions, and which correspond with open science principles. But this depends on archaeologists’ willingness to continue experimenting and on the community’s willingness to buy into novel value regimes.</p>
+<p>Our findings are based on an exploratory analysis of open-archaeo, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are rendered for the web at <a href="open-archaeo.info">open-archaeo.info</a>. We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software. This entailed manually crawling through users’ profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work. We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.</p>
+<p>Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.</p>
+<p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="gh">[@gh]</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host.</p>
+<p>{r plot-repo-hosts}</p>
+<p><strong>NOTE:</strong> Indicate the numerical value at the end of each bar in the plot-repo-hosts figure.</p>
+<p>{r table-no-repo}</p>
+<p>While our initial intention was to only list open source software, open-archaeo’s scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.</p>
+<p><strong>NOTE:</strong> Add a breakdown on licensing practices.</p>
+<p>The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.</p>
+</section>
+<section id="breakdown-of-tags-and-categories" class="level2">
+<h2 class="anchored" data-anchor-id="breakdown-of-tags-and-categories">Breakdown of tags and categories</h2>
+<p>We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.</p>
+<p>We also categorized records based on how each tool or resource is meant to be accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Kind</th>
+<th style="text-align: left;">Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Packages and libraries</td>
+<td style="text-align: left;">Software</td>
+<td style="text-align: left;">Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standalone software</td>
+<td style="text-align: left;">Software</td>
+<td style="text-align: left;">Software that may be operated without needing to first access an underlying platform.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scripts</td>
+<td style="text-align: left;">Software</td>
+<td style="text-align: left;">Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Specifications, protocols and schemas</td>
+<td style="text-align: left;">Documents</td>
+<td style="text-align: left;">A formal data structure or framework intended to be used as a model.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Products</td>
+<td style="text-align: left;">Documents</td>
+<td style="text-align: left;">Stable outcomes of creative work.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Guides</td>
+<td style="text-align: left;">Documents</td>
+<td style="text-align: left;">An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lists and datasets</td>
+<td style="text-align: left;">Documents</td>
+<td style="text-align: left;">A series of consistently organized observations assembled with purpose.</td>
+</tr>
+</tbody>
+</table>
+<p>We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that users may operate without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.</p>
+<p>The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.</p>
+</section>
+<section id="breakdown-of-platforms-and-languages" class="level2">
+<h2 class="anchored" data-anchor-id="breakdown-of-platforms-and-languages">Breakdown of platforms and languages</h2>
+<p>Our first set of analyses focused on these questions:</p>
+<ul>
+<li>What kinds of software are archaeologists making?</li>
+<li>What are the general purposes of their software?</li>
+</ul>
+<p>Most projects included in open-archaeo are designed to be used as a package or library atop am existing “platform” – for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.</p>
+<p>{r plot-categories}</p>
+<p>R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g.&nbsp;AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms—for example Excel templates—are targeted by only one or two developers. The larger platforms tend to be more diverse.</p>
+<p>{r plot-platforms}</p>
+<p>When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.</p>
+<p>{r plot-tags-cats}</p>
+<p>Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.</p>
+<p>{r plot-gh-cum}</p>
+<p>As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But use of git really began to take off around 2014–2015, when we see an uptick in the rate of growth that has continued ever since.</p>
+<p>Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub’s ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.</p>
+<hr>
+<ul>
+<li>Compare changing proportions of each category on a year by year basis</li>
+<li>Identify temporal trends in the use of licenses</li>
+</ul>
+<p>But how is this activity distributed across repositories? In this section we assess projects’ pulse, or the amount of activity pertaining to a repository.</p>
+<p>In the following figure, each vertical line represents a repository’s lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.</p>
+<p>{r plot-lifespan} {r lifespan-stats}</p>
+<p>The span of time between the first and latest commits is visualized more clearly in the following charts. Notably, many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year. Projects with a short span of activity tend to have very high commit frequency, whereas there is much more variety in long-term projects. Among projects with a greater lifespan, those with more total commits have much more frequent activity than those with fewer total commits, which represent the majority of long-lived projects. The overall negative trend (seen in the top-right graph) can be explained in terms of natural processes, i.e.&nbsp;the only way to fit a high number of commits within the same span as a project with a low number of commits is to commit more frequently. But bearing in mind both axes use a logarithmic scale, the upper left portion of the graph does appear to suggest that short-lived projects are characterised by a spree of rapid committing; while longer-lived projects have a more diverse range of workrates. This latter pattern in turn appears to be explained by the number of contributors: projects that sustain a high commit rate over a long period of time tend to rely on a large number of contributors, as per the bottom-right graph.</p>
+<p><strong>NOTE:</strong> Combine these figures using patchwork. {r plot-lifespan-hist} {r plot-lifespan-vs-rate}</p>
+<p>Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed [&lt;3%]. A “contribution”, in this case, is a commit, issue, or comment applied by a user to a repository.</p>
+<p>{r plot-gh_contributors-histogram}</p>
+<p>Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.</p>
+<p><strong>NOTE:</strong> Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.</p>
+<p>{r plot-contrib-dist}</p>
+<p>Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.</p>
+<p><strong>NOTE:</strong> Combine these figures using patchwork. {r plot-issues-hist} {r plot-comments-hist}</p>
+<p>We constructed and analyzed networks representing users’ contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.</p>
+<p>{r graph-data}</p>
+<p>We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.</p>
+<p>{r plot-graph-repo-user}</p>
+<p>We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.</p>
+<p><strong>NOTE:</strong> Combine these figures using patchwork. <strong>NOTE:</strong> Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.</p>
+<p>{r plot-graph-repo-repo} {r graph-user-user} {r plot-graph-user-user}</p>
+</section>
+<section id="repo-repo" class="level2">
+<h2 class="anchored" data-anchor-id="repo-repo">repo-repo</h2>
+<p>We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.</p>
+<p>{r plot-graph-repo-repo-edge-betweenness} {r plot-graph-repo-repo-edge-betweenness-dendrogram}</p>
+<p>This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.</p>
+<p><strong>NOTE:</strong> Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.</p>
+<p>The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g.&nbsp;ISAA-Kiel) and special interest groups (SSLA).</p>
+<p><strong>NOTE:</strong> What happens to this interpretation when we differentiate commits from issues and comments?</p>
+</section>
+<section id="user-user" class="level2">
+<h2 class="anchored" data-anchor-id="user-user">user-user</h2>
+<p>We assembled graphs linking users based on common contributions to the same repositories.</p>
+<p><strong>NOTE:</strong> Plot a graph that renders nodes’ sizes based on their betweenness centrality.</p>
+<p>{r summary-graph-user-user}</p>
+<p>We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.</p>
+<p><strong>NOTE:</strong> Create a table containing the top 10 users based on betweenness centrality values, with columns specifying theur username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).</p>
+<p>We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study’s scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.</p>
+<p><strong>NOTE:</strong> Create a table containing the top 10 users based on betweenness centrality values derived from the issues and comments only subnetwork, with columns specifying theur username, real name, job title/affiliation.</p>
+<hr>
+<p><strong>NOTE:</strong> I have no idea what these next two charts depict.</p>
+<p>{r plot-user-betweenness-dist} {r plot-user-betweenness-activity}</p>
+<p>Collaborative open source software development in archaeology has seen a rapid and sustained increase beginning around 2014 or 2015. This is marked by a variety of applications and use cases. While there is an emerging community of practice around open source in archaeology, collaboration remains limited. Most work is performed solo and is short-lived.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The vast majority of repositories have 1–3 contributors, with only a few distinguished by an active and diverse developer base. Our analysis also shows an uneven use of git and GitHub’s extended features, beyond their basic usage as a version control system and repository host. Generally speaking, we believe that this is because people do not want to step on other people’s shoes by raising issues or intruding on other people’s projects. This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are ‘owned’ by individuals or communities, and how work should be iteratively improved upon.</p>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><strong>NOTE:</strong> I wonder if we can say something about change over time, for instance, if things are getting better.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
