@@ -2,13 +2,107 @@ Our findings are based on an exploratory analysis of open-archaeo, a list of ope
 
 Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.
 
+```{r data-oarch}
+read_csv("https://raw.githubusercontent.com/zackbatist/open-archaeo/master/open-archaeo.csv") %>%
+  mutate(category = na_if(category, "?")) ->
+  oarch
+
+# Extract clean repos from GitHub URLs
+oarch %>%
+  mutate(
+    gh_repo = str_match(oarch$github, "^https://github.com/([\\w-\\.]+/[\\w-\\.]+)/?.*?$")[,2]
+  ) ->
+  oarch
+
+# Amalgamate categories into fewer rough categories
+# TODO: redo
+oarch <- mutate(oarch, rough_category = recode(category,
+                                 "R" = "Packages (R, Python, etc.)",
+                                 "Web apps" = "Standalone apps",
+                                 "Datasets" = "Analyses & datasets",
+                                 "Tutorials" = "Lists & tutorials",
+                                 "Python" = "Packages (R, Python, etc.)",
+                                 "Desktop apps" = "Standalone apps",
+                                 "QGIS" = "Plugins",
+                                 "Lists" = "Lists & tutorials",
+                                 "Mobile apps" = "Standalone apps",
+                                 "Analyses" = "Analyses & datasets",
+                                 "Spreadsheets" = "Forms & spreadsheets",
+                                 "Command line tools" = "Standalone apps",
+                                 "Plugins" = "Plugins",
+                                 "ArcGis" = "Plugins",
+                                 "Filemaker" = "Plugins",
+                                 "ODK" = "Forms & spreadsheets",
+                                 "Lisp" = "Packages (R, Python, etc.)",
+                                 .default = "Other",
+                                 .missing = "Other"
+                                 ))
+```
+
 For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host.
 
-{r plot-repo-hosts}
+```{r data-github}
+# If cached data at `analysis/data/derived_data/oarch.RData` is present, this
+# chunk will prefer to load it rather than make requests to the GitHub API.
+# Delete this file to fetch fresh data from the GitHub or modify 
+# `cached_gh_data` to read a different cached version.
+#
+# Note that fetching data from the GitHub API takes some time and is subject to
+# a rate limit:
+# <https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting>
+#
+# You will need to authenticate authenticate with GitHub credentials to get a
+# rate limit sufficient to obtain the required data, see 
+# <https://gh.r-lib.org/articles/managing-personal-access-tokens.html>
+# for options on how to do this.
+cached_gh_data <- here("analysis/data/derived_data/oarch.RData")
+if (!file_exists(cached_gh_data)) {
+  oarch <- mutate(oarch,
+                  gh_langs = map(oarch$gh_repo, gh_lang),
+                  gh_contribs = map(oarch$gh_repo, gh_contrib),
+                  gh_issues = map(oarch$gh_repo, gh_issue),
+                  gh_comments = map(oarch$gh_repo, gh_comment),
+                  gh_commits = map(oarch$gh_repo, gh_commit)
+  )
+  saveRDS(oarch, cached_gh_data)
+}
+oarch <- readRDS(cached_gh_data)
+```
 
-**NOTE:** Indicate the numerical value at the end of each bar in the plot-repo-hosts figure.
+```{r plot-repo-hosts}
+# TODO: turn into table or just text
+# TODO: Indicate the numerical value at the end of each bar in the plot-repo-hosts figure.
+oarch <- mutate(oarch, none = ifelse(is.na(github) &
+                                       is.na(gitlab) &
+                                       is.na(bitbucket) &
+                                       is.na(launchpad) &
+                                       is.na(codeberg),
+                                     "", NA))
 
-{r table-no-repo}
+oarch %>%
+  pivot_longer(c(github, gitlab, bitbucket, launchpad, codeberg, none),
+               names_to = "repo_host", values_to = "repo_url") %>%
+  drop_na(repo_url) %>%
+  group_by(repo_host, author1_name) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(total = sum(n)) %>%
+  ungroup() %>%
+  mutate(repo_host = fct_reorder(repo_host, total),
+         repo_host = fct_relevel(repo_host, "none")) %>%
+  ggplot(aes(repo_host, n, group = author1_name)) +
+  geom_col(colour = "#333333") +
+  coord_flip() +
+  labs(title = "Most popular repository hosts",
+       subtitle = "By number of projects, split by primary author",
+       caption = "Data: open-archaeo.info",
+       x = NULL, y = NULL)
+```
+
+```{r table-no-repo}
+# TODO: prettify with gt()
+filter(oarch, none == "") %>%
+  count(category)
+```
 
 While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.
 

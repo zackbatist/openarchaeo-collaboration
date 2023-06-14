@@ -2,27 +2,196 @@ But how is this activity distributed across repositories? In this section we ass
 
 In the following figure, each vertical line represents a repository's lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.
 
-{r plot-lifespan}
-{r lifespan-stats}
+```{r plot-lifespan}
+oarch %>%
+  unnest(gh_commits) %>%
+  drop_na(datetime) %>%
+  group_by(item_name) %>%
+  add_tally() %>%
+  filter(n > 1) %>%
+  mutate(first_commit = min(datetime),
+         mid_commit = median(datetime),
+         last_commit = max(datetime)) %>%
+  ggplot(aes(x = fct_reorder(item_name, last_commit, .desc = FALSE),
+             y = datetime,
+             ymin = first_commit,
+             ymax = last_commit)) +
+  geom_linerange(size = 0.05) +
+  geom_point(size = 0.1) +
+  scale_y_datetime(limits = c(ymd("2005-01-01", tz = "UTC"),
+                              ymd("2021-05-31", tz = "UTC")),
+                   date_breaks = "2 years", date_labels = "%Y") +
+  # coord_flip() +
+  labs(
+    title = "Project lifespan",
+    subtitle = glue("Individual commits in GitHub repositories (with more than 1 commit)"),
+    x = NULL, y = NULL,
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch() +
+  theme(
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+```{r lifespan-stats}
+oarch %>% 
+  unnest(gh_commits) %>% 
+  drop_na(datetime) %>% 
+  group_by(item_name) %>%
+  mutate(n_contribs = map_int(gh_contribs, vctrs::vec_size)) %>% 
+  summarise(
+    category = first(category),
+    n_contribs = first(n_contribs),
+    n = n(),
+    first_commit = min(datetime),
+    last_commit = max(datetime),
+    lifespan = as.integer(last_commit - first_commit),
+    commit_rate = n / lifespan
+  ) ->
+  oarch_lifespan
+```
 
 The span of time between the first and latest commits is visualized more clearly in the following charts. Notably, many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year. Projects with a short span of activity tend to have very high commit frequency, whereas there is much more variety in long-term projects. Among projects with a greater lifespan, those with more total commits have much more frequent activity than those with fewer total commits, which represent the majority of long-lived projects. The overall negative trend (seen in the top-right graph) can be explained in terms of natural processes, i.e. the only way to fit a high number of commits within the same span as a project with a low number of commits is to commit more frequently. But bearing in mind both axes use a logarithmic scale, the upper left portion of the graph does appear to suggest that short-lived projects are characterised by a spree of rapid committing; while longer-lived projects have a more diverse range of workrates. This latter pattern in turn appears to be explained by the number of contributors: projects that sustain a high commit rate over a long period of time tend to rely on a large number of contributors, as per the bottom-right graph.
 
-**NOTE:** Combine these figures using patchwork.
-{r plot-lifespan-hist}
-{r plot-lifespan-vs-rate}
+```{r plot-lifespan-hist}
+# TODO: combine with patchwork
+# TODO: where does oarch_lifespan come from?
+oarch_lifespan %>%
+  ggplot(aes(x = lifespan)) +
+  geom_histogram(binwidth = 100) +
+  scale_x_continuous(breaks = scales::breaks_width(1000)) +
+  labs(
+    title = "Project lifespan",
+    subtitle = "Time between first and latest commit, by repository",
+    x = "Days", y = NULL,
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch()
+```
+
+```{r plot-lifespan-vs-rate}
+oarch_lifespan %>%
+  ggplot(aes(x = lifespan, y = commit_rate, size = n)) +
+  geom_point(shape = 21, fill = NA) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = "Project lifespan vs. average commit rate",
+    x = "Lifespan (days)", y = "Commits per day", size = "Total commits",
+    caption = NULL
+  ) +
+  theme_oarch()
+
+oarch_lifespan %>%
+  ggplot(aes(x = lifespan, y = commit_rate, size = n_contribs)) +
+  geom_point(shape = 21, fill = NA) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = NULL,
+    x = "Lifespan (days)", y = "Commits per day", size = "Contributors",
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch()
+```
 
 Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\]. A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
 
-{r plot-gh_contributors-histogram}
+```{r plot-gh_contributors-histogram}
+oarch %>%
+  drop_na(gh_repo) %>%
+  unnest(gh_contribs) %>%
+  group_by(gh_repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(
+    title = "Repository contributors",
+    x = "Number of contributors", y = "Repositories",
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch()
+```
 
 Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
 
 **NOTE:** Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
 
-{r plot-contrib-dist}
+```{r plot-contrib-dist}
+oarch %>%
+  unnest(gh_contribs) %>%
+  drop_na(contributor) %>%
+  group_by(item_name) %>%
+  mutate(n_contributors = n()) %>%
+  filter(n_contributors > 1) %>%
+  mutate(big_boy = ifelse(contributions == max(contributions),
+                          "Leading contributor", "Other contributors")) %>% 
+  group_by(item_name, big_boy) %>%
+  summarise(contributions = sum(contributions)) %>%
+  mutate(
+    p_contributions = contributions / sum(contributions),
+    p_big_boy = first(p_contributions)
+  ) %>%
+  ungroup() %>%
+  mutate(item_name = fct_reorder(item_name, p_big_boy)) %>% 
+  ggplot(aes(x = item_name, y = contributions,
+             fill = fct_relevel(big_boy, c("Other contributors",
+                                           "Leading contributor")))) +
+  geom_col(position = "fill", colour = "white", size = 0.1) +
+  geom_hline(yintercept = c(0.25, 0.5, 0.75), alpha = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_highcontrast(guide = guide_legend(reverse = TRUE)) +
+  labs(title = "Repository contributors by proportion of contributions",
+       x = NULL, y = "Contributions",
+       fill = NULL,
+       caption = "Data: open-archaeo.info and GitHub API") +
+  coord_flip() +
+  theme_oarch() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
 
 Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
 
-**NOTE:** Combine these figures using patchwork.
-{r plot-issues-hist}
-{r plot-comments-hist}
+```{r plot-issues-hist}
+# TODO: combine with comments-hist
+oarch %>%
+  unnest(gh_issues) %>%
+  drop_na(title) %>%
+  group_by(repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(
+    title = "Use of issues",
+    caption = "Data: open-archaeo.info and GitHub API",
+    x = "Number of issues", y = "Repositories"
+  ) +
+  theme_oarch()
+```
+
+```{r plot-comments-hist}
+oarch %>%
+  unnest(gh_comments) %>%
+  drop_na(issue_num) %>%
+  group_by(repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(
+    title = "Use of comments",
+    caption = "Data: open-archaeo.info and GitHub API",
+    x = "Number of comments", y = "Repositories"
+  ) +
+  theme_oarch()
+```

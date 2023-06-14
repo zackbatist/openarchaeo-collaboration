@@ -119,9 +119,25 @@ ul.task-list li input[type="checkbox"] {
 <p>Our findings are based on an exploratory analysis of open-archaeo, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are rendered for the web at <a href="open-archaeo.info">open-archaeo.info</a>. We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software. This entailed manually crawling through users’ profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work. We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.</p>
 <p>Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.</p>
 <p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="gh">[@gh]</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host.</p>
-<p>{r plot-repo-hosts}</p>
-<p><strong>NOTE:</strong> Indicate the numerical value at the end of each bar in the plot-repo-hosts figure.</p>
-<p>{r table-no-repo}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-repo-hosts-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  category                                  n
+  &lt;chr&gt;                                 &lt;int&gt;
+1 Guides                                    5
+2 Lists and datasets                       18
+3 Packages and libraries                   11
+4 Products                                  2
+5 Scripts                                  12
+6 Specifications, protocols and schemas     5
+7 Standalone software                      12</code></pre>
+</div>
+</div>
 <p>While our initial intention was to only list open source software, open-archaeo’s scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.</p>
 <p><strong>NOTE:</strong> Add a breakdown on licensing practices.</p>
 <p>The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.</p>
@@ -192,13 +208,29 @@ ul.task-list li input[type="checkbox"] {
 <li>What are the general purposes of their software?</li>
 </ul>
 <p>Most projects included in open-archaeo are designed to be used as a package or library atop am existing “platform” – for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.</p>
-<p>{r plot-categories}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-categories-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g.&nbsp;AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms—for example Excel templates—are targeted by only one or two developers. The larger platforms tend to be more diverse.</p>
-<p>{r plot-platforms}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-platforms-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.</p>
-<p>{r plot-tags-cats}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-tags-cats-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.</p>
-<p>{r plot-gh-cum}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-gh-cum-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But use of git really began to take off around 2014–2015, when we see an uptick in the rate of growth that has continued ever since.</p>
 <p>Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub’s ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.</p>
 <hr>
@@ -208,28 +240,57 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>But how is this activity distributed across repositories? In this section we assess projects’ pulse, or the amount of activity pertaining to a repository.</p>
 <p>In the following figure, each vertical line represents a repository’s lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.</p>
-<p>{r plot-lifespan} {r lifespan-stats}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-lifespan-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>The span of time between the first and latest commits is visualized more clearly in the following charts. Notably, many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year. Projects with a short span of activity tend to have very high commit frequency, whereas there is much more variety in long-term projects. Among projects with a greater lifespan, those with more total commits have much more frequent activity than those with fewer total commits, which represent the majority of long-lived projects. The overall negative trend (seen in the top-right graph) can be explained in terms of natural processes, i.e.&nbsp;the only way to fit a high number of commits within the same span as a project with a low number of commits is to commit more frequently. But bearing in mind both axes use a logarithmic scale, the upper left portion of the graph does appear to suggest that short-lived projects are characterised by a spree of rapid committing; while longer-lived projects have a more diverse range of workrates. This latter pattern in turn appears to be explained by the number of contributors: projects that sustain a high commit rate over a long period of time tend to rely on a large number of contributors, as per the bottom-right graph.</p>
-<p><strong>NOTE:</strong> Combine these figures using patchwork. {r plot-lifespan-hist} {r plot-lifespan-vs-rate}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-lifespan-hist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-lifespan-vs-rate-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-lifespan-vs-rate-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed [&lt;3%]. A “contribution”, in this case, is a commit, issue, or comment applied by a user to a repository.</p>
-<p>{r plot-gh_contributors-histogram}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-gh_contributors-histogram-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.</p>
 <p><strong>NOTE:</strong> Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.</p>
-<p>{r plot-contrib-dist}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-contrib-dist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.</p>
-<p><strong>NOTE:</strong> Combine these figures using patchwork. {r plot-issues-hist} {r plot-comments-hist}</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-issues-hist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="openarchaeo_collaboration_files/figure-html/plot-comments-hist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>We constructed and analyzed networks representing users’ contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.</p>
-<p>{r graph-data}</p>
 <p>We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.</p>
-<p>{r plot-graph-repo-user}</p>
 <p>We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.</p>
 <p><strong>NOTE:</strong> Combine these figures using patchwork. <strong>NOTE:</strong> Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.</p>
-<p>{r plot-graph-repo-repo} {r graph-user-user} {r plot-graph-user-user}</p>
 </section>
 <section id="repo-repo" class="level2">
 <h2 class="anchored" data-anchor-id="repo-repo">repo-repo</h2>
 <p>We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.</p>
-<p>{r plot-graph-repo-repo-edge-betweenness} {r plot-graph-repo-repo-edge-betweenness-dendrogram}</p>
 <p>This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.</p>
 <p><strong>NOTE:</strong> Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.</p>
 <p>The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g.&nbsp;ISAA-Kiel) and special interest groups (SSLA).</p>
@@ -239,14 +300,12 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="user-user">user-user</h2>
 <p>We assembled graphs linking users based on common contributions to the same repositories.</p>
 <p><strong>NOTE:</strong> Plot a graph that renders nodes’ sizes based on their betweenness centrality.</p>
-<p>{r summary-graph-user-user}</p>
 <p>We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.</p>
 <p><strong>NOTE:</strong> Create a table containing the top 10 users based on betweenness centrality values, with columns specifying theur username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).</p>
 <p>We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study’s scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.</p>
 <p><strong>NOTE:</strong> Create a table containing the top 10 users based on betweenness centrality values derived from the issues and comments only subnetwork, with columns specifying theur username, real name, job title/affiliation.</p>
 <hr>
 <p><strong>NOTE:</strong> I have no idea what these next two charts depict.</p>
-<p>{r plot-user-betweenness-dist} {r plot-user-betweenness-activity}</p>
 <p>Collaborative open source software development in archaeology has seen a rapid and sustained increase beginning around 2014 or 2015. This is marked by a variety of applications and use cases. While there is an emerging community of practice around open source in archaeology, collaboration remains limited. Most work is performed solo and is short-lived.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The vast majority of repositories have 1–3 contributors, with only a few distinguished by an active and diverse developer base. Our analysis also shows an uneven use of git and GitHub’s extended features, beyond their basic usage as a version control system and repository host. Generally speaking, we believe that this is because people do not want to step on other people’s shoes by raising issues or intruding on other people’s projects. This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are ‘owned’ by individuals or communities, and how work should be iteratively improved upon.</p>
 </section>
