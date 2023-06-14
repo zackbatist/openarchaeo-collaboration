@@ -1,3 +1,5 @@
+## History
+
 Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
 
 ```{r plot-gh-cum}

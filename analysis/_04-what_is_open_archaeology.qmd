@@ -1,6 +1,6 @@
-# Documenting collaborative software engineering in archaeological research
+# Open archaeology <!-- Results I (description of what's there) -->
 
-## Breakdown of tags and categories
+Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.
 
 We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
 
@@ -20,7 +20,7 @@ We defined two kinds of categories: software and documents. Software comprise co
 
 The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
 
-## Breakdown of platforms and languages
+## Platforms and languages
 
 Our first set of analyses focused on these questions:
 

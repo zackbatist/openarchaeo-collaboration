@@ -1,4 +1,4 @@
-## Conclusion
+# Conclusion <!-- Conclusion -->
 
 Collaborative open source software development in archaeology has seen a rapid and sustained increase beginning around 2014 or 2015. This is marked by a variety of applications and use cases. While there is an emerging community of practice around open source in archaeology, collaboration remains limited. Most work is performed solo and is short-lived.^[**NOTE:** I wonder if we can say something about change over time, for instance, if things are getting better.]
 

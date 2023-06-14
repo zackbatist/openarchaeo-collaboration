@@ -1,3 +1,7 @@
+# An emerging community of practice? <!-- Results II: analysis of collaborative practices -->
+
+## Project activity and collaborative practices
+
 But how is this activity distributed across repositories? In this section we assess projects' pulse, or the amount of activity pertaining to a repository.
 
 In the following figure, each vertical line represents a repository's lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.
