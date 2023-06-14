@@ -42,7 +42,7 @@ oarch <- mutate(oarch, rough_category = recode(category,
                                  ))
 ```
 
-For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host.
+For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host ([@tbl-repo-hosts]).
 
 ```{r data-github}
 # If cached data at `analysis/data/derived_data/oarch.RData` is present, this
@@ -72,39 +72,29 @@ if (!file_exists(cached_gh_data)) {
 oarch <- readRDS(cached_gh_data)
 ```
 
-```{r plot-repo-hosts}
-# TODO: turn into table or just text
-# TODO: Indicate the numerical value at the end of each bar in the plot-repo-hosts figure.
-oarch <- mutate(oarch, none = ifelse(is.na(github) &
-                                       is.na(gitlab) &
-                                       is.na(bitbucket) &
-                                       is.na(launchpad) &
-                                       is.na(codeberg),
-                                     "", NA))
-
-oarch %>%
+```{r tbl-repo-hosts}
+#| tbl-cap: Number of open archaeology projects using GitHub and other repository hosts
+oarch |>
+  mutate(none = ifelse(is.na(github) & is.na(gitlab) & is.na(bitbucket) &
+                         is.na(launchpad) & is.na(codeberg), "", NA)) |>
   pivot_longer(c(github, gitlab, bitbucket, launchpad, codeberg, none),
-               names_to = "repo_host", values_to = "repo_url") %>%
-  drop_na(repo_url) %>%
-  group_by(repo_host, author1_name) %>%
-  summarise(n = n(), .groups = "drop_last") %>%
-  mutate(total = sum(n)) %>%
-  ungroup() %>%
-  mutate(repo_host = fct_reorder(repo_host, total),
-         repo_host = fct_relevel(repo_host, "none")) %>%
-  ggplot(aes(repo_host, n, group = author1_name)) +
-  geom_col(colour = "#333333") +
-  coord_flip() +
-  labs(title = "Most popular repository hosts",
-       subtitle = "By number of projects, split by primary author",
-       caption = "Data: open-archaeo.info",
-       x = NULL, y = NULL)
-```
-
-```{r table-no-repo}
-# TODO: prettify with gt()
-filter(oarch, none == "") %>%
-  count(category)
+               names_to = "repo_host", values_to = "repo_url") |>
+  drop_na(repo_url) |>
+  count(category, repo_host) |>
+  pivot_wider(names_from = category, values_from = n, values_fill = 0) |>
+  mutate(total = rowSums(across(Guides:`Standalone software`)), 
+         .before = Guides) |>
+  arrange(repo_host == "none", desc(total)) |>
+  mutate(repo_host = recode(repo_host,
+                            github = "GitHub",
+                            codeberg = "Codeberg",
+                            gitlab = "GitLab",
+                            bitbucket = "BitBucket",
+                            launchpad = "Launchpad",
+                            none = "None")) |>
+  gt() |>
+  cols_label(repo_host = "Host", total = "Total") |>
+  tab_spanner("By category", Guides:`Standalone software`)
 ```
 
 While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.
