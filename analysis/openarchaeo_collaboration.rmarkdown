@@ -1,0 +1,834 @@
+---
+title: Open archaeology, open source?
+subtitle: Collaborative practices in an emerging community of archaeological software engineers
+author:
+  - name: Zack Batist
+    url: https://zackbatist.info
+    affiliation: Faculty of Information, University of Toronto
+    orcid: 0000-0003-0435-508X 
+  - name: Joe Roe
+    url: https://joeroe.io
+    affiliation: Institute of Archaeological Sciences, University of Bern
+    orcid: 0000-0002-1011-1244
+date: "`r Sys.Date()`"
+abstract: |
+  Surveying the first quarter-century of computer applications in archaeology, Scollar [-@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.  25 years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer [@baxter2012], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS). Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system `git` and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of FOSS software using patterns that can diverge quite radically from conventional scholarly norms [@tennant2020].
+
+  In this paper, we investigate modes of collaboration in this emerging community of practice using open-archaeo (https://open-archaeo.info/), a curated list of 500+ active open projects in archaeology, augmented where available with data on their activity on GitHub. We apply network analysis to map the networks of collaboration that have emerged among archaeologists using GitHub, and conduct a quantitative exploratory analysis to characterize the nature and intensity of these collaborations. Our results show an uneven adoption of open source collaborative practices beyond the basic use of `git` as a version control system and GitHub to host source code. A majority of repositories have 1–3 contributors, with only a few projects distinguished by an active and diverse developer base. More community-oriented features, such as GitHub's 'issues' and 'comments', are used in only a minority of repositories. Preliminary findings from ongoing work also shows how collaborative behaviours vary across different subcommunities. By analyzing interactions among archaeologists using the GitHub platform, including the ways they contribute to collective code bases, we demonstrate how archaeological software engineering is beginning to foster new kinds of collaborative commitments that blend open source protocols, DIY work ethic, conventional forms of scholarly communication, and cultural practices unique to archaeology.
+format:
+  html:
+    page-layout: article
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r dependencies, include=FALSE}
+library("openarchaeoCollaboration") # this package, install with devtools::build()
+
+library("fs")
+library("geomtextpath")
+library("ggiraph")
+library("ggraph")
+library("gt")
+library("here")
+library("khroma")
+library("lubridate")
+library("patchwork")
+library("tidygraph")
+library("tidyverse")
+```
+
+```{r plot-theme}
+theme_oarch <- function() theme(
+)
+```
+Open archaeology constitutes a series of practices and principles in support greater transparency and access to research processes and outputs. The open science movement operates in various domains of research operations, such as publishing, data-sharing, and education, and continues to expand its reach into the arenas of bibliographic metadata, review processes, and grantsmanship. While these venues for transformation represent relatively novel ways of doing research, academic ventures into open source is more complicated. The open source movement has its own distinct history and developed out of pressures and circumstances beyond those in which the open science movement operates. However, the open source movement directly inspires many aspects of open science, and, crucially, informs how the open science movement has operationalized itself. For instance, the open science movement relies on infrastructures and protocols that closely resemble systems and processes designed to develop open source software (e.g., the use of plaintext, diffs, emphasis on formal licencing, the whole hacker aesthetic). But academic open source is distinct from open source that underlies massive projects that literally run the internet (and by extension the global economy), such as the Linux kernel, the Firefox web browser, and openSSL. While they may use similar tools and technical protocols, they are governed by different social and professional pressures. In other words, making your code open source has different meanings, impacts and implications for archaeologists and professional software developers.
+
+This is also complicated by the kind of rhetoric about academic open source that, based on our personal experiences, is discordant with how academics actually _do_ open source. Is open source actually making research processes more transparent and improve research outcomes? Is it actually boosting efficiency by establishing a common store of knowledge and productive code? Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass? These outcomes are not a given. They only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. Beyond simply making their code available on the web, do archaeologists also implement social strategies to advance open source ideals? Does archaeological open source actually help achieve greater transparency, sustainability, and community participation? And if not, what does it actually achieve?
+
+This article presents a survey of archaeological software development with two goals in mind:
+
+(1) we identify *what* kinds of software archaeologists are making;
+(2) and evaluate *how* archaeologists create these tools, with particular emphasis on practices of collaboration.
+
+Our investigation considers how archaeological software development may be benefiting from or missing out on the affordances that open source development models-- specifically, the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.
+
+# Open science and open source
+
+## Open source
+
+Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., "free software", as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development (Kelty 2008: chapter 3, especially starting at page 99). By putting one's code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be "forked", or taken in a new direction if contributors are dissatisfied with how core developers run things.
+
+Open source has traditionally been referred to as being based on meritocratic principles. A good test of whether a contribution should be included in a published software release is whether it is functional. Moreover, with more eyes looking over a code base, it is easier to identify flaws with a contribution and flag potential bugs or security issues. This is all done in the spirit of producing functional code, and in ideal circumstances faulty contributions will be corrected before inclusion. Personal ego is minimized in favour of co-creating stable and functional outcomes. (Coleman 2012)
+
+However, this is not the same as saying that open source is completely anarchic or based on the "wisdom of crowds". In fact, successful open source projects incorporate complex organizational structures, governance strategies, and forms or social mediation to help delegate and vet contributions made by distributed participants. They rely on, rather than eschew, institutional support structures, in order to motivate work, keep volunteer maintainers involved, and generally ensure that the project can be sustained over the long-term. Open source is more than just putting your code online; to be successful, it requires participation in a social experience. (Kelty 2008; O'Neill 2009; Ratto dissertation and derived works)
+
+In other words, as with many so-called "soft skills" that are crucial for academic professional development, additional competencies relating to the maintenance, management, and distribution of software, such as the ability to receive and implement feedback, set and stick with long-term goals, coordinate labour, document work practices, and collaborate with others, are grossly underappreciated factors that contribute to an open source project's success.
+
+We therefore consider open source to be a means of collaboration more than a means of transmitting information. It involves developing software as part of a group, developing consensus, and working with common purpose. Crucially, it also involves having a welcoming attitude, a sense of humility, and an understanding that one's work may be appropriated and used in unanticipated ways.
+
+## Open science
+
+The open science movement comprises a series of practices and principles intended to make research more accessible, transparent, and efficient. Although the concept of "open" is somewhat nebulous, in terms of its abstract definition and with regards to what real-world applications count as being open, one commonly-cited definition describes content that "can be freely used, modified, and shared by anyone for any purpose" (https://opendefinition.org/). This definition does not state what open is for, how to be open, or any sort of social or discursive framing behind the open movement. However, most open science advocates claim that they are motivated by a desire to facilitate novel research opportunities, make participation in scienctific research more equitable, reclaim science as a public good, and enhance how findings are validated and legitimized.
+
+The idea that scientistis should generally contribute to a public domain of knowledge without profit motive has led to open science being heralded as revolutionary, community-oriented, and anti-capitalist means of production. However, while open science does have the _potential_ to effect radical change, this is not a given. The social and institutional contexts in which we do science is firmly embedded within capitalist and neoliberal power structures that reward individualistic competition and do little to actually encourage equitable and accessible research practices, and as such, make it difficult to fully embrace open science ideals. Moreover, the open science movement, which is dominated by STEM disciplines, prioritizes a grossly simplified and asocial notion of what science is and entails. Namely, it considers science as the accumulation and assembly of a species-level understanding of the world, which is not held by any one individual but is stored in seemingly value-neutral and disembodied media, facts and observations. This is manifested by digital telecommunications systems that host files, document processes, facilitate co-working opportunities, and perform automated processes. However, these systems have become so emblematic of open science that the use of these tools and resources designed to _support_ open science is often mistaken for _actually doing_ open science.
+
+Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (inlcuding: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed and credit has been allocated, it is common for scientists to mark their projects as completed and move onto new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly, and contributors may remain actively or sporadically involved to satisfy users' needs.
+
+## Open archaeology at a crossroads
+
+The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a desire to facilitate novel research opportunities, to make participation in scienctific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. Open science advocates, including archaeologists, have put a lot of effort into developing information infrastructures, or systems designed to facilitate the transmission of data on a global scale. And as with open science in general, open archaeology has been wrapped up in discourse on the best tools to use, optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards (cf. Kansa and Kansa 2014; Kintigh 2014; Roosevelt 2015). This continues to be a prominent part of discourse on the development of open infrastructures (cf. Kansa 2022 on unique  identifiers; something about aDNA pipelines; Hacıgüzeller 2021 on CIDOC-CRM (though she is actually very critical); Huvila and his team on formal paradata), but more recent reflections on the use of these infrastructures recognize underlying and systemtic commitments and assumptions that inform how these systems are used and valued by various stakeholders. For instance, the pressures and circumstances of being an archaeologist, such as the need to publish stable research outputs, and archaeologists' tendency to move on from projects after they are completed, contribute towards shaping data sharing platforms as delegated archival services, whereupon the obligation to care for data over the long-term is passed on to others. In response to criticisms that highlight how these systems add little practical downstream value (Huggett 2018; Sobotkova 2018), open archaeology advocates have begun to prioritize the role that information infrastructures may play in contexts of data reuse, namely by implementing the FAIR principles in order to ensure that data are findable, accessible, interoperable, and reusable (Kansa 2023 in that recent special issue in Advances in Archaeological Practice; one or two additional sources). This example is matched by similar efforts to raise the value proposition of using open science tools and systems, such as through an emphasis on enhancing R package development and documentation skills so that code may be run and evaluated in alternative computing environments (cite Marwick and/or Roe), and [another example].
+
+Additionally, archaeologists are becoming more comfortable showcasing and actively discussing undervalued research ouputs such as software and datasets, which are reviewed and published by venues like Peer Community In, the Journal of Archaeological Data, and the Journal of Open Source Software. Professional blogs, social media and podcasts are also gaining traction as proper venues for disseminating one's work. This is consistent with archaeology's historical willingness to experiment with new methods and media and its casual attitude towards scholarly communication. Archaeologists' embrace of methodological plurality and their positions as interdisciplinary scholars scattered across institutional boundaries has prepared them for this kind of pragmatic, improvisatory approach to scholarly communication via the web. There is enormous potential for archaeologists to reinvent novel forms of scholarly communication and extend a new set of collaborative commitments that go beyond those typically recognized by scholarly institutions, and which correspond with open science principles. But this depends on archaeologists' willingness to continue experimenting and on the community's willingness to buy into novel value regimes.
+
+
+# Methods & Materials
+
+Our findings are based on an exploratory analysis of open-archaeo, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are rendered for the web at [open-archaeo.info](open-archaeo.info). We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software. This entailed manually crawling through users' profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work. We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
+
+Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.
+
+```{r data-oarch}
+read_csv("https://raw.githubusercontent.com/zackbatist/open-archaeo/master/open-archaeo.csv") %>%
+  mutate(category = na_if(category, "?")) ->
+  oarch
+
+# Extract clean repos from GitHub URLs
+oarch %>%
+  mutate(
+    gh_repo = str_match(oarch$github, "^https://github.com/([\\w-\\.]+/[\\w-\\.]+)/?.*?$")[,2]
+  ) ->
+  oarch
+
+# Amalgamate categories into fewer rough categories
+# TODO: redo
+oarch <- mutate(oarch, rough_category = recode(category,
+                                 "R" = "Packages (R, Python, etc.)",
+                                 "Web apps" = "Standalone apps",
+                                 "Datasets" = "Analyses & datasets",
+                                 "Tutorials" = "Lists & tutorials",
+                                 "Python" = "Packages (R, Python, etc.)",
+                                 "Desktop apps" = "Standalone apps",
+                                 "QGIS" = "Plugins",
+                                 "Lists" = "Lists & tutorials",
+                                 "Mobile apps" = "Standalone apps",
+                                 "Analyses" = "Analyses & datasets",
+                                 "Spreadsheets" = "Forms & spreadsheets",
+                                 "Command line tools" = "Standalone apps",
+                                 "Plugins" = "Plugins",
+                                 "ArcGis" = "Plugins",
+                                 "Filemaker" = "Plugins",
+                                 "ODK" = "Forms & spreadsheets",
+                                 "Lisp" = "Packages (R, Python, etc.)",
+                                 .default = "Other",
+                                 .missing = "Other"
+                                 ))
+```
+
+For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host.
+
+```{r data-github}
+# If cached data at `analysis/data/derived_data/oarch.RData` is present, this
+# chunk will prefer to load it rather than make requests to the GitHub API.
+# Delete this file to fetch fresh data from the GitHub or modify 
+# `cached_gh_data` to read a different cached version.
+#
+# Note that fetching data from the GitHub API takes some time and is subject to
+# a rate limit:
+# <https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting>
+#
+# You will need to authenticate authenticate with GitHub credentials to get a
+# rate limit sufficient to obtain the required data, see 
+# <https://gh.r-lib.org/articles/managing-personal-access-tokens.html>
+# for options on how to do this.
+cached_gh_data <- here("analysis/data/derived_data/oarch.RData")
+if (!file_exists(cached_gh_data)) {
+  oarch <- mutate(oarch,
+                  gh_langs = map(oarch$gh_repo, gh_lang),
+                  gh_contribs = map(oarch$gh_repo, gh_contrib),
+                  gh_issues = map(oarch$gh_repo, gh_issue),
+                  gh_comments = map(oarch$gh_repo, gh_comment),
+                  gh_commits = map(oarch$gh_repo, gh_commit)
+  )
+  saveRDS(oarch, cached_gh_data)
+}
+oarch <- readRDS(cached_gh_data)
+```
+
+```{r plot-repo-hosts}
+# TODO: turn into table or just text
+# TODO: Indicate the numerical value at the end of each bar in the plot-repo-hosts figure.
+oarch <- mutate(oarch, none = ifelse(is.na(github) &
+                                       is.na(gitlab) &
+                                       is.na(bitbucket) &
+                                       is.na(launchpad) &
+                                       is.na(codeberg),
+                                     "", NA))
+
+oarch %>%
+  pivot_longer(c(github, gitlab, bitbucket, launchpad, codeberg, none),
+               names_to = "repo_host", values_to = "repo_url") %>%
+  drop_na(repo_url) %>%
+  group_by(repo_host, author1_name) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(total = sum(n)) %>%
+  ungroup() %>%
+  mutate(repo_host = fct_reorder(repo_host, total),
+         repo_host = fct_relevel(repo_host, "none")) %>%
+  ggplot(aes(repo_host, n, group = author1_name)) +
+  geom_col(colour = "#333333") +
+  coord_flip() +
+  labs(title = "Most popular repository hosts",
+       subtitle = "By number of projects, split by primary author",
+       caption = "Data: open-archaeo.info",
+       x = NULL, y = NULL)
+```
+
+```{r table-no-repo}
+# TODO: prettify with gt()
+filter(oarch, none == "") %>%
+  count(category)
+```
+
+While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.
+
+**NOTE:** Add a breakdown on licensing practices.
+
+The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.
+
+# Documenting collaborative software engineering in archaeological research
+
+## Breakdown of tags and categories
+
+We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
+
+We also categorized records based on how each tool or resource is meant to be accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.
+
+| Category                              | Kind      | Scope                                                                                                                                                                                                        |
+|:-----------|:-----------|:------------------------------------------------|
+| Packages and libraries                | Software  | Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.                                                                                   |
+| Standalone software                   | Software  | Software that may be operated without needing to first access an underlying platform.                                                                                                                        |
+| Scripts                               | Software  | Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation. |
+| Specifications, protocols and schemas | Documents | A formal data structure or framework intended to be used as a model.                                                                                                                                         |
+| Products                              | Documents | Stable outcomes of creative work.                                                                                                                                                                            |
+| Guides                                | Documents | An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.                                                                                          |
+| Lists and datasets                    | Documents | A series of consistently organized observations assembled with purpose.                                                                                                                                      |
+
+We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that users may operate without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.
+
+The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
+
+## Breakdown of platforms and languages
+
+Our first set of analyses focused on these questions:
+
+* What kinds of software are archaeologists making?
+* What are the general purposes of their software?
+
+Most projects included in open-archaeo are designed to be used as a package or library atop am existing "platform" -- for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
+
+```{r plot-categories}
+oarch <- mutate(oarch,
+                category = recode(category,
+                                  "Specifications, protocols and schemas" = "Specifications etc.",
+                                  .default = category))
+oarch %>%
+  drop_na(category) %>%
+  group_by(category) %>%
+  summarise(n = n()) %>%
+  ggplot(aes(fct_reorder(category, n), n)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Most popular categories",
+    subtitle = "By number of projects",
+    caption = "Data: open-archaeo.info",
+    x = NULL, y = NULL
+  ) +
+  theme_oarch()
+```
+
+R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
+
+```{r plot-platforms}
+oarch %>%
+  drop_na(platform) %>%
+  group_by(platform, author1_name) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(total = sum(n)) %>%
+  ggplot(aes(fct_reorder(platform, total), n, group = author1_name)) +
+  geom_col(colour = "#333333") +
+  coord_flip() +
+  labs(
+    title = "Most popular platforms",
+    subtitle = "By number of projects, split by primary author",
+    caption = "Data: open-archaeo.info",
+    x = NULL, y = NULL
+  ) +
+  theme_oarch()
+```
+
+When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
+
+```{r plot-tags-cats}
+detail_tags <- c("Instrumental Neutron activation analysis",
+                 "Harris Matrix",
+                 "aDNA Simulators",
+                 "Damage profilers",
+                 "Metagenomic classifers",
+                 "aDNA simulators",
+                 "aDNA damage-aware genotypers",
+                 "Low-coverage contamination estimation",
+                 "Low-coverage adapted population-genetics tools",
+                 "aDNA preprocessing",
+                 "aDNA aligner",
+                 "aDNA assembler",
+                 "aDNA toolkit")
+
+oarch %>%
+  pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
+               values_drop_na = TRUE) %>%
+  drop_na(tag) %>%
+  filter(!tag %in% detail_tags) %>%
+  mutate(category = recode(category,
+                                  "Specifications etc." = "Documents",
+                                  "Products" = "Documents",
+                                  "Guides" = "Documents",
+                                  "Lists and datasets" = "Documents",
+                                  .default = category)) %>%
+  group_by(tag, category) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(total = sum(n)) %>%
+  ggplot(aes(fct_reorder(tag, total), n, fill = category)) +
+  # facet_wrap(vars(category)) +
+  geom_col() +
+  scale_fill_bright() +
+  coord_flip() +
+  labs(
+    title = "Tags by category",
+    caption = "Data: open-archaeo.info",
+    x = NULL, y = "Number of projects",
+    fill = NULL
+  ) +
+  theme_oarch() +
+  theme(
+    axis.text.y = element_text(size = 7)
+  )
+```
+
+Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
+
+```{r plot-gh-cum}
+oarch %>% 
+  mutate(
+    lumped_category = recode(category,
+                             "Specifications etc." = "Documents",
+                             "Products" = "Documents",
+                             "Guides" = "Documents",
+                             "Lists and datasets" = "Documents",
+                             .default = category),
+    lumped_category = factor(lumped_category, c("Scripts",
+                                                "Documents",
+                                                "Packages and libraries",
+                                                "Standalone software")) ) ->
+  oarch_lumped
+
+p_gh_commits_cum <- oarch_lumped %>%
+  unnest(gh_commits) %>%
+  drop_na(sha) %>%
+  mutate(date = floor_date(datetime, "week")) %>%
+  group_by(lumped_category, date) %>%
+  summarise(n_commits = n(), .groups = "drop_last") %>%
+  mutate(cum_commits = cumsum(n_commits)) %>%
+  ggplot(aes(date, cum_commits,
+             fill = lumped_category,
+             colour = lumped_category,
+             label = lumped_category)) +
+  geom_area() +
+  annotate("segment", 
+           x = ymd("2008-04-01", tz = "UTC"), 
+           xend = ymd("2008-04-01", tz = "UTC"),
+           y = 16000, yend = 4000,
+           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
+  annotate("text", 
+           x = ymd("2008-04-01", tz = "UTC"), y = 19000,
+           label = "GitHub\nlaunched",
+           vjust = 0) +
+  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_colour_bright(guide = guide_none()) +
+  scale_fill_bright() +
+  labs(
+    y = "cumulative commits",
+    x = NULL, fill = NULL
+  ) +
+  theme_oarch() +
+  theme(legend.position = "top")
+
+# TODO: extend to end
+p_gh_repos_cum <- oarch_lumped %>%
+  unnest(gh_commits) %>%
+  drop_na(sha) %>%
+  group_by(repo) %>% 
+  filter(datetime == min(datetime)) %>% # Only first commits
+  mutate(date = floor_date(datetime, "week")) %>%
+  group_by(lumped_category, date) %>%
+  summarise(n_commits = n(), .groups = "drop_last") %>%
+  mutate(cat_total = sum(n_commits)) %>%
+  mutate(cum_commits = cumsum(n_commits)) %>%
+  ggplot(aes(date, cum_commits,
+             fill = lumped_category,
+             colour = lumped_category)) +
+  geom_area() +
+  annotate("segment",
+           x = ymd("2008-04-01", tz = "UTC"),
+           xend = ymd("2008-04-01", tz = "UTC"),
+           y = 40, yend = 10,
+           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
+  annotate("text",
+           x = ymd("2008-04-01", tz = "UTC"), y = 50,
+           label = "GitHub\nlaunched",
+           vjust = 0) +
+  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_colour_bright(guide = guide_none()) +
+  scale_fill_bright(guide = guide_none()) +
+  labs(
+    y = "cumulative repositories",
+    x = NULL, fill = NULL
+  ) +
+  theme_oarch()
+
+p_gh_commits_cum / p_gh_repos_cum
+```
+
+As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth that has continued ever since.
+
+Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
+
+---
+
+- Compare changing proportions of each category on a year by year basis
+- Identify temporal trends in the use of licenses
+
+But how is this activity distributed across repositories? In this section we assess projects' pulse, or the amount of activity pertaining to a repository.
+
+In the following figure, each vertical line represents a repository's lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.
+
+```{r plot-lifespan}
+oarch %>%
+  unnest(gh_commits) %>%
+  drop_na(datetime) %>%
+  group_by(item_name) %>%
+  add_tally() %>%
+  filter(n > 1) %>%
+  mutate(first_commit = min(datetime),
+         mid_commit = median(datetime),
+         last_commit = max(datetime)) %>%
+  ggplot(aes(x = fct_reorder(item_name, last_commit, .desc = FALSE),
+             y = datetime,
+             ymin = first_commit,
+             ymax = last_commit)) +
+  geom_linerange(size = 0.05) +
+  geom_point(size = 0.1) +
+  scale_y_datetime(limits = c(ymd("2005-01-01", tz = "UTC"),
+                              ymd("2021-05-31", tz = "UTC")),
+                   date_breaks = "2 years", date_labels = "%Y") +
+  # coord_flip() +
+  labs(
+    title = "Project lifespan",
+    subtitle = glue("Individual commits in GitHub repositories (with more than 1 commit)"),
+    x = NULL, y = NULL,
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch() +
+  theme(
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+```{r lifespan-stats}
+oarch %>% 
+  unnest(gh_commits) %>% 
+  drop_na(datetime) %>% 
+  group_by(item_name) %>%
+  mutate(n_contribs = map_int(gh_contribs, vctrs::vec_size)) %>% 
+  summarise(
+    category = first(category),
+    n_contribs = first(n_contribs),
+    n = n(),
+    first_commit = min(datetime),
+    last_commit = max(datetime),
+    lifespan = as.integer(last_commit - first_commit),
+    commit_rate = n / lifespan
+  ) ->
+  oarch_lifespan
+```
+
+The span of time between the first and latest commits is visualized more clearly in the following charts. Notably, many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year. Projects with a short span of activity tend to have very high commit frequency, whereas there is much more variety in long-term projects. Among projects with a greater lifespan, those with more total commits have much more frequent activity than those with fewer total commits, which represent the majority of long-lived projects. The overall negative trend (seen in the top-right graph) can be explained in terms of natural processes, i.e. the only way to fit a high number of commits within the same span as a project with a low number of commits is to commit more frequently. But bearing in mind both axes use a logarithmic scale, the upper left portion of the graph does appear to suggest that short-lived projects are characterised by a spree of rapid committing; while longer-lived projects have a more diverse range of workrates. This latter pattern in turn appears to be explained by the number of contributors: projects that sustain a high commit rate over a long period of time tend to rely on a large number of contributors, as per the bottom-right graph.
+
+```{r plot-lifespan-hist}
+# TODO: combine with patchwork
+# TODO: where does oarch_lifespan come from?
+oarch_lifespan %>%
+  ggplot(aes(x = lifespan)) +
+  geom_histogram(binwidth = 100) +
+  scale_x_continuous(breaks = scales::breaks_width(1000)) +
+  labs(
+    title = "Project lifespan",
+    subtitle = "Time between first and latest commit, by repository",
+    x = "Days", y = NULL,
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch()
+```
+
+```{r plot-lifespan-vs-rate}
+oarch_lifespan %>%
+  ggplot(aes(x = lifespan, y = commit_rate, size = n)) +
+  geom_point(shape = 21, fill = NA) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = "Project lifespan vs. average commit rate",
+    x = "Lifespan (days)", y = "Commits per day", size = "Total commits",
+    caption = NULL
+  ) +
+  theme_oarch()
+
+oarch_lifespan %>%
+  ggplot(aes(x = lifespan, y = commit_rate, size = n_contribs)) +
+  geom_point(shape = 21, fill = NA) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = NULL,
+    x = "Lifespan (days)", y = "Commits per day", size = "Contributors",
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch()
+```
+
+Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\]. A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
+
+```{r plot-gh_contributors-histogram}
+oarch %>%
+  drop_na(gh_repo) %>%
+  unnest(gh_contribs) %>%
+  group_by(gh_repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(
+    title = "Repository contributors",
+    x = "Number of contributors", y = "Repositories",
+    caption = "Data: open-archaeo.info and GitHub API"
+  ) +
+  theme_oarch()
+```
+
+Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
+
+**NOTE:** Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
+
+```{r plot-contrib-dist}
+oarch %>%
+  unnest(gh_contribs) %>%
+  drop_na(contributor) %>%
+  group_by(item_name) %>%
+  mutate(n_contributors = n()) %>%
+  filter(n_contributors > 1) %>%
+  mutate(big_boy = ifelse(contributions == max(contributions),
+                          "Leading contributor", "Other contributors")) %>% 
+  group_by(item_name, big_boy) %>%
+  summarise(contributions = sum(contributions)) %>%
+  mutate(
+    p_contributions = contributions / sum(contributions),
+    p_big_boy = first(p_contributions)
+  ) %>%
+  ungroup() %>%
+  mutate(item_name = fct_reorder(item_name, p_big_boy)) %>% 
+  ggplot(aes(x = item_name, y = contributions,
+             fill = fct_relevel(big_boy, c("Other contributors",
+                                           "Leading contributor")))) +
+  geom_col(position = "fill", colour = "white", size = 0.1) +
+  geom_hline(yintercept = c(0.25, 0.5, 0.75), alpha = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_highcontrast(guide = guide_legend(reverse = TRUE)) +
+  labs(title = "Repository contributors by proportion of contributions",
+       x = NULL, y = "Contributions",
+       fill = NULL,
+       caption = "Data: open-archaeo.info and GitHub API") +
+  coord_flip() +
+  theme_oarch() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+
+Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+
+```{r plot-issues-hist}
+# TODO: combine with comments-hist
+oarch %>%
+  unnest(gh_issues) %>%
+  drop_na(title) %>%
+  group_by(repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(
+    title = "Use of issues",
+    caption = "Data: open-archaeo.info and GitHub API",
+    x = "Number of issues", y = "Repositories"
+  ) +
+  theme_oarch()
+```
+
+```{r plot-comments-hist}
+oarch %>%
+  unnest(gh_comments) %>%
+  drop_na(issue_num) %>%
+  group_by(repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(
+    title = "Use of comments",
+    caption = "Data: open-archaeo.info and GitHub API",
+    x = "Number of comments", y = "Repositories"
+  ) +
+  theme_oarch()
+```
+
+We constructed and analyzed networks representing users' contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
+
+```{r graph-data, eval=FALSE}
+# TODO: refactor some of this as functions?
+oarch |>
+  drop_na(gh_repo) |>
+  unite(tags, c(tag1, tag2, tag3, tag4, tag5)) |>
+  select(gh_repo, category, tags, gh_commits, gh_issues, gh_comments) ->
+  oarch_graph
+
+oarch_graph <- bind_rows(
+  oarch_graph |>
+    unnest(gh_commits) |>
+    drop_na(author) |> # Apparently real commits, but we can't connect them
+    group_by(repo, author) |>
+    summarise(category = first(category), tags = first(tags),
+              contrib = "commit", n_contrib = n(), .groups = "drop"),
+  oarch_graph |>
+    unnest(gh_comments) |>
+    drop_na(author) |> # Repos with no comments
+    group_by(repo, author) |>
+    summarise(category = first(category), tags = first(tags),
+              contrib = "comment", n_contrib = n(), .groups = "drop"),
+  oarch_graph |>
+    unnest(gh_issues) |>
+    drop_na(author) |> # Repos with no issues
+    group_by(repo, author) |>
+    summarise(category = first(category), tags = first(tags),
+              contrib = "issue", n_contrib = n(), .groups = "drop")
+)
+
+# Cleaning
+oarch_graph |>
+  rename(user = author) |>
+  # Remove non-human users
+  filter(!str_detect(user, coll("[bot]"))) |>
+  filter(!user %in% c("ghost", "codecov-io", "coveralls", "codecov-commenter",
+                      "gitter-badger", "dependabot-support")) |>
+  # Remove big, non-archaeology projects that flood the network
+  filter(!repo %in% c("Stellarium/stellarium", 
+                     "opengisch/QField",
+                     "lutraconsulting/input")) ->
+  oarch_graph
+```
+
+We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.
+
+```{r plot-graph-repo-user, eval=FALSE}
+oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
+                                   edges_user_to_repo(oarch_graph))
+
+g_repo_user <- oarch_graph_repo_user |>
+  ggraph(layout = "graphopt") +
+  geom_edge_fan(aes(colour = contrib, alpha = n_contrib)) +
+  geom_node_point(aes(colour = node_type)) +
+  scale_edge_alpha(trans = "log")
+
+#g_repo_user
+girafe(g_repo_user)
+```
+
+We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.
+
+**NOTE:** Combine these figures using patchwork.
+**NOTE:** Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.
+
+```{r plot-graph-repo-repo, eval=FALSE}
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
+                                   edges_common_users(oarch_graph),
+                                   directed = FALSE)
+
+oarch_graph_repo_repo |>
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  geom_node_point(aes(colour = category)) +
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common contributors")
+```
+
+```{r graph-user-user, eval=FALSE}
+oarch_graph_user_user <- tbl_graph(
+  nodes = nodes_users(oarch_graph), 
+  edges = edges_common_repos(oarch_graph),
+  directed = FALSE
+)
+```
+```{r plot-graph-user-user, eval=FALSE}
+oarch_graph_user_user |>
+  mutate(betweenness = centrality_betweenness(weights = n)) ->
+  oarch_graph_user_user
+
+oarch_graph_user_user |> 
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  # geom_node_point() +
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common repositories")
+```
+
+## repo-repo
+We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.
+
+```{r plot-graph-repo-repo-edge-betweenness, eval=FALSE}
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph,category,tags),
+                                   edges_common_users(oarch_graph),
+                                   directed = FALSE)
+
+oarch_graph_repo_repo |>
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 1) |>
+  mutate(group = as.character(group_edge_betweenness())) ->
+  oarch_graph_repo_repo
+
+iplot <- oarch_graph_repo_repo |>
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  #geom_node_point(aes(colour = group)) +
+  #geom_node_text(aes(label = group)) +
+  geom_point_interactive(aes(x, y, colour = group, tooltip = repo)) + 
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common contributors")
+
+girafe(ggobj = iplot)
+```
+
+```{r plot-graph-repo-repo-edge-betweenness-dendrogram, eval=FALSE}
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
+                                   edges_common_users(oarch_graph),
+                                   directed = TRUE)
+
+oarch_graph_repo_repo |>
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 1) |>
+  mutate(group = as.character(group_edge_betweenness())) ->
+  oarch_graph_repo_repo
+
+xx <- igraph::edge.betweenness.community(oarch_graph_repo_repo)
+xx <- as.dendrogram(xx)
+plot(xx)
+
+ggraph(xx, 'dendrogram', height = height)
+```
+
+This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.
+
+**NOTE:** Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.
+
+The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
+
+**NOTE:** What happens to this interpretation when we differentiate commits from issues and comments?
+
+## user-user
+
+We assembled graphs linking users based on common contributions to the same repositories.
+
+**NOTE:** Plot a graph that renders nodes' sizes based on their betweenness centrality.
+
+```{r summary-graph-user-user, eval=FALSE}
+oarch_graph_user_user |>
+  mutate(degree = centrality_degree(), 
+         betweenness = centrality_betweenness(weights = n), 
+         strength = centrality_degree(weights = n)) |>
+  filter(degree > 0) |> 
+  data.frame()
+```
+
+We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.
+
+**NOTE:** Create a table containing the top 10 users based on betweenness centrality values, with columns specifying theur username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).
+
+We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study's scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.
+
+**NOTE:** Create a table containing the top 10 users based on betweenness centrality values derived from the issues and comments only subnetwork, with columns specifying theur username, real name, job title/affiliation.
+
+---
+
+**NOTE:** I have no idea what these next two charts depict.
+
+```{r plot-user-betweenness-dist, eval=FALSE}
+oarch_graph_user_user |>
+  mutate(
+    betweenness = centrality_betweenness(weights = n)
+  ) |>
+  data.frame() |>
+  ggplot(aes(x = betweenness)) +
+  geom_density(bw = "nrd") +
+  scale_x_log10(labels = scales::number)
+```
+
+```{r plot-user-betweenness-activity, eval=FALSE}
+oarch_graph_user_user |>
+  mutate(
+    degree = centrality_degree(), 
+    betweenness = centrality_betweenness(weights = n), 
+    strength = centrality_degree(weights = n)
+  ) |>
+  as_tibble() |> 
+  left_join(oarch_contributors, by = c("user" = "contributor")) |>
+  ggplot(aes(betweenness, contribs)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(method = "lm")
+```
+
+
+## Conclusion
+
+Collaborative open source software development in archaeology has seen a rapid and sustained increase beginning around 2014 or 2015. This is marked by a variety of applications and use cases. While there is an emerging community of practice around open source in archaeology, collaboration remains limited. Most work is performed solo and is short-lived.^[**NOTE:** I wonder if we can say something about change over time, for instance, if things are getting better.]
+
+The vast majority of repositories have 1--3 contributors, with only a few distinguished by an active and diverse developer base. Our analysis also shows an uneven use of git and GitHub's extended features, beyond their basic usage as a version control system and repository host. Generally speaking, we believe that this is because people do not want to step on other people's shoes by raising issues or intruding on other people's projects. This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are 'owned' by individuals or communities, and how work should be iteratively improved upon.
+
+
+

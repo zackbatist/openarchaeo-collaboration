@@ -1,3 +1,5 @@
+# Documenting collaborative software engineering in archaeological research
+
 ## Breakdown of tags and categories
 
 We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
