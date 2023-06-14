@@ -48,8 +48,10 @@ library("tidyverse")
 ```
 
 ```{r plot-theme}
-theme_oarch <- function() theme(
-)
+theme_oarch <- function() {
+  theme_minimal() +
+  theme()
+}
 ```
 
 {{< include _01-introduction.qmd >}}

@@ -15,6 +15,7 @@ We also categorized records based on how each tool or resource is meant to be ac
 | Products                              | Documents | Stable outcomes of creative work.                                                                                                                                                                            |
 | Guides                                | Documents | An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.                                                                                          |
 | Lists and datasets                    | Documents | A series of consistently organized observations assembled with purpose.                                                                                                                                      |
+:Categorisation scheme used by open-archaeo {#tbl-category-defs}
 
 We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that users may operate without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.
 
@@ -27,47 +28,52 @@ Our first set of analyses focused on these questions:
 * What kinds of software are archaeologists making?
 * What are the general purposes of their software?
 
-Most projects included in open-archaeo are designed to be used as a package or library atop am existing "platform" -- for example a package for a programming language like R, or a plugin for an application like QGIS. The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
+Most projects included in open-archaeo are designed to be used as a package or library atop am existing "platform" -- for example a package for a programming language like R, or a plugin for an application like QGIS ([@fig-cats-plats]). The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use .
 
-```{r plot-categories}
-oarch <- mutate(oarch,
-                category = recode(category,
-                                  "Specifications, protocols and schemas" = "Specifications etc.",
-                                  .default = category))
-oarch %>%
-  drop_na(category) %>%
-  group_by(category) %>%
-  summarise(n = n()) %>%
+```{r fig-cats-plats}
+#| fig-cap: Number of open archaeology projects by category and platform
+#| fig-subcap: 
+#|   - Categories
+#|   - Platforms
+
+oarch |>
+  drop_na(category) |>
+  group_by(category) |>
+  summarise(n = n()) |>
   ggplot(aes(fct_reorder(category, n), n)) +
   geom_col() +
+  geom_text(aes(label = category), hjust = 0, nudge_y = 1) +
   coord_flip() +
-  labs(
-    title = "Most popular categories",
-    subtitle = "By number of projects",
-    caption = "Data: open-archaeo.info",
-    x = NULL, y = NULL
-  ) +
-  theme_oarch()
+  scale_y_continuous(limits = c(0, 300)) +
+  labs(x = NULL, y = NULL) +
+  theme_oarch() +
+  theme(
+    axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank(),
+    panel.grid.major.y = element_blank()
+  )
+
+oarch |>
+  drop_na(platform) |>
+  count(platform) |>
+  arrange(n) |>
+  ggplot(aes(fct_reorder(platform, n), n)) +
+  geom_col(colour = "#333333") +
+  geom_text(aes(label = platform), hjust = 0, nudge_y = 1) +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 200)) +
+  labs(x = NULL, y = NULL) +
+  theme_oarch() +
+  theme(
+    axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank(),
+    panel.grid.major.y = element_blank()
+  )
 ```
 
-R is overwhelmingly dominant as a platform, closely followed by Python. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
+R is overwhelmingly dominant as a platform, closely followed by Python [@fig-cats-plats]. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
 
 ```{r plot-platforms}
-oarch %>%
-  drop_na(platform) %>%
-  group_by(platform, author1_name) %>%
-  summarise(n = n(), .groups = "drop_last") %>%
-  mutate(total = sum(n)) %>%
-  ggplot(aes(fct_reorder(platform, total), n, group = author1_name)) +
-  geom_col(colour = "#333333") +
-  coord_flip() +
-  labs(
-    title = "Most popular platforms",
-    subtitle = "By number of projects, split by primary author",
-    caption = "Data: open-archaeo.info",
-    x = NULL, y = NULL
-  ) +
-  theme_oarch()
 ```
 
 When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
