@@ -42,7 +42,7 @@ oarch <- mutate(oarch, rough_category = recode(category,
                                  ))
 ```
 
-For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@gh]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host ([@tbl-repo-hosts]).
+For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@csardi2023]. This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host ([@tbl-repo-hosts]).
 
 ```{r data-github}
 # If cached data at `analysis/data/derived_data/oarch.RData` is present, this
