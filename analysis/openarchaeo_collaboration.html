@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zack Batist">
 <meta name="author" content="Joe Roe">
-<meta name="dcterms.date" content="2023-06-14">
+<meta name="dcterms.date" content="2023-09-19">
 
 <title>Open archaeology, open source?</title>
 <style>
@@ -22,7 +22,26 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
-</style>
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging-indent div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}</style>
 
 
 <script>/*!
@@ -2992,26 +3011,26 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#open-science-and-open-source" id="toc-open-science-and-open-source" class="nav-link active" data-scroll-target="#open-science-and-open-source"><span class="header-section-number">1</span> Open science and open source <!-- Background --></a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#open-science-and-open-source" id="toc-open-science-and-open-source" class="nav-link" data-scroll-target="#open-science-and-open-source"><span class="header-section-number">2</span> Open science and open source <!-- Background --></a>
   <ul class="collapse">
-  <li><a href="#open-source" id="toc-open-source" class="nav-link" data-scroll-target="#open-source"><span class="header-section-number">1.1</span> Open source</a></li>
-  <li><a href="#open-science" id="toc-open-science" class="nav-link" data-scroll-target="#open-science"><span class="header-section-number">1.2</span> Open science</a></li>
-  <li><a href="#open-archaeology-at-a-crossroads" id="toc-open-archaeology-at-a-crossroads" class="nav-link" data-scroll-target="#open-archaeology-at-a-crossroads"><span class="header-section-number">1.3</span> Open archaeology at a crossroads</a></li>
+  <li><a href="#open-source" id="toc-open-source" class="nav-link" data-scroll-target="#open-source"><span class="header-section-number">2.1</span> Open source</a></li>
+  <li><a href="#open-science" id="toc-open-science" class="nav-link" data-scroll-target="#open-science"><span class="header-section-number">2.2</span> Open science</a></li>
   </ul></li>
-  <li><a href="#methods-materials" id="toc-methods-materials" class="nav-link" data-scroll-target="#methods-materials"><span class="header-section-number">2</span> Methods &amp; Materials <!-- Methods & Materials --></a></li>
-  <li><a href="#open-archaeology" id="toc-open-archaeology" class="nav-link" data-scroll-target="#open-archaeology"><span class="header-section-number">3</span> Open archaeology <!-- Results I (description of what's there) --></a>
+  <li><a href="#methods-materials" id="toc-methods-materials" class="nav-link" data-scroll-target="#methods-materials"><span class="header-section-number">3</span> Methods &amp; Materials <!-- Methods & Materials --></a></li>
+  <li><a href="#open-archaeology" id="toc-open-archaeology" class="nav-link" data-scroll-target="#open-archaeology"><span class="header-section-number">4</span> Open archaeology <!-- Results I (description of what's there) --></a>
   <ul class="collapse">
-  <li><a href="#platforms-and-languages" id="toc-platforms-and-languages" class="nav-link" data-scroll-target="#platforms-and-languages"><span class="header-section-number">3.1</span> Platforms and languages</a></li>
-  <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history"><span class="header-section-number">3.2</span> History</a></li>
+  <li><a href="#platforms-and-languages" id="toc-platforms-and-languages" class="nav-link" data-scroll-target="#platforms-and-languages"><span class="header-section-number">4.1</span> Platforms and languages</a></li>
+  <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history"><span class="header-section-number">4.2</span> History</a></li>
   </ul></li>
-  <li><a href="#an-emerging-community-of-practice" id="toc-an-emerging-community-of-practice" class="nav-link" data-scroll-target="#an-emerging-community-of-practice"><span class="header-section-number">4</span> An emerging community of practice? <!-- Results II: analysis of collaborative practices --></a>
+  <li><a href="#an-emerging-community-of-practice" id="toc-an-emerging-community-of-practice" class="nav-link" data-scroll-target="#an-emerging-community-of-practice"><span class="header-section-number">5</span> An emerging community of practice? <!-- Results II: analysis of collaborative practices --></a>
   <ul class="collapse">
-  <li><a href="#project-activity-and-collaborative-practices" id="toc-project-activity-and-collaborative-practices" class="nav-link" data-scroll-target="#project-activity-and-collaborative-practices"><span class="header-section-number">4.1</span> Project activity and collaborative practices</a></li>
-  <li><a href="#network-analysis" id="toc-network-analysis" class="nav-link" data-scroll-target="#network-analysis"><span class="header-section-number">4.2</span> Network analysis</a></li>
-  <li><a href="#repo-repo" id="toc-repo-repo" class="nav-link" data-scroll-target="#repo-repo"><span class="header-section-number">4.3</span> repo-repo</a></li>
-  <li><a href="#user-user" id="toc-user-user" class="nav-link" data-scroll-target="#user-user"><span class="header-section-number">4.4</span> user-user</a></li>
+  <li><a href="#project-activity-and-collaborative-practices" id="toc-project-activity-and-collaborative-practices" class="nav-link" data-scroll-target="#project-activity-and-collaborative-practices"><span class="header-section-number">5.1</span> Project activity and collaborative practices</a></li>
+  <li><a href="#network-analysis" id="toc-network-analysis" class="nav-link" data-scroll-target="#network-analysis"><span class="header-section-number">5.2</span> Network analysis</a></li>
+  <li><a href="#repo-repo" id="toc-repo-repo" class="nav-link" data-scroll-target="#repo-repo"><span class="header-section-number">5.3</span> repo-repo</a></li>
+  <li><a href="#user-user" id="toc-user-user" class="nav-link" data-scroll-target="#user-user"><span class="header-section-number">5.4</span> user-user</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion <!-- Conclusion --></a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
   </ul>
 </nav>
 </div>
@@ -3052,7 +3071,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 14, 2023</p>
+      <p class="date">September 19, 2023</p>
     </div>
   </div>
   
@@ -3062,68 +3081,68 @@ vertical-align: -.125em;
 <div>
   <div class="abstract">
     <div class="abstract-title">Abstract</div>
-    <p>Surveying the first quarter-century of computer applications in archaeology, Scollar <span class="citation" data-cites="scollar1999">[-@scollar1999]</span> lamented that the field relied almost exclusively on “hand-me-down” tools repurposed from other disciplines. 25 years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer <span class="citation" data-cites="baxter2012">[@baxter2012]</span>, developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field <span class="citation" data-cites="cowgill1967">[@cowgill1967]</span>, its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS). Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system <code>git</code> and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of FOSS software using patterns that can diverge quite radically from conventional scholarly norms <span class="citation" data-cites="tennant2020">[@tennant2020]</span>.</p>
+    <p>Surveying the first quarter-century of computer applications in archaeology, Scollar <span class="citation" data-cites="scollar1999">(<a href="#ref-scollar1999" role="doc-biblioref">1999</a>)</span> lamented that the field relied almost exclusively on “hand-me-down” tools repurposed from other disciplines. 25 years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer <span class="citation" data-cites="baxter2012">(<a href="#ref-baxter2012" role="doc-biblioref">Baxter et al. 2012</a>)</span>, developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field <span class="citation" data-cites="cowgill1967">(<a href="#ref-cowgill1967" role="doc-biblioref">Cowgill 1967</a>)</span>, its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS). Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system <code>git</code> and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of FOSS software using patterns that can diverge quite radically from conventional scholarly norms <span class="citation" data-cites="tennant2020">(<a href="#ref-tennant2020" role="doc-biblioref">Tennant et al. 2020</a>)</span>.</p>
     <p>In this paper, we investigate modes of collaboration in this emerging community of practice using open-archaeo (https://open-archaeo.info/), a curated list of 500+ active open projects in archaeology, augmented where available with data on their activity on GitHub. We apply network analysis to map the networks of collaboration that have emerged among archaeologists using GitHub, and conduct a quantitative exploratory analysis to characterize the nature and intensity of these collaborations. Our results show an uneven adoption of open source collaborative practices beyond the basic use of <code>git</code> as a version control system and GitHub to host source code. A majority of repositories have 1–3 contributors, with only a few projects distinguished by an active and diverse developer base. More community-oriented features, such as GitHub’s ‘issues’ and ‘comments’, are used in only a minority of repositories. Preliminary findings from ongoing work also shows how collaborative behaviours vary across different subcommunities. By analyzing interactions among archaeologists using the GitHub platform, including the ways they contribute to collective code bases, we demonstrate how archaeological software engineering is beginning to foster new kinds of collaborative commitments that blend open source protocols, DIY work ethic, conventional forms of scholarly communication, and cultural practices unique to archaeology.</p>
   </div>
 </div>
 
 </header>
 
-<p>Open archaeology constitutes a series of practices and principles in support greater transparency and access to research processes and outputs. The open science movement operates in various domains of research operations, such as publishing, data-sharing, and education, and continues to expand its reach into the arenas of bibliographic metadata, review processes, and grantsmanship. While these venues for transformation represent relatively novel ways of doing research, academic ventures into open source is more complicated. The open source movement has its own distinct history and developed out of pressures and circumstances beyond those in which the open science movement operates. However, the open source movement directly inspires many aspects of open science, and, crucially, informs how the open science movement has operationalized itself. For instance, the open science movement relies on infrastructures and protocols that closely resemble systems and processes designed to develop open source software (e.g., the use of plaintext, diffs, emphasis on formal licencing, the whole hacker aesthetic). But academic open source is distinct from open source that underlies massive projects that literally run the internet (and by extension the global economy), such as the Linux kernel, the Firefox web browser, and openSSL. While they may use similar tools and technical protocols, they are governed by different social and professional pressures. In other words, making your code open source has different meanings, impacts and implications for archaeologists and professional software developers.</p>
-<p>This is also complicated by the kind of rhetoric about academic open source that, based on our personal experiences, is discordant with how academics actually <em>do</em> open source. Is open source actually making research processes more transparent and improve research outcomes? Is it actually boosting efficiency by establishing a common store of knowledge and productive code? Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass? These outcomes are not a given. They only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. Beyond simply making their code available on the web, do archaeologists also implement social strategies to advance open source ideals? Does archaeological open source actually help achieve greater transparency, sustainability, and community participation? And if not, what does it actually achieve?</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>In their seminal vision for open archaeology, Beck and Neylon <span class="citation" data-cites="beck2012">(<a href="#ref-beck2012" role="doc-biblioref">2012, 480–81</a>)</span> identified the movement as comprising a series of principles and practices “predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain” with the aim of “maximizing transparency, reuse and engagement while maintaining professional probity”. Open archaeology therefore promotes more thoughtful scholarly communication practices, most notably in operations relating to publishing, data-sharing, education, and review processes. Archaeologists are also actively engaged in open source software development as means of sharing their research processes and creating tools and resources for general use.</p>
+<p>However, academic open source has a complicated relationship with open source as practiced by professional software developers, which has its own distinct history and is framed by different objectives, challenges, and value regimes. Despite this, the open science movement, within which open archaeology emerged, draws direct inspiration from open source. For instance, the Open Knowledge Foundation <span class="citation" data-cites="openknowledgefoundation2023">(<a href="#ref-openknowledgefoundation2023" role="doc-biblioref">2023</a>)</span> publishes a widely accepted defitnion of “open” in the context of scholarly communication that explicitly refers to the definition of “open source” published by the Open Source Initiative <span class="citation" data-cites="opensourceinitiative2007">(<a href="#ref-opensourceinitiative2007" role="doc-biblioref">2007</a>)</span>, an authoritative open source advocacy group. The open science movement further mimics open source by operationalizing scholarly communication through technical infrastructures and protocols that closely resemble systems and processes designed to develop open source software (e.g., the use of plaintext, line-resolution version control, emphasis on formal licencing, the general hacker aesthetic). However, academic work, including the development of academic software, differs signififcantly from the work involved in massive open source projects that literally run the internet, such as the Linux kernel, openSSL, and the Firefox web browser. While they may use similar tools and technical protocols to manage coding operations, the open science and open source movements are governed by different social and professional warrants and interests. In other words, publishing code openly on the web has different meanings, impacts and implications for archaeologists and professional software developers <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a> xx)</span>.</p>
+<p>The relationship between open science and open source is also complicated by rhetorical claims that, based on our personal experiences, are discordant with how academics actually <em>do</em> open source. Does academic open source actually make research processes more transparent and improve research outcomes? Is it actually boosting efficiency by establishing a common store of knowledge and productive code? Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass? Despite hopeful aspirations espoused by open archaeology advocates <span class="citation" data-cites="kansa2014 kintigh2015">(see <a href="#ref-kansa2014" role="doc-biblioref">Kansa, Whitcher Kansa, and Arbuckle 2014</a>; <a href="#ref-kintigh2015" role="doc-biblioref">Kintigh et al. 2015</a>)</span>, these outcomes are not a given. We believe that these outcomes only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. However, practical circumstances and systemic value regimes that frame what it means to work as an archaeologist presently inhibit the potential for radical transformation, even among open science’s most ardent supporters.</p>
+<p>That being said, archaeologists are prolific software developers. This is made evident by open-archaeo, a comprehensive list of open source archaeological software and resources that indexes XXX records as of the time of publication. But beyond simply making their code available on the web, do archaeologists also implement social strategies to advance open source ideals? Does archaeological open source actually help achieve greater transparency, sustainability, and community participation? And if not, what does it actually achieve?</p>
 <p>This article presents a survey of archaeological software development with two goals in mind:</p>
 <ol type="1">
 <li>we identify <em>what</em> kinds of software archaeologists are making;</li>
 <li>and evaluate <em>how</em> archaeologists create these tools, with particular emphasis on practices of collaboration.</li>
 </ol>
-<p>Our investigation considers how archaeological software development may be benefiting from or missing out on the affordances that open source development models– specifically, the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.</p>
-<section id="open-science-and-open-source" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Open science and open source <!-- Background --></h1>
-<section id="open-source" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="open-source"><span class="header-section-number">1.1</span> Open source</h2>
-<p>Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., “free software”, as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development (Kelty 2008: chapter 3, especially starting at page 99). By putting one’s code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be “forked”, or taken in a new direction if contributors are dissatisfied with how core developers run things.</p>
-<p>Open source has traditionally been referred to as being based on meritocratic principles. A good test of whether a contribution should be included in a published software release is whether it is functional. Moreover, with more eyes looking over a code base, it is easier to identify flaws with a contribution and flag potential bugs or security issues. This is all done in the spirit of producing functional code, and in ideal circumstances faulty contributions will be corrected before inclusion. Personal ego is minimized in favour of co-creating stable and functional outcomes. (Coleman 2012)</p>
-<p>However, this is not the same as saying that open source is completely anarchic or based on the “wisdom of crowds”. In fact, successful open source projects incorporate complex organizational structures, governance strategies, and forms or social mediation to help delegate and vet contributions made by distributed participants. They rely on, rather than eschew, institutional support structures, in order to motivate work, keep volunteer maintainers involved, and generally ensure that the project can be sustained over the long-term. Open source is more than just putting your code online; to be successful, it requires participation in a social experience. (Kelty 2008; O’Neill 2009; Ratto dissertation and derived works)</p>
+<p>Our statistical and network analyses consider how archaeological software development may be benefiting from or missing out on the affordances that open source development models provide, specifically the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency. We found that the vast majority of projects lack any collective effort and activity tends to abruptly end shortly after work is initiated. Projects that are maintained by multiple contributors tend to be backed by funded initiatives who employ locally and socially engaged individuals, or are warranted by participation in a scholarly community exhibiting genuine need for a particular kind of resource. Moreover, we found that the individuals who play critical roles in supporting the archaeological open source community are precariously employed workers. Contrary to popular claims about open source being inherently distributed, resilient, and open-ended, we found that, overall, archaeological open source is actually quite centralized, fragile, and based nearly exclusively on existing professional connections and endeavours.</p>
+</section>
+<section id="open-science-and-open-source" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Open science and open source <!-- Background --></h1>
+<section id="open-source" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="open-source"><span class="header-section-number">2.1</span> Open source</h2>
+<p>Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., “free software”, as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a>: chapter 3, especially starting at page 99)</span>. By putting one’s code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a> on the emacs saga)</span>. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be “forked”, or taken in a new direction if contributors are dissatisfied with how core developers run things.</p>
+<p>Open source has traditionally been referred to as being based on meritocratic principles. A good test of whether a contribution should be included in a published software release is whether it is functional <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008, 220</a>)</span>. Moreover, with more eyes looking over a code base, it is easier to identify flaws with a contribution and flag potential bugs or security issues. This is all done in the spirit of producing functional code, and in ideal circumstances faulty contributions will be corrected before inclusion. Personal ego is minimized in favour of co-creating stable and functional outcomes <span class="citation" data-cites="coleman2012 oneil2009">(<a href="#ref-coleman2012" role="doc-biblioref">Coleman 2012</a>; <a href="#ref-oneil2009" role="doc-biblioref">O’Neil 2009</a> on the debian saga)</span>.</p>
+<p>However, this is not the same as saying that open source is completely anarchic or based on the “wisdom of crowds”. In fact, successful open source projects incorporate complex organizational structures, governance strategies, and forms or social mediation to help delegate and vet contributions made by distributed participants <span class="citation" data-cites="oneil2009">(<a href="#ref-oneil2009" role="doc-biblioref">O’Neil 2009</a>)</span>. They rely on, rather than eschew, institutional support structures, in order to motivate work, keep volunteer maintainers involved, and generally ensure that the project can be sustained over the long-term. Open source is more than just putting your code online; to be successful, it requires participation in a social experience <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a>, Ratto dissertation and derived works)</span>.</p>
 <p>In other words, as with many so-called “soft skills” that are crucial for academic professional development, additional competencies relating to the maintenance, management, and distribution of software, such as the ability to receive and implement feedback, set and stick with long-term goals, coordinate labour, document work practices, and collaborate with others, are grossly underappreciated factors that contribute to an open source project’s success.</p>
 <p>We therefore consider open source to be a means of collaboration more than a means of transmitting information. It involves developing software as part of a group, developing consensus, and working with common purpose. Crucially, it also involves having a welcoming attitude, a sense of humility, and an understanding that one’s work may be appropriated and used in unanticipated ways.</p>
 </section>
-<section id="open-science" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="open-science"><span class="header-section-number">1.2</span> Open science</h2>
-<p>The open science movement comprises a series of practices and principles intended to make research more accessible, transparent, and efficient. Although the concept of “open” is somewhat nebulous, in terms of its abstract definition and with regards to what real-world applications count as being open, one commonly-cited definition describes content that “can be freely used, modified, and shared by anyone for any purpose” (https://opendefinition.org/). This definition does not state what open is for, how to be open, or any sort of social or discursive framing behind the open movement. However, most open science advocates claim that they are motivated by a desire to facilitate novel research opportunities, make participation in scienctific research more equitable, reclaim science as a public good, and enhance how findings are validated and legitimized.</p>
-<p>The idea that scientistis should generally contribute to a public domain of knowledge without profit motive has led to open science being heralded as revolutionary, community-oriented, and anti-capitalist means of production. However, while open science does have the <em>potential</em> to effect radical change, this is not a given. The social and institutional contexts in which we do science is firmly embedded within capitalist and neoliberal power structures that reward individualistic competition and do little to actually encourage equitable and accessible research practices, and as such, make it difficult to fully embrace open science ideals. Moreover, the open science movement, which is dominated by STEM disciplines, prioritizes a grossly simplified and asocial notion of what science is and entails. Namely, it considers science as the accumulation and assembly of a species-level understanding of the world, which is not held by any one individual but is stored in seemingly value-neutral and disembodied media, facts and observations. This is manifested by digital telecommunications systems that host files, document processes, facilitate co-working opportunities, and perform automated processes. However, these systems have become so emblematic of open science that the use of these tools and resources designed to <em>support</em> open science is often mistaken for <em>actually doing</em> open science.</p>
-<p>Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (inlcuding: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed and credit has been allocated, it is common for scientists to mark their projects as completed and move onto new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly, and contributors may remain actively or sporadically involved to satisfy users’ needs.</p>
-</section>
-<section id="open-archaeology-at-a-crossroads" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="open-archaeology-at-a-crossroads"><span class="header-section-number">1.3</span> Open archaeology at a crossroads</h2>
-<!-- TODO: Maybe this would fit better in the introduction or conclusion? -->
-<p>The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a desire to facilitate novel research opportunities, to make participation in scienctific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. Open science advocates, including archaeologists, have put a lot of effort into developing information infrastructures, or systems designed to facilitate the transmission of data on a global scale. And as with open science in general, open archaeology has been wrapped up in discourse on the best tools to use, optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards (cf. Kansa and Kansa 2014; Kintigh 2014; Roosevelt 2015). This continues to be a prominent part of discourse on the development of open infrastructures (cf. Kansa 2022 on unique identifiers; something about aDNA pipelines; Hacıgüzeller 2021 on CIDOC-CRM (though she is actually very critical); Huvila and his team on formal paradata), but more recent reflections on the use of these infrastructures recognize underlying and systemtic commitments and assumptions that inform how these systems are used and valued by various stakeholders. For instance, the pressures and circumstances of being an archaeologist, such as the need to publish stable research outputs, and archaeologists’ tendency to move on from projects after they are completed, contribute towards shaping data sharing platforms as delegated archival services, whereupon the obligation to care for data over the long-term is passed on to others. In response to criticisms that highlight how these systems add little practical downstream value (Huggett 2018; Sobotkova 2018), open archaeology advocates have begun to prioritize the role that information infrastructures may play in contexts of data reuse, namely by implementing the FAIR principles in order to ensure that data are findable, accessible, interoperable, and reusable (Kansa 2023 in that recent special issue in Advances in Archaeological Practice; one or two additional sources). This example is matched by similar efforts to raise the value proposition of using open science tools and systems, such as through an emphasis on enhancing R package development and documentation skills so that code may be run and evaluated in alternative computing environments (cite Marwick and/or Roe), and [another example].</p>
-<p>Additionally, archaeologists are becoming more comfortable showcasing and actively discussing undervalued research ouputs such as software and datasets, which are reviewed and published by venues like Peer Community In, the Journal of Archaeological Data, and the Journal of Open Source Software. Professional blogs, social media and podcasts are also gaining traction as proper venues for disseminating one’s work. This is consistent with archaeology’s historical willingness to experiment with new methods and media and its casual attitude towards scholarly communication. Archaeologists’ embrace of methodological plurality and their positions as interdisciplinary scholars scattered across institutional boundaries has prepared them for this kind of pragmatic, improvisatory approach to scholarly communication via the web. There is enormous potential for archaeologists to reinvent novel forms of scholarly communication and extend a new set of collaborative commitments that go beyond those typically recognized by scholarly institutions, and which correspond with open science principles. But this depends on archaeologists’ willingness to continue experimenting and on the community’s willingness to buy into novel value regimes.</p>
+<section id="open-science" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="open-science"><span class="header-section-number">2.2</span> Open science</h2>
+<p>The open science movement comprises a series of practices and principles intended to make research more accessible, transparent, and efficient. Although the concept of “open” is somewhat nebulous, in terms of its abstract definition and with regards to what real-world applications count as being open, one commonly-cited definition describes content that “can be freely used, modified, and shared by anyone for any purpose” <span class="citation" data-cites="openknowledgefoundation2023">(<a href="#ref-openknowledgefoundation2023" role="doc-biblioref">Open Knowledge Foundation 2023</a>)</span>. This definition does not state what open is for, how to be open, or any sort of social or discursive framing behind the open movement. However, most open science advocates (including archaeologists, as elicited by <span class="citation" data-cites="beck2012">Beck and Neylon (<a href="#ref-beck2012" role="doc-biblioref">2012</a>)</span> and <span class="citation" data-cites="marwick2017">Marwick et al. (<a href="#ref-marwick2017" role="doc-biblioref">2017</a>)</span>) claim that they are motivated by a desire to facilitate novel research opportunities, make participation in scienctific research more equitable, reclaim science as a public good, and enhance how findings are validated and legitimized.</p>
+<p>The idea that scientistis should generally contribute to a public domain of knowledge without profit motive has led to open science being heralded as revolutionary, community-oriented, and anti-capitalist means of production. However, while open science does have the <em>potential</em> to effect radical change, this is not a given. The social and institutional contexts in which we do science is firmly embedded within capitalist and neoliberal power structures that reward individualistic competition and do little to actually encourage equitable and accessible research practices, and as such, make it difficult to fully embrace open science ideals <span class="citation" data-cites="mirowski2018">(<a href="#ref-mirowski2018" role="doc-biblioref">Mirowski 2018</a>)</span>. Moreover, the open science movement, which is dominated by STEM disciplines, prioritizes a grossly simplified and asocial notion of what science is and entails. Namely, it considers science as the accumulation and assembly of a species-level understanding of the world, which is not held by any one individual but is stored in seemingly value-neutral and disembodied media, facts and observations. This is manifested by digital telecommunications systems that host files, document processes, facilitate co-working opportunities, and perform automated processes. However, these systems have become so emblematic of open science that the use of these tools and resources designed to <em>support</em> open science is often mistaken for <em>actually doing</em> open science.</p>
+<p>Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain <span class="citation" data-cites="tennant2020">(<a href="#ref-tennant2020" role="doc-biblioref">Tennant et al. 2020</a>)</span>. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (inlcuding: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed, papers have been published, and credit has been allocated, it is common for scientists to mark their projects as finished and move on to new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly in perpetuity, and contributors may remain actively or sporadically involved to satisfy users’ needs, or to direct users to derivative and functional forks of abandoned software.</p>
+<p>The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a genuine desire to facilitate novel research opportunities, to make participation in scienctific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. However, the predominant concern with implementing best tools to use, adopting optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards <span class="citation" data-cites="kansa2014 kintigh2015 roosevelt2015">(cf. <a href="#ref-kansa2014" role="doc-biblioref">Kansa, Whitcher Kansa, and Arbuckle 2014</a>; <a href="#ref-kintigh2015" role="doc-biblioref">Kintigh et al. 2015</a>; <a href="#ref-roosevelt2015" role="doc-biblioref">Roosevelt et al. 2015</a>)</span> distract from fundamental tensions and contradictions regarding the actual value of working in the open. For instance, Faniel et al. <span class="citation" data-cites="faniel2013">(<a href="#ref-faniel2013" role="doc-biblioref">2013, 299–301</a>)</span>, Atici et al. <span class="citation" data-cites="atici2013">(<a href="#ref-atici2013" role="doc-biblioref">2013, 676–77</a>)</span>, <span class="citation" data-cites="huggett2018">Huggett (<a href="#ref-huggett2018" role="doc-biblioref">2018</a>)</span>, <span class="citation" data-cites="sobotkova2018">Sobotkova (<a href="#ref-sobotkova2018" role="doc-biblioref">2018</a>)</span>, and <span class="citation" data-cites="opitz2021">Opitz et al. (<a href="#ref-opitz2021" role="doc-biblioref">2021</a>)</span> demonstrate that to make the reuse of archaeological data feasible and useful in a practical sense, it is necessary to re-introduce social friction that these infrastructures are designed to eliminate. In other words, the pressures and circumstances of being an archaeologist and doing archaeological research assert themselves when attempting to make practical use of these infrastructures, and therefore must be accounted for in their design and implementation. Here we aim to identify similar sources of dissonance with regards to the promise, potential, and actual implementation of open source software development models among archaeologists.</p>
 </section>
 </section>
-<section id="methods-materials" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Methods &amp; Materials <!-- Methods & Materials --></h1>
+<section id="methods-materials" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Methods &amp; Materials <!-- Methods & Materials --></h1>
 <!-- TODO: snappier title? Maybe incoroporating 'open-archaeo'? -->
-<p>Our findings are based on an exploratory analysis of open-archaeo, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are rendered for the web at <a href="open-archaeo.info">open-archaeo.info</a>. We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software. This entailed manually crawling through users’ profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work. We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.</p>
+<p>Our study comprises an exploratory analysis of open-archaeo, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are rendered for the web at <a href="open-archaeo.info">open-archaeo.info</a>. We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software. This entailed manually crawling through users’ profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work. We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.</p>
 <p>Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.</p>
-<p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="gh">[@gh]</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host (<a href="#tbl-repo-hosts">Table 1</a>).</p>
+<p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="csardi2023">(<a href="#ref-csardi2023" role="doc-biblioref">Csárdi et al. 2023</a>)</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host (<a href="#tbl-repo-hosts">Table 1</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-repo-hosts" class="anchored">
 
-<div id="cxdyxcadry" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cxdyxcadry table {
+<div id="glrmnfzbtk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#glrmnfzbtk table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#cxdyxcadry thead, #cxdyxcadry tbody, #cxdyxcadry tfoot, #cxdyxcadry tr, #cxdyxcadry td, #cxdyxcadry th {
+#glrmnfzbtk thead, #glrmnfzbtk tbody, #glrmnfzbtk tfoot, #glrmnfzbtk tr, #glrmnfzbtk td, #glrmnfzbtk th {
 border-style: none;
 }
-#cxdyxcadry p {
+#glrmnfzbtk p {
 margin: 0;
 padding: 0;
 }
-#cxdyxcadry .gt_table {
+#glrmnfzbtk .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3148,11 +3167,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#cxdyxcadry .gt_caption {
+#glrmnfzbtk .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#cxdyxcadry .gt_title {
+#glrmnfzbtk .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3163,7 +3182,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#cxdyxcadry .gt_subtitle {
+#glrmnfzbtk .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3174,7 +3193,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#cxdyxcadry .gt_heading {
+#glrmnfzbtk .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3185,12 +3204,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#cxdyxcadry .gt_bottom_border {
+#glrmnfzbtk .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#cxdyxcadry .gt_col_headings {
+#glrmnfzbtk .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3204,7 +3223,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#cxdyxcadry .gt_col_heading {
+#glrmnfzbtk .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3223,7 +3242,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#cxdyxcadry .gt_column_spanner_outer {
+#glrmnfzbtk .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3234,13 +3253,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#cxdyxcadry .gt_column_spanner_outer:first-child {
+#glrmnfzbtk .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#cxdyxcadry .gt_column_spanner_outer:last-child {
+#glrmnfzbtk .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#cxdyxcadry .gt_column_spanner {
+#glrmnfzbtk .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3251,10 +3270,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#cxdyxcadry .gt_spanner_row {
+#glrmnfzbtk .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#cxdyxcadry .gt_group_heading {
+#glrmnfzbtk .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3279,7 +3298,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#cxdyxcadry .gt_empty_group_heading {
+#glrmnfzbtk .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3293,13 +3312,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#cxdyxcadry .gt_from_md > :first-child {
+#glrmnfzbtk .gt_from_md > :first-child {
 margin-top: 0;
 }
-#cxdyxcadry .gt_from_md > :last-child {
+#glrmnfzbtk .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#cxdyxcadry .gt_row {
+#glrmnfzbtk .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3317,7 +3336,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#cxdyxcadry .gt_stub {
+#glrmnfzbtk .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3329,7 +3348,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#cxdyxcadry .gt_stub_row_group {
+#glrmnfzbtk .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3342,13 +3361,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#cxdyxcadry .gt_row_group_first td {
+#glrmnfzbtk .gt_row_group_first td {
 border-top-width: 2px;
 }
-#cxdyxcadry .gt_row_group_first th {
+#glrmnfzbtk .gt_row_group_first th {
 border-top-width: 2px;
 }
-#cxdyxcadry .gt_summary_row {
+#glrmnfzbtk .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3357,14 +3376,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#cxdyxcadry .gt_first_summary_row {
+#glrmnfzbtk .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#cxdyxcadry .gt_first_summary_row.thick {
+#glrmnfzbtk .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#cxdyxcadry .gt_last_summary_row {
+#glrmnfzbtk .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3373,7 +3392,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#cxdyxcadry .gt_grand_summary_row {
+#glrmnfzbtk .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3382,7 +3401,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#cxdyxcadry .gt_first_grand_summary_row {
+#glrmnfzbtk .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3391,7 +3410,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#cxdyxcadry .gt_last_grand_summary_row_top {
+#glrmnfzbtk .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3400,10 +3419,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#cxdyxcadry .gt_striped {
+#glrmnfzbtk .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#cxdyxcadry .gt_table_body {
+#glrmnfzbtk .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3411,7 +3430,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#cxdyxcadry .gt_footnotes {
+#glrmnfzbtk .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3424,7 +3443,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#cxdyxcadry .gt_footnote {
+#glrmnfzbtk .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3432,7 +3451,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#cxdyxcadry .gt_sourcenotes {
+#glrmnfzbtk .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3445,57 +3464,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#cxdyxcadry .gt_sourcenote {
+#glrmnfzbtk .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#cxdyxcadry .gt_left {
+#glrmnfzbtk .gt_left {
 text-align: left;
 }
-#cxdyxcadry .gt_center {
+#glrmnfzbtk .gt_center {
 text-align: center;
 }
-#cxdyxcadry .gt_right {
+#glrmnfzbtk .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#cxdyxcadry .gt_font_normal {
+#glrmnfzbtk .gt_font_normal {
 font-weight: normal;
 }
-#cxdyxcadry .gt_font_bold {
+#glrmnfzbtk .gt_font_bold {
 font-weight: bold;
 }
-#cxdyxcadry .gt_font_italic {
+#glrmnfzbtk .gt_font_italic {
 font-style: italic;
 }
-#cxdyxcadry .gt_super {
+#glrmnfzbtk .gt_super {
 font-size: 65%;
 }
-#cxdyxcadry .gt_footnote_marks {
+#glrmnfzbtk .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#cxdyxcadry .gt_asterisk {
+#glrmnfzbtk .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#cxdyxcadry .gt_indent_1 {
+#glrmnfzbtk .gt_indent_1 {
 text-indent: 5px;
 }
-#cxdyxcadry .gt_indent_2 {
+#glrmnfzbtk .gt_indent_2 {
 text-indent: 10px;
 }
-#cxdyxcadry .gt_indent_3 {
+#glrmnfzbtk .gt_indent_3 {
 text-indent: 15px;
 }
-#cxdyxcadry .gt_indent_4 {
+#glrmnfzbtk .gt_indent_4 {
 text-indent: 20px;
 }
-#cxdyxcadry .gt_indent_5 {
+#glrmnfzbtk .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -3587,8 +3606,8 @@ hosts</p> </caption>
 <p><strong>NOTE:</strong> Add a breakdown on licensing practices.</p>
 <p>The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.</p>
 </section>
-<section id="open-archaeology" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Open archaeology <!-- Results I (description of what's there) --></h1>
+<section id="open-archaeology" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Open archaeology <!-- Results I (description of what's there) --></h1>
 <p>Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.</p>
 <p>We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.</p>
 <p>We also categorized records based on how each tool or resource is meant to be accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.</p>
@@ -3648,8 +3667,8 @@ hosts</p> </caption>
 </div>
 <p>We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that users may operate without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.</p>
 <p>The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.</p>
-<section id="platforms-and-languages" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="platforms-and-languages"><span class="header-section-number">3.1</span> Platforms and languages</h2>
+<section id="platforms-and-languages" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="platforms-and-languages"><span class="header-section-number">4.1</span> Platforms and languages</h2>
 <p>Our first set of analyses focused on these questions:</p>
 <ul>
 <li>What kinds of software are archaeologists making?</li>
@@ -3685,8 +3704,8 @@ hosts</p> </caption>
 </div>
 </div>
 </section>
-<section id="history" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="history"><span class="header-section-number">3.2</span> History</h2>
+<section id="history" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="history"><span class="header-section-number">4.2</span> History</h2>
 <p>Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -3702,10 +3721,10 @@ hosts</p> </caption>
 </ul>
 </section>
 </section>
-<section id="an-emerging-community-of-practice" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> An emerging community of practice? <!-- Results II: analysis of collaborative practices --></h1>
-<section id="project-activity-and-collaborative-practices" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="project-activity-and-collaborative-practices"><span class="header-section-number">4.1</span> Project activity and collaborative practices</h2>
+<section id="an-emerging-community-of-practice" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> An emerging community of practice? <!-- Results II: analysis of collaborative practices --></h1>
+<section id="project-activity-and-collaborative-practices" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="project-activity-and-collaborative-practices"><span class="header-section-number">5.1</span> Project activity and collaborative practices</h2>
 <p>But how is this activity distributed across repositories? In this section we assess projects’ pulse, or the amount of activity pertaining to a repository.</p>
 <p>In the following figure, each vertical line represents a repository’s lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.</p>
 <div class="cell">
@@ -3752,23 +3771,23 @@ hosts</p> </caption>
 </div>
 </div>
 </section>
-<section id="network-analysis" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="network-analysis"><span class="header-section-number">4.2</span> Network analysis</h2>
+<section id="network-analysis" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="network-analysis"><span class="header-section-number">5.2</span> Network analysis</h2>
 <p>We constructed and analyzed networks representing users’ contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.</p>
 <p>We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.</p>
 <p>We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.</p>
 <p><strong>NOTE:</strong> Combine these figures using patchwork. <strong>NOTE:</strong> Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.</p>
 </section>
-<section id="repo-repo" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="repo-repo"><span class="header-section-number">4.3</span> repo-repo</h2>
+<section id="repo-repo" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="repo-repo"><span class="header-section-number">5.3</span> repo-repo</h2>
 <p>We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.</p>
 <p>This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.</p>
 <p><strong>NOTE:</strong> Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.</p>
 <p>The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).</p>
 <p><strong>NOTE:</strong> What happens to this interpretation when we differentiate commits from issues and comments?</p>
 </section>
-<section id="user-user" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="user-user"><span class="header-section-number">4.4</span> user-user</h2>
+<section id="user-user" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="user-user"><span class="header-section-number">5.4</span> user-user</h2>
 <p>We assembled graphs linking users based on common contributions to the same repositories.</p>
 <p><strong>NOTE:</strong> Plot a graph that renders nodes’ sizes based on their betweenness centrality.</p>
 <p>We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.</p>
@@ -3779,19 +3798,82 @@ hosts</p> </caption>
 <p><strong>NOTE:</strong> I have no idea what these next two charts depict.</p>
 </section>
 </section>
-<section id="conclusion" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Conclusion <!-- Conclusion --></h1>
-<p>Collaborative open source software development in archaeology has seen a rapid and sustained increase beginning around 2014 or 2015. This is marked by a variety of applications and use cases. While there is an emerging community of practice around open source in archaeology, collaboration remains limited. Most work is performed solo and is short-lived.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>The vast majority of repositories have 1–3 contributors, with only a few distinguished by an active and diverse developer base. Our analysis also shows an uneven use of git and GitHub’s extended features, beyond their basic usage as a version control system and repository host. Generally speaking, we believe that this is because people do not want to step on other people’s shoes by raising issues or intruding on other people’s projects. This may relate to our positions as academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are ‘owned’ by individuals or communities, and how work should be iteratively improved upon.</p>
+<section id="conclusion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<p>Archaeology is a “magpie” discipline, using tools and methods that originate from a variety of other disciplines and industries to better understand the past. Moreover, archaeologists are accustomed to working on shoestring budgets, having to adapt their tools to suit specific, non-generalizable situations, and applying a DIY work ethic to create and co-creating with others to get the job done (Batist et al 2021; Morgan and Eve 2012; Caraher 2019). It is therefore unsprising that archaeologists are prolific open source software developers.</p>
+<p>In this paper we take stock of archaeologists’ immense creative capabilities. First, we surveyed what kinds of software archaeologists are making and tracked progression over time. We showed that open source software development in archaeology has seen a rapid and sustained rise beginning around 2014. This is marked by a variety of applications and use cases, including the use of git and GitHub to track and host content other than code. Moreover, archaeologists are very involved in broader scripting ecosystems, as is evident through the predominant creation of R packages and Python libraries designed to process the rich variety of archaeological information. At the same time, archaeologists also create standalone software for more intensive tasks that require greater access to system resources or that warrant more complex user interfaces than what R and Python IDEs are capable of providing.</p>
+<p>Looking at the distribution of tags, we note that, among items listed as software, repositories tend to be focused on various means of identifying distribution patterns (spatial, temporal, statistical), calibrating data obtained from various instrumental methods (XRF, luminescence dating), supporting specialized finds analysis (zooarchaeology, palaeobotany, archaeogenetics), and supporting the collection and processing of archaeological materials. These foci signify gaps in the archaeological toolbox that archaeologists recognized, and have attempted to fill, on their own terms. In future studies, it would be interesting to examine how the purposeful expansion of open source tools corresponds with broader methodological trends apparent in publishing patterns or through other expressions of archaeological interest (e.g. social media posts, conference sessions).</p>
+<p>While there is an emerging community of practice around open source in archaeology, we observed that collaboration remains limited. Most work is performed individually and is short-lived. The vast majority of repositories have 1–3 contributors, with only a few distinguished by an active and diverse developer base. Our analysis also shows an uneven use of git and GitHub’s extended features, beyond their basic usage as a version control system and repository host. Generally speaking, we believe that this is because people do not want to step on other people’s shoes by raising issues or intruding on other people’s projects. This may relate to the fact that most developers on this list are academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are ‘owned’ by individuals or communities, and how work should be iteratively improved upon.</p>
+<p>However, we seem to have entered a period of critical reflection on the practical ramifications of infrastructures developed to support open science. For instance, Huggett (2022) identified social frictions as a necessary aspect of productive research, which open science infrastructures effectively seek to eliminate. Numerous other studies by Batist (2023), Huvila (2022), Haciguzeller et al. (2021), Opitz et al. (2021) Sobotkova (2018), Wylie (2017) Atici et al. (2013), Faniel et al. (2013) (among others) highlighted the need to account for the work involved in preparing and making use of materials shared openly on the web, and which are effectively muted by infrastructures developed in pursuit of open science.</p>
+<p>Our network analysis similarly draws attention to the real-world collaborative ties that underpin archaeological open source software development. We identified three clusters of close associations between projects: the first is centred around a highly specialized supdiscipline exhibiting a very enthusiastic attitude (<strong>ZB NOTE: or maybe even pressure?</strong>) toward working in the open; the second is concerned with developing solutions to a very common and discipline-wide problem, specifically relating to data collection and management in fieldwork; and the third deals with several topic of concern, but represents an emerging community of practice. This third cluster comprises efforts performed by members of a close-knit community, many of whom already collaborate at local research centres or participate in relatively private interest groups. This indicates that open source is firmly embedded within existing social and institutional support and power structures that permeate academic life, both online and offline.</p>
+
 </section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p><strong>NOTE:</strong> I wonder if we can say something about change over time, for instance, if things are getting better.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-atici2013" class="csl-entry" role="listitem">
+Atici, Levent, Sarah Whitcher Kansa, Justin Lev-Tov, and Eric C. Kansa. 2013. <span>“Other <span>People</span>’s <span>Data</span>: <span>A Demonstration</span> of the <span>Imperative</span> of <span>Publishing Primary Data</span>.”</span> <em>Journal of Archaeological Method and Theory</em> 20 (4): 663. <a href="https://doi.org/10.1007/s10816-012-9132-9">https://doi.org/10.1007/s10816-012-9132-9</a>.
+</div>
+<div id="ref-baxter2012" class="csl-entry" role="listitem">
+Baxter, Rob, N. Chue Hong, Dirk Gorissen, James Hetherington, and Ilian Todorov. 2012. <span>“The Research Software Engineer.”</span> In <em>Digital <span>Research Conference</span>, <span>Oxford</span></em>, 1–3.
+</div>
+<div id="ref-beck2012" class="csl-entry" role="listitem">
+Beck, Anthony, and Cameron Neylon. 2012. <span>“A Vision for <span>Open Archaeology</span>.”</span> <em>World Archaeology</em> 44 (4): 479–97. <a href="https://doi.org/10.1080/00438243.2012.737581">https://doi.org/10.1080/00438243.2012.737581</a>.
+</div>
+<div id="ref-coleman2012" class="csl-entry" role="listitem">
+Coleman, E. Gabriella. 2012. <em>Coding <span>Freedom</span>: <span>The Ethics</span> and <span>Aesthetics</span> of <span>Hacking</span></em>. <span>Princeton University Press</span>. <a href="https://doi.org/10.1515/9781400845293">https://doi.org/10.1515/9781400845293</a>.
+</div>
+<div id="ref-cowgill1967" class="csl-entry" role="listitem">
+Cowgill, George L. 1967. <span>“Computer Applications in Archaeology.”</span> In <em>Proceedings of the <span>November</span> 14-16, 1967, Fall Joint Computer Conference</em>, 331–37. <span>AFIPS</span> ’67 (<span>Fall</span>). <span>New York, NY, USA</span>: <span>Association for Computing Machinery</span>. <a href="https://doi.org/10.1145/1465611.1465654">https://doi.org/10.1145/1465611.1465654</a>.
+</div>
+<div id="ref-csardi2023" class="csl-entry" role="listitem">
+Csárdi, Gábor, Jennifer Bryan, Hadley Wickham, and RStudio. 2023. <span>“Gh: ’<span>GitHub</span>’ ’<span>API</span>’.”</span>
+</div>
+<div id="ref-faniel2013" class="csl-entry" role="listitem">
+Faniel, Ixchel, Eric C. Kansa, Sarah Whitcher Kansa, Julianna Barrera-Gomez, and Elizabeth Yakel. 2013. <span>“The <span>Challenges</span> of <span>Digging Data</span>: <span>A Study</span> of <span>Context</span> in <span>Archaeological Data Reuse</span>.”</span> In <em>Proceedings of the 13th <span>ACM</span>/<span>IEEE-CS Joint Conference</span> on <span>Digital Libraries</span></em>, 295–304. <span>New York</span>: <span>ACM</span>. <a href="https://doi.org/10.1145/2467696.2467712">https://doi.org/10.1145/2467696.2467712</a>.
+</div>
+<div id="ref-huggett2018" class="csl-entry" role="listitem">
+Huggett, Jeremy. 2018. <span>“Reuse <span>Remix Recycle</span>: <span>Repurposing Archaeological Digital Data</span>.”</span> <em>Advances in Archaeological Practice</em> 6 (2): 93–104. <a href="https://doi.org/10.1017/aap.2018.1">https://doi.org/10.1017/aap.2018.1</a>.
+</div>
+<div id="ref-kansa2014" class="csl-entry" role="listitem">
+Kansa, Eric C., Sarah Whitcher Kansa, and Benjamin Arbuckle. 2014. <span>“Publishing and <span>Pushing</span>: <span>Mixing Models</span> for <span>Communicating Research Data</span> in <span>Archaeology</span>.”</span> <em>International Journal of Digital Curation</em> 9 (1): 57–70. <a href="https://doi.org/10.2218/ijdc.v9i1.301">https://doi.org/10.2218/ijdc.v9i1.301</a>.
+</div>
+<div id="ref-kelty2008" class="csl-entry" role="listitem">
+Kelty, Christopher M. 2008. <em>Two Bits: <span>The</span> Cultural Significance of Free Software</em>. <span>Duke University Press</span>.
+</div>
+<div id="ref-kintigh2015" class="csl-entry" role="listitem">
+Kintigh, Keith W., Jeffrey H. Altschul, Ann P. Kinzig, W. Fredrick Limp, William K. Michener, Jeremy A. Sabloff, Edward J. Hackett, Timothy A. Kohler, Bertram Ludäscher, and Clifford A. Lynch. 2015. <span>“Cultural <span>Dynamics</span>, <span>Deep Time</span>, and <span>Data</span>: <span>Planning Cyberinfrastructure Investments</span> for <span>Archaeology</span>.”</span> <em>Advances in Archaeological Practice</em> 3 (1): 1–15. <a href="https://doi.org/10.7183/2326-3768.3.1.1">https://doi.org/10.7183/2326-3768.3.1.1</a>.
+</div>
+<div id="ref-marwick2017" class="csl-entry" role="listitem">
+Marwick, Ben, Jade d’Alpoim Guedes, C. Michael Barton, Lynsey A. Bates, Michael Baxter, Andrew Bevan, Elizabeth A. Bollwerk, R. Kyle Bocinsky, Tom Brughmans, and Alison K. Carter. 2017. <span>“Open Science in Archaeology.”</span> <em>SAA Archaeological Record</em> 17 (4): 8–14.
+</div>
+<div id="ref-mirowski2018" class="csl-entry" role="listitem">
+Mirowski, Philip. 2018. <span>“The Future (s) of Open Science.”</span> <em>Social Studies of Science</em> 48 (2): 171–203. <a href="https://doi.org/10.1177/0306312718772086">https://doi.org/10.1177/0306312718772086</a>.
+</div>
+<div id="ref-oneil2009" class="csl-entry" role="listitem">
+O’Neil, Mathieu. 2009. <em>Cyberchiefs: <span>Autonomy</span> and Authority in Online Tribes</em>. <span>London, UK</span>: <span>Pluto Press</span>.
+</div>
+<div id="ref-openknowledgefoundation2023" class="csl-entry" role="listitem">
+Open Knowledge Foundation. 2023. <span>“Open <span>Definition</span> 2.1.”</span> https://opendefinition.org/od/2.1/en/.
+</div>
+<div id="ref-opensourceinitiative2007" class="csl-entry" role="listitem">
+Open Source Initiative. 2007. <span>“The <span>Open Source Definition</span>.”</span> https://opensource.org/osd/.
+</div>
+<div id="ref-opitz2021" class="csl-entry" role="listitem">
+Opitz, Rachel, Colleen Strawhacker, Philip Buckland, Jackson Cothren, Tom Dawson, Andrew Dugmore, George Hambrecht, et al. 2021. <span>“A <span>Lockpick</span>’s <span>Guide</span> to <span class="nocase">dataARC</span>: <span>Designing Infrastructures</span> and <span>Building Communities</span> to <span>Enable Transdisciplinary Research</span>.”</span> <em>Internet Archaeology</em>, no. 56 (October). <a href="https://doi.org/10.11141/ia.56.15">https://doi.org/10.11141/ia.56.15</a>.
+</div>
+<div id="ref-roosevelt2015" class="csl-entry" role="listitem">
+Roosevelt, Christopher H., Peter Cobb, Emanuel Moss, Brandon R. Olson, and Sinan Ünlüsoy. 2015. <span>“Excavation Is <span>Destruction Digitization</span>: <span>Advances</span> in <span>Archaeological Practice</span>.”</span> <em>Journal of Field Archaeology</em> 40 (3): 325–46. <a href="https://doi.org/10.1179/2042458215Y.0000000004">https://doi.org/10.1179/2042458215Y.0000000004</a>.
+</div>
+<div id="ref-scollar1999" class="csl-entry" role="listitem">
+Scollar, Irwin. 1999. <span>“25 Years of Computer Applications in Archaeology.”</span>
+</div>
+<div id="ref-sobotkova2018" class="csl-entry" role="listitem">
+Sobotkova, Adela. 2018. <span>“Sociotechnical <span>Obstacles</span> to <span>Archaeological Data Reuse</span>.”</span> <em>Advances in Archaeological Practice</em> 6 (2): 117–24. <a href="https://doi.org/10.1017/aap.2017.37">https://doi.org/10.1017/aap.2017.37</a>.
+</div>
+<div id="ref-tennant2020" class="csl-entry" role="listitem">
+Tennant, Jonathan, Ritwik Agarwal, Ksenija Baždarić, David Brassard, Tom Crick, Daniel J. Dunleavy, Thomas Rhys Evans, et al. 2020. <span>“A Tale of Two ’Opens’: <span>Intersections</span> Between <span>Free</span> and <span>Open Source Software</span> and <span>Open Scholarship</span>,”</span> March. <a href="https://doi.org/10.31235/osf.io/2kxq8">https://doi.org/10.31235/osf.io/2kxq8</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
