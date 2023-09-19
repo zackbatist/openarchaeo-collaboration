@@ -61,11 +61,12 @@ For the purpose of this study, we augmented the core open-archaeo dataset with d
 cached_gh_data <- here("analysis/data/derived_data/oarch.RData")
 if (!file_exists(cached_gh_data)) {
   oarch <- mutate(oarch,
-                  gh_langs = map(oarch$gh_repo, gh_lang),
-                  gh_contribs = map(oarch$gh_repo, gh_contrib),
-                  gh_issues = map(oarch$gh_repo, gh_issue),
-                  gh_comments = map(oarch$gh_repo, gh_comment),
-                  gh_commits = map(oarch$gh_repo, gh_commit)
+                  gh_repo_info = map(gh_repo, gh_repo_info, .progress = TRUE),
+                  gh_langs = map(gh_repo, gh_lang, .progress = TRUE),
+                  gh_contribs = map(gh_repo, gh_contrib, .progress = TRUE),
+                  gh_issues = map(gh_repo, gh_issue, .progress = TRUE),
+                  gh_comments = map(gh_repo, gh_comment, .progress = TRUE),
+                  gh_commits = map(gh_repo, gh_commit, .progress = TRUE),
   )
   saveRDS(oarch, cached_gh_data)
 }
@@ -100,5 +101,7 @@ oarch |>
 While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.
 
 **NOTE:** Add a breakdown on licensing practices.
+```{r tbl-repo-licenses}
+```
 
 The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.

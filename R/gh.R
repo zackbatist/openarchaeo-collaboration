@@ -19,12 +19,50 @@
 #' @name gh_query
 #'
 #' @examples
+#' gh_repo("joeroe/era")
 #' gh_lang("joeroe/era")
 #' gh_contrib("joeroe/era")
 #' gh_issue("joeroe/era")
 #' gh_comment("joeroe/era")
 #' gh_commit("joeroe/era")
 NULL
+
+#' @rdname gh_query
+#' @export
+gh_repo_info <- function(repo) {
+  data <- tibble::tibble(
+    repo = repo,
+    response = list(ghq("GET /repos/{repo}", repo = repo))
+  )
+
+  if (not_all_na(data$response)) {
+    data <- tidyr::hoist(data, response,
+                         url = "html_url",
+                         "name",
+                         "description",
+                         "homepage",
+                         "fork",
+                         "created_at",
+                         "updated_at",
+                         "pushed_at",
+                         "size",
+                         "forks",
+                         stars = "stargazers_count",
+                         watchers = "watchers_count",
+                         "language",
+                         open_issues = "open_issues_count",
+                         "license",
+                         "topics")
+    data <- dplyr::select(data, -response)
+    data <- dplyr::mutate(data,
+                          created_at = lubridate::as_datetime(created_at),
+                          updated_at = lubridate::as_datetime(updated_at),
+                          pushed_at = lubridate::as_datetime(pushed_at),
+    )
+    data
+  }
+  else NA
+}
 
 #' @rdname gh_query
 #' @export

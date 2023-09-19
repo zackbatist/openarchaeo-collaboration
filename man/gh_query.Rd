@@ -2,6 +2,7 @@
 % Please edit documentation in R/gh.R
 \name{gh_query}
 \alias{gh_query}
+\alias{gh_repo_info}
 \alias{gh_lang}
 \alias{gh_contrib}
 \alias{gh_issue}
@@ -9,6 +10,8 @@
 \alias{gh_commit}
 \title{GitHub repository queries}
 \usage{
+gh_repo_info(repo)
+
 gh_lang(repo)
 
 gh_contrib(repo)
@@ -35,6 +38,7 @@ Queries use \code{\link[=ghq]{ghq()}}, a thin wrapper for \code{\link[gh:gh]{gh:
 always returns a value.
 }
 \examples{
+gh_repo("joeroe/era")
 gh_lang("joeroe/era")
 gh_contrib("joeroe/era")
 gh_issue("joeroe/era")
