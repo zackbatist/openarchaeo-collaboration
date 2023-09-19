@@ -100,8 +100,15 @@ oarch |>
 
 While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists. We found that many repositories do not explicitly denote an open source license, or any license at all.
 
-**NOTE:** Add a breakdown on licensing practices.
 ```{r tbl-repo-licenses}
+#| tbl-cap: Summary of licenses used by projects with GitHub repositories.
+oarch |>
+  hoist(gh_repo_info, license = list("license", 1, "name")) |>
+  count(license) |>
+  mutate(license = replace_na(license, "None detected"))
+  arrange(-n) |>
+  gt() |>
+    cols_label(license = "License", n = "N")
 ```
 
 The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.
