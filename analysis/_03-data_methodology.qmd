@@ -60,14 +60,12 @@ For the purpose of this study, we augmented the core open-archaeo dataset with d
 # for options on how to do this.
 cached_gh_data <- here("analysis/data/derived_data/oarch.RData")
 if (!file_exists(cached_gh_data)) {
-  oarch <- mutate(oarch,
-                  gh_repo_info = map(gh_repo, gh_repo_info, .progress = TRUE),
-                  gh_langs = map(gh_repo, gh_lang, .progress = TRUE),
-                  gh_contribs = map(gh_repo, gh_contrib, .progress = TRUE),
-                  gh_issues = map(gh_repo, gh_issue, .progress = TRUE),
-                  gh_comments = map(gh_repo, gh_comment, .progress = TRUE),
-                  gh_commits = map(gh_repo, gh_commit, .progress = TRUE),
-  )
+  oarch$gh_repo_info <- map(oarch$gh_repo, gh_repo_info, .progress = TRUE)
+  oarch$gh_langs <- map(oarch$gh_repo, gh_lang, .progress = TRUE)
+  oarch$gh_contribs <- map(oarch$gh_repo, gh_contrib, .progress = TRUE)
+  oarch$gh_issues <- map(oarch$gh_repo, gh_issue, .progress = TRUE)
+  oarch$gh_comments <- map(oarch$gh_repo, gh_comment, .progress = TRUE)
+  oarch$gh_commits <- map(oarch$gh_repo, gh_commit, .progress = TRUE)
   saveRDS(oarch, cached_gh_data)
 }
 oarch <- readRDS(cached_gh_data)
