@@ -1,98 +1,93 @@
-# Open archaeology 
+---
+bibliography: references.bib
+---
 
+# Open archaeology
+
+```{=html}
 <!-- Results I: description of open archaeology projects
 
 - What kind of projects comprise open archaeology?
-  - Breakdown of tags and categories
-  - Breakdown of platforms and languages
-  - Tags by category
-  - Licenses?
+  x Breakdown of tags and categories
+  x Breakdown of platforms and languages
+  x Tags by category
+  x Licenses?
 - How has this changed over time?
   - Growth of open archaeology by number of commits
   - Growth of open archaeology by number of repos
   - Compare changing proportions of each category on a year by year basis
   - Identify periods associated with different rates of growth, and relate these with different general attitudes in the history of digital archaeology
 -->
+```
+As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists, primarily software but also various forms of open document.
+@tbl-categories summarises the categories included.
 
-Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.
+```{r tbl-categories}
+#| tbl-cap: Categories of open archaeology projects included in open-archaeo
+tribble(
+  ~category,                               ~kind,       ~scope,
+  "Packages and libraries",                "Software", "Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.",
+  "Standalone software",                   "Software", "Software that may be operated without needing to first access an underlying platform.",
+  "Scripts",                               "Software", "Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.",
+  "Specifications, protocols and schemas", "Documents", "A formal data structure or framework intended to be used as a model.",
+  "Products",                              "Documents", "Stable outcomes of creative work.",
+  "Guides",                                "Documents", "An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.",
+  "Lists and datasets",                    "Documents", "A series of consistently organized observations assembled with purpose."
+) |>
+  left_join(oarch, by = "category") |>
+  count(category, kind, scope) |>
+  group_by(kind) |>
+  arrange(-n) |>
+  gt() |>
+  cols_label_with(fn = tools::toTitleCase)
+```
 
-We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.
+```{r num-p_platform}
+p_platform <- sum(!is.na(oarch$platform)) / nrow(oarch)
+```
 
-We also categorized records based on how each tool or resource is meant to be accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.
+Most projects (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language or a plugin for an application.
+The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes.
+Others create standalone software that can be run independently of such platforms, for example desktop or web apps.
+A significant number of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
 
-| Category                              | Kind      | Scope                                                                                                                                                                                                        |
-|:-----------|:-----------|:------------------------------------------------|
-| Packages and libraries                | Software  | Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.                                                                                   |
-| Standalone software                   | Software  | Software that may be operated without needing to first access an underlying platform.                                                                                                                        |
-| Scripts                               | Software  | Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation. |
-| Specifications, protocols and schemas | Documents | A formal data structure or framework intended to be used as a model.                                                                                                                                         |
-| Products                              | Documents | Stable outcomes of creative work.                                                                                                                                                                            |
-| Guides                                | Documents | An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.                                                                                          |
-| Lists and datasets                    | Documents | A series of consistently organized observations assembled with purpose.                                                                                                                                      |
-:Categorisation scheme used by open-archaeo {#tbl-category-defs}
-
-We defined two kinds of categories: software and documents. Software comprise collections of instructions that dictate how a computer should operate, and documents are bounded sets of recorded information. We define three categories of software and four categories of documents. Packages and libraries are sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform. Platforms are the broader systems upon which packages or libraries are plugged into or are meant to extend upon, such as R, Python, QGIS, and Meshlab, which each have their own protocols to facilitate such integration. Standalone software are tools that users may operate without needing to first access an underlying platform. The third category of software, scripts, are sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.
-
-The first kind of document, which we refer to as specifications, protocols and schemas, are formal data structures or frameworks intended to be used as models. Products are stable outcomes of creative work, loosely defined. Guides are educational resources or documented protocols meant to instruct readers how to apply relevant tools or techniques. And finally, lists or datasets, including open-archaeo itself, are series of consistently organized observations assembled with purpose.
-
-## Platforms and languages
-
-Our first set of analyses focused on these questions:
-
-* What kinds of software are archaeologists making?
-* What are the general purposes of their software?
-
-Most projects included in open-archaeo are designed to be used as a package or library atop am existing "platform" -- for example a package for a programming language like R, or a plugin for an application like QGIS ([@fig-cats-plats]). The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes. Others create standalone software that can be run independently of such platforms, for example desktop or web apps. A significant amount of projects also comprise of datasets and non-packaged code snippets that have been made available for general use .
-
-```{r fig-cats-plats}
-#| fig-cap: Number of open archaeology projects by category and platform
-#| fig-subcap: 
-#|   - Categories
-#|   - Platforms
-
-oarch |>
-  drop_na(category) |>
-  group_by(category) |>
-  summarise(n = n()) |>
-  ggplot(aes(fct_reorder(category, n), n)) +
-  geom_col() +
-  geom_text(aes(label = category), hjust = 0, nudge_y = 1) +
-  coord_flip() +
-  scale_y_continuous(limits = c(0, 300)) +
-  labs(x = NULL, y = NULL) +
-  theme_oarch() +
-  theme(
-    axis.text.y = element_blank(), 
-    axis.ticks.y = element_blank(),
-    panel.grid.major.y = element_blank()
-  )
-
+```{r tbl-platforms}
+#| tbl-cap: Platforms and programming languages used by open archaeology projects
 oarch |>
   drop_na(platform) |>
   count(platform) |>
-  arrange(n) |>
-  ggplot(aes(fct_reorder(platform, n), n)) +
-  geom_col(colour = "#333333") +
-  geom_text(aes(label = platform), hjust = 0, nudge_y = 1) +
-  coord_flip() +
-  scale_y_continuous(limits = c(0, 200)) +
-  labs(x = NULL, y = NULL) +
-  theme_oarch() +
-  theme(
-    axis.text.y = element_blank(), 
-    axis.ticks.y = element_blank(),
-    panel.grid.major.y = element_blank()
-  )
+  mutate(
+    significant = n > 1,
+    platform = if_else(significant, platform, "Other")
+  ) |>
+  group_by(platform) |>
+  summarise(n = sum(n)) |>
+  arrange(platform == "Other", -n) |>
+  gt() |>
+  cols_label_with(fn = tools::toTitleCase)
 ```
 
-R is overwhelmingly dominant as a platform, closely followed by Python [@fig-cats-plats]. Plugins for QGIS and mobile apps are also relatively popular. Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates. In the figure below, the darker grey lines are used to break up the bars by primary author, showing that many of the smaller platforms---for example Excel templates---are targeted by only one or two developers. The larger platforms tend to be more diverse.
-
-```{r plot-platforms}
+```{r num-p_platform_r}
+p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
 ```
 
-When we compare categories with tags, we see the general domains that each kind of resource is designed to serve. We see that packages are fairly common across the board. Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling. These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
+The statistical programming language R is overwhelmingly the most common platform, representing `r percent(p_platform_r)` of projects in open-archaeo.
+Python, another programming language, is also relatively popular, as are plugins for the open source geographic information system QGIS.
+Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates.
+Many of these are targeted by only one or two developers; the larger platforms tend to be more diverse.
 
-```{r plot-tags-cats}
+At first glance, the relative popularity of R versus Python is perhaps surprising; Python is regularly ranked as the most popular programming language in the world, with R a distant runner-up.
+However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
+
+We also annotated each record with 'tags' that describe aspects of archaeological work that each tool contributes to [@fig-tags].
+When we compare categories with tags, we see the general domains that each kind of resource is designed to serve.
+We see that packages are fairly common across the board.
+Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling.
+These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
+
+<!-- TODO: can we say anything more concrete about the tags? -->
+
+```{r fig-tags}
 detail_tags <- c("Instrumental Neutron activation analysis",
                  "Harris Matrix",
                  "aDNA Simulators",
@@ -138,11 +133,25 @@ oarch %>%
   )
 ```
 
-## History
 
-Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
+<!-- TODO: expand. -->
+We found that many repositories do not explicitly denote an open source license, or any license at all [@tbl-repo-licenses].
 
-```{r plot-gh-cum}
+```{r tbl-repo-licenses}
+#| tbl-cap: Summary of licenses used by projects with GitHub repositories.
+oarch |>
+  hoist(gh_repo_info, license = list("license", 1, "name")) |>
+  count(license) |>
+  mutate(license = replace_na(license, "None detected")) |>
+  arrange(-n) |>
+  gt() |>
+    cols_label(license = "License", n = "N")
+```
+
+Archaeological software development activity has increased significantly over the years.
+@fig-github-cumulative shows the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
+
+```{r fig-github-cumulative}
 oarch %>% 
   mutate(
     lumped_category = recode(category,
@@ -226,11 +235,13 @@ p_gh_repos_cum <- oarch_lumped %>%
 p_gh_commits_cum / p_gh_repos_cum
 ```
 
-As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth that has continued ever since.
+As we can see, archaeologists have been using git from even before GitHub was launched in 2008.
+But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth that has continued ever since.
 
-Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
+Around this time we also see that GitHub starts being used to host documents and scripts.
+This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
 
----
+------------------------------------------------------------------------
 
-- Compare changing proportions of each category on a year by year basis
-- Identify temporal trends in the use of licenses
+-   Compare changing proportions of each category on a year by year basis
+-   Identify temporal trends in the use of licenses

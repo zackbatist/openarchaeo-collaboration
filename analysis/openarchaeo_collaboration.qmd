@@ -44,6 +44,7 @@ library("here")
 library("khroma")
 library("lubridate")
 library("patchwork")
+library("scales")
 library("tidygraph")
 library("tidyverse")
 ```
