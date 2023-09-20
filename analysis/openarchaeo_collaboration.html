@@ -3018,19 +3018,18 @@ vertical-align: -.125em;
   <li><a href="#open-science" id="toc-open-science" class="nav-link" data-scroll-target="#open-science"><span class="header-section-number">2.2</span> Open science</a></li>
   </ul></li>
   <li><a href="#methods-materials" id="toc-methods-materials" class="nav-link" data-scroll-target="#methods-materials"><span class="header-section-number">3</span> Methods &amp; Materials <!-- Methods & Materials --></a></li>
-  <li><a href="#open-archaeology" id="toc-open-archaeology" class="nav-link" data-scroll-target="#open-archaeology"><span class="header-section-number">4</span> Open archaeology <!-- Results I (description of what's there) --></a>
+  <li><a href="#open-archaeology" id="toc-open-archaeology" class="nav-link" data-scroll-target="#open-archaeology"><span class="header-section-number">4</span> Open archaeology <!-- Results I: description of open archaeology projects --></a>
   <ul class="collapse">
   <li><a href="#platforms-and-languages" id="toc-platforms-and-languages" class="nav-link" data-scroll-target="#platforms-and-languages"><span class="header-section-number">4.1</span> Platforms and languages</a></li>
   <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history"><span class="header-section-number">4.2</span> History</a></li>
   </ul></li>
-  <li><a href="#an-emerging-community-of-practice" id="toc-an-emerging-community-of-practice" class="nav-link" data-scroll-target="#an-emerging-community-of-practice"><span class="header-section-number">5</span> An emerging community of practice? <!-- Results II: analysis of collaborative practices --></a>
+  <li><a href="#collaborative-practices" id="toc-collaborative-practices" class="nav-link" data-scroll-target="#collaborative-practices"><span class="header-section-number">5</span> Collaborative practices <!-- Results II: description of observed collaborative practices --></a></li>
+  <li><a href="#an-emerging-community-of-practice" id="toc-an-emerging-community-of-practice" class="nav-link" data-scroll-target="#an-emerging-community-of-practice"><span class="header-section-number">6</span> An emerging community of practice? <!-- Results III: network analysis of collaborative communities --></a>
   <ul class="collapse">
-  <li><a href="#project-activity-and-collaborative-practices" id="toc-project-activity-and-collaborative-practices" class="nav-link" data-scroll-target="#project-activity-and-collaborative-practices"><span class="header-section-number">5.1</span> Project activity and collaborative practices</a></li>
-  <li><a href="#network-analysis" id="toc-network-analysis" class="nav-link" data-scroll-target="#network-analysis"><span class="header-section-number">5.2</span> Network analysis</a></li>
-  <li><a href="#repo-repo" id="toc-repo-repo" class="nav-link" data-scroll-target="#repo-repo"><span class="header-section-number">5.3</span> repo-repo</a></li>
-  <li><a href="#user-user" id="toc-user-user" class="nav-link" data-scroll-target="#user-user"><span class="header-section-number">5.4</span> user-user</a></li>
+  <li><a href="#repo-repo" id="toc-repo-repo" class="nav-link" data-scroll-target="#repo-repo"><span class="header-section-number">6.1</span> repo-repo</a></li>
+  <li><a href="#user-user" id="toc-user-user" class="nav-link" data-scroll-target="#user-user"><span class="header-section-number">6.2</span> user-user</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7</span> Conclusion</a></li>
   </ul>
 </nav>
 </div>
@@ -3123,26 +3122,31 @@ vertical-align: -.125em;
 <h1 data-number="3"><span class="header-section-number">3</span> Methods &amp; Materials <!-- Methods & Materials --></h1>
 <!-- TODO: snappier title? Maybe incoroporating 'open-archaeo'? -->
 <p>Our study comprises an exploratory analysis of open-archaeo <span class="citation" data-cites="batist2023">(<a href="#ref-batist2023" role="doc-biblioref">Batist and Roe 2023</a>)</span>, a list of open source archaeological software and other digital resources. As of right now it includes 408 items, which are rendered for the web at <a href="open-archaeo.info">open-archaeo.info</a>. We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software. This entailed manually crawling through users’ profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work. We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.</p>
+
+<!-- TODO:
+* Introduce git, GitHub, etc. and describe briefly how they work for non-users
+* Define software jargon we use (repo, commit, etc.) – maybe as a glossary table?
+-->
 <p>Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.</p>
 <p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="csardi2023">(<a href="#ref-csardi2023" role="doc-biblioref"><strong>csardi2023?</strong></a>)</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host (<a href="#tbl-repo-hosts">Table 1</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-repo-hosts" class="anchored">
 
-<div id="rleqksfnsk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rleqksfnsk table {
+<div id="sgusmifzkk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sgusmifzkk table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#rleqksfnsk thead, #rleqksfnsk tbody, #rleqksfnsk tfoot, #rleqksfnsk tr, #rleqksfnsk td, #rleqksfnsk th {
+#sgusmifzkk thead, #sgusmifzkk tbody, #sgusmifzkk tfoot, #sgusmifzkk tr, #sgusmifzkk td, #sgusmifzkk th {
 border-style: none;
 }
-#rleqksfnsk p {
+#sgusmifzkk p {
 margin: 0;
 padding: 0;
 }
-#rleqksfnsk .gt_table {
+#sgusmifzkk .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3167,11 +3171,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#rleqksfnsk .gt_caption {
+#sgusmifzkk .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#rleqksfnsk .gt_title {
+#sgusmifzkk .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3182,7 +3186,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#rleqksfnsk .gt_subtitle {
+#sgusmifzkk .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3193,7 +3197,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#rleqksfnsk .gt_heading {
+#sgusmifzkk .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3204,12 +3208,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#rleqksfnsk .gt_bottom_border {
+#sgusmifzkk .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#rleqksfnsk .gt_col_headings {
+#sgusmifzkk .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3223,7 +3227,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#rleqksfnsk .gt_col_heading {
+#sgusmifzkk .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3242,7 +3246,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#rleqksfnsk .gt_column_spanner_outer {
+#sgusmifzkk .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3253,13 +3257,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#rleqksfnsk .gt_column_spanner_outer:first-child {
+#sgusmifzkk .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#rleqksfnsk .gt_column_spanner_outer:last-child {
+#sgusmifzkk .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#rleqksfnsk .gt_column_spanner {
+#sgusmifzkk .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3270,10 +3274,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#rleqksfnsk .gt_spanner_row {
+#sgusmifzkk .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#rleqksfnsk .gt_group_heading {
+#sgusmifzkk .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3298,7 +3302,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#rleqksfnsk .gt_empty_group_heading {
+#sgusmifzkk .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3312,13 +3316,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#rleqksfnsk .gt_from_md > :first-child {
+#sgusmifzkk .gt_from_md > :first-child {
 margin-top: 0;
 }
-#rleqksfnsk .gt_from_md > :last-child {
+#sgusmifzkk .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#rleqksfnsk .gt_row {
+#sgusmifzkk .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3336,7 +3340,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#rleqksfnsk .gt_stub {
+#sgusmifzkk .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3348,7 +3352,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rleqksfnsk .gt_stub_row_group {
+#sgusmifzkk .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3361,13 +3365,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#rleqksfnsk .gt_row_group_first td {
+#sgusmifzkk .gt_row_group_first td {
 border-top-width: 2px;
 }
-#rleqksfnsk .gt_row_group_first th {
+#sgusmifzkk .gt_row_group_first th {
 border-top-width: 2px;
 }
-#rleqksfnsk .gt_summary_row {
+#sgusmifzkk .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3376,14 +3380,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rleqksfnsk .gt_first_summary_row {
+#sgusmifzkk .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#rleqksfnsk .gt_first_summary_row.thick {
+#sgusmifzkk .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#rleqksfnsk .gt_last_summary_row {
+#sgusmifzkk .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3392,7 +3396,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#rleqksfnsk .gt_grand_summary_row {
+#sgusmifzkk .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3401,7 +3405,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rleqksfnsk .gt_first_grand_summary_row {
+#sgusmifzkk .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3410,7 +3414,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#rleqksfnsk .gt_last_grand_summary_row_top {
+#sgusmifzkk .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3419,10 +3423,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#rleqksfnsk .gt_striped {
+#sgusmifzkk .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#rleqksfnsk .gt_table_body {
+#sgusmifzkk .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3430,7 +3434,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#rleqksfnsk .gt_footnotes {
+#sgusmifzkk .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3443,7 +3447,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#rleqksfnsk .gt_footnote {
+#sgusmifzkk .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3451,7 +3455,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rleqksfnsk .gt_sourcenotes {
+#sgusmifzkk .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3464,57 +3468,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#rleqksfnsk .gt_sourcenote {
+#sgusmifzkk .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rleqksfnsk .gt_left {
+#sgusmifzkk .gt_left {
 text-align: left;
 }
-#rleqksfnsk .gt_center {
+#sgusmifzkk .gt_center {
 text-align: center;
 }
-#rleqksfnsk .gt_right {
+#sgusmifzkk .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#rleqksfnsk .gt_font_normal {
+#sgusmifzkk .gt_font_normal {
 font-weight: normal;
 }
-#rleqksfnsk .gt_font_bold {
+#sgusmifzkk .gt_font_bold {
 font-weight: bold;
 }
-#rleqksfnsk .gt_font_italic {
+#sgusmifzkk .gt_font_italic {
 font-style: italic;
 }
-#rleqksfnsk .gt_super {
+#sgusmifzkk .gt_super {
 font-size: 65%;
 }
-#rleqksfnsk .gt_footnote_marks {
+#sgusmifzkk .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#rleqksfnsk .gt_asterisk {
+#sgusmifzkk .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#rleqksfnsk .gt_indent_1 {
+#sgusmifzkk .gt_indent_1 {
 text-indent: 5px;
 }
-#rleqksfnsk .gt_indent_2 {
+#sgusmifzkk .gt_indent_2 {
 text-indent: 10px;
 }
-#rleqksfnsk .gt_indent_3 {
+#sgusmifzkk .gt_indent_3 {
 text-indent: 15px;
 }
-#rleqksfnsk .gt_indent_4 {
+#sgusmifzkk .gt_indent_4 {
 text-indent: 20px;
 }
-#rleqksfnsk .gt_indent_5 {
+#sgusmifzkk .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -3607,20 +3611,20 @@ hosts</p> </caption>
 <div class="cell-output-display">
 <div id="tbl-repo-licenses" class="anchored">
 
-<div id="ffwdevbtsm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ffwdevbtsm table {
+<div id="rrolxjheng" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rrolxjheng table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#ffwdevbtsm thead, #ffwdevbtsm tbody, #ffwdevbtsm tfoot, #ffwdevbtsm tr, #ffwdevbtsm td, #ffwdevbtsm th {
+#rrolxjheng thead, #rrolxjheng tbody, #rrolxjheng tfoot, #rrolxjheng tr, #rrolxjheng td, #rrolxjheng th {
 border-style: none;
 }
-#ffwdevbtsm p {
+#rrolxjheng p {
 margin: 0;
 padding: 0;
 }
-#ffwdevbtsm .gt_table {
+#rrolxjheng .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3645,11 +3649,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_caption {
+#rrolxjheng .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#ffwdevbtsm .gt_title {
+#rrolxjheng .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3660,7 +3664,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#ffwdevbtsm .gt_subtitle {
+#rrolxjheng .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3671,7 +3675,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#ffwdevbtsm .gt_heading {
+#rrolxjheng .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3682,12 +3686,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_bottom_border {
+#rrolxjheng .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_col_headings {
+#rrolxjheng .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3701,7 +3705,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_col_heading {
+#rrolxjheng .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3720,7 +3724,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#ffwdevbtsm .gt_column_spanner_outer {
+#rrolxjheng .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3731,13 +3735,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#ffwdevbtsm .gt_column_spanner_outer:first-child {
+#rrolxjheng .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#ffwdevbtsm .gt_column_spanner_outer:last-child {
+#rrolxjheng .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#ffwdevbtsm .gt_column_spanner {
+#rrolxjheng .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3748,10 +3752,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#ffwdevbtsm .gt_spanner_row {
+#rrolxjheng .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#ffwdevbtsm .gt_group_heading {
+#rrolxjheng .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3776,7 +3780,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#ffwdevbtsm .gt_empty_group_heading {
+#rrolxjheng .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3790,13 +3794,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#ffwdevbtsm .gt_from_md > :first-child {
+#rrolxjheng .gt_from_md > :first-child {
 margin-top: 0;
 }
-#ffwdevbtsm .gt_from_md > :last-child {
+#rrolxjheng .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#ffwdevbtsm .gt_row {
+#rrolxjheng .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3814,7 +3818,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#ffwdevbtsm .gt_stub {
+#rrolxjheng .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3826,7 +3830,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ffwdevbtsm .gt_stub_row_group {
+#rrolxjheng .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3839,13 +3843,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#ffwdevbtsm .gt_row_group_first td {
+#rrolxjheng .gt_row_group_first td {
 border-top-width: 2px;
 }
-#ffwdevbtsm .gt_row_group_first th {
+#rrolxjheng .gt_row_group_first th {
 border-top-width: 2px;
 }
-#ffwdevbtsm .gt_summary_row {
+#rrolxjheng .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3854,14 +3858,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ffwdevbtsm .gt_first_summary_row {
+#rrolxjheng .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_first_summary_row.thick {
+#rrolxjheng .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#ffwdevbtsm .gt_last_summary_row {
+#rrolxjheng .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3870,7 +3874,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_grand_summary_row {
+#rrolxjheng .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3879,7 +3883,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ffwdevbtsm .gt_first_grand_summary_row {
+#rrolxjheng .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3888,7 +3892,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_last_grand_summary_row_top {
+#rrolxjheng .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3897,10 +3901,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_striped {
+#rrolxjheng .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#ffwdevbtsm .gt_table_body {
+#rrolxjheng .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3908,7 +3912,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_footnotes {
+#rrolxjheng .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3921,7 +3925,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_footnote {
+#rrolxjheng .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3929,7 +3933,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ffwdevbtsm .gt_sourcenotes {
+#rrolxjheng .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3942,57 +3946,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ffwdevbtsm .gt_sourcenote {
+#rrolxjheng .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ffwdevbtsm .gt_left {
+#rrolxjheng .gt_left {
 text-align: left;
 }
-#ffwdevbtsm .gt_center {
+#rrolxjheng .gt_center {
 text-align: center;
 }
-#ffwdevbtsm .gt_right {
+#rrolxjheng .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#ffwdevbtsm .gt_font_normal {
+#rrolxjheng .gt_font_normal {
 font-weight: normal;
 }
-#ffwdevbtsm .gt_font_bold {
+#rrolxjheng .gt_font_bold {
 font-weight: bold;
 }
-#ffwdevbtsm .gt_font_italic {
+#rrolxjheng .gt_font_italic {
 font-style: italic;
 }
-#ffwdevbtsm .gt_super {
+#rrolxjheng .gt_super {
 font-size: 65%;
 }
-#ffwdevbtsm .gt_footnote_marks {
+#rrolxjheng .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#ffwdevbtsm .gt_asterisk {
+#rrolxjheng .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#ffwdevbtsm .gt_indent_1 {
+#rrolxjheng .gt_indent_1 {
 text-indent: 5px;
 }
-#ffwdevbtsm .gt_indent_2 {
+#rrolxjheng .gt_indent_2 {
 text-indent: 10px;
 }
-#ffwdevbtsm .gt_indent_3 {
+#rrolxjheng .gt_indent_3 {
 text-indent: 15px;
 }
-#ffwdevbtsm .gt_indent_4 {
+#rrolxjheng .gt_indent_4 {
 text-indent: 20px;
 }
-#ffwdevbtsm .gt_indent_5 {
+#rrolxjheng .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -4048,7 +4052,7 @@ text-indent: 25px;
 <p>The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.</p>
 </section>
 <section id="open-archaeology" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Open archaeology <!-- Results I (description of what's there) --></h1>
+<h1 data-number="4"><span class="header-section-number">4</span> Open archaeology <!-- Results I: description of open archaeology projects --></h1>
 <p>Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.</p>
 <p>We annotated each record with tags that describe aspects of archaeological work that each tool contributes to. We assigned tags based on how their maintainers identified their projects. The list of tags and their associated definitions is subject to grow or change as archaeologists continue to develop software for additional use cases. Right now there are 63 tags.</p>
 <p>We also categorized records based on how each tool or resource is meant to be accessed or used. This gives us a sense of the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold. In other words, categories hint at some of the decisions that developers make regarding how they want their tools to be used and accessed.</p>
@@ -4162,10 +4166,8 @@ text-indent: 25px;
 </ul>
 </section>
 </section>
-<section id="an-emerging-community-of-practice" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> An emerging community of practice? <!-- Results II: analysis of collaborative practices --></h1>
-<section id="project-activity-and-collaborative-practices" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="project-activity-and-collaborative-practices"><span class="header-section-number">5.1</span> Project activity and collaborative practices</h2>
+<section id="collaborative-practices" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Collaborative practices <!-- Results II: description of observed collaborative practices --></h1>
 <p>But how is this activity distributed across repositories? In this section we assess projects’ pulse, or the amount of activity pertaining to a repository.</p>
 <p>In the following figure, each vertical line represents a repository’s lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.</p>
 <div class="cell">
@@ -4212,23 +4214,22 @@ text-indent: 25px;
 </div>
 </div>
 </section>
-<section id="network-analysis" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="network-analysis"><span class="header-section-number">5.2</span> Network analysis</h2>
+<section id="an-emerging-community-of-practice" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> An emerging community of practice? <!-- Results III: network analysis of collaborative communities --></h1>
 <p>We constructed and analyzed networks representing users’ contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.</p>
 <p>We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.</p>
 <p>We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.</p>
 <p><strong>NOTE:</strong> Combine these figures using patchwork. <strong>NOTE:</strong> Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.</p>
-</section>
-<section id="repo-repo" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="repo-repo"><span class="header-section-number">5.3</span> repo-repo</h2>
+<section id="repo-repo" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="repo-repo"><span class="header-section-number">6.1</span> repo-repo</h2>
 <p>We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.</p>
 <p>This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.</p>
 <p><strong>NOTE:</strong> Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.</p>
 <p>The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).</p>
 <p><strong>NOTE:</strong> What happens to this interpretation when we differentiate commits from issues and comments?</p>
 </section>
-<section id="user-user" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="user-user"><span class="header-section-number">5.4</span> user-user</h2>
+<section id="user-user" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="user-user"><span class="header-section-number">6.2</span> user-user</h2>
 <p>We assembled graphs linking users based on common contributions to the same repositories.</p>
 <p><strong>NOTE:</strong> Plot a graph that renders nodes’ sizes based on their betweenness centrality.</p>
 <p>We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.</p>
@@ -4239,8 +4240,8 @@ text-indent: 25px;
 <p><strong>NOTE:</strong> I have no idea what these next two charts depict.</p>
 </section>
 </section>
-<section id="conclusion" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<section id="conclusion" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Conclusion</h1>
 <p>Archaeology is a “magpie” discipline, using tools and methods that originate from a variety of other disciplines and industries to better understand the past. Moreover, archaeologists are accustomed to working on shoestring budgets, having to adapt their tools to suit specific, non-generalizable situations, and applying a DIY work ethic to create and co-creating with others to get the job done (Batist et al 2021; Morgan and Eve 2012; Caraher 2019). It is therefore unsprising that archaeologists are prolific open source software developers.</p>
 <p>In this study we have sought to document an emerging community of open source software engineers in archaeology and to assess the extent to which collaboration within this community resembles conventional ‘open source’ forms. We have operationalised ‘open-source collaborative practices’ as the use of certain features of git and GitHub visible to us in data from the GitHub API. This excludes a wide range of other potential practices, most obviously the use of other software (though as we demonstrate in section X.X, the git/GitHub combination is overwhelmingly the most popular), but also collaboration through offline or private channels, or forms of collaboration we don’t know about. We have not directly interviewed those doing the collaborating, though our conclusions do drawn heavily from our experience as members of that community ourselves. Our earliest data is from XXX and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it (<span class="citation" data-cites="cite">(<a href="#ref-cite" role="doc-biblioref"><strong>cite?</strong></a>)</span>).</p>
 <p>These caveats notwithstanding, we have documented that open source software development in archaeology has seen a rapid and sustained rise beginning around 2014. This is marked by a variety of applications and use cases, including the use of git and GitHub to track and host content other than code. Moreover, archaeologists are very involved in broader scripting ecosystems, as is evident through the predominant creation of R packages and Python libraries designed to process the rich variety of archaeological information. At the same time, archaeologists also create standalone software for more intensive tasks that require greater access to system resources or that warrant more complex user interfaces than what R and Python IDEs are capable of providing.</p>

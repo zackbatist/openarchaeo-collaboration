@@ -1,4 +1,4 @@
-## Network analysis
+# An emerging community of practice? <!-- Results III: network analysis of collaborative communities -->
 
 We constructed and analyzed networks representing users' contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
 

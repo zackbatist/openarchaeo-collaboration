@@ -1,4 +1,4 @@
-# Open archaeology <!-- Results I (description of what's there) -->
+# Open archaeology <!-- Results I: description of open archaeology projects -->
 
 Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.
 
@@ -123,3 +123,100 @@ oarch %>%
     axis.text.y = element_text(size = 7)
   )
 ```
+
+## History
+
+Archaeological software development activity has increased significantly over the years. The following charts portray the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
+
+```{r plot-gh-cum}
+oarch %>% 
+  mutate(
+    lumped_category = recode(category,
+                             "Specifications etc." = "Documents",
+                             "Products" = "Documents",
+                             "Guides" = "Documents",
+                             "Lists and datasets" = "Documents",
+                             .default = category),
+    lumped_category = factor(lumped_category, c("Scripts",
+                                                "Documents",
+                                                "Packages and libraries",
+                                                "Standalone software")) ) ->
+  oarch_lumped
+
+p_gh_commits_cum <- oarch_lumped %>%
+  unnest(gh_commits) %>%
+  drop_na(sha) %>%
+  mutate(date = floor_date(datetime, "week")) %>%
+  group_by(lumped_category, date) %>%
+  summarise(n_commits = n(), .groups = "drop_last") %>%
+  mutate(cum_commits = cumsum(n_commits)) %>%
+  ggplot(aes(date, cum_commits,
+             fill = lumped_category,
+             colour = lumped_category,
+             label = lumped_category)) +
+  geom_area() +
+  annotate("segment", 
+           x = ymd("2008-04-01", tz = "UTC"), 
+           xend = ymd("2008-04-01", tz = "UTC"),
+           y = 16000, yend = 4000,
+           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
+  annotate("text", 
+           x = ymd("2008-04-01", tz = "UTC"), y = 19000,
+           label = "GitHub\nlaunched",
+           vjust = 0) +
+  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_colour_bright(guide = guide_none()) +
+  scale_fill_bright() +
+  labs(
+    y = "cumulative commits",
+    x = NULL, fill = NULL
+  ) +
+  theme_oarch() +
+  theme(legend.position = "top")
+
+# TODO: extend to end
+p_gh_repos_cum <- oarch_lumped %>%
+  unnest(gh_commits) %>%
+  drop_na(sha) %>%
+  group_by(repo) %>% 
+  filter(datetime == min(datetime)) %>% # Only first commits
+  mutate(date = floor_date(datetime, "week")) %>%
+  group_by(lumped_category, date) %>%
+  summarise(n_commits = n(), .groups = "drop_last") %>%
+  mutate(cat_total = sum(n_commits)) %>%
+  mutate(cum_commits = cumsum(n_commits)) %>%
+  ggplot(aes(date, cum_commits,
+             fill = lumped_category,
+             colour = lumped_category)) +
+  geom_area() +
+  annotate("segment",
+           x = ymd("2008-04-01", tz = "UTC"),
+           xend = ymd("2008-04-01", tz = "UTC"),
+           y = 40, yend = 10,
+           arrow = arrow(type = "closed", length = unit(0.02, "npc"))) +
+  annotate("text",
+           x = ymd("2008-04-01", tz = "UTC"), y = 50,
+           label = "GitHub\nlaunched",
+           vjust = 0) +
+  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_colour_bright(guide = guide_none()) +
+  scale_fill_bright(guide = guide_none()) +
+  labs(
+    y = "cumulative repositories",
+    x = NULL, fill = NULL
+  ) +
+  theme_oarch()
+
+p_gh_commits_cum / p_gh_repos_cum
+```
+
+As we can see, archaeologists have been using git from even before GitHub was launched in 2008. But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth that has continued ever since.
+
+Around this time we also see that GitHub starts being used to host documents and scripts. This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
+
+---
+
+- Compare changing proportions of each category on a year by year basis
+- Identify temporal trends in the use of licenses

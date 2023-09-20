@@ -1,6 +1,4 @@
-# An emerging community of practice? <!-- Results II: analysis of collaborative practices -->
-
-## Project activity and collaborative practices
+# Collaborative practices <!-- Results II: description of observed collaborative practices -->
 
 But how is this activity distributed across repositories? In this section we assess projects' pulse, or the amount of activity pertaining to a repository.
 
