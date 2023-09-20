@@ -1,4 +1,30 @@
-# An emerging community of practice? <!-- Results III: network analysis of collaborative communities -->
+# An emerging community of practice? 
+
+<!-- Results III: network analysis of collaborative communities
+
+* Are there significant networks? If so, how big and how many?
+  * Only one, it seems!
+
+### [Repo-repo] What forms this network?
+
+* Identify the repos/organisations that are the focus of the most intense collaboration?
+  * Are they thematically or topically linked?
+  * Do they map onto real-world research centres?
+* Is the network a new thing, or just a translation of existing offline networks (e.g. fields, institutions) onto GitHub?
+  * cf. is open source really open?
+
+### [User-user] Who forms this network?
+
+* What proportion of users and repos are connected to this network?
+* What predicts membership in this network?
+* Does centrality in the network correlate with general rate of activity?
+*  Who are the most central nodes in this network? Is there anything they have in common?
+   * High activity?
+   * Certain platforms/categories/languages?
+* Qualitative analysis of top 50? 100? most connected users
+  * Career stage? Precarity? Employer? Location?
+
+-->
 
 We constructed and analyzed networks representing users' contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
 

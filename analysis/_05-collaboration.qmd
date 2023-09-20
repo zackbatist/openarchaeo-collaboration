@@ -1,4 +1,20 @@
-# Collaborative practices <!-- Results II: description of observed collaborative practices -->
+# Collaborative practices 
+
+<!-- Results II: description of observed collaborative practices
+
+- How active are projects?
+- How many people are involved?
+- Conversely, how many projects are individual people involved in?
+- What is the level of uptake of GitHub's collaboration features?
+- Has this changed over time?
+
+Figures:
+
+- Charts presenting commit rates and repo longevity
+- Charts presenting the number of contributors and the amount of work that they each contributed
+- Charts presenting the use of issues and comments
+
+-->
 
 But how is this activity distributed across repositories? In this section we assess projects' pulse, or the amount of activity pertaining to a repository.
 

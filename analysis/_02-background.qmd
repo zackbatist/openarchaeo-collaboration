@@ -1,5 +1,11 @@
-# Open science and open source <!-- Background -->
+# Open science and open source
 
+<!--
+* What is open source?
+* Summary of key publications in open archaeology / DIY archaeology
+* But is any of this real? There seems to be a lack of reflection about what open archaeology is.
+  -->
+  
 ## Open source
 
 Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., "free software", as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development [@kelty2008: chapter 3, especially starting at page 99]. By putting one's code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision [@kelty2008 on the emacs saga]. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be "forked", or taken in a new direction if contributors are dissatisfied with how core developers run things.

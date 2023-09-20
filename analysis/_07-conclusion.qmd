@@ -1,4 +1,18 @@
 # Conclusion
+
+<!--
+
+There is an emerging community of practice around open source in archaeology.
+
+* It is limited and fragmented
+  * A small set of subfields are represented
+  * Probably most people still haven't heard it?
+* Collaboration is limited
+  * Most work remains solo & short-lived
+  * Perhaps because open source norms conflict with academic norms?
+* The members of this community face structural challenges in academia
+-->
+
 Archaeology is a "magpie" discipline, using tools and methods that originate from a variety of other disciplines and industries to better understand the past. 
 Moreover, archaeologists are accustomed to working on shoestring budgets, having to adapt their tools to suit specific, non-generalizable situations, and applying a DIY work ethic to create and co-creating with others to get the job done (Batist et al 2021; Morgan and Eve 2012; Caraher 2019). 
 It is therefore unsprising that archaeologists are prolific open source software developers.

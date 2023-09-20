@@ -1,4 +1,18 @@
-# Open archaeology <!-- Results I: description of open archaeology projects -->
+# Open archaeology 
+
+<!-- Results I: description of open archaeology projects
+
+- What kind of projects comprise open archaeology?
+  - Breakdown of tags and categories
+  - Breakdown of platforms and languages
+  - Tags by category
+  - Licenses?
+- How has this changed over time?
+  - Growth of open archaeology by number of commits
+  - Growth of open archaeology by number of repos
+  - Compare changing proportions of each category on a year by year basis
+  - Identify periods associated with different rates of growth, and relate these with different general attitudes in the history of digital archaeology
+-->
 
 Our analysis documented an the widespread presence of open archaeology projects on GitHub and other online platforms.
 

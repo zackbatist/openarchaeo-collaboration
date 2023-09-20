@@ -1,8 +1,10 @@
----
-bibliography: references.bib
----
+# Data and methodology
 
-# Methods & Materials <!-- Methods & Materials -->
+<!--
+* open-archaeo
+* GitHub API
+* Indicate how much is on GitHub or elsewhere
+  -->
 
 <!-- TODO: snappier title? Maybe incoroporating 'open-archaeo'? -->
 
