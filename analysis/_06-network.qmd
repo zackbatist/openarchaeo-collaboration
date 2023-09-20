@@ -15,20 +15,17 @@ oarch_graph <- bind_rows(
     unnest(gh_commits) |>
     drop_na(author) |> # Apparently real commits, but we can't connect them
     group_by(repo, author) |>
-    summarise(category = first(category), tags = first(tags),
-              contrib = "commit", n_contrib = n(), .groups = "drop"),
+    summarise(contrib = "commit", n_contrib = n(), .groups = "drop"),
   oarch_graph |>
     unnest(gh_comments) |>
     drop_na(author) |> # Repos with no comments
     group_by(repo, author) |>
-    summarise(category = first(category), tags = first(tags),
-              contrib = "comment", n_contrib = n(), .groups = "drop"),
+    summarise(contrib = "comment", n_contrib = n(), .groups = "drop"),
   oarch_graph |>
     unnest(gh_issues) |>
     drop_na(author) |> # Repos with no issues
     group_by(repo, author) |>
-    summarise(category = first(category), tags = first(tags),
-              contrib = "issue", n_contrib = n(), .groups = "drop")
+    summarise(contrib = "issue", n_contrib = n(), .groups = "drop")
 )
 
 # Cleaning
@@ -74,7 +71,7 @@ We applied the edge-betweenness community detection method to identify clusters 
 <!-- TODO: Note that we remove disconnected repos? (and how many?) -->
 
 ```{r extract-graph-repo-repo}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph,category,tags),
+oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
                                    edges_common_users(oarch_graph),
                                    directed = FALSE)
 
@@ -95,7 +92,7 @@ oarch_graph_repo_repo |>
 ```
 
 
-```{r fig-graph-repo-repo, eval=FALSE}
+```{r fig-graph-repo-repo-interactive, eval=FALSE}
 iplot <- oarch_graph_repo_repo |>
   ggraph(layout = "graphopt") +
   geom_edge_link(aes(alpha = n)) +
@@ -171,17 +168,14 @@ oarch_graph_user_user <- tbl_graph(
 oarch_graph_user_user |>
   mutate(degree = centrality_degree()) |>
   filter(degree > 1) |>
-  mutate(
-    centrality = centrality_betweenness(weights = n),
-    group = as.character(group_edge_betweenness())
-  ) ->
+  mutate(centrality = centrality_betweenness(weights = n)) ->
   oarch_graph_user_user
 ```
 
 <!--
  NOTE, ZACK: the graph below is what you requested (nodes' sizes based on their betweenness centrality), but I'm unsure we will ever be able to get these graph plots legible enough to actually include. – JR -->
 
-```{r fig-graph-user-user-centrality, eval=TRUE}
+```{r fig-graph-user-user-centrality, eval=FALSE}
 oarch_graph_user_user |> 
   ggraph(layout = "graphopt") +
   # geom_edge_link(aes(alpha = n)) +

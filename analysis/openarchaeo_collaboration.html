@@ -3080,7 +3080,7 @@ vertical-align: -.125em;
 <div>
   <div class="abstract">
     <div class="abstract-title">Abstract</div>
-    <p>Surveying the first quarter-century of computer applications in archaeology, Scollar <span class="citation" data-cites="scollar1999">(<a href="#ref-scollar1999" role="doc-biblioref"><strong>scollar1999?</strong></a>)</span> lamented that the field relied almost exclusively on “hand-me-down” tools repurposed from other disciplines. 25 years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer <span class="citation" data-cites="baxter2012">(<a href="#ref-baxter2012" role="doc-biblioref"><strong>baxter2012?</strong></a>)</span>, developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field <span class="citation" data-cites="cowgill1967">(<a href="#ref-cowgill1967" role="doc-biblioref"><strong>cowgill1967?</strong></a>)</span>, its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS). Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system <code>git</code> and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of FOSS software using patterns that can diverge quite radically from conventional scholarly norms <span class="citation" data-cites="tennant2020">(<a href="#ref-tennant2020" role="doc-biblioref"><strong>tennant2020?</strong></a>)</span>.</p>
+    <p>Surveying the first quarter-century of computer applications in archaeology, Scollar <span class="citation" data-cites="scollar1999">(<a href="#ref-scollar1999" role="doc-biblioref">1999</a>)</span> lamented that the field relied almost exclusively on “hand-me-down” tools repurposed from other disciplines. 25 years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer <span class="citation" data-cites="baxter2012">(<a href="#ref-baxter2012" role="doc-biblioref">Baxter et al. 2012</a>)</span>, developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field <span class="citation" data-cites="cowgill1967">(<a href="#ref-cowgill1967" role="doc-biblioref">Cowgill 1967</a>)</span>, its most recent manifestation is distinguished by its apparently embrace of practices from free and open source software (FOSS). Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system <code>git</code> and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of FOSS software using patterns that can diverge quite radically from conventional scholarly norms <span class="citation" data-cites="tennant2020">(<a href="#ref-tennant2020" role="doc-biblioref">Tennant et al. 2020</a>)</span>.</p>
     <p>In this paper, we investigate modes of collaboration in this emerging community of practice using open-archaeo (https://open-archaeo.info/), a curated list of 500+ active open projects in archaeology, augmented where available with data on their activity on GitHub. We apply network analysis to map the networks of collaboration that have emerged among archaeologists using GitHub, and conduct a quantitative exploratory analysis to characterize the nature and intensity of these collaborations. Our results show an uneven adoption of open source collaborative practices beyond the basic use of <code>git</code> as a version control system and GitHub to host source code. A majority of repositories have 1–3 contributors, with only a few projects distinguished by an active and diverse developer base. More community-oriented features, such as GitHub’s ‘issues’ and ‘comments’, are used in only a minority of repositories. Preliminary findings from ongoing work also shows how collaborative behaviours vary across different subcommunities. By analyzing interactions among archaeologists using the GitHub platform, including the ways they contribute to collective code bases, we demonstrate how archaeological software engineering is beginning to foster new kinds of collaborative commitments that blend open source protocols, DIY work ethic, conventional forms of scholarly communication, and cultural practices unique to archaeology.</p>
   </div>
 </div>
@@ -3089,9 +3089,9 @@ vertical-align: -.125em;
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>In their seminal vision for open archaeology, Beck and Neylon <span class="citation" data-cites="beck2012">(<a href="#ref-beck2012" role="doc-biblioref"><strong>beck2012?</strong></a>)</span> identified the movement as comprising a series of principles and practices “predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain” with the aim of “maximizing transparency, reuse and engagement while maintaining professional probity”. Open archaeology therefore promotes more thoughtful scholarly communication practices, most notably in operations relating to publishing, data-sharing, education, and review processes. Archaeologists are also actively engaged in open source software development as means of sharing their research processes and creating tools and resources for general use.</p>
-<p>However, academic open source has a complicated relationship with open source as practiced by professional software developers, which has its own distinct history and is framed by different objectives, challenges, and value regimes. Despite this, the open science movement, within which open archaeology emerged, draws direct inspiration from open source. For instance, the Open Knowledge Foundation <span class="citation" data-cites="openknowledgefoundation2023">(<a href="#ref-openknowledgefoundation2023" role="doc-biblioref"><strong>openknowledgefoundation2023?</strong></a>)</span> publishes a widely accepted defitnion of “open” in the context of scholarly communication that explicitly refers to the definition of “open source” published by the Open Source Initiative <span class="citation" data-cites="opensourceinitiative2007">(<a href="#ref-opensourceinitiative2007" role="doc-biblioref"><strong>opensourceinitiative2007?</strong></a>)</span>, an authoritative open source advocacy group. The open science movement further mimics open source by operationalizing scholarly communication through technical infrastructures and protocols that closely resemble systems and processes designed to develop open source software (e.g., the use of plaintext, line-resolution version control, emphasis on formal licencing, the general hacker aesthetic). However, academic work, including the development of academic software, differs signififcantly from the work involved in massive open source projects that literally run the internet, such as the Linux kernel, openSSL, and the Firefox web browser. While they may use similar tools and technical protocols to manage coding operations, the open science and open source movements are governed by different social and professional warrants and interests. In other words, publishing code openly on the web has different meanings, impacts and implications for archaeologists and professional software developers <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref"><strong>kelty2008?</strong></a> xx)</span>.</p>
-<p>The relationship between open science and open source is also complicated by rhetorical claims that, based on our personal experiences, are discordant with how academics actually <em>do</em> open source. Does academic open source actually make research processes more transparent and improve research outcomes? Is it actually boosting efficiency by establishing a common store of knowledge and productive code? Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass? Despite hopeful aspirations espoused by open archaeology advocates <span class="citation" data-cites="kansa2014 kintigh2015">(see <a href="#ref-kansa2014" role="doc-biblioref"><strong>kansa2014?</strong></a>; <a href="#ref-kintigh2015" role="doc-biblioref"><strong>kintigh2015?</strong></a>)</span>, these outcomes are not a given. We believe that these outcomes only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. However, practical circumstances and systemic value regimes that frame what it means to work as an archaeologist presently inhibit the potential for radical transformation, even among open science’s most ardent supporters.</p>
+<p>In their seminal vision for open archaeology, Beck and Neylon <span class="citation" data-cites="beck2012">(<a href="#ref-beck2012" role="doc-biblioref">2012, 480–81</a>)</span> identified the movement as comprising a series of principles and practices “predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain” with the aim of “maximizing transparency, reuse and engagement while maintaining professional probity”. Open archaeology therefore promotes more thoughtful scholarly communication practices, most notably in operations relating to publishing, data-sharing, education, and review processes. Archaeologists are also actively engaged in open source software development as means of sharing their research processes and creating tools and resources for general use.</p>
+<p>However, academic open source has a complicated relationship with open source as practiced by professional software developers, which has its own distinct history and is framed by different objectives, challenges, and value regimes. Despite this, the open science movement, within which open archaeology emerged, draws direct inspiration from open source. For instance, the Open Knowledge Foundation <span class="citation" data-cites="openknowledgefoundation2023">(<a href="#ref-openknowledgefoundation2023" role="doc-biblioref">2023</a>)</span> publishes a widely accepted defitnion of “open” in the context of scholarly communication that explicitly refers to the definition of “open source” published by the Open Source Initiative <span class="citation" data-cites="opensourceinitiative2007">(<a href="#ref-opensourceinitiative2007" role="doc-biblioref">2007</a>)</span>, an authoritative open source advocacy group. The open science movement further mimics open source by operationalizing scholarly communication through technical infrastructures and protocols that closely resemble systems and processes designed to develop open source software (e.g., the use of plaintext, line-resolution version control, emphasis on formal licencing, the general hacker aesthetic). However, academic work, including the development of academic software, differs signififcantly from the work involved in massive open source projects that literally run the internet, such as the Linux kernel, openSSL, and the Firefox web browser. While they may use similar tools and technical protocols to manage coding operations, the open science and open source movements are governed by different social and professional warrants and interests. In other words, publishing code openly on the web has different meanings, impacts and implications for archaeologists and professional software developers <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a> xx)</span>.</p>
+<p>The relationship between open science and open source is also complicated by rhetorical claims that, based on our personal experiences, are discordant with how academics actually <em>do</em> open source. Does academic open source actually make research processes more transparent and improve research outcomes? Is it actually boosting efficiency by establishing a common store of knowledge and productive code? Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass? Despite hopeful aspirations espoused by open archaeology advocates <span class="citation" data-cites="kansa2014 kintigh2015">(see <a href="#ref-kansa2014" role="doc-biblioref">Kansa, Whitcher Kansa, and Arbuckle 2014</a>; <a href="#ref-kintigh2015" role="doc-biblioref">Kintigh et al. 2015</a>)</span>, these outcomes are not a given. We believe that these outcomes only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. However, practical circumstances and systemic value regimes that frame what it means to work as an archaeologist presently inhibit the potential for radical transformation, even among open science’s most ardent supporters.</p>
 <p>That being said, archaeologists are prolific software developers. This is made evident by open-archaeo, a comprehensive list of open source archaeological software and resources that indexes XXX records as of the time of publication. But beyond simply making their code available on the web, do archaeologists also implement social strategies to advance open source ideals? Does archaeological open source actually help achieve greater transparency, sustainability, and community participation? And if not, what does it actually achieve?</p>
 <p>This article presents a survey of archaeological software development with two goals in mind:</p>
 <ol type="1">
@@ -3104,18 +3104,18 @@ vertical-align: -.125em;
 <h1 data-number="2"><span class="header-section-number">2</span> Open science and open source <!-- Background --></h1>
 <section id="open-source" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="open-source"><span class="header-section-number">2.1</span> Open source</h2>
-<p>Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., “free software”, as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref"><strong>kelty2008?</strong></a> chapter 3, especially starting at page 99)</span>. By putting one’s code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref"><strong>kelty2008?</strong></a> on the emacs saga)</span>. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be “forked”, or taken in a new direction if contributors are dissatisfied with how core developers run things.</p>
-<p>Open source has traditionally been referred to as being based on meritocratic principles. A good test of whether a contribution should be included in a published software release is whether it is functional <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref"><strong>kelty2008?</strong></a>)</span>. Moreover, with more eyes looking over a code base, it is easier to identify flaws with a contribution and flag potential bugs or security issues. This is all done in the spirit of producing functional code, and in ideal circumstances faulty contributions will be corrected before inclusion. Personal ego is minimized in favour of co-creating stable and functional outcomes <span class="citation" data-cites="coleman2012 oneil2009">(<a href="#ref-coleman2012" role="doc-biblioref"><strong>coleman2012?</strong></a>; <a href="#ref-oneil2009" role="doc-biblioref"><strong>oneil2009?</strong></a> on the debian saga)</span>.</p>
-<p>However, this is not the same as saying that open source is completely anarchic or based on the “wisdom of crowds”. In fact, successful open source projects incorporate complex organizational structures, governance strategies, and forms or social mediation to help delegate and vet contributions made by distributed participants <span class="citation" data-cites="oneil2009">(<a href="#ref-oneil2009" role="doc-biblioref"><strong>oneil2009?</strong></a>)</span>. They rely on, rather than eschew, institutional support structures, in order to motivate work, keep volunteer maintainers involved, and generally ensure that the project can be sustained over the long-term. Open source is more than just putting your code online; to be successful, it requires participation in a social experience <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref"><strong>kelty2008?</strong></a>, Ratto dissertation and derived works)</span>.</p>
+<p>Open source is a software development model that prioritizes transparent work processes. Initially driven by the idea that computer users should be free to understand and manipulate the software that they install on their computers (e.g., “free software”, as initially conceived by the Free Software Foundation), open source has become a means of collaborative software development <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a>: chapter 3, especially starting at page 99)</span>. By putting one’s code on the web without restriction on how it may be used or manipulated, this encourages creativity to flourish as people contribute to help improve the code base. Software thus emerges from the coordinated labour of worldwide volunteers, who shape the product according to the collective vision <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a> on the emacs saga)</span>. An open code base may also be used to support alternative projects whose missions diverge from the original plan, and an entire project may be “forked”, or taken in a new direction if contributors are dissatisfied with how core developers run things.</p>
+<p>Open source has traditionally been referred to as being based on meritocratic principles. A good test of whether a contribution should be included in a published software release is whether it is functional <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008, 220</a>)</span>. Moreover, with more eyes looking over a code base, it is easier to identify flaws with a contribution and flag potential bugs or security issues. This is all done in the spirit of producing functional code, and in ideal circumstances faulty contributions will be corrected before inclusion. Personal ego is minimized in favour of co-creating stable and functional outcomes <span class="citation" data-cites="coleman2012 oneil2009">(<a href="#ref-coleman2012" role="doc-biblioref">Coleman 2012</a>; <a href="#ref-oneil2009" role="doc-biblioref">O’Neil 2009</a> on the debian saga)</span>.</p>
+<p>However, this is not the same as saying that open source is completely anarchic or based on the “wisdom of crowds”. In fact, successful open source projects incorporate complex organizational structures, governance strategies, and forms or social mediation to help delegate and vet contributions made by distributed participants <span class="citation" data-cites="oneil2009">(<a href="#ref-oneil2009" role="doc-biblioref">O’Neil 2009</a>)</span>. They rely on, rather than eschew, institutional support structures, in order to motivate work, keep volunteer maintainers involved, and generally ensure that the project can be sustained over the long-term. Open source is more than just putting your code online; to be successful, it requires participation in a social experience <span class="citation" data-cites="kelty2008">(<a href="#ref-kelty2008" role="doc-biblioref">Kelty 2008</a>, Ratto dissertation and derived works)</span>.</p>
 <p>In other words, as with many so-called “soft skills” that are crucial for academic professional development, additional competencies relating to the maintenance, management, and distribution of software, such as the ability to receive and implement feedback, set and stick with long-term goals, coordinate labour, document work practices, and collaborate with others, are grossly underappreciated factors that contribute to an open source project’s success.</p>
 <p>We therefore consider open source to be a means of collaboration more than a means of transmitting information. It involves developing software as part of a group, developing consensus, and working with common purpose. Crucially, it also involves having a welcoming attitude, a sense of humility, and an understanding that one’s work may be appropriated and used in unanticipated ways.</p>
 </section>
 <section id="open-science" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="open-science"><span class="header-section-number">2.2</span> Open science</h2>
-<p>The open science movement comprises a series of practices and principles intended to make research more accessible, transparent, and efficient. Although the concept of “open” is somewhat nebulous, in terms of its abstract definition and with regards to what real-world applications count as being open, one commonly-cited definition describes content that “can be freely used, modified, and shared by anyone for any purpose” <span class="citation" data-cites="openknowledgefoundation2023">(<a href="#ref-openknowledgefoundation2023" role="doc-biblioref"><strong>openknowledgefoundation2023?</strong></a>)</span>. This definition does not state what open is for, how to be open, or any sort of social or discursive framing behind the open movement. However, most open science advocates (including archaeologists, as elicited by <span class="citation" data-cites="beck2012">(<a href="#ref-beck2012" role="doc-biblioref"><strong>beck2012?</strong></a>)</span> and <span class="citation" data-cites="marwick2017">(<a href="#ref-marwick2017" role="doc-biblioref"><strong>marwick2017?</strong></a>)</span>) claim that they are motivated by a desire to facilitate novel research opportunities, make participation in scienctific research more equitable, reclaim science as a public good, and enhance how findings are validated and legitimized.</p>
-<p>The idea that scientistis should generally contribute to a public domain of knowledge without profit motive has led to open science being heralded as revolutionary, community-oriented, and anti-capitalist means of production. However, while open science does have the <em>potential</em> to effect radical change, this is not a given. The social and institutional contexts in which we do science is firmly embedded within capitalist and neoliberal power structures that reward individualistic competition and do little to actually encourage equitable and accessible research practices, and as such, make it difficult to fully embrace open science ideals <span class="citation" data-cites="mirowski2018">(<a href="#ref-mirowski2018" role="doc-biblioref"><strong>mirowski2018?</strong></a>)</span>. Moreover, the open science movement, which is dominated by STEM disciplines, prioritizes a grossly simplified and asocial notion of what science is and entails. Namely, it considers science as the accumulation and assembly of a species-level understanding of the world, which is not held by any one individual but is stored in seemingly value-neutral and disembodied media, facts and observations. This is manifested by digital telecommunications systems that host files, document processes, facilitate co-working opportunities, and perform automated processes. However, these systems have become so emblematic of open science that the use of these tools and resources designed to <em>support</em> open science is often mistaken for <em>actually doing</em> open science.</p>
-<p>Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain <span class="citation" data-cites="tennant2020">(<a href="#ref-tennant2020" role="doc-biblioref"><strong>tennant2020?</strong></a>)</span>. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (inlcuding: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed, papers have been published, and credit has been allocated, it is common for scientists to mark their projects as finished and move on to new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly in perpetuity, and contributors may remain actively or sporadically involved to satisfy users’ needs, or to direct users to derivative and functional forks of abandoned software.</p>
-<p>The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a genuine desire to facilitate novel research opportunities, to make participation in scienctific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. However, the predominant concern with implementing best tools to use, adopting optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards <span class="citation" data-cites="kansa2014 kintigh2015 roosevelt2015">(cf. <a href="#ref-kansa2014" role="doc-biblioref"><strong>kansa2014?</strong></a>; <a href="#ref-kintigh2015" role="doc-biblioref"><strong>kintigh2015?</strong></a>; <a href="#ref-roosevelt2015" role="doc-biblioref"><strong>roosevelt2015?</strong></a>)</span> distract from fundamental tensions and contradictions regarding the actual value of working in the open. For instance, Faniel et al. <span class="citation" data-cites="faniel2013">(<a href="#ref-faniel2013" role="doc-biblioref"><strong>faniel2013?</strong></a>)</span>, Atici et al. <span class="citation" data-cites="atici2013">(<a href="#ref-atici2013" role="doc-biblioref"><strong>atici2013?</strong></a>)</span>, <span class="citation" data-cites="huggett2018">(<a href="#ref-huggett2018" role="doc-biblioref"><strong>huggett2018?</strong></a>)</span>, <span class="citation" data-cites="sobotkova2018">(<a href="#ref-sobotkova2018" role="doc-biblioref"><strong>sobotkova2018?</strong></a>)</span>, and <span class="citation" data-cites="opitz2021">(<a href="#ref-opitz2021" role="doc-biblioref"><strong>opitz2021?</strong></a>)</span> demonstrate that to make the reuse of archaeological data feasible and useful in a practical sense, it is necessary to re-introduce social friction that these infrastructures are designed to eliminate. In other words, the pressures and circumstances of being an archaeologist and doing archaeological research assert themselves when attempting to make practical use of these infrastructures, and therefore must be accounted for in their design and implementation. Here we aim to identify similar sources of dissonance with regards to the promise, potential, and actual implementation of open source software development models among archaeologists.</p>
+<p>The open science movement comprises a series of practices and principles intended to make research more accessible, transparent, and efficient. Although the concept of “open” is somewhat nebulous, in terms of its abstract definition and with regards to what real-world applications count as being open, one commonly-cited definition describes content that “can be freely used, modified, and shared by anyone for any purpose” <span class="citation" data-cites="openknowledgefoundation2023">(<a href="#ref-openknowledgefoundation2023" role="doc-biblioref">Open Knowledge Foundation 2023</a>)</span>. This definition does not state what open is for, how to be open, or any sort of social or discursive framing behind the open movement. However, most open science advocates (including archaeologists, as elicited by <span class="citation" data-cites="beck2012">Beck and Neylon (<a href="#ref-beck2012" role="doc-biblioref">2012</a>)</span> and <span class="citation" data-cites="marwick2017">Marwick et al. (<a href="#ref-marwick2017" role="doc-biblioref">2017</a>)</span>) claim that they are motivated by a desire to facilitate novel research opportunities, make participation in scienctific research more equitable, reclaim science as a public good, and enhance how findings are validated and legitimized.</p>
+<p>The idea that scientistis should generally contribute to a public domain of knowledge without profit motive has led to open science being heralded as revolutionary, community-oriented, and anti-capitalist means of production. However, while open science does have the <em>potential</em> to effect radical change, this is not a given. The social and institutional contexts in which we do science is firmly embedded within capitalist and neoliberal power structures that reward individualistic competition and do little to actually encourage equitable and accessible research practices, and as such, make it difficult to fully embrace open science ideals <span class="citation" data-cites="mirowski2018">(<a href="#ref-mirowski2018" role="doc-biblioref">Mirowski 2018</a>)</span>. Moreover, the open science movement, which is dominated by STEM disciplines, prioritizes a grossly simplified and asocial notion of what science is and entails. Namely, it considers science as the accumulation and assembly of a species-level understanding of the world, which is not held by any one individual but is stored in seemingly value-neutral and disembodied media, facts and observations. This is manifested by digital telecommunications systems that host files, document processes, facilitate co-working opportunities, and perform automated processes. However, these systems have become so emblematic of open science that the use of these tools and resources designed to <em>support</em> open science is often mistaken for <em>actually doing</em> open science.</p>
+<p>Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain <span class="citation" data-cites="tennant2020">(<a href="#ref-tennant2020" role="doc-biblioref">Tennant et al. 2020</a>)</span>. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (inlcuding: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed, papers have been published, and credit has been allocated, it is common for scientists to mark their projects as finished and move on to new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly in perpetuity, and contributors may remain actively or sporadically involved to satisfy users’ needs, or to direct users to derivative and functional forks of abandoned software.</p>
+<p>The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a genuine desire to facilitate novel research opportunities, to make participation in scienctific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. However, the predominant concern with implementing best tools to use, adopting optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards <span class="citation" data-cites="kansa2014 kintigh2015 roosevelt2015">(cf. <a href="#ref-kansa2014" role="doc-biblioref">Kansa, Whitcher Kansa, and Arbuckle 2014</a>; <a href="#ref-kintigh2015" role="doc-biblioref">Kintigh et al. 2015</a>; <a href="#ref-roosevelt2015" role="doc-biblioref">Roosevelt et al. 2015</a>)</span> distract from fundamental tensions and contradictions regarding the actual value of working in the open. For instance, Faniel et al. <span class="citation" data-cites="faniel2013">(<a href="#ref-faniel2013" role="doc-biblioref">2013, 299–301</a>)</span>, Atici et al. <span class="citation" data-cites="atici2013">(<a href="#ref-atici2013" role="doc-biblioref">2013, 676–77</a>)</span>, <span class="citation" data-cites="huggett2018">Huggett (<a href="#ref-huggett2018" role="doc-biblioref">2018</a>)</span>, <span class="citation" data-cites="sobotkova2018">Sobotkova (<a href="#ref-sobotkova2018" role="doc-biblioref">2018</a>)</span>, and <span class="citation" data-cites="opitz2021">Opitz et al. (<a href="#ref-opitz2021" role="doc-biblioref">2021</a>)</span> demonstrate that to make the reuse of archaeological data feasible and useful in a practical sense, it is necessary to re-introduce social friction that these infrastructures are designed to eliminate. In other words, the pressures and circumstances of being an archaeologist and doing archaeological research assert themselves when attempting to make practical use of these infrastructures, and therefore must be accounted for in their design and implementation. Here we aim to identify similar sources of dissonance with regards to the promise, potential, and actual implementation of open source software development models among archaeologists.</p>
 </section>
 </section>
 <section id="methods-materials" class="level1" data-number="3">
@@ -3128,25 +3128,25 @@ vertical-align: -.125em;
 * Define software jargon we use (repo, commit, etc.) – maybe as a glossary table?
 -->
 <p>Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub. It also lacks references to code that is not available on the web. Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.</p>
-<p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="csardi2023">(<a href="#ref-csardi2023" role="doc-biblioref"><strong>csardi2023?</strong></a>)</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host (<a href="#tbl-repo-hosts">Table 1</a>).</p>
+<p>For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub’s public API. That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package <code>gh</code> <span class="citation" data-cites="csardi2023">(<a href="#ref-csardi2023" role="doc-biblioref">Csárdi et al. 2023</a>)</span>. This does reduce our sample size slightly; about an eighth of projects don’t use version control, at least not publicly, but amongst those that do, GitHub is by far the most popular host (<a href="#tbl-repo-hosts">Table 1</a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-repo-hosts" class="anchored">
 
-<div id="sgusmifzkk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sgusmifzkk table {
+<div id="pdarzlsbdt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pdarzlsbdt table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#sgusmifzkk thead, #sgusmifzkk tbody, #sgusmifzkk tfoot, #sgusmifzkk tr, #sgusmifzkk td, #sgusmifzkk th {
+#pdarzlsbdt thead, #pdarzlsbdt tbody, #pdarzlsbdt tfoot, #pdarzlsbdt tr, #pdarzlsbdt td, #pdarzlsbdt th {
 border-style: none;
 }
-#sgusmifzkk p {
+#pdarzlsbdt p {
 margin: 0;
 padding: 0;
 }
-#sgusmifzkk .gt_table {
+#pdarzlsbdt .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3171,11 +3171,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#sgusmifzkk .gt_caption {
+#pdarzlsbdt .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#sgusmifzkk .gt_title {
+#pdarzlsbdt .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3186,7 +3186,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#sgusmifzkk .gt_subtitle {
+#pdarzlsbdt .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3197,7 +3197,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#sgusmifzkk .gt_heading {
+#pdarzlsbdt .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3208,12 +3208,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#sgusmifzkk .gt_bottom_border {
+#pdarzlsbdt .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#sgusmifzkk .gt_col_headings {
+#pdarzlsbdt .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3227,7 +3227,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#sgusmifzkk .gt_col_heading {
+#pdarzlsbdt .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3246,7 +3246,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#sgusmifzkk .gt_column_spanner_outer {
+#pdarzlsbdt .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3257,13 +3257,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#sgusmifzkk .gt_column_spanner_outer:first-child {
+#pdarzlsbdt .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#sgusmifzkk .gt_column_spanner_outer:last-child {
+#pdarzlsbdt .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#sgusmifzkk .gt_column_spanner {
+#pdarzlsbdt .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3274,10 +3274,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#sgusmifzkk .gt_spanner_row {
+#pdarzlsbdt .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#sgusmifzkk .gt_group_heading {
+#pdarzlsbdt .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3302,7 +3302,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#sgusmifzkk .gt_empty_group_heading {
+#pdarzlsbdt .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3316,13 +3316,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#sgusmifzkk .gt_from_md > :first-child {
+#pdarzlsbdt .gt_from_md > :first-child {
 margin-top: 0;
 }
-#sgusmifzkk .gt_from_md > :last-child {
+#pdarzlsbdt .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#sgusmifzkk .gt_row {
+#pdarzlsbdt .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3340,7 +3340,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#sgusmifzkk .gt_stub {
+#pdarzlsbdt .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3352,7 +3352,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sgusmifzkk .gt_stub_row_group {
+#pdarzlsbdt .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3365,13 +3365,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#sgusmifzkk .gt_row_group_first td {
+#pdarzlsbdt .gt_row_group_first td {
 border-top-width: 2px;
 }
-#sgusmifzkk .gt_row_group_first th {
+#pdarzlsbdt .gt_row_group_first th {
 border-top-width: 2px;
 }
-#sgusmifzkk .gt_summary_row {
+#pdarzlsbdt .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3380,14 +3380,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sgusmifzkk .gt_first_summary_row {
+#pdarzlsbdt .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#sgusmifzkk .gt_first_summary_row.thick {
+#pdarzlsbdt .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#sgusmifzkk .gt_last_summary_row {
+#pdarzlsbdt .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3396,7 +3396,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#sgusmifzkk .gt_grand_summary_row {
+#pdarzlsbdt .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3405,7 +3405,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sgusmifzkk .gt_first_grand_summary_row {
+#pdarzlsbdt .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3414,7 +3414,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#sgusmifzkk .gt_last_grand_summary_row_top {
+#pdarzlsbdt .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3423,10 +3423,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#sgusmifzkk .gt_striped {
+#pdarzlsbdt .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#sgusmifzkk .gt_table_body {
+#pdarzlsbdt .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3434,7 +3434,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#sgusmifzkk .gt_footnotes {
+#pdarzlsbdt .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3447,7 +3447,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#sgusmifzkk .gt_footnote {
+#pdarzlsbdt .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3455,7 +3455,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sgusmifzkk .gt_sourcenotes {
+#pdarzlsbdt .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3468,57 +3468,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#sgusmifzkk .gt_sourcenote {
+#pdarzlsbdt .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#sgusmifzkk .gt_left {
+#pdarzlsbdt .gt_left {
 text-align: left;
 }
-#sgusmifzkk .gt_center {
+#pdarzlsbdt .gt_center {
 text-align: center;
 }
-#sgusmifzkk .gt_right {
+#pdarzlsbdt .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#sgusmifzkk .gt_font_normal {
+#pdarzlsbdt .gt_font_normal {
 font-weight: normal;
 }
-#sgusmifzkk .gt_font_bold {
+#pdarzlsbdt .gt_font_bold {
 font-weight: bold;
 }
-#sgusmifzkk .gt_font_italic {
+#pdarzlsbdt .gt_font_italic {
 font-style: italic;
 }
-#sgusmifzkk .gt_super {
+#pdarzlsbdt .gt_super {
 font-size: 65%;
 }
-#sgusmifzkk .gt_footnote_marks {
+#pdarzlsbdt .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#sgusmifzkk .gt_asterisk {
+#pdarzlsbdt .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#sgusmifzkk .gt_indent_1 {
+#pdarzlsbdt .gt_indent_1 {
 text-indent: 5px;
 }
-#sgusmifzkk .gt_indent_2 {
+#pdarzlsbdt .gt_indent_2 {
 text-indent: 10px;
 }
-#sgusmifzkk .gt_indent_3 {
+#pdarzlsbdt .gt_indent_3 {
 text-indent: 15px;
 }
-#sgusmifzkk .gt_indent_4 {
+#pdarzlsbdt .gt_indent_4 {
 text-indent: 20px;
 }
-#sgusmifzkk .gt_indent_5 {
+#pdarzlsbdt .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -3611,20 +3611,20 @@ hosts</p> </caption>
 <div class="cell-output-display">
 <div id="tbl-repo-licenses" class="anchored">
 
-<div id="rrolxjheng" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rrolxjheng table {
+<div id="oeajhtojug" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oeajhtojug table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#rrolxjheng thead, #rrolxjheng tbody, #rrolxjheng tfoot, #rrolxjheng tr, #rrolxjheng td, #rrolxjheng th {
+#oeajhtojug thead, #oeajhtojug tbody, #oeajhtojug tfoot, #oeajhtojug tr, #oeajhtojug td, #oeajhtojug th {
 border-style: none;
 }
-#rrolxjheng p {
+#oeajhtojug p {
 margin: 0;
 padding: 0;
 }
-#rrolxjheng .gt_table {
+#oeajhtojug .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3649,11 +3649,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#rrolxjheng .gt_caption {
+#oeajhtojug .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#rrolxjheng .gt_title {
+#oeajhtojug .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3664,7 +3664,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#rrolxjheng .gt_subtitle {
+#oeajhtojug .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3675,7 +3675,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#rrolxjheng .gt_heading {
+#oeajhtojug .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3686,12 +3686,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#rrolxjheng .gt_bottom_border {
+#oeajhtojug .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#rrolxjheng .gt_col_headings {
+#oeajhtojug .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3705,7 +3705,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#rrolxjheng .gt_col_heading {
+#oeajhtojug .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3724,7 +3724,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#rrolxjheng .gt_column_spanner_outer {
+#oeajhtojug .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3735,13 +3735,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#rrolxjheng .gt_column_spanner_outer:first-child {
+#oeajhtojug .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#rrolxjheng .gt_column_spanner_outer:last-child {
+#oeajhtojug .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#rrolxjheng .gt_column_spanner {
+#oeajhtojug .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3752,10 +3752,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#rrolxjheng .gt_spanner_row {
+#oeajhtojug .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#rrolxjheng .gt_group_heading {
+#oeajhtojug .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3780,7 +3780,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#rrolxjheng .gt_empty_group_heading {
+#oeajhtojug .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3794,13 +3794,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#rrolxjheng .gt_from_md > :first-child {
+#oeajhtojug .gt_from_md > :first-child {
 margin-top: 0;
 }
-#rrolxjheng .gt_from_md > :last-child {
+#oeajhtojug .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#rrolxjheng .gt_row {
+#oeajhtojug .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3818,7 +3818,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#rrolxjheng .gt_stub {
+#oeajhtojug .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3830,7 +3830,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rrolxjheng .gt_stub_row_group {
+#oeajhtojug .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3843,13 +3843,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#rrolxjheng .gt_row_group_first td {
+#oeajhtojug .gt_row_group_first td {
 border-top-width: 2px;
 }
-#rrolxjheng .gt_row_group_first th {
+#oeajhtojug .gt_row_group_first th {
 border-top-width: 2px;
 }
-#rrolxjheng .gt_summary_row {
+#oeajhtojug .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3858,14 +3858,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rrolxjheng .gt_first_summary_row {
+#oeajhtojug .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#rrolxjheng .gt_first_summary_row.thick {
+#oeajhtojug .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#rrolxjheng .gt_last_summary_row {
+#oeajhtojug .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3874,7 +3874,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#rrolxjheng .gt_grand_summary_row {
+#oeajhtojug .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3883,7 +3883,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rrolxjheng .gt_first_grand_summary_row {
+#oeajhtojug .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3892,7 +3892,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#rrolxjheng .gt_last_grand_summary_row_top {
+#oeajhtojug .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3901,10 +3901,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#rrolxjheng .gt_striped {
+#oeajhtojug .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#rrolxjheng .gt_table_body {
+#oeajhtojug .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3912,7 +3912,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#rrolxjheng .gt_footnotes {
+#oeajhtojug .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3925,7 +3925,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#rrolxjheng .gt_footnote {
+#oeajhtojug .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3933,7 +3933,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rrolxjheng .gt_sourcenotes {
+#oeajhtojug .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3946,57 +3946,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#rrolxjheng .gt_sourcenote {
+#oeajhtojug .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#rrolxjheng .gt_left {
+#oeajhtojug .gt_left {
 text-align: left;
 }
-#rrolxjheng .gt_center {
+#oeajhtojug .gt_center {
 text-align: center;
 }
-#rrolxjheng .gt_right {
+#oeajhtojug .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#rrolxjheng .gt_font_normal {
+#oeajhtojug .gt_font_normal {
 font-weight: normal;
 }
-#rrolxjheng .gt_font_bold {
+#oeajhtojug .gt_font_bold {
 font-weight: bold;
 }
-#rrolxjheng .gt_font_italic {
+#oeajhtojug .gt_font_italic {
 font-style: italic;
 }
-#rrolxjheng .gt_super {
+#oeajhtojug .gt_super {
 font-size: 65%;
 }
-#rrolxjheng .gt_footnote_marks {
+#oeajhtojug .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#rrolxjheng .gt_asterisk {
+#oeajhtojug .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#rrolxjheng .gt_indent_1 {
+#oeajhtojug .gt_indent_1 {
 text-indent: 5px;
 }
-#rrolxjheng .gt_indent_2 {
+#oeajhtojug .gt_indent_2 {
 text-indent: 10px;
 }
-#rrolxjheng .gt_indent_3 {
+#oeajhtojug .gt_indent_3 {
 text-indent: 15px;
 }
-#rrolxjheng .gt_indent_4 {
+#oeajhtojug .gt_indent_4 {
 text-indent: 20px;
 }
-#rrolxjheng .gt_indent_5 {
+#oeajhtojug .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -4223,21 +4223,955 @@ text-indent: 25px;
 <section id="repo-repo" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="repo-repo"><span class="header-section-number">6.1</span> repo-repo</h2>
 <p>We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.</p>
+<!-- TODO: Note that we remove disconnected repos? (and how many?) -->
 <p>This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.</p>
-<p><strong>NOTE:</strong> Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-repo-centrality" class="anchored">
+
+<div id="bkupgrccdz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bkupgrccdz table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#bkupgrccdz thead, #bkupgrccdz tbody, #bkupgrccdz tfoot, #bkupgrccdz tr, #bkupgrccdz td, #bkupgrccdz th {
+border-style: none;
+}
+#bkupgrccdz p {
+margin: 0;
+padding: 0;
+}
+#bkupgrccdz .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#bkupgrccdz .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#bkupgrccdz .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#bkupgrccdz .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#bkupgrccdz .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#bkupgrccdz .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#bkupgrccdz .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#bkupgrccdz .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#bkupgrccdz .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#bkupgrccdz .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#bkupgrccdz .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#bkupgrccdz .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#bkupgrccdz .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#bkupgrccdz .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#bkupgrccdz .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#bkupgrccdz .gt_from_md > :first-child {
+margin-top: 0;
+}
+#bkupgrccdz .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#bkupgrccdz .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#bkupgrccdz .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bkupgrccdz .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#bkupgrccdz .gt_row_group_first td {
+border-top-width: 2px;
+}
+#bkupgrccdz .gt_row_group_first th {
+border-top-width: 2px;
+}
+#bkupgrccdz .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bkupgrccdz .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#bkupgrccdz .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#bkupgrccdz .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#bkupgrccdz .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bkupgrccdz .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#bkupgrccdz .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#bkupgrccdz .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#bkupgrccdz .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#bkupgrccdz .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#bkupgrccdz .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bkupgrccdz .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#bkupgrccdz .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bkupgrccdz .gt_left {
+text-align: left;
+}
+#bkupgrccdz .gt_center {
+text-align: center;
+}
+#bkupgrccdz .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#bkupgrccdz .gt_font_normal {
+font-weight: normal;
+}
+#bkupgrccdz .gt_font_bold {
+font-weight: bold;
+}
+#bkupgrccdz .gt_font_italic {
+font-style: italic;
+}
+#bkupgrccdz .gt_super {
+font-size: 65%;
+}
+#bkupgrccdz .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#bkupgrccdz .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#bkupgrccdz .gt_indent_1 {
+text-indent: 5px;
+}
+#bkupgrccdz .gt_indent_2 {
+text-indent: 10px;
+}
+#bkupgrccdz .gt_indent_3 {
+text-indent: 15px;
+}
+#bkupgrccdz .gt_indent_4 {
+text-indent: 20px;
+}
+#bkupgrccdz .gt_indent_5 {
+text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption>Table 4:  <p>Most central repositories in the repository–repository network</p> </caption>
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Repository">Repository</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Betweenness Centrality">Betweenness Centrality</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Category">Category</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Tags">Tags</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Commits">Commits</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="repo" class="gt_row gt_left">zackbatist/open-archaeo</td>
+<td headers="centrality" class="gt_row gt_right">14205.212</td>
+<td headers="category" class="gt_row gt_left">Lists and datasets</td>
+<td headers="tags" class="gt_row gt_left">Lists</td>
+<td headers="n_commits" class="gt_row gt_right">323</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">benmarwick/ctv-archaeology</td>
+<td headers="centrality" class="gt_row gt_right">5942.980</td>
+<td headers="category" class="gt_row gt_left">Lists and datasets</td>
+<td headers="tags" class="gt_row gt_left">Lists</td>
+<td headers="n_commits" class="gt_row gt_right">621</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">ahb108/rcarbon</td>
+<td headers="centrality" class="gt_row gt_right">3224.430</td>
+<td headers="category" class="gt_row gt_left">Packages and libraries</td>
+<td headers="tags" class="gt_row gt_left">Radiocarbon dating, calibration and sequencing</td>
+<td headers="n_commits" class="gt_row gt_right">881</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">ropensci/c14bazAAR</td>
+<td headers="centrality" class="gt_row gt_right">2954.566</td>
+<td headers="category" class="gt_row gt_left">Packages and libraries</td>
+<td headers="tags" class="gt_row gt_left">API interfaces and web scrapers</td>
+<td headers="n_commits" class="gt_row gt_right">1031</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">paleolimbot/tidypaleo</td>
+<td headers="centrality" class="gt_row gt_right">2447.751</td>
+<td headers="category" class="gt_row gt_left">Packages and libraries</td>
+<td headers="tags" class="gt_row gt_left">Data management</td>
+<td headers="n_commits" class="gt_row gt_right">168</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">ISAAKiel/oxcAAR</td>
+<td headers="centrality" class="gt_row gt_right">2060.417</td>
+<td headers="category" class="gt_row gt_left">Packages and libraries</td>
+<td headers="tags" class="gt_row gt_left">Radiocarbon dating, calibration and sequencing; Chronological modelling</td>
+<td headers="n_commits" class="gt_row gt_right">246</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">kacebe/AtlantGIS</td>
+<td headers="centrality" class="gt_row gt_right">1834.416</td>
+<td headers="category" class="gt_row gt_left">Lists and datasets</td>
+<td headers="tags" class="gt_row gt_left">Educational resources and practical guides</td>
+<td headers="n_commits" class="gt_row gt_right">122</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">ropensci/neotoma</td>
+<td headers="centrality" class="gt_row gt_right">1831.702</td>
+<td headers="category" class="gt_row gt_left">Packages and libraries</td>
+<td headers="tags" class="gt_row gt_left">API interfaces and web scrapers</td>
+<td headers="n_commits" class="gt_row gt_right">809</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">alexbrandsen/timeperiod2daterange</td>
+<td headers="centrality" class="gt_row gt_right">1310.000</td>
+<td headers="category" class="gt_row gt_left">Scripts</td>
+<td headers="tags" class="gt_row gt_left">Chronological modelling; Bits and bobs</td>
+<td headers="n_commits" class="gt_row gt_right">10</td></tr>
+    <tr><td headers="repo" class="gt_row gt_left">ANGSD/angsd</td>
+<td headers="centrality" class="gt_row gt_right">1277.257</td>
+<td headers="category" class="gt_row gt_left">Standalone software</td>
+<td headers="tags" class="gt_row gt_left">Archaeogenetics; Low-coverage contamination estimation</td>
+<td headers="n_commits" class="gt_row gt_right">1571</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- TODO: What does tbl-repo-centrality tell us? Can we interrogate it further with a graph? -->
 <p>The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).</p>
 <p><strong>NOTE:</strong> What happens to this interpretation when we differentiate commits from issues and comments?</p>
 </section>
 <section id="user-user" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="user-user"><span class="header-section-number">6.2</span> user-user</h2>
 <p>We assembled graphs linking users based on common contributions to the same repositories.</p>
-<p><strong>NOTE:</strong> Plot a graph that renders nodes’ sizes based on their betweenness centrality.</p>
+<!-- TODO: Note that we remove disconnected users? (and how many?) -->
+<!--
+ NOTE, ZACK: the graph below is what you requested (nodes' sizes based on their betweenness centrality), but I'm unsure we will ever be able to get these graph plots legible enough to actually include. – JR -->
 <p>We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.</p>
 <p><strong>NOTE:</strong> Create a table containing the top 10 users based on betweenness centrality values, with columns specifying theur username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).</p>
+<!-- JR: I'm not sure about this. Either practically (can we reliably determine all this from public info?) or ethically (not necessarily that it is unethical; but we haven't really considered the implications of analysing named individuals in this study) -->
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-user-centrality" class="anchored">
+
+<div id="wbfhlnqcka" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wbfhlnqcka table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#wbfhlnqcka thead, #wbfhlnqcka tbody, #wbfhlnqcka tfoot, #wbfhlnqcka tr, #wbfhlnqcka td, #wbfhlnqcka th {
+border-style: none;
+}
+#wbfhlnqcka p {
+margin: 0;
+padding: 0;
+}
+#wbfhlnqcka .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#wbfhlnqcka .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#wbfhlnqcka .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#wbfhlnqcka .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#wbfhlnqcka .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#wbfhlnqcka .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#wbfhlnqcka .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#wbfhlnqcka .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#wbfhlnqcka .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#wbfhlnqcka .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#wbfhlnqcka .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#wbfhlnqcka .gt_from_md > :first-child {
+margin-top: 0;
+}
+#wbfhlnqcka .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#wbfhlnqcka .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#wbfhlnqcka .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#wbfhlnqcka .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#wbfhlnqcka .gt_row_group_first td {
+border-top-width: 2px;
+}
+#wbfhlnqcka .gt_row_group_first th {
+border-top-width: 2px;
+}
+#wbfhlnqcka .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#wbfhlnqcka .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#wbfhlnqcka .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#wbfhlnqcka .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#wbfhlnqcka .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#wbfhlnqcka .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#wbfhlnqcka .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#wbfhlnqcka .gt_left {
+text-align: left;
+}
+#wbfhlnqcka .gt_center {
+text-align: center;
+}
+#wbfhlnqcka .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#wbfhlnqcka .gt_font_normal {
+font-weight: normal;
+}
+#wbfhlnqcka .gt_font_bold {
+font-weight: bold;
+}
+#wbfhlnqcka .gt_font_italic {
+font-style: italic;
+}
+#wbfhlnqcka .gt_super {
+font-size: 65%;
+}
+#wbfhlnqcka .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#wbfhlnqcka .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#wbfhlnqcka .gt_indent_1 {
+text-indent: 5px;
+}
+#wbfhlnqcka .gt_indent_2 {
+text-indent: 10px;
+}
+#wbfhlnqcka .gt_indent_3 {
+text-indent: 15px;
+}
+#wbfhlnqcka .gt_indent_4 {
+text-indent: 20px;
+}
+#wbfhlnqcka .gt_indent_5 {
+text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption>Table 5:  <p>Most central users in the user–user network</p> </caption>
+  <thead>
+    
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="User">User</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="Centrality">Centrality</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="repos">repos</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Contributions">
+        <span class="gt_column_spanner">Contributions</span>
+      </th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Own repositories">Own repositories</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Others&#39; repositories">Others&#39; repositories</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="user" class="gt_row gt_left">steko</td>
+<td headers="centrality" class="gt_row gt_right">413988.7</td>
+<td headers="repos" class="gt_row gt_right">7</td>
+<td headers="contribs_own" class="gt_row gt_right">564</td>
+<td headers="contribs_other" class="gt_row gt_right">26</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">jfy133</td>
+<td headers="centrality" class="gt_row gt_right">368692.0</td>
+<td headers="repos" class="gt_row gt_right">12</td>
+<td headers="contribs_own" class="gt_row gt_right">139</td>
+<td headers="contribs_other" class="gt_row gt_right">7714</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">clemsciences</td>
+<td headers="centrality" class="gt_row gt_right">355380.8</td>
+<td headers="repos" class="gt_row gt_right">2</td>
+<td headers="contribs_own" class="gt_row gt_right">0</td>
+<td headers="contribs_other" class="gt_row gt_right">174</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">TCLamnidis</td>
+<td headers="centrality" class="gt_row gt_right">235305.2</td>
+<td headers="repos" class="gt_row gt_right">2</td>
+<td headers="contribs_own" class="gt_row gt_right">27</td>
+<td headers="contribs_other" class="gt_row gt_right">171</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">souravsingh</td>
+<td headers="centrality" class="gt_row gt_right">200618.4</td>
+<td headers="repos" class="gt_row gt_right">2</td>
+<td headers="contribs_own" class="gt_row gt_right">0</td>
+<td headers="contribs_other" class="gt_row gt_right">22</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">mfindeisen</td>
+<td headers="centrality" class="gt_row gt_right">174941.5</td>
+<td headers="repos" class="gt_row gt_right">2</td>
+<td headers="contribs_own" class="gt_row gt_right">0</td>
+<td headers="contribs_other" class="gt_row gt_right">9</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">willismonroe</td>
+<td headers="centrality" class="gt_row gt_right">173981.7</td>
+<td headers="repos" class="gt_row gt_right">4</td>
+<td headers="contribs_own" class="gt_row gt_right">65</td>
+<td headers="contribs_other" class="gt_row gt_right">6</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">zoometh</td>
+<td headers="centrality" class="gt_row gt_right">134481.0</td>
+<td headers="repos" class="gt_row gt_right">2</td>
+<td headers="contribs_own" class="gt_row gt_right">1078</td>
+<td headers="contribs_other" class="gt_row gt_right">15</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">zackbatist</td>
+<td headers="centrality" class="gt_row gt_right">129708.5</td>
+<td headers="repos" class="gt_row gt_right">7</td>
+<td headers="contribs_own" class="gt_row gt_right">457</td>
+<td headers="contribs_other" class="gt_row gt_right">34</td></tr>
+    <tr><td headers="user" class="gt_row gt_left">gavinsimpson</td>
+<td headers="centrality" class="gt_row gt_right">127134.4</td>
+<td headers="repos" class="gt_row gt_right">7</td>
+<td headers="contribs_own" class="gt_row gt_right">1122</td>
+<td headers="contribs_other" class="gt_row gt_right">504</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</div>
 <p>We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study’s scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.</p>
 <p><strong>NOTE:</strong> Create a table containing the top 10 users based on betweenness centrality values derived from the issues and comments only subnetwork, with columns specifying theur username, real name, job title/affiliation.</p>
 <hr>
-<p><strong>NOTE:</strong> I have no idea what these next two charts depict.</p>
 </section>
 </section>
 <section id="conclusion" class="level1" data-number="7">
@@ -4253,8 +5187,71 @@ text-indent: 25px;
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-atici2013" class="csl-entry" role="listitem">
+Atici, Levent, Sarah Whitcher Kansa, Justin Lev-Tov, and Eric C. Kansa. 2013. <span>“Other <span>People</span>’s <span>Data</span>: <span>A Demonstration</span> of the <span>Imperative</span> of <span>Publishing Primary Data</span>.”</span> <em>Journal of Archaeological Method and Theory</em> 20 (4): 663. <a href="https://doi.org/10.1007/s10816-012-9132-9">https://doi.org/10.1007/s10816-012-9132-9</a>.
+</div>
 <div id="ref-batist2023" class="csl-entry" role="listitem">
 Batist, Zachary, and Joe Roe. 2023. <span>“Open-Archaeo: A Resource for Documenting Archaeological Software Development Practices.”</span> <em>Journal of Open Archaeology Data</em> 11 (0): 9. <a href="https://doi.org/10.5334/joad.111">https://doi.org/10.5334/joad.111</a>.
+</div>
+<div id="ref-baxter2012" class="csl-entry" role="listitem">
+Baxter, Rob, N. Chue Hong, Dirk Gorissen, James Hetherington, and Ilian Todorov. 2012. <span>“The Research Software Engineer.”</span> In <em>Digital <span>Research Conference</span>, <span>Oxford</span></em>, 1–3.
+</div>
+<div id="ref-beck2012" class="csl-entry" role="listitem">
+Beck, Anthony, and Cameron Neylon. 2012. <span>“A Vision for <span>Open Archaeology</span>.”</span> <em>World Archaeology</em> 44 (4): 479–97. <a href="https://doi.org/10.1080/00438243.2012.737581">https://doi.org/10.1080/00438243.2012.737581</a>.
+</div>
+<div id="ref-coleman2012" class="csl-entry" role="listitem">
+Coleman, E. Gabriella. 2012. <em>Coding <span>Freedom</span>: <span>The Ethics</span> and <span>Aesthetics</span> of <span>Hacking</span></em>. <span>Princeton University Press</span>. <a href="https://doi.org/10.1515/9781400845293">https://doi.org/10.1515/9781400845293</a>.
+</div>
+<div id="ref-cowgill1967" class="csl-entry" role="listitem">
+Cowgill, George L. 1967. <span>“Computer Applications in Archaeology.”</span> In <em>Proceedings of the November 14-16, 1967, Fall Joint Computer Conference</em>, 331–37. AFIPS ’67 (Fall). New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/1465611.1465654">https://doi.org/10.1145/1465611.1465654</a>.
+</div>
+<div id="ref-csardi2023" class="csl-entry" role="listitem">
+Csárdi, Gábor, Jennifer Bryan, Hadley Wickham, and RStudio. 2023. <span>“Gh: ’<span>GitHub</span>’ ’<span>API</span>’.”</span>
+</div>
+<div id="ref-faniel2013" class="csl-entry" role="listitem">
+Faniel, Ixchel, Eric C. Kansa, Sarah Whitcher Kansa, Julianna Barrera-Gomez, and Elizabeth Yakel. 2013. <span>“The <span>Challenges</span> of <span>Digging Data</span>: <span>A Study</span> of <span>Context</span> in <span>Archaeological Data Reuse</span>.”</span> In <em>Proceedings of the 13th <span>ACM</span>/<span>IEEE-CS Joint Conference</span> on <span>Digital Libraries</span></em>, 295–304. <span>New York</span>: <span>ACM</span>. <a href="https://doi.org/10.1145/2467696.2467712">https://doi.org/10.1145/2467696.2467712</a>.
+</div>
+<div id="ref-huggett2018" class="csl-entry" role="listitem">
+Huggett, Jeremy. 2018. <span>“Reuse <span>Remix Recycle</span>: <span>Repurposing Archaeological Digital Data</span>.”</span> <em>Advances in Archaeological Practice</em> 6 (2): 93–104. <a href="https://doi.org/10.1017/aap.2018.1">https://doi.org/10.1017/aap.2018.1</a>.
+</div>
+<div id="ref-kansa2014" class="csl-entry" role="listitem">
+Kansa, Eric C., Sarah Whitcher Kansa, and Benjamin Arbuckle. 2014. <span>“Publishing and <span>Pushing</span>: <span>Mixing Models</span> for <span>Communicating Research Data</span> in <span>Archaeology</span>.”</span> <em>International Journal of Digital Curation</em> 9 (1): 57–70. <a href="https://doi.org/10.2218/ijdc.v9i1.301">https://doi.org/10.2218/ijdc.v9i1.301</a>.
+</div>
+<div id="ref-kelty2008" class="csl-entry" role="listitem">
+Kelty, Christopher M. 2008. <em>Two Bits: <span>The</span> Cultural Significance of Free Software</em>. <span>Duke University Press</span>.
+</div>
+<div id="ref-kintigh2015" class="csl-entry" role="listitem">
+Kintigh, Keith W., Jeffrey H. Altschul, Ann P. Kinzig, W. Fredrick Limp, William K. Michener, Jeremy A. Sabloff, Edward J. Hackett, Timothy A. Kohler, Bertram Ludäscher, and Clifford A. Lynch. 2015. <span>“Cultural <span>Dynamics</span>, <span>Deep Time</span>, and <span>Data</span>: <span>Planning Cyberinfrastructure Investments</span> for <span>Archaeology</span>.”</span> <em>Advances in Archaeological Practice</em> 3 (1): 1–15. <a href="https://doi.org/10.7183/2326-3768.3.1.1">https://doi.org/10.7183/2326-3768.3.1.1</a>.
+</div>
+<div id="ref-marwick2017" class="csl-entry" role="listitem">
+Marwick, Ben, Jade d’Alpoim Guedes, C. Michael Barton, Lynsey A. Bates, Michael Baxter, Andrew Bevan, Elizabeth A. Bollwerk, R. Kyle Bocinsky, Tom Brughmans, and Alison K. Carter. 2017. <span>“Open Science in Archaeology.”</span> <em>SAA Archaeological Record</em> 17 (4): 8–14.
+</div>
+<div id="ref-mirowski2018" class="csl-entry" role="listitem">
+Mirowski, Philip. 2018. <span>“The Future (s) of Open Science.”</span> <em>Social Studies of Science</em> 48 (2): 171–203. <a href="https://doi.org/10.1177/0306312718772086">https://doi.org/10.1177/0306312718772086</a>.
+</div>
+<div id="ref-oneil2009" class="csl-entry" role="listitem">
+O’Neil, Mathieu. 2009. <em>Cyberchiefs: <span>Autonomy</span> and Authority in Online Tribes</em>. <span>London, UK</span>: <span>Pluto Press</span>.
+</div>
+<div id="ref-openknowledgefoundation2023" class="csl-entry" role="listitem">
+Open Knowledge Foundation. 2023. <span>“Open <span>Definition</span> 2.1.”</span> https://opendefinition.org/od/2.1/en/.
+</div>
+<div id="ref-opensourceinitiative2007" class="csl-entry" role="listitem">
+Open Source Initiative. 2007. <span>“The <span>Open Source Definition</span>.”</span> https://opensource.org/osd/.
+</div>
+<div id="ref-opitz2021" class="csl-entry" role="listitem">
+Opitz, Rachel, Colleen Strawhacker, Philip Buckland, Jackson Cothren, Tom Dawson, Andrew Dugmore, George Hambrecht, et al. 2021. <span>“A <span>Lockpick</span>’s <span>Guide</span> to <span class="nocase">dataARC</span>: <span>Designing Infrastructures</span> and <span>Building Communities</span> to <span>Enable Transdisciplinary Research</span>.”</span> <em>Internet Archaeology</em>, no. 56 (October). <a href="https://doi.org/10.11141/ia.56.15">https://doi.org/10.11141/ia.56.15</a>.
+</div>
+<div id="ref-roosevelt2015" class="csl-entry" role="listitem">
+Roosevelt, Christopher H., Peter Cobb, Emanuel Moss, Brandon R. Olson, and Sinan Ünlüsoy. 2015. <span>“Excavation Is <span>Destruction Digitization</span>: <span>Advances</span> in <span>Archaeological Practice</span>.”</span> <em>Journal of Field Archaeology</em> 40 (3): 325–46. <a href="https://doi.org/10.1179/2042458215Y.0000000004">https://doi.org/10.1179/2042458215Y.0000000004</a>.
+</div>
+<div id="ref-scollar1999" class="csl-entry" role="listitem">
+Scollar, Irwin. 1999. <span>“25 Years of Computer Applications in Archaeology.”</span> In <em>Archaeology in the <span>Age</span> of the <span>Internet</span>. <span>CAA97</span>: <span>Computer</span> <span>Applications</span> and <span>Quantitative</span> <span>Methods</span> in <span>Archaeology</span>, <span>Proceedings</span> of the 25th <span>Anniversary</span> <span>Conference</span>, <span>University</span> of <span>Birmingham</span>, <span>April</span> 1997</em>, edited by L. Dingwall, S. Exon, V. Gaffney, S. Laflin, and M. van Leusen, 5–10. <span>BAR</span> <span>International</span> <span>Series</span> 750.
+</div>
+<div id="ref-sobotkova2018" class="csl-entry" role="listitem">
+Sobotkova, Adela. 2018. <span>“Sociotechnical <span>Obstacles</span> to <span>Archaeological Data Reuse</span>.”</span> <em>Advances in Archaeological Practice</em> 6 (2): 117–24. <a href="https://doi.org/10.1017/aap.2017.37">https://doi.org/10.1017/aap.2017.37</a>.
+</div>
+<div id="ref-tennant2020" class="csl-entry" role="listitem">
+Tennant, Jonathan, Ritwik Agarwal, Ksenija Baždarić, David Brassard, Tom Crick, Daniel J. Dunleavy, Thomas Rhys Evans, et al. 2020. <span>“A Tale of Two ’Opens’: Intersections Between <span>Free</span> and <span>Open</span> <span>Source</span> <span>Software</span> and <span>Open</span> <span>Scholarship</span>.”</span> SocArXiv. <a href="https://doi.org/10.31235/osf.io/2kxq8">https://doi.org/10.31235/osf.io/2kxq8</a>.
 </div>
 </div></section></div></main>
 <!-- /main column -->
