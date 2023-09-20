@@ -145,7 +145,26 @@ ggraph(xx, 'dendrogram', height = height)
 
 This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.
 
-**NOTE:** Create a table containing the nodes with highest betweenness centrality from the repo-repo graph. Columns should specify the name of the repository, the number of commits, the category, and tags. If possible also include a summary of the pulse as a line chart with x axis as time and y axis as activity. This will allow us to identify the characteristics of these repositories that prompt greater integration.
+```{r tbl-repo-centrality}
+#| tbl-cap: The sixteen most central repositories according to the repository–repository network analysis
+oarch_graph_repo_repo |>
+  mutate(centrality = centrality_betweenness()) |>
+  as_tibble() |>
+  arrange(-centrality) |>
+  slice(1:16) |>
+  left_join(oarch, c("repo" = "gh_repo")) |>
+  mutate(n_commits = map_int(gh_commits, nrow)) |>
+  unite(tags, tag1:tag5, sep = "; ", na.rm = TRUE) |>
+  select(repo, centrality, category, tags, n_commits) |>
+  gt() |>
+  cols_label(
+    repo = "Repository", 
+    centrality = "Betweenness Centrality",
+    category = "Category",
+    tags = "Tags",
+    n_commits = "Commits"
+  )
+```
 
 The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
 
