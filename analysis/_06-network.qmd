@@ -2,7 +2,7 @@
 
 We constructed and analyzed networks representing users' contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
 
-```{r graph-data, eval=FALSE}
+```{r data-graph}
 # TODO: refactor some of this as functions?
 oarch |>
   drop_na(gh_repo) |>
@@ -47,10 +47,12 @@ oarch_graph |>
 
 We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.
 
-```{r plot-graph-repo-user, eval=FALSE}
+```{r extract-graph-repo-user, eval=FALSE}
 oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
                                    edges_user_to_repo(oarch_graph))
+```
 
+```{r fig-graph-repo-user, eval=FALSE}
 g_repo_user <- oarch_graph_repo_user |>
   ggraph(layout = "graphopt") +
   geom_edge_fan(aes(colour = contrib, alpha = n_contrib)) +
@@ -66,43 +68,12 @@ We then extracted two one-mode networks from this, one connecting repositories b
 **NOTE:** Combine these figures using patchwork.
 **NOTE:** Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.
 
-```{r plot-graph-repo-repo, eval=FALSE}
-oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph, category),
-                                   edges_common_users(oarch_graph),
-                                   directed = FALSE)
-
-oarch_graph_repo_repo |>
-  ggraph(layout = "graphopt") +
-  geom_edge_link(aes(alpha = n)) +
-  geom_node_point(aes(colour = category)) +
-  scale_edge_alpha(trans = "log") +
-  labs(edge_alpha = "Common contributors")
-```
-
-```{r graph-user-user, eval=FALSE}
-oarch_graph_user_user <- tbl_graph(
-  nodes = nodes_users(oarch_graph), 
-  edges = edges_common_repos(oarch_graph),
-  directed = FALSE
-)
-```
-```{r plot-graph-user-user, eval=FALSE}
-oarch_graph_user_user |>
-  mutate(betweenness = centrality_betweenness(weights = n)) ->
-  oarch_graph_user_user
-
-oarch_graph_user_user |> 
-  ggraph(layout = "graphopt") +
-  geom_edge_link(aes(alpha = n)) +
-  # geom_node_point() +
-  scale_edge_alpha(trans = "log") +
-  labs(edge_alpha = "Common repositories")
-```
-
 ## repo-repo
 We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes, which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.
 
-```{r plot-graph-repo-repo-edge-betweenness, eval=FALSE}
+<!-- TODO: Note that we remove disconnected repos? (and how many?) -->
+
+```{r extract-graph-repo-repo}
 oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph,category,tags),
                                    edges_common_users(oarch_graph),
                                    directed = FALSE)
@@ -112,7 +83,19 @@ oarch_graph_repo_repo |>
   filter(degree > 1) |>
   mutate(group = as.character(group_edge_betweenness())) ->
   oarch_graph_repo_repo
+```
 
+```{r fig-graph-repo-repo, eval=FALSE}
+oarch_graph_repo_repo |>
+  ggraph(layout = "graphopt") +
+  geom_edge_link(aes(alpha = n)) +
+  geom_node_point(aes(colour = category)) +
+  scale_edge_alpha(trans = "log") +
+  labs(edge_alpha = "Common contributors")
+```
+
+
+```{r fig-graph-repo-repo, eval=FALSE}
 iplot <- oarch_graph_repo_repo |>
   ggraph(layout = "graphopt") +
   geom_edge_link(aes(alpha = n)) +
@@ -125,7 +108,7 @@ iplot <- oarch_graph_repo_repo |>
 girafe(ggobj = iplot)
 ```
 
-```{r plot-graph-repo-repo-edge-betweenness-dendrogram, eval=FALSE}
+```{r fig-graph-repo-repo-edge-betweenness-dendrogram, eval=FALSE}
 oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
                                    edges_common_users(oarch_graph),
                                    directed = TRUE)
@@ -146,12 +129,12 @@ ggraph(xx, 'dendrogram', height = height)
 This graph identifies three core clusters characterized by repositories whose contributors commit to projects other than their own. The clusters that appear along the peiphery largely correspond with the work of single individuals, and sometimes also their colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (and perhaps initial) integrations of lone developers into a broader community.
 
 ```{r tbl-repo-centrality}
-#| tbl-cap: The sixteen most central repositories according to the repository–repository network analysis
+#| tbl-cap: Most central repositories in the repository–repository network
 oarch_graph_repo_repo |>
   mutate(centrality = centrality_betweenness()) |>
   as_tibble() |>
   arrange(-centrality) |>
-  slice(1:16) |>
+  slice(1:10) |>
   left_join(oarch, c("repo" = "gh_repo")) |>
   mutate(n_commits = map_int(gh_commits, nrow)) |>
   unite(tags, tag1:tag5, sep = "; ", na.rm = TRUE) |>
@@ -166,6 +149,8 @@ oarch_graph_repo_repo |>
   )
 ```
 
+<!-- TODO: What does tbl-repo-centrality tell us? Can we interrogate it further with a graph? -->
+
 The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
 
 **NOTE:** What happens to this interpretation when we differentiate commits from issues and comments?
@@ -174,20 +159,64 @@ The three core clusters have their own distinct character. One has a focus on ar
 
 We assembled graphs linking users based on common contributions to the same repositories.
 
-**NOTE:** Plot a graph that renders nodes' sizes based on their betweenness centrality.
+<!-- TODO: Note that we remove disconnected users? (and how many?) -->
 
-```{r summary-graph-user-user, eval=FALSE}
+```{r graph-user-user}
+oarch_graph_user_user <- tbl_graph(
+  nodes = nodes_users(oarch_graph), 
+  edges = edges_common_repos(oarch_graph),
+  directed = FALSE
+)
+
 oarch_graph_user_user |>
-  mutate(degree = centrality_degree(), 
-         betweenness = centrality_betweenness(weights = n), 
-         strength = centrality_degree(weights = n)) |>
-  filter(degree > 0) |> 
-  data.frame()
+  mutate(degree = centrality_degree()) |>
+  filter(degree > 1) |>
+  mutate(
+    centrality = centrality_betweenness(weights = n),
+    group = as.character(group_edge_betweenness())
+  ) ->
+  oarch_graph_user_user
+```
+
+<!--
+ NOTE, ZACK: the graph below is what you requested (nodes' sizes based on their betweenness centrality), but I'm unsure we will ever be able to get these graph plots legible enough to actually include. – JR -->
+
+```{r fig-graph-user-user-centrality, eval=TRUE}
+oarch_graph_user_user |> 
+  ggraph(layout = "graphopt") +
+  # geom_edge_link(aes(alpha = n)) +
+  geom_edge_arc(alpha = 0.05) +
+  geom_node_point(aes(size = centrality), 
+                  shape = 21, colour = "#000000", fill = "#ffffff") +
+  # scale_edge_alpha(trans = "log") +
+  # labs(edge_alpha = "Common repositories") +
+  theme_graph()
 ```
 
 We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.
 
 **NOTE:** Create a table containing the top 10 users based on betweenness centrality values, with columns specifying theur username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).
+
+<!-- JR: I'm not sure about this. Either practically (can we reliably determine all this from public info?) or ethically (not necessarily that it is unethical; but we haven't really considered the implications of analysing named individuals in this study) -->
+
+```{r tbl-user-centrality}
+#| tbl-cap: Most central users in the user–user network
+oarch_graph_user_user |>
+  mutate(centrality = centrality_betweenness(weights = n)) |>
+  as_tibble() |> 
+  arrange(-centrality) |>
+  slice(1:10) |>
+  left_join(oarch_contributors, by = c("user" = "contributor")) |>
+  select(user, centrality, repos, contribs_own, contribs_other) |>
+  gt() |>
+  cols_label(
+    user = "User",
+    centrality = "Centrality",
+    contribs_own = "Own repositories",
+    contribs_other = "Others' repositories"
+  ) |>
+  tab_spanner("Contributions", c(contribs_own, contribs_other))
+```
 
 We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study's scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.
 
@@ -195,9 +224,8 @@ We also applied the same betweenness centrality algorithm on a subnetwork whose 
 
 ---
 
-**NOTE:** I have no idea what these next two charts depict.
-
-```{r plot-user-betweenness-dist, eval=FALSE}
+```{r fig-user-betweenness, eval=FALSE}
+#| fig-cap: Distribution of betweenness centrality values in the user–user network
 oarch_graph_user_user |>
   mutate(
     betweenness = centrality_betweenness(weights = n)
@@ -208,7 +236,8 @@ oarch_graph_user_user |>
   scale_x_log10(labels = scales::number)
 ```
 
-```{r plot-user-betweenness-activity, eval=FALSE}
+```{r fig-user-betweenness-activity, eval=FALSE}
+#| fig-cap: Correlation between user's centrality (betweenness) in the network and their total number of contributions
 oarch_graph_user_user |>
   mutate(
     degree = centrality_degree(), 
