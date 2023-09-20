@@ -12,6 +12,11 @@ We compiled the dataset by browsing collaborative software development platforms
 This entailed manually crawling through users' profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work.
 We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
 
+<!-- TODO:
+* Introduce git, GitHub, etc. and describe briefly how they work for non-users
+* Define software jargon we use (repo, commit, etc.) – maybe as a glossary table?
+-->
+
 Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub.
 It also lacks references to code that is not available on the web.
 Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.
