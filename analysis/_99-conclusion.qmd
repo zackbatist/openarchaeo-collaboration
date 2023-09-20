@@ -3,9 +3,13 @@ Archaeology is a "magpie" discipline, using tools and methods that originate fro
 Moreover, archaeologists are accustomed to working on shoestring budgets, having to adapt their tools to suit specific, non-generalizable situations, and applying a DIY work ethic to create and co-creating with others to get the job done (Batist et al 2021; Morgan and Eve 2012; Caraher 2019). 
 It is therefore unsprising that archaeologists are prolific open source software developers.
 
-In this paper we take stock of archaeologists' immense creative capabilities. 
-First, we surveyed what kinds of software archaeologists are making and tracked progression over time. 
-We showed that open source software development in archaeology has seen a rapid and sustained rise beginning around 2014. 
+In this study we have sought to document an emerging community of open source software engineers in archaeology and to assess the extent to which collaboration within this community resembles conventional 'open source' forms. 
+We have operationalised 'open-source collaborative practices' as the use of certain features of git and GitHub visible to us in data from the GitHub API. 
+This excludes a wide range of other potential practices, most obviously the use of other software (though as we demonstrate in section X.X, the git/GitHub combination is overwhelmingly the most popular), but also collaboration through offline or private channels, or forms of collaboration we don't know about. 
+We have not directly interviewed those doing the collaborating, though our conclusions do drawn heavily from our experience as members of that community ourselves. 
+Our earliest data is from XXX and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it (@cite). 
+
+These caveats notwithstanding, we have documented that open source software development in archaeology has seen a rapid and sustained rise beginning around 2014. 
 This is marked by a variety of applications and use cases, including the use of git and GitHub to track and host content other than code. 
 Moreover, archaeologists are very involved in broader scripting ecosystems, as is evident through the predominant creation of R packages and Python libraries designed to process the rich variety of archaeological information. 
 At the same time, archaeologists also create standalone software for more intensive tasks that require greater access to system resources or that warrant more complex user interfaces than what R and Python IDEs are capable of providing.
