@@ -1,4 +1,5 @@
-# An emerging community of practice? 
+# An emerging community of practice?
+
 
 <!-- Results III: network analysis of collaborative communities
 
@@ -68,7 +69,7 @@ oarch_graph |>
   oarch_graph
 ```
 
-We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations.
+We started by constructing a graph connecting users to the repositories that they contributed to, accounting for commits, issues, and comments as distinct kinds of relations (@fig-graph-repo-user). We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.
 
 ```{r extract-graph-repo-user, eval=TRUE}
 oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
@@ -86,16 +87,9 @@ g_repo_user <- oarch_graph_repo_user |>
 girafe(g_repo_user)
 ```
 
-We then extracted two one-mode networks from this, one connecting repositories by common users, and the other connecting users by common repositories.
-
-**NOTE:** Combine these figures using patchwork.
-**NOTE:** Integrate {r graph-user-user} and {r plot-graph-user-user} into a single cell, similar to how {r plot-graph-repo-repo} integrates both components.
-
 ## repo-repo
-We applied the edge-betweenness community detection method to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes (n = XXX, not visible in our visualizations), which represent repositories with only a single contributor, we detected 21 clusters. While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.
 
-<!-- TODO: Note that we remove disconnected repos? (and how many?)
-ZB response: See change in line 95 above -->
+We applied the edge-betweenness community detection method (Girvan and Newman 2002) to identify clusters of repositories that share common sets of contributors of all kinds. Aside from isolate nodes (n = XXX, not visible in our visualizations), which represent repositories with only a single contributor, we detected 21 clusters (@fig-graph-repo-repo-edge-betweenness-dendrogram). While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.
 
 ```{r extract-graph-repo-repo}
 oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
@@ -108,17 +102,6 @@ oarch_graph_repo_repo |>
   mutate(group = as.character(group_edge_betweenness())) ->
   oarch_graph_repo_repo
 ```
-
-```{r fig-graph-repo-repo, eval=TRUE}
-# ZB: I don't think this actually says anything meaningful and could be removed.
-oarch_graph_repo_repo |>
-  ggraph(layout <- create_layout(oarch_graph_repo_repo, layout = 'igraph', algorithm = 'fr')) +
-  geom_edge_link(aes(alpha = 1)) +
-  #geom_node_point(aes(colour = category)) +
-  scale_edge_alpha(trans = "log") +
-  labs(edge_alpha = "Common contributors")
-```
-
 
 ```{r fig-graph-repo-repo-interactive, eval=TRUE}
 # Remove the legend.
@@ -135,6 +118,7 @@ girafe(ggobj = iplot)
 ```
 
 ```{r fig-graph-repo-repo-edge-betweenness-dendrogram, eval=TRUE}
+# ZB Note: What we really want out of this is the identification of groups or clusters, as well as the relationships between clusters. In theory, the dendrogram provides the best visualization for this information. I wonder if we can improve it by colour-coding the algorithmically-identified clusters (which should appear side by side), and making the names of the repositories appear vertically aligned perpendicular to the x axis. Additionally, we can colour-code the names of the repositories with their corresponding colours, or indicate that they are part of a cluster using a bracket (like "{" but turned 180 degrees).
 oarch_graph_repo_repo <- tbl_graph(nodes_repos(oarch_graph),
                                    edges_common_users(oarch_graph),
                                    directed = TRUE)
@@ -151,9 +135,6 @@ plot(xx)
 
 ggraph(xx, 'dendrogram', height = height)
 ```
-<!--
-ZB Note: What we really want out of this is the identification of groups or clusters, as well as the relationships between clusters. In theory, the dendrogram provides the best visualization for this information. I wonder if we can improve it by colour-coding the algorithmically-identified clusters (which should appear side by side), and making the names of the repositories appear vertically aligned perpendicular to the x axis. Additionally, we can colour-code the names of the repositories with their corresponding colours, or indicate that they are part of a cluster using a bracket (like "{" but turned 180 degrees).
--->
 
 This graph identifies three core clusters and several peripheral clusters. The core clusters are characterized by repositories whose contributors commit to projects other than their own. The other peripheral clusters largely correspond with the work of single individuals, and sometimes also their close colleagues. Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
 
@@ -178,18 +159,17 @@ oarch_graph_repo_repo |>
   )
 ```
 
+
 <!-- TODO: What does tbl-repo-centrality tell us? Can we interrogate it further with a graph?
 ZB Response: Not much, I think I conceived it more as a means to an end. If I recall correctly, my intention was to ascertain whether different kinds (categories, mainly) of repositories are more central. One observation is the change in magnitude of betweenness centrality between the two "indexical" entries (open-archaeo and ctv-archaeo) and others in this top 10. Perhaps we can detect and visualize additional abrupt "jumps" in magnitude and identify some pattern relating to other variables. -->
 
 The three core clusters have their own distinct character. One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. The third and most significant cluster includes a schmorgasborg of projects whose contributors share varied interests. The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
 
-**NOTE:** What happens to this interpretation when we differentiate commits from issues and comments?
+<!--  What happens to this interpretation when we differentiate commits from issues and comments? -->
 
 ## user-user
 
-We assembled graphs linking users based on common contributions to the same repositories.
-
-<!-- TODO: Note that we remove disconnected users? (and how many?) -->
+We assembled graphs linking users based on common contributions to the same repositories. As with the repo-repo network, we excluded isolate nodes (n = xxx), which represent users who only contributed to their own repositories, from the visualization.
 
 ```{r graph-user-user}
 oarch_graph_user_user <- tbl_graph(
@@ -205,55 +185,16 @@ oarch_graph_user_user |>
   oarch_graph_user_user
 ```
 
-<!-- NOTE, ZACK: the graph below is what you requested (nodes' sizes based on their betweenness centrality), but I'm unsure we will ever be able to get these graph plots legible enough to actually include. – JR
-ZB Response: I agree, this visual is useless. This, as the other generalized one-mode were meant to simply show that we had indeed split the two-mode into two one-modes. They provide little informational value and should be removed.
--->
+We sought to identify whether users who contribute in certain distinct ways play different roles in the overall network. We are reluctant to share personal information about specific users without their informed consent, but based on our knowledge of the community we found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.
 
-```{r fig-graph-user-user-centrality, eval=TRUE}
-oarch_graph_user_user |> 
-  ggraph(layout = "graphopt") +
-  # geom_edge_link(aes(alpha = n)) +
-  geom_edge_arc(alpha = 0.05) +
-  geom_node_point(aes(size = centrality), 
-                  shape = 21, colour = "#000000", fill = "#ffffff") +
-  # scale_edge_alpha(trans = "log") +
-  # labs(edge_alpha = "Common repositories") +
-  theme_graph()
-```
-
-We sought to identify whether certain users, who contribute in certain distinct ways, play different roles in overall network. We found that the people with the highest betweenness values are those who primarily produce computational archaeology code as their job. Moreover, we found that these people tend to be employed under precarious circumstances. Although precarious employment is part of our sad reality, in the context of developing and maintaining open source software, this presents a serious source of risk. The people who occupy central positions in these networks are crucial community members that make the network whole, and if they are either unable to continue on in their contributions or decide to leave archaeology entirely, then the overall network would fragment.
-
-**NOTE:** Create a table containing the top 10 users based on betweenness centrality values, with columns specifying their username, real name, job title/affiliation, location, career stage (student, early/mid/late career, tenured/non-tenured, independent, etc).
-
-<!-- JR: I'm not sure about this. Either practically (can we reliably determine all this from public info?) or ethically (not necessarily that it is unethical; but we haven't really considered the implications of analysing named individuals in this study) 
-ZB Response: As with the table above, this is a means to an end, a way of working out what we can and want to say about this. However I think this will require more thought, beyond the scope of what we are currently able to achieve, and may be better suited for another paper (connected with the DIIF grant, perhaps). However, see the final note below (line 253) regarding comparison between people who contribute code, things other than code, or both code and non-code, which I think is a viable and valuable addition here.
--->
-
-```{r tbl-user-centrality}
-#| tbl-cap: Most central users in the user–user network
-oarch_graph_user_user |>
-  mutate(centrality = centrality_betweenness(weights = n)) |>
-  as_tibble() |> 
-  arrange(-centrality) |>
-  slice(1:10) |>
-  left_join(oarch_contributors, by = c("user" = "contributor")) |>
-  select(user, centrality, repos, contribs_own, contribs_other) |>
-  gt() |>
-  cols_label(
-    user = "User",
-    centrality = "Centrality",
-    contribs_own = "Own repositories",
-    contribs_other = "Others' repositories"
-  ) |>
-  tab_spanner("Contributions", c(contribs_own, contribs_other))
-```
+---
 
 We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study's scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.
 
-**NOTE:** Create a table containing the top 10 users based on betweenness centrality values derived from the issues and comments only subnetwork, with columns specifying theur username, real name, job title/affiliation.
+------------------------------------------------------------------------
 
----
 <!--ZB Note: What is this? -->
+
 ```{r fig-user-betweenness, eval=TRUE}
 #| fig-cap: Distribution of betweenness centrality values in the user–user network
 oarch_graph_user_user |>
@@ -282,4 +223,3 @@ oarch_graph_user_user |>
   scale_y_log10() +
   geom_smooth(method = "lm")
 ```
-
