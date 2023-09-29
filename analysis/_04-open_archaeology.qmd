@@ -19,11 +19,12 @@ bibliography: references.bib
   - Identify periods associated with different rates of growth, and relate these with different general attitudes in the history of digital archaeology
 -->
 ```
-As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists, primarily software but also various forms of open document.
-@tbl-categories summarizes the categories included.
+As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists.
+This primarily constitutes software but also includes various forms of open documents. @tbl-categories summarizes the kinds if resources that appear in open-archaeo, and breaks them down into more precise categories.
 
 ```{r tbl-categories}
-#| tbl-cap: Categories of open archaeology projects included in open-archaeo
+#| tbl-cap: Categories of open archaeology projects included in open-archaeo.
+# TODO: Include sum for the "Software" and "Documents" supercategories, and make them appear in bold.
 tribble(
   ~category,                               ~kind,       ~scope,
   "Packages and libraries",                "Software", "Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.",
@@ -46,13 +47,13 @@ tribble(
 p_platform <- sum(!is.na(oarch$platform)) / nrow(oarch)
 ```
 
-Most projects (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language or a plugin for an application.
+Most resources (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language or a plugin for an application.
 The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes.
-Others create standalone software that can be run independently of such platforms, for example desktop or web apps.
-A significant number of projects also comprise of datasets and non-packaged code snippets that have been made available for general use.
+Others create standalone software <!-- percent --> that can be run independently of such platforms, for example desktop or web apps.
+A significant number of projects also comprise of datasets <!-- percent --> and non-packaged code snippets <!-- percent --> that have been made available for general use.
 
 ```{r tbl-platforms}
-#| tbl-cap: Platforms and programming languages used by open archaeology projects
+#| tbl-cap: Platforms and programming languages used by open archaeology projects.
 oarch |>
   drop_na(platform) |>
   count(platform) |>
@@ -71,8 +72,8 @@ oarch |>
 p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
 ```
 
-The statistical programming language R is overwhelmingly the most common platform, representing `r percent(p_platform_r)` of projects in open-archaeo.
-Python, another programming language, is also relatively popular, as are plugins for the open source geographic information system QGIS.
+As per @tbl-platforms, The statistical programming language R `r percent(p_platform_r)` is overwhelmingly the most common platform among projects that extend upon existing programming languages and applications.
+This is followed by Python <!-- percent -->, which is another popular scientific scripting language, and the open source geographic information system QGIS <!-- percent -->.
 Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates.
 Many of these are targeted by only one or two developers; the larger platforms tend to be more diverse.
 
@@ -80,6 +81,9 @@ At first glance, the relative popularity of R versus Python is perhaps surprisin
 However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
 
 We also annotated each record with 'tags' that describe aspects of archaeological work that each tool contributes to [@fig-tags].
+The most common tags unsurprisingly deal with work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
+Educational resources and practical guides are also well represented due to the web's usefulness as a medium for sharing and communication.
+
 When we compare categories with tags, we see the general domains that each kind of resource is designed to serve.
 We see that packages are fairly common across the board.
 Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling.
@@ -89,6 +93,7 @@ These tools may require greater access to system resources, or may require more 
 ZB response: We can look at the development of tags over time. For instance, a chart documenting year-over-year growth of each tag based on date of each project's first commit. I imagine this as a stacked bar chart (similar to below) but with segments coded to represent year of first commit. This would fit at the end of this section, under fog-github-cumulative. We can add charts documenting growth of platforms and licenses too. -->
 
 ```{r fig-tags}
+#| fig-cap: Frequency of tags applied to open archaeology projects included in open-archaeo, broken down by category.
 detail_tags <- c("Instrumental Neutron activation analysis",
                  "Harris Matrix",
                  "aDNA Simulators",
@@ -153,6 +158,7 @@ Archaeological software development activity has increased significantly over th
 @fig-github-cumulative shows the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
 
 ```{r fig-github-cumulative}
+#| fig-cap: Cumulative growth of open archaeological software in terms of number of commits and number of repositories, and broken down by category.
 oarch %>% 
   mutate(
     lumped_category = recode(category,
@@ -242,7 +248,3 @@ But use of git really began to take off around 2014--2015, when we see an uptick
 Around this time we also see that GitHub starts being used to host documents and scripts.
 This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
 
-------------------------------------------------------------------------
-
--   Compare changing proportions of each category on a year by year basis
--   Identify temporal trends in the use of licenses
