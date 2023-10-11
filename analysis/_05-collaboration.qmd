@@ -12,36 +12,20 @@ Issues are typically used to log and track bug reports, feature requests, and ot
 GitHub's pull request feature is also implemented via this system – a pull request is a special type of issue.
 
 Users can also engage with repositories and other users with social media-like features such as *starring* a repository, adding it to a public or private list, or *following* a user.
-These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This timeline was in fact one of the primary ways we compiled open-archaeo.]
+These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This feature of GitHub's timeline was one of the primary ways we compiled open-archaeo.]
 While not constituting a direct form of collaboration, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
 
 The prototypical collaborative open source project on GitHub has a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through pull requests, and an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
 The data we collected on open-archaeo repositories on GitHub show that uptake of its collaboration features is highly uneven, with very few projects resembling the open source ideal.
+The majority of projects are short-lived, with few contributors and a small number of commits.
+Only a fraction of repositories use GitHub's extended collaboration features (pull requests, issues, comments) and those that do use them in a limited way.
 <!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
-  
-* How active are projects
-  * Lifespan and activity rate vary greatly.
-  * Average lifespan, longest lifespan
-  * % of projects with only one commit, under one month, under three months, under a year
-  * NB. when we say lifespan, we mean *development* lifespan
-  * Average commit rate, range of commit rates
-  
-* Comparison of activity vs. longevity
-  * Highly active projects (>1 commit per day) tend to be very long-lived or very short-lived (not many in the middle)
-  * Long-lived projects have a range of activity levels, relatively evenly spread
-  * The most "successful" (according to the expectations of open source, i.e. long-lived and active) are also those with large numbers of contributors (up to 150).
-  * The central tendency of the distribution is c. [1000,0.10], i.e. projects that are about three years old and with ~3 commits a month; they are solo projects, or small groups.
-
-* How many people are involved?
-  *  Conversely, how many projects are individual people involved in?
-
-* Overall, what is the level of uptake of GitHub's collaboration features?
-  * Has this changed over time?
-
-In the following figure, each vertical line represents a repository's lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.
+Conversely, a small number of projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) do appear to fit the aspirational open source model, with a large number of contributors maintaing a long-lived and highly-active repository.
+Archaeologists active on GitHub also make markedly <!-- TODO: verify --> greater use of GitHub's social media-like features (stars, following) than more direct collaborative actions.
 
 ```{r fig-lifespan}
 #| fig-cap: Lifespan of repositories based on the date of first and last commit. Points indicate intermediate commits. Only repositories with more than one commit are included.
+#TODO: This looks cool, but is it actually more useful than a histogram or two?
 oarch %>%
   unnest(gh_commits) %>%
   drop_na(datetime) %>%
@@ -92,8 +76,6 @@ oarch %>%
   oarch_lifespan
 ```
 
-The span of time between the first and latest commits is visualized more clearly in the following charts. Notably, many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year. Projects with a short span of activity tend to have very high commit frequency, whereas there is much more variety in long-term projects. Among projects with a greater lifespan, those with more total commits have much more frequent activity than those with fewer total commits, which represent the majority of long-lived projects. The overall negative trend (seen in the top-right graph) can be explained in terms of natural processes, i.e. the only way to fit a high number of commits within the same span as a project with a low number of commits is to commit more frequently. But bearing in mind both axes use a logarithmic scale, the upper left portion of the graph does appear to suggest that short-lived projects are characterized by a spree of rapid committing; while longer-lived projects have a more diverse range of workrates. This latter pattern in turn appears to be explained by the number of contributors: projects that sustain a high commit rate over a long period of time tend to rely on a large number of contributors, as per the bottom-right graph.
-
 ```{r fig-lifespan-hist}
 #| fig-cap: Project lifespan 
 oarch_lifespan %>%
@@ -105,6 +87,14 @@ oarch_lifespan %>%
   ) +
   theme_oarch()
 ```
+
+The lifespan and activity (commit rate) of repositories in open-archaeo vary greatly (@fig-lifespan).
+Here we refer to the *development* lifespan of a project—measured here as the time between a repository's first and last commit—which is not necessary linked to its use-life.
+The average project lasts <!-- TODO --> days with <!-- TODO --> commits per day.
+<!-- TODO: turn all these percentages into code -->
+Many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year.
+The longest are <!-- TODO -->.
+Commit rates vary between <!-- TODO -->, with peaks at <!-- TODO -->.
 
 ```{r fig-lifespan-rate}
 #| fig-cap: Lifespan, commit rate and contributors to repositories. Note that both scales are logarithmic.
@@ -118,7 +108,11 @@ oarch_lifespan %>%
   theme_oarch()
 ```
 
-Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\]. A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
+The interaction between project longevity, activity, and number of contributors is multifaceted [@fig-lifespan-rate].
+Highly active projects (one commit per day or more) tend to be either very long-lived or very short-lived; few fall in the centre of the distribution.
+Short-lived projects tend to be characterised by a 'spree' of activity (a high commit rate), while long-lived projects have a broader range of activity profiles.
+The most "successful" projects according to open source norms (i.e. long-lived and active) are with few exceptions those projects with the largest contributor base in our dataset.
+However, the modal project in the centre of the distribution is more modest, lasting around three years, maintained as by an individual or a small group, with around three commits per month.
 
 ```{r plot-gh_contributors-histogram}
 oarch %>%
@@ -137,7 +131,10 @@ oarch %>%
   theme_oarch()
 ```
 
-Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
+* How many people are involved?
+  *  Conversely, how many projects are individual people involved in?
+
+Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\]. A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
 
 **NOTE:** Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
 
@@ -177,7 +174,7 @@ oarch %>%
   )
 ```
 
-Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
 
 ```{r fig-issues-comments}
 #| fig-cap: Use of issues and comments
@@ -207,3 +204,16 @@ fig_comments_hist <- oarch %>%
 
 fig_issues_hist + fig_comments_hist
 ```
+
+Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+
+```{r fig-collaboration-ts}
+# TODO: combined time series of:
+# * average project longevity
+# * commit rate
+# * number of collaborators
+# * use of issues+comments
+```
+
+* Summarise: overall, what is the level of uptake of GitHub's collaboration features?
+  * Has it changed over time? (@fig-collaboration-ts)
