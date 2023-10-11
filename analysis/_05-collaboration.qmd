@@ -1,51 +1,69 @@
 # Collaborative practices 
 
-<!-- Results II: description of observed collaborative practices
+As well as hosting source code, GitHub and other software forges include systems for facilitating collaboration on code and other projects.
+The basic collaborative workflow is inherited from git, which allows multiple users to *commit* (see @tbl-glossary for definitions of this and other git terminology used in this section) code to the repository.
+A user with *commit access* to a repository can change any of its contents at will, so this is usually reserved for the project maintainer and known, trusted collaborators.
+GitHub extends this model with its *pull request* feature, by which any user can offer to contribute code to a repository to which they don't have commit access.
+The maintainer may then choose to *merge* (accept) or *decline* the pull request, facilitating contributions from a wider network of collaborators without the need for permission to be sought in advance.
 
-- How active are projects?
-- How many people are involved?
-- Conversely, how many projects are individual people involved in?
-- What is the level of uptake of GitHub's collaboration features?
-- Has this changed over time?
+GitHub also facilitates collaboration on broader project management tasks, primarily through its *issues* feature.^[Apart from issues, GitHub has a very wide range of project management and social media-like features, including wikis, discussion forums and 'kanban' boards. We have not analysed the use of these features here.]
+Unless a repository's maintainer specifically configures it otherwise, any user can create an issue attached to another user's repository, or comment on an existing issue.
+Issues are typically used to log and track bug reports, feature requests, and other comments and suggestions from the project's user base.
+GitHub's pull request feature is also implemented via this system – a pull request is a special type of issue.
 
-Figures:
+Users can also engage with repositories and other users with social media-like features such as *starring* a repository, adding it to a public or private list, or *following* a user.
+These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This timeline was in fact one of the primary ways we compiled open-archaeo.]
+While not constituting a direct form of collaboration, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
 
-- Charts presenting commit rates and repo longevity
-- Charts presenting the number of contributors and the amount of work that they each contributed
-- Charts presenting the use of issues and comments
+The prototypical collaborative open source project on GitHub has a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through pull requests, and an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
+The data we collected on open-archaeo repositories on GitHub show that uptake of its collaboration features is highly uneven, with very few projects resembling the open source ideal.
+<!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
+  
+* How active are projects
+  * Lifespan and activity rate vary greatly.
+  * Average lifespan, longest lifespan
+  * % of projects with only one commit, under one month, under three months, under a year
+  * NB. when we say lifespan, we mean *development* lifespan
+  * Average commit rate, range of commit rates
+  
+* Comparison of activity vs. longevity
+  * Highly active projects (>1 commit per day) tend to be very long-lived or very short-lived (not many in the middle)
+  * Long-lived projects have a range of activity levels, relatively evenly spread
+  * The most "successful" (according to the expectations of open source, i.e. long-lived and active) are also those with large numbers of contributors (up to 150).
+  * The central tendency of the distribution is c. [1000,0.10], i.e. projects that are about three years old and with ~3 commits a month; they are solo projects, or small groups.
 
--->
+* How many people are involved?
+  *  Conversely, how many projects are individual people involved in?
 
-But how is this activity distributed across repositories? In this section we assess projects' pulse, or the amount of activity pertaining to a repository.
+* Overall, what is the level of uptake of GitHub's collaboration features?
+  * Has this changed over time?
 
 In the following figure, each vertical line represents a repository's lifespan, and the points on each line are individual commits. The graph is sorted by the date of the most recent commit for each repository, so the ones on the top became inactive earlier and the ones on the bottom represent ongoing work.
 
-```{r plot-lifespan}
+```{r fig-lifespan}
+#| fig-cap: Lifespan of repositories based on the date of first and last commit. Points indicate intermediate commits. Only repositories with more than one commit are included.
 oarch %>%
   unnest(gh_commits) %>%
   drop_na(datetime) %>%
   group_by(item_name) %>%
   add_tally() %>%
   filter(n > 1) %>%
-  mutate(first_commit = min(datetime),
-         mid_commit = median(datetime),
-         last_commit = max(datetime)) %>%
+  mutate(
+    first_commit = min(datetime, na.rm = TRUE),
+    mid_commit = median(datetime, na.rm = TRUE),
+    last_commit = max(datetime, na.rm = TRUE)
+  ) %>%
   ggplot(aes(x = fct_reorder(item_name, last_commit, .desc = FALSE),
              y = datetime,
              ymin = first_commit,
              ymax = last_commit)) +
-  geom_linerange(size = 0.05) +
+  # geom_linerange(size = 0.05) +
   geom_point(size = 0.1) +
   scale_y_datetime(limits = c(ymd("2005-01-01", tz = "UTC"),
                               ymd("2021-05-31", tz = "UTC")),
                    date_breaks = "2 years", date_labels = "%Y") +
   # coord_flip() +
-  labs(
-    title = "Project lifespan",
-    subtitle = glue("Individual commits in GitHub repositories (with more than 1 commit)"),
-    x = NULL, y = NULL,
-    caption = "Data: open-archaeo.info and GitHub API"
-  ) +
+  labs(x = NULL, y = NULL) +
   theme_oarch() +
   theme(
     axis.line.x = element_blank(),
@@ -56,7 +74,7 @@ oarch %>%
   )
 ```
 
-```{r lifespan-stats}
+```{r generate-oarch-lifespan}
 oarch %>% 
   unnest(gh_commits) %>% 
   drop_na(datetime) %>% 
@@ -76,45 +94,27 @@ oarch %>%
 
 The span of time between the first and latest commits is visualized more clearly in the following charts. Notably, many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year. Projects with a short span of activity tend to have very high commit frequency, whereas there is much more variety in long-term projects. Among projects with a greater lifespan, those with more total commits have much more frequent activity than those with fewer total commits, which represent the majority of long-lived projects. The overall negative trend (seen in the top-right graph) can be explained in terms of natural processes, i.e. the only way to fit a high number of commits within the same span as a project with a low number of commits is to commit more frequently. But bearing in mind both axes use a logarithmic scale, the upper left portion of the graph does appear to suggest that short-lived projects are characterized by a spree of rapid committing; while longer-lived projects have a more diverse range of workrates. This latter pattern in turn appears to be explained by the number of contributors: projects that sustain a high commit rate over a long period of time tend to rely on a large number of contributors, as per the bottom-right graph.
 
-```{r plot-lifespan-hist}
-# TODO: combine with patchwork
-# TODO: where does oarch_lifespan come from?
+```{r fig-lifespan-hist}
+#| fig-cap: Project lifespan 
 oarch_lifespan %>%
   ggplot(aes(x = lifespan)) +
   geom_histogram(binwidth = 100) +
   scale_x_continuous(breaks = scales::breaks_width(1000)) +
   labs(
-    title = "Project lifespan",
-    subtitle = "Time between first and latest commit, by repository",
-    x = "Days", y = NULL,
-    caption = "Data: open-archaeo.info and GitHub API"
+    x = "Lifespan (days)", y = "Repositories",
   ) +
   theme_oarch()
 ```
 
-```{r plot-lifespan-vs-rate}
-oarch_lifespan %>%
-  ggplot(aes(x = lifespan, y = commit_rate, size = n)) +
-  geom_point(shape = 21, fill = NA) +
-  scale_x_log10() +
-  scale_y_log10() +
-  labs(
-    title = "Project lifespan vs. average commit rate",
-    x = "Lifespan (days)", y = "Commits per day", size = "Total commits",
-    caption = NULL
-  ) +
-  theme_oarch()
-
+```{r fig-lifespan-rate}
+#| fig-cap: Lifespan, commit rate and contributors to repositories. Note that both scales are logarithmic.
+# TODO: add marginal histograms?
 oarch_lifespan %>%
   ggplot(aes(x = lifespan, y = commit_rate, size = n_contribs)) +
-  geom_point(shape = 21, fill = NA) +
+  geom_point(shape = 21, colour = "black", fill = alpha("black", 0.3)) +
   scale_x_log10() +
   scale_y_log10() +
-  labs(
-    title = NULL,
-    x = "Lifespan (days)", y = "Commits per day", size = "Contributors",
-    caption = "Data: open-archaeo.info and GitHub API"
-  ) +
+  labs(x = "Lifespan (days)", y = "Commits per day", size = "Contributors") +
   theme_oarch()
 ```
 
@@ -179,9 +179,11 @@ oarch %>%
 
 Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
 
-```{r plot-issues-hist}
-# TODO: combine with comments-hist
-oarch %>%
+```{r fig-issues-comments}
+#| fig-cap: Use of issues and comments
+# TODO: include zeroes
+# TODO: why are there no twos?
+fig_issues_hist <- oarch %>%
   unnest(gh_issues) %>%
   drop_na(title) %>%
   group_by(repo) %>%
@@ -189,16 +191,10 @@ oarch %>%
   ggplot(aes(x = n)) +
   geom_histogram() +
   scale_x_log10() +
-  labs(
-    title = "Use of issues",
-    caption = "Data: open-archaeo.info and GitHub API",
-    x = "Number of issues", y = "Repositories"
-  ) +
+  labs(x = "Number of issues", y = "Repositories") +
   theme_oarch()
-```
 
-```{r plot-comments-hist}
-oarch %>%
+fig_comments_hist <- oarch %>%
   unnest(gh_comments) %>%
   drop_na(issue_num) %>%
   group_by(repo) %>%
@@ -206,10 +202,8 @@ oarch %>%
   ggplot(aes(x = n)) +
   geom_histogram() +
   scale_x_log10() +
-  labs(
-    title = "Use of comments",
-    caption = "Data: open-archaeo.info and GitHub API",
-    x = "Number of comments", y = "Repositories"
-  ) +
+  labs(x = "Number of comments", y = "Repositories") +
   theme_oarch()
+
+fig_issues_hist + fig_comments_hist
 ```
