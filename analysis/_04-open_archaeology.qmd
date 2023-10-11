@@ -17,7 +17,6 @@ bibliography: references.bib
   - Compare changing proportions of each category on a year by year basis
   - Identify periods associated with different rates of growth, and relate these with different general attitudes in the history of digital archaeology
 -->
-```
 
 As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists.
 This primarily constitutes software but also includes various forms of open documents. @tbl-categories summarizes the kinds if resources that appear in open-archaeo, and breaks them down into more precise categories.
