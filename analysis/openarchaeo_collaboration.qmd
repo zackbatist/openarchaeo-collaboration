@@ -5,10 +5,12 @@ author:
   - name: Zack Batist
     url: https://zackbatist.info
     affiliation: Faculty of Information, University of Toronto
+    affiliation-url: https://ischool.utoronto.ca/
     orcid: 0000-0003-0435-508X 
   - name: Joe Roe
     url: https://joeroe.io
     affiliation: Institute of Archaeological Sciences, University of Bern
+    affiliation-url: https://www.iaw.unibe.ch/
     orcid: 0000-0002-1011-1244
 date: "`r Sys.Date()`"
 abstract: |
