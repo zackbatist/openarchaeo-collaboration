@@ -4,7 +4,6 @@ bibliography: references.bib
 
 # Open archaeology
 
-```{=html}
 <!-- Results I: description of open archaeology projects
 
 - What kind of projects comprise open archaeology?
@@ -19,8 +18,10 @@ bibliography: references.bib
   - Identify periods associated with different rates of growth, and relate these with different general attitudes in the history of digital archaeology
 -->
 ```
+
 As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists.
 This primarily constitutes software but also includes various forms of open documents. @tbl-categories summarizes the kinds if resources that appear in open-archaeo, and breaks them down into more precise categories.
+
 
 ```{r tbl-categories}
 #| tbl-cap: Categories of open archaeology projects included in open-archaeo.
@@ -72,8 +73,8 @@ oarch |>
 p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
 ```
 
-As per @tbl-platforms, The statistical programming language R `r percent(p_platform_r)` is overwhelmingly the most common platform among projects that extend upon existing programming languages and applications.
-This is followed by Python <!-- percent -->, which is another popular scientific scripting language, and the open source geographic information system QGIS <!-- percent -->.
+`r percent(p_platform_r)` of projects are extensions to the statistical programming language R, making it the most widely-used 'platform' by a large margin (@tbl-platforms).
+Python, another programming language, is also relatively popular <!-- TODO: percent -->, as are plugins for the open source geographic information system QGIS <!-- TODO: percent -->.
 Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates.
 Many of these are targeted by only one or two developers; the larger platforms tend to be more diverse.
 
@@ -93,28 +94,13 @@ These tools may require greater access to system resources, or may require more 
 ZB response: We can look at the development of tags over time. For instance, a chart documenting year-over-year growth of each tag based on date of each project's first commit. I imagine this as a stacked bar chart (similar to below) but with segments coded to represent year of first commit. This would fit at the end of this section, under fog-github-cumulative. We can add charts documenting growth of platforms and licenses too. -->
 
 ```{r fig-tags}
-#| fig-cap: Frequency of tags applied to open archaeology projects included in open-archaeo, broken down by category.
-detail_tags <- c("Instrumental Neutron activation analysis",
-                 "Harris Matrix",
-                 "aDNA Simulators",
-                 "Damage profilers",
-                 "Metagenomic classifers",
-                 "aDNA simulators",
-                 "aDNA damage-aware genotypers",
-                 "Low-coverage contamination estimation",
-                 "Low-coverage adapted population-genetics tools",
-                 "aDNA preprocessing",
-                 "aDNA aligner",
-                 "aDNA assembler",
-                 "aDNA toolkit")
-
+#| fig-cap: Tags by category
 oarch %>%
   pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
                values_drop_na = TRUE) %>%
   drop_na(tag) %>%
-  filter(!tag %in% detail_tags) %>%
   mutate(category = recode(category,
-                                  "Specifications etc." = "Documents",
+                                  "Specifications, protocols and schemas" = "Documents",
                                   "Products" = "Documents",
                                   "Guides" = "Documents",
                                   "Lists and datasets" = "Documents",
@@ -123,13 +109,10 @@ oarch %>%
   summarise(n = n(), .groups = "drop_last") %>%
   mutate(total = sum(n)) %>%
   ggplot(aes(fct_reorder(tag, total), n, fill = category)) +
-  # facet_wrap(vars(category)) +
   geom_col() +
   scale_fill_bright() +
   coord_flip() +
   labs(
-    title = "Tags by category",
-    caption = "Data: open-archaeo.info",
     x = NULL, y = "Number of projects",
     fill = NULL
   ) +
