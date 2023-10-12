@@ -27,6 +27,26 @@
 
 -->
 
+```{r data-oarch_contributors}
+oarch |>
+  unnest(gh_contribs) |>
+  drop_na(contributor) |>
+  group_by(contributor) |>
+  mutate(
+    repo_owner = if_else(str_extract(repo, "[^/]+") == contributor, "own", "other")
+  ) |>
+  group_by(contributor, repo_owner) |>
+  summarise(repos = n(), contribs = sum(contributions)) |>
+  pivot_wider(c(contributor), names_from = repo_owner, 
+              values_from = c(repos, contribs), values_fill = 0) |>
+  mutate(
+    repos = repos_other + repos_own,
+    contribs = contribs_other + contribs_own,
+    .after = contributor
+  ) ->
+  oarch_contributors
+```
+
 We constructed and analyzed networks representing users' contributions to GitHub repositories to examine the emergence of collaborative tendencies. We sought to identify clusters of repositories that share common sets of contributors, and the different kinds of contributions that draw the network together.
 
 ```{r data-graph}

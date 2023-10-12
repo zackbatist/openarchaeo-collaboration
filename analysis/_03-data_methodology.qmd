@@ -9,7 +9,7 @@
 <!-- TODO: snappier title? Maybe incorporating 'open-archaeo'? -->
 
 Our study comprises an exploratory analysis of open-archaeo [@batist2023], a list of open source archaeological software and other digital resources.
-As of right now it includes 408 items, which are rendered for the web at [open-archaeo.info](open-archaeo.info).
+As of right now it includes <!-- TODO: encode -->408 items, which are rendered for the web at [open-archaeo.info](open-archaeo.info).
 We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software.
 This entailed manually crawling through users' profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work.
 We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
@@ -23,6 +23,7 @@ tribble(
   "Commit access", "Ability to make changes to a repository directly, without making a pull request",
   "Contributor", "User that has made at least one commit to a specified repository",
   "Follow", "Add activity by another user to a user's timeline",
+  "Forge", "Web-based platform for hosting, distributing and facilitating collaboration on version controlled computer code, e.g. GitHub, GitLab, Codeberg",
   "git", "Open source version control software",
   "GitHub", "Commercial platform that freely hosts git repositories and provides extended collaboration and social networking features, such as pull requests, issues and stars",
   "GitLab", "Open source alternative to GitHub",
@@ -48,7 +49,12 @@ tribble(
 * Introduce git, GitHub, etc. and describe briefly how they work for non-users
 -->
 
-Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub.
+Open-archaeo is a relatively comprehensive list.
+While our initial intention was to only list open source software, its scope has expanded to include all software created by and for archaeologists.
+Apart from regular updates by its primary maintainer (ZB), it has been expanded by a wider network of contributors and has benefited from the wider range of domain specialisms this has brought.
+However, there are a number of areas that, for practical reasons, are not well-covered.
+<!-- TODO: next three sentences are a bit repeatative, can we more concisely state what OA doesn't cover well? -->
+Code written before archaeologists started using collaborative software development platforms such as GitHub is generally missing.
 It also lacks references to code that is not available on the web.
 Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.
 
@@ -94,10 +100,6 @@ oarch <- mutate(oarch, rough_category = recode(category,
 # * aDNA??
 ```
 
-For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API.
-That is, for each project in open-archaeo with a GitHub repository, we added information on individual contributors, commits, issues, etc. from the API using the R package `gh` [@csardi2023].
-This does reduce our sample size slightly; about an eighth of projects don't use version control, at least not publicly, but among those that do, GitHub is by far the most popular host ([@tbl-repo-hosts]).
-
 ```{r data-github}
 # If cached data at `analysis/data/derived_data/oarch.RData` is present, this
 # chunk will prefer to load it rather than make requests to the GitHub API.
@@ -125,9 +127,8 @@ if (!file_exists(cached_gh_data)) {
 oarch <- readRDS(cached_gh_data)
 ```
 
-```{r tbl-repo-hosts}
-#| tbl-cap: Number of open archaeology projects using GitHub and other repository hosts
-oarch |>
+```{r data-oarch_forges}
+oarch_forges <- oarch |>
   mutate(none = ifelse(is.na(github) & is.na(gitlab) & is.na(bitbucket) &
                          is.na(launchpad) & is.na(codeberg), "", NA)) |>
   pivot_longer(c(github, gitlab, bitbucket, launchpad, codeberg, none),
@@ -135,8 +136,11 @@ oarch |>
   drop_na(repo_url) |>
   count(category, repo_host) |>
   pivot_wider(names_from = category, values_from = n, values_fill = 0) |>
-  mutate(total = rowSums(across(Guides:`Standalone software`)), 
-         .before = Guides) |>
+  mutate(
+    total = rowSums(across(Guides:`Standalone software`)), 
+    p_total = total / sum(total),
+    .before = Guides
+  ) |>
   arrange(repo_host == "none", desc(total)) |>
   mutate(repo_host = recode(repo_host,
                             github = "GitHub",
@@ -144,34 +148,27 @@ oarch |>
                             gitlab = "GitLab",
                             bitbucket = "BitBucket",
                             launchpad = "Launchpad",
-                            none = "None")) |>
-  gt() |>
+                            none = "None"))
+
+p_no_vc <- filter(oarch_forges, repo_host == "None")[["p_total"]]
+p_no_github <- sum(filter(oarch_forges, repo_host != "None" & repo_host != "GitHub")$p_total)
+```
+
+```{r tbl-forges}
+#| tbl-cap: Software forges used by open-archaeo projects
+gt(oarch_forges) |>
   cols_label(repo_host = "Host", total = "Total") |>
+  cols_merge_n_pct(total, p_total) |>
+  fmt_percent(p_total) |>
   tab_spanner("By category", Guides:`Standalone software`)
 ```
 
-While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists.
+We augmented the open-archaeo's list of with projects with information on its activity on GitHub, where applicable.
+This included metadata on the GitHub repository and the programming languages it uses, as well as detailed data on each repository's individual contributors, commits, issues and comments (see @tbl-glossary for a glossary of git/GitHub terminology used in this paper).
+This data was collected via GitHub's public API using the R package `gh` [@csardi2023].
+We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
+This means that projects that don't use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
 
 <!-- TODO: add something on EDA and network analysis methodology -->
 
 The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.
-
-```{r data-oarch_contributors}
-oarch |>
-  unnest(gh_contribs) |>
-  drop_na(contributor) |>
-  group_by(contributor) |>
-  mutate(
-    repo_owner = if_else(str_extract(repo, "[^/]+") == contributor, "own", "other")
-  ) |>
-  group_by(contributor, repo_owner) |>
-  summarise(repos = n(), contribs = sum(contributions)) |>
-  pivot_wider(c(contributor), names_from = repo_owner, 
-              values_from = c(repos, contribs), values_fill = 0) |>
-  mutate(
-    repos = repos_other + repos_own,
-    contribs = contribs_other + contribs_own,
-    .after = contributor
-  ) ->
-  oarch_contributors
-```

@@ -1,6 +1,6 @@
 # Collaborative practices 
 
-```{r generate-oarch_github}
+```{r data-oarch_github}
 # Subset of dataset with GitHub data
 oarch |> 
   filter(!is.na(gh_repo_info)) ->
@@ -47,7 +47,7 @@ oarch_gh %>%
   )
 ```
 
-```{r generate-oarch_lifespan}
+```{r data-oarch_lifespan}
 oarch_gh %>% 
   unnest(gh_commits) %>% 
   drop_na(datetime) %>% 
@@ -141,7 +141,7 @@ fig_comments_hist <- oarch_gh %>%
 fig_issues_hist / fig_comments_hist
 ```
 
-```{r generate-issue-comment-stats}
+```{r data-issue-comment-stats}
 oarch_gh <- mutate(
   oarch_gh, 
   n_issues = map_int(gh_issues, \(x) if(is.data.frame(x)) nrow(x) else 0),
