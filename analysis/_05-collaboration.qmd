@@ -8,10 +8,10 @@ oarch |>
 ```
 
 As well as hosting source code, GitHub and other software forges include systems for facilitating collaboration on code and other projects.
-The basic collaborative workflow is inherited from git, which allows multiple users to *commit* (see @tbl-glossary for definitions of this and other git terminology used in this section) code to the repository.
-A user with *commit access* to a repository can change any of its contents at will, so this is usually reserved for the project maintainer and known, trusted collaborators.
-GitHub extends this model with its *pull request* feature, by which any user can offer to contribute code to a repository to which they don't have commit access.
-The maintainer may then choose to *merge* (accept) or *decline* the pull request, facilitating contributions from a wider network of collaborators without the need for permission to be sought in advance.
+The basic collaborative workflow is inherited from git, which allows multiple users to commit (see @tbl-glossary for definitions of this and other git terminology used in this section) code to the repository.
+A user with commit access to a repository can change any of its contents at will, so this is usually reserved for the project maintainer and known, trusted collaborators.
+GitHub extends this model with its pull request feature, by which any user can offer to contribute code to a repository to which they don't have commit access.
+The maintainer may then choose to merge (accept) or decline the pull request, facilitating contributions from a wider network of collaborators without the need for permission to be sought in advance.
 
 ```{r fig-lifespan}
 #| fig-cap: Lifespan of repositories based on the date of first and last commit. Points indicate intermediate commits. Only repositories with more than one commit are included.
@@ -154,7 +154,7 @@ p_with_few_issues <- nrow(filter(oarch_gh, n_issues > 0 & n_issues <= 10)) / nro
 ```
 
 
-GitHub also facilitates collaboration on broader project management tasks, primarily through its *issues* feature.^[Apart from issues, GitHub has a very wide range of project management and social media-like features, including wikis, discussion forums and 'kanban' boards. We have not analysed the use of these features here.]
+GitHub also facilitates collaboration on broader project management tasks, primarily through its issues feature.^[Apart from issues, GitHub has a very wide range of project management and social media-like features, including wikis, discussion forums and 'kanban' boards. We have not analysed the use of these features here.]
 Unless a repository's maintainer specifically configures it otherwise, any user can create an issue attached to another user's repository, or comment on an existing issue.
 Issues are typically used to log and track bug reports, feature requests, and other comments and suggestions from the project's user base.
 GitHub's pull request feature is also implemented via this system – a pull request is a special type of issue.
@@ -236,7 +236,7 @@ Furthermore, when we break down the contributions made by all contributors in mu
 #TODO: follows figure?
 ```
 
-Another way GitHub users can engage with repositories and other users with social media-like features such as *starring* a repository, adding it to a public or private list, or *following* a user.
+Another way GitHub users can engage with repositories and other users with social media-like features such as starring a repository, adding it to a public or private list, or following a user.
 These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This feature of GitHub's timeline was one of the primary ways we compiled open-archaeo.]
 While not constituting a direct form of collaboration, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
 

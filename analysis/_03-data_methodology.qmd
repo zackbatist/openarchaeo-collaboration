@@ -14,9 +14,38 @@ We compiled the dataset by browsing collaborative software development platforms
 This entailed manually crawling through users' profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work.
 We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
 
+```{r tbl-glossary}
+#| tbl-cap: Glossary of git and GitHub terminology
+tribble(
+  ~term, ~definition,
+  "Comment", "Text post attached to an issue, including the first one that describes the issue",
+  "Commit", "Set of changes (addition, alteration, or deletion) to files in a repository that has been recorded by git as one entry in its log",
+  "Commit access", "Ability to make changes to a repository directly, without making a pull request",
+  "Contributor", "User that has made at least one commit to a specified repository",
+  "Follow", "Add activity by another user to a user's timeline",
+  "git", "Open source version control software",
+  "GitHub", "Commercial platform that freely hosts git repositories and provides extended collaboration and social networking features, such as pull requests, issues and stars",
+  "GitLab", "Open source alternative to GitHub",
+  "CodeBerg", "Open source alternative to GitHub",
+  "Issue", "Feature of GitHub that records and tracks a bug report, feature request or other suggestion in a repository",
+  "Maintainer", "Individual that has overall control of a repository, generally assumed to be its primary contributor. Repositories can have multiple users with commit access in addition to the maintainer.",
+  "Merge", "Accept a pull request and incorporate its changes into a repository.",
+  "Organization", "Entity representing a group of users, which can also own repositories",
+  "Pull request", "Mechanism by which users that don't have commit access to a repository can contribute to it. The repository's maintainer or another user with commit access must decide whether to merge (accept) the changes, or decline them.",
+  "Repository", "Individual project that uses git for version control. Can include a mix of different types of files.",
+  "Star", "GitHub's version of a 'like', applied by users to a repository.",
+  "Timeline", "Chronological feed of GitHub activity from repositories a user has starred and other users they follow. Also includes repositories that a user is not following if they are 'trending' or determined relevant by GitHub's algorithm.",
+  "User", "On GitHub, an individual with an account that can own repositories",
+  "Version control", "System for tracking changes (additions, alterations, or deletions) in a set of files, typically but not exclusively computer code"
+) |>
+  gt() |>
+  cols_label_with(fn = tools::toTitleCase) |>
+  fmt_markdown(definition)
+```
+
+
 <!-- TODO:
 * Introduce git, GitHub, etc. and describe briefly how they work for non-users
-* Define software jargon we use (repo, commit, etc.) – maybe as a glossary table?
 -->
 
 Open-archaeo is a relatively comprehensive list, however it generally overlooks records pertaining to code written before archaeologists started using collaborative software development platforms such as GitHub.
