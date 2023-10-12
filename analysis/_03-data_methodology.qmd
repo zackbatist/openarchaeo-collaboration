@@ -18,7 +18,7 @@ We supplemented this quasi-systematic collection strategy with word-of-mouth con
 #| tbl-cap: Glossary of git and GitHub terminology
 tribble(
   ~term, ~definition,
-  "Comment", "Text post attached to an issue, including the first one that describes the issue",
+  "Comment", "On GitHub, Text post attached to an issue, including the first one that describes the issue",
   "Commit", "Set of changes (addition, alteration, or deletion) to files in a repository that has been recorded by git as one entry in its log",
   "Commit access", "Ability to make changes to a repository directly, without making a pull request",
   "Contributor", "User that has made at least one commit to a specified repository",
