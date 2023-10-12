@@ -152,6 +152,8 @@ oarch |>
 
 While our initial intention was to only list open source software, open-archaeo's scope has expanded to include all software created by and for archaeologists.
 
+<!-- TODO: add something on EDA and network analysis methodology -->
+
 The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.
 
 ```{r data-oarch_contributors}
