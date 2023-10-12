@@ -112,7 +112,7 @@ The most "successful" projects according to open source norms (i.e. long-lived a
 However, the modal project in the centre of the distribution is more modest, lasting around three years, maintained as by an individual or a small group, with around three commits per month.
 
 ```{r fig-issues-comments}
-#| fig-cap: Use of issues and comments
+#| fig-cap: Use of issues and comments.
 # TODO: include zeroes
 # TODO: why are there no twos?
 # TODO: throw stars in here too?
@@ -167,6 +167,7 @@ This seems to suggest that people are willing to respond to issues raised by oth
 
 
 ```{r plot-gh_contributors-histogram}
+#| fig-cap: Number of contributors.
 oarch %>%
   drop_na(gh_repo) %>%
   unnest(gh_contribs) %>%
@@ -183,13 +184,11 @@ oarch %>%
   theme_oarch()
 ```
 
-* How many people are involved?
-  *  Conversely, how many projects are individual people involved in?
-
-Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\]. A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
+Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\] (@plot-gh_contributors-histogram). A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
 <!-- TODO: expand -->
 
 ```{r plot-contrib-dist}
+#| fig-cap: Distribution of contributions in multi-contributor projects.
 #TODO: Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
 oarch %>%
   unnest(gh_contribs) %>%
@@ -226,7 +225,7 @@ oarch %>%
   )
 ```
 
-Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
+Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly (@plot-contrib-dist). Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
 
 ```{r fig-stars}
 #TODO: stars figure?
@@ -257,5 +256,5 @@ The data we collected on open-archaeo repositories on GitHub show that uptake of
 The majority of projects are short-lived, with few contributors and a small number of commits.
 Only a fraction of repositories use GitHub's extended collaboration features (pull requests, issues, comments) and those that do use them in a limited way.
 <!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
-Conversely, a small number of projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) do appear to fit the aspirational open source model, with a large number of contributors maintaing a long-lived and highly-active repository.
+Conversely, a small number of projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) do appear to fit the aspirational open source model, with a large number of contributors maintaining a long-lived and highly-active repository.
 Archaeologists active on GitHub also make markedly <!-- TODO: verify --> greater use of GitHub's social media-like features (stars, following) than more direct collaborative actions.

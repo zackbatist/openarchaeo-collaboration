@@ -72,7 +72,7 @@ oarch |>
 p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
 ```
 
-`r percent(p_platform_r)` of projects are extensions to the statistical programming language R, making it the most widely-used 'platform' by a large margin (@tbl-platforms).
+`r percent(p_platform_r)` of projects are extensions to the statistical programming language R, making it the most widely-used platform by a large margin (@tbl-platforms).
 Python, another programming language, is also relatively popular <!-- TODO: percent -->, as are plugins for the open source geographic information system QGIS <!-- TODO: percent -->.
 Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates.
 Many of these are targeted by only one or two developers; the larger platforms tend to be more diverse.
@@ -80,7 +80,7 @@ Many of these are targeted by only one or two developers; the larger platforms t
 At first glance, the relative popularity of R versus Python is perhaps surprising; Python is regularly ranked as the most popular programming language in the world, with R a distant runner-up.
 However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
 
-We also annotated each record with 'tags' that describe aspects of archaeological work that each tool contributes to [@fig-tags].
+We also annotated each record with "tags" that describe aspects of archaeological work that each tool contributes to [@fig-tags].
 The most common tags unsurprisingly deal with work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
 Educational resources and practical guides are also well represented due to the web's usefulness as a medium for sharing and communication.
 

@@ -52,11 +52,9 @@ tribble(
 Open-archaeo is a relatively comprehensive list.
 While our initial intention was to only list open source software, its scope has expanded to include all software created by and for archaeologists.
 Apart from regular updates by its primary maintainer (ZB), it has been expanded by a wider network of contributors and has benefited from the wider range of domain specialisms this has brought.
-However, there are a number of areas that, for practical reasons, are not well-covered.
-<!-- TODO: next three sentences are a bit repeatative, can we more concisely state what OA doesn't cover well? -->
-Code written before archaeologists started using collaborative software development platforms such as GitHub is generally missing.
-It also lacks references to code that is not available on the web.
-Open-archaeo is also limited by the experiences of its primary maintainers, and we welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to contribute.
+However, open-archaeo generally lacks software written before archaeologists started using collaborative software development platforms such as GitHub, and software that is not shared on the web at all.
+The dataset is also limited by the experiences of its primary maintainers.
+We welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to help fill in these gaps.
 
 ```{r data-oarch}
 read_csv("https://github.com/zackbatist/open-archaeo/raw/2023-08-29/open-archaeo.csv") %>%
@@ -163,12 +161,11 @@ gt(oarch_forges) |>
   tab_spanner("By category", Guides:`Standalone software`)
 ```
 
-We augmented the open-archaeo's list of with projects with information on its activity on GitHub, where applicable.
+Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API using the R package `gh` [@csardi2023].
 This included metadata on the GitHub repository and the programming languages it uses, as well as detailed data on each repository's individual contributors, commits, issues and comments (see @tbl-glossary for a glossary of git/GitHub terminology used in this paper).
-This data was collected via GitHub's public API using the R package `gh` [@csardi2023].
 We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
-This means that projects that don't use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
+This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
 
 <!-- TODO: add something on EDA and network analysis methodology -->
 
-The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo.
+The data and analysis code are available in our research compendium on GitHub, which is also indexed on Zenodo. <!-- TODO: add hyperlinks to these resources -->
