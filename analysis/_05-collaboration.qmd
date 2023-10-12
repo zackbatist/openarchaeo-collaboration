@@ -83,8 +83,8 @@ The average project lasts `r round(mean(oarch_lifespan$lifespan))` days with `r 
 <!-- TODO: turn all these percentages into code -->
 Many projects are active for only a short period of time: about `r percent(p_lifespan_30days)` less than 30 days, `r percent(p_lifespan_90days)` less than 90 days, and `r percent(p_lifespan_365days)` less than a year.
 However, the vast majority (all but `r english(n_1commit)`) do have more than one commit, suggesting that use of GitHub as a pure host for already-finished projects is not common; some degree of iteration, if not collaboration, is almost always present.
-The longest-lived projects have been active for between `english(round(lifespan_top10_range / 365)[1])` and `english(round(lifespan_top10_range / 365)[2])` years.
-The most active projects see up to `round(max_commit_rate)` commits per day, but the majority of repositories (`r percent(p_commit_rate_1)`) receive less one commit per day.
+The longest-lived projects have been active for between `r english(round(lifespan_top10_range / 365)[1])` and `r english(round(lifespan_top10_range / 365)[2])` years.
+The most active projects see up to `r round(max_commit_rate)` commits per day, but the majority of repositories (`r percent(p_commit_rate_1)`) receive less one commit per day.
 
 ```{r fig-lifespan-rate}
 #| fig-cap: Lifespan, commit rate and contributors to repositories. Note that both scales are logarithmic.
