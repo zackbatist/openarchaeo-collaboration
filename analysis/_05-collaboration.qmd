@@ -6,26 +6,10 @@ A user with *commit access* to a repository can change any of its contents at wi
 GitHub extends this model with its *pull request* feature, by which any user can offer to contribute code to a repository to which they don't have commit access.
 The maintainer may then choose to *merge* (accept) or *decline* the pull request, facilitating contributions from a wider network of collaborators without the need for permission to be sought in advance.
 
-GitHub also facilitates collaboration on broader project management tasks, primarily through its *issues* feature.^[Apart from issues, GitHub has a very wide range of project management and social media-like features, including wikis, discussion forums and 'kanban' boards. We have not analysed the use of these features here.]
-Unless a repository's maintainer specifically configures it otherwise, any user can create an issue attached to another user's repository, or comment on an existing issue.
-Issues are typically used to log and track bug reports, feature requests, and other comments and suggestions from the project's user base.
-GitHub's pull request feature is also implemented via this system – a pull request is a special type of issue.
-
-Users can also engage with repositories and other users with social media-like features such as *starring* a repository, adding it to a public or private list, or *following* a user.
-These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This feature of GitHub's timeline was one of the primary ways we compiled open-archaeo.]
-While not constituting a direct form of collaboration, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
-
-The prototypical collaborative open source project on GitHub has a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through pull requests, and an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
-The data we collected on open-archaeo repositories on GitHub show that uptake of its collaboration features is highly uneven, with very few projects resembling the open source ideal.
-The majority of projects are short-lived, with few contributors and a small number of commits.
-Only a fraction of repositories use GitHub's extended collaboration features (pull requests, issues, comments) and those that do use them in a limited way.
-<!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
-Conversely, a small number of projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) do appear to fit the aspirational open source model, with a large number of contributors maintaing a long-lived and highly-active repository.
-Archaeologists active on GitHub also make markedly <!-- TODO: verify --> greater use of GitHub's social media-like features (stars, following) than more direct collaborative actions.
-
 ```{r fig-lifespan}
 #| fig-cap: Lifespan of repositories based on the date of first and last commit. Points indicate intermediate commits. Only repositories with more than one commit are included.
 #TODO: This looks cool, but is it actually more useful than a histogram or two?
+#TODO: Remove that one commit in 2001
 oarch %>%
   unnest(gh_commits) %>%
   drop_na(datetime) %>%
@@ -41,11 +25,9 @@ oarch %>%
              y = datetime,
              ymin = first_commit,
              ymax = last_commit)) +
-  # geom_linerange(size = 0.05) +
+  geom_linerange(linewidth = 0.05) +
   geom_point(size = 0.1) +
-  scale_y_datetime(limits = c(ymd("2005-01-01", tz = "UTC"),
-                              ymd("2021-05-31", tz = "UTC")),
-                   date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_datetime(date_breaks = "2 years", date_labels = "%Y") +
   # coord_flip() +
   labs(x = NULL, y = NULL) +
   theme_oarch() +
@@ -88,8 +70,9 @@ oarch_lifespan %>%
   theme_oarch()
 ```
 
-The lifespan and activity (commit rate) of repositories in open-archaeo vary greatly (@fig-lifespan).
-Here we refer to the *development* lifespan of a project—measured here as the time between a repository's first and last commit—which is not necessary linked to its use-life.
+We measured the lifespan of a repository as the time between the first and latest commit, and its activity as the rate of commits.
+Here therefore refer to the *development* lifespan of a project—measured here as the time between a repository's first and last commit—which is not necessary linked to its use-life.
+The lifespan and activity of repositories in open-archaeo vary greatly (@fig-lifespan).
 The average project lasts <!-- TODO --> days with <!-- TODO --> commits per day.
 <!-- TODO: turn all these percentages into code -->
 Many projects are active for only a short period of time: about 15% less than a month, 25% less than three months, and 40% less than a year.
@@ -114,6 +97,42 @@ Short-lived projects tend to be characterised by a 'spree' of activity (a high c
 The most "successful" projects according to open source norms (i.e. long-lived and active) are with few exceptions those projects with the largest contributor base in our dataset.
 However, the modal project in the centre of the distribution is more modest, lasting around three years, maintained as by an individual or a small group, with around three commits per month.
 
+```{r fig-issues-comments}
+#| fig-cap: Use of issues and comments
+# TODO: include zeroes
+# TODO: why are there no twos?
+fig_issues_hist <- oarch %>%
+  unnest(gh_issues) %>%
+  drop_na(title) %>%
+  group_by(repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(x = "Number of issues", y = "Repositories") +
+  theme_oarch()
+
+fig_comments_hist <- oarch %>%
+  unnest(gh_comments) %>%
+  drop_na(issue_num) %>%
+  group_by(repo) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  ggplot(aes(x = n)) +
+  geom_histogram() +
+  scale_x_log10() +
+  labs(x = "Number of comments", y = "Repositories") +
+  theme_oarch()
+
+fig_issues_hist + fig_comments_hist
+```
+
+Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+
+GitHub also facilitates collaboration on broader project management tasks, primarily through its *issues* feature.^[Apart from issues, GitHub has a very wide range of project management and social media-like features, including wikis, discussion forums and 'kanban' boards. We have not analysed the use of these features here.]
+Unless a repository's maintainer specifically configures it otherwise, any user can create an issue attached to another user's repository, or comment on an existing issue.
+Issues are typically used to log and track bug reports, feature requests, and other comments and suggestions from the project's user base.
+GitHub's pull request feature is also implemented via this system – a pull request is a special type of issue.
+
 ```{r plot-gh_contributors-histogram}
 oarch %>%
   drop_na(gh_repo) %>%
@@ -135,10 +154,10 @@ oarch %>%
   *  Conversely, how many projects are individual people involved in?
 
 Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\]. A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
-
-**NOTE:** Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
+<!-- TODO: expand -->
 
 ```{r plot-contrib-dist}
+#TODO: Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
 oarch %>%
   unnest(gh_contribs) %>%
   drop_na(contributor) %>%
@@ -176,36 +195,18 @@ oarch %>%
 
 Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly. Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
 
-```{r fig-issues-comments}
-#| fig-cap: Use of issues and comments
-# TODO: include zeroes
-# TODO: why are there no twos?
-fig_issues_hist <- oarch %>%
-  unnest(gh_issues) %>%
-  drop_na(title) %>%
-  group_by(repo) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  ggplot(aes(x = n)) +
-  geom_histogram() +
-  scale_x_log10() +
-  labs(x = "Number of issues", y = "Repositories") +
-  theme_oarch()
-
-fig_comments_hist <- oarch %>%
-  unnest(gh_comments) %>%
-  drop_na(issue_num) %>%
-  group_by(repo) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  ggplot(aes(x = n)) +
-  geom_histogram() +
-  scale_x_log10() +
-  labs(x = "Number of comments", y = "Repositories") +
-  theme_oarch()
-
-fig_issues_hist + fig_comments_hist
+```{r fig-stars}
+#TODO: stars figure?
 ```
 
-Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+```{r fig-follows}
+#TODO: follows figure?
+```
+
+Another way GitHub users can engage with repositories and other users with social media-like features such as *starring* a repository, adding it to a public or private list, or *following* a user.
+These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This feature of GitHub's timeline was one of the primary ways we compiled open-archaeo.]
+While not constituting a direct form of collaboration, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
+
 
 ```{r fig-collaboration-ts}
 # TODO: combined time series of:
@@ -217,3 +218,11 @@ Perhaps as a result of this, we also find that only a minority of projects make 
 
 * Summarise: overall, what is the level of uptake of GitHub's collaboration features?
   * Has it changed over time? (@fig-collaboration-ts)
+  
+The prototypical collaborative open source project on GitHub has a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through pull requests, and an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
+The data we collected on open-archaeo repositories on GitHub show that uptake of its collaboration features is highly uneven, with very few projects resembling the open source ideal.
+The majority of projects are short-lived, with few contributors and a small number of commits.
+Only a fraction of repositories use GitHub's extended collaboration features (pull requests, issues, comments) and those that do use them in a limited way.
+<!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
+Conversely, a small number of projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) do appear to fit the aspirational open source model, with a large number of contributors maintaing a long-lived and highly-active repository.
+Archaeologists active on GitHub also make markedly <!-- TODO: verify --> greater use of GitHub's social media-like features (stars, following) than more direct collaborative actions.
