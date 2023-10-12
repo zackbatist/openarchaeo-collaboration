@@ -10,9 +10,35 @@
 
 Our study comprises an exploratory analysis of open-archaeo [@batist2023], a list of open source archaeological software and other digital resources.
 As of right now it includes <!-- TODO: encode -->408 items, which are rendered for the web at [open-archaeo.info](open-archaeo.info).
-We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, and by tracing connections to other personal, professional, and institutional websites that describe and host additional archaeological software.
-This entailed manually crawling through users' profiles, particularly those who identify as archaeologists or who have contributed to tools that pertain to archaeological work.
-We supplemented this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
+
+We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, which are designed to facilitate open source software development by hosting public git repositories.
+Git is a protocol designed to facilitate open and distributed contributions to a common code base. <!-- mention other version control systems like SVN and mercurial maybe? -->
+It operates by providing mechanisms for synchronizing communal, web-based public repositories with local iterations stored on contributors' private workstations.
+Contributors who volunteer or are assigned to develop, inspect, or revise a specific aspect of a code base download a copy of the public repository into their own work environment, create a branch in which they apply their modifications, and then request that their branch be merged into the central code base.
+After a public repository's maintainers decide to merge the proposed changes into the communal code base, other developers may use git to download these changes while keeping their own independent branches intact.
+
+Git is also designed to facilitate code review.
+All modifications are tracked as "diffs", which highlight additions or deletions to the code base, including changes within individual files.
+Typically, a contributor will group a series of changes into a more comprehensive "commit" based on a specific task or part of a workflow.
+Commits are always accompanied by a message, in which the contributor (ideally) describes the reason and context for the changes included in the commit.
+Moreover, git assigns each commit a unique identifier and identifies the contributor by name and email address to ensure some degree of public accountability.
+
+In addition to serving as hosting providers for public git repositories, platforms like as GitHub, GitLab and Codeberg support common software developer and project management practices, such as issue and bug tracking, code-commenting, task management, identity and permissions management, web publishing, vulnerability detection, creation and maintenance of metadata, and financial sponsorship.
+They also implement standard social media functions, like the ability to follow projects and individual users to receive updates on their activities, identify certain repositories as "favourites" and maintain a public-facing profile that includes personally-identifying information (e.g. profile picture, username, real name, employer or affiliation), references to all public activity on the platform, and links to the user's other social media profiles.
+Code-sharing platforms thus serve as comprehensive developer portfolios and community networking resources.
+However, these additional features are meant to complement and enhance the experience of contributing to open source projects, but are not actually part of the git protocol.
+See @tbl-glossary for a glossary of terminology used to describe many of these concepts and features, and which we use throughout this paper.
+
+We rely heavily on the social networking features provided by GitHub, GitLab and Codeberg to maintain open-archaeo.
+More specifically, we update open-archaeo by manually crawling through archaeologists' profiles on these platforms, as well as on other personal, professional, and institutional websites that describe and host additional archaeological software.
+We supplement this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
+
+Open-archaeo is a relatively comprehensive list.
+While our initial intention was to only list open source software, its scope has expanded to include all software created by and for archaeologists.
+Apart from regular updates by its primary maintainer (ZB), it has been expanded by a wider network of contributors and has benefited from the wider range of domain specialisms this has brought.
+However, open-archaeo generally lacks software written before archaeologists started using collaborative software development platforms such as GitHub, and software that is not shared on the web at all.
+The dataset is also limited by the experiences of its primary maintainers.
+We welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to help fill in these gaps.
 
 ```{r tbl-glossary}
 #| tbl-cap: Glossary of git and GitHub terminology
@@ -43,18 +69,6 @@ tribble(
   cols_label_with(fn = tools::toTitleCase) |>
   fmt_markdown(definition)
 ```
-
-
-<!-- TODO:
-* Introduce git, GitHub, etc. and describe briefly how they work for non-users
--->
-
-Open-archaeo is a relatively comprehensive list.
-While our initial intention was to only list open source software, its scope has expanded to include all software created by and for archaeologists.
-Apart from regular updates by its primary maintainer (ZB), it has been expanded by a wider network of contributors and has benefited from the wider range of domain specialisms this has brought.
-However, open-archaeo generally lacks software written before archaeologists started using collaborative software development platforms such as GitHub, and software that is not shared on the web at all.
-The dataset is also limited by the experiences of its primary maintainers.
-We welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to help fill in these gaps.
 
 ```{r data-oarch}
 read_csv("https://github.com/zackbatist/open-archaeo/raw/2023-08-29/open-archaeo.csv") %>%
@@ -162,9 +176,10 @@ gt(oarch_forges) |>
 ```
 
 Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API using the R package `gh` [@csardi2023].
-This included metadata on the GitHub repository and the programming languages it uses, as well as detailed data on each repository's individual contributors, commits, issues and comments (see @tbl-glossary for a glossary of git/GitHub terminology used in this paper).
+This included metadata on the GitHub repository and the programming languages it uses, as well as detailed data on each repository's individual contributors, commits, issues and comments.
 We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
 This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
+
 
 <!-- TODO: add something on EDA and network analysis methodology -->
 
