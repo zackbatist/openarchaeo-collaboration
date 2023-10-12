@@ -58,6 +58,11 @@ oarch <- mutate(oarch, rough_category = recode(category,
                                  .default = "Other",
                                  .missing = "Other"
                                  ))
+
+# TODO: exclude peripheral repos that throw things off
+# * Big boys like QField (see _06-network.qmd)
+# * ArchaeoLines – ends up picking up the whole stellarium repo, which is huge
+# * aDNA??
 ```
 
 For the purpose of this study, we augmented the core open-archaeo dataset with data obtained from GitHub's public API.

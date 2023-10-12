@@ -37,6 +37,7 @@ knitr::opts_chunk$set(
 ```{r dependencies, include=FALSE}
 library("openarchaeoCollaboration") # this package, install with devtools::build()
 
+library("english")
 library("fs")
 library("geomtextpath")
 library("ggiraph")

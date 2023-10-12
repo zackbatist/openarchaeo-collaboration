@@ -42,4 +42,5 @@ Imports:
     vctrs,
     dplyr,
     rlang,
-    lubridate
+    lubridate,
+    english
