@@ -1,5 +1,12 @@
 # Collaborative practices 
 
+```{r generate-oarch_github}
+# Subset of dataset with GitHub data
+oarch |> 
+  filter(!is.na(gh_repo_info)) ->
+  oarch_gh
+```
+
 As well as hosting source code, GitHub and other software forges include systems for facilitating collaboration on code and other projects.
 The basic collaborative workflow is inherited from git, which allows multiple users to *commit* (see @tbl-glossary for definitions of this and other git terminology used in this section) code to the repository.
 A user with *commit access* to a repository can change any of its contents at will, so this is usually reserved for the project maintainer and known, trusted collaborators.
@@ -10,7 +17,7 @@ The maintainer may then choose to *merge* (accept) or *decline* the pull request
 #| fig-cap: Lifespan of repositories based on the date of first and last commit. Points indicate intermediate commits. Only repositories with more than one commit are included.
 #TODO: This looks cool, but is it actually more useful than a histogram or two?
 #TODO: Remove that one commit in 2001
-oarch %>%
+oarch_gh %>%
   unnest(gh_commits) %>%
   drop_na(datetime) %>%
   group_by(item_name) %>%
@@ -40,8 +47,8 @@ oarch %>%
   )
 ```
 
-```{r generate-oarch-lifespan}
-oarch %>% 
+```{r generate-oarch_lifespan}
+oarch_gh %>% 
   unnest(gh_commits) %>% 
   drop_na(datetime) %>% 
   group_by(item_name) %>%
@@ -108,7 +115,8 @@ However, the modal project in the centre of the distribution is more modest, las
 #| fig-cap: Use of issues and comments
 # TODO: include zeroes
 # TODO: why are there no twos?
-fig_issues_hist <- oarch %>%
+# TODO: throw stars in here too?
+fig_issues_hist <- oarch_gh %>%
   unnest(gh_issues) %>%
   drop_na(title) %>%
   group_by(repo) %>%
@@ -119,7 +127,7 @@ fig_issues_hist <- oarch %>%
   labs(x = "Number of issues", y = "Repositories") +
   theme_oarch()
 
-fig_comments_hist <- oarch %>%
+fig_comments_hist <- oarch_gh %>%
   unnest(gh_comments) %>%
   drop_na(issue_num) %>%
   group_by(repo) %>%
@@ -130,15 +138,33 @@ fig_comments_hist <- oarch %>%
   labs(x = "Number of comments", y = "Repositories") +
   theme_oarch()
 
-fig_issues_hist + fig_comments_hist
+fig_issues_hist / fig_comments_hist
 ```
 
-Perhaps as a result of this, we also find that only a minority of projects make much use of collaborative features of GitHub such as issues and pull requests (left) and comments (right). Only 39% of repositories make use of these features. Of these repositories with any issues and pull requests, 28% have only 1 and 82% have less than 10. However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+```{r generate-issue-comment-stats}
+oarch_gh <- mutate(
+  oarch_gh, 
+  n_issues = map_int(gh_issues, \(x) if(is.data.frame(x)) nrow(x) else 0),
+  n_comments = map_int(gh_comments, \(x) if (is.data.frame(x)) nrow(x) else 0)
+)
+
+p_with_issues <- nrow(filter(oarch_gh, n_issues > 0)) / nrow(oarch_gh)
+p_with_one_issue <- nrow(filter(oarch_gh, n_issues == 1)) / nrow(filter(oarch_gh, n_issues > 0))
+p_with_few_issues <- nrow(filter(oarch_gh, n_issues > 0 & n_issues <= 10)) / nrow(filter(oarch_gh, n_issues > 0))
+```
+
 
 GitHub also facilitates collaboration on broader project management tasks, primarily through its *issues* feature.^[Apart from issues, GitHub has a very wide range of project management and social media-like features, including wikis, discussion forums and 'kanban' boards. We have not analysed the use of these features here.]
 Unless a repository's maintainer specifically configures it otherwise, any user can create an issue attached to another user's repository, or comment on an existing issue.
 Issues are typically used to log and track bug reports, feature requests, and other comments and suggestions from the project's user base.
 GitHub's pull request feature is also implemented via this system – a pull request is a special type of issue.
+
+Only `r percent(p_with_issues)` of open-archaeo projects make use of issues/pull requests at all (@fig-issues-comments).
+Of those that do, they are not used very heavily; `r percent(p_with_one_issue)` have only one issue and `r percent(p_with_few_issues)` have ten or less. 
+<!-- TODO: clarify what we mean here? issues tend to have a lot of comments? or active repos have active comment sections? (the latter being a bit of a redundant observation) -->
+However, of all repositories that have any comments posted in reply to issues and pull requests, there is actually a significant degree of activity. 
+This seems to suggest that people are willing to respond to issues raised by others, but may not necessarily want to take initiative, for a variety of reasons that may be more effectively investigated through qualitative analysis of the conversations in the issue threads.
+
 
 ```{r plot-gh_contributors-histogram}
 oarch %>%
