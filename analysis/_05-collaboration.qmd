@@ -165,9 +165,16 @@ These actions populate a timeline of through which users can see recent activity
 While not as a direct a contribution as pull requests or issues, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
 These features are more used more widely than forks, issues and pull requests (@fig-collab-features): `r percent(p_with_stars)` of repositories have at least one star and, in those repositories that use issues, `r percent(p_issues_with_comments)` of them has received at least one additional comment.
 
-```{r fig-contributors}
-#| fig-cap: Distribution of contributions in multi-contributor projects
-oarch |>
+```{r data-contributions}
+oarch_contributions <- oarch_gh |>
+  unnest(gh_contribs) |>
+  drop_na(contributor) |>
+  group_by(item_name) |>
+  summarise(n_contributors = n())
+
+p_one_contrib <- n_filter(oarch_contributions, n_contributors == 1) / nrow(oarch_contributions)
+
+oarch_contribs_by_repo <- oarch_gh |>
   unnest(gh_contribs) |>
   drop_na(contributor) |>
   group_by(item_name) |>
@@ -181,7 +188,16 @@ oarch |>
     p_contributions = contributions / sum(contributions),
     p_big_boy = first(p_contributions)
   ) |>
-  ungroup() |>
+  ungroup()
+
+p_big_boy_50 <- n_filter(oarch_contribs_by_repo, p_big_boy > 0.5) / nrow(oarch_contribs_by_repo)
+p_big_boy_75 <- n_filter(oarch_contribs_by_repo, p_big_boy > 0.75) / nrow(oarch_contribs_by_repo)
+```
+
+
+```{r fig-contributions}
+#| fig-cap: Distribution of contributions in multi-contributor projects
+oarch_contribs_by_repo |>
   mutate(item_name = fct_reorder(item_name, p_big_boy, .desc = TRUE)) |> 
   ggplot(aes(x = item_name, y = contributions,
              fill = ordered(big_boy, c("Other contributors", "Leading contributor")))) +
@@ -197,13 +213,10 @@ oarch |>
   )
 ```
 
-<!-- TODO: introduce notion of contributors -->
-<!--
-#TODO: Re-calculate these numbers to ensure they are up to date. Translate the first point to be about how many repos have a quarter of contributions by a single person, so that it corresponds with the vertical lines on the graphic, which are now divided into quarters rather than thirds.
--->
-Perhaps unfortunately then, we also find that nearly 60% of projects have only a single contributor, and projects with more than a dozen are very rare indeed \[\<3%\] (@plot-gh_contributors-histogram). A "contribution", in this case, is a commit, issue, or comment applied by a user to a repository.
-Furthermore, when we break down the contributions made by all contributors in multi-contributor projects, we also see that work tends to be distributed very unevenly (@plot-contrib-dist). Of multi-contributor repositories, 92% have a third of contributions made by a single person, 65% have half of all contributions made by a single person, and 36% have three quarters of all contributions made a single person.
-<!-- TODO: expand description of contributors -->
+Perhaps unsurprisingly, given the low uptake of GitHub's collaborative features, `r percent(p_one_contrib)` of open-archaeo repositories only contain commits from a single user.
+Even in the minority of projects that have more than one contributor, work (as measured by number of recorded commits) is distributed highly unevenly (@fig-contributions).
+The lead maintainer almost always does the lion share of the work: they are responsible for more than half of commits in `r percent(p_big_boy_50)` of projects and more than three-quarters in `r percent(p_big_boy_50)`.
+<!-- TODO: what do we make of this observation? -->
 
 The prototypical collaborative open source project on GitHub has a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through forks and pull requests, plus an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
 <!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
