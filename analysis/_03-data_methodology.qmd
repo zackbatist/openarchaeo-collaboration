@@ -49,7 +49,7 @@ We present an exploratory analysis of open-archaeo [[open-archaeo.info](open-arc
 #| tbl-cap: Glossary of git and GitHub terminology
 tribble(
   ~term, ~definition,
-  "Comment", "On GitHub, Text post attached to an issue, including the first one that describes the issue",
+  "Comment", "On GitHub, text post attached to an issue, including the first one that describes the issue",
   "Commit", "Set of changes (addition, alteration, or deletion) to files in a repository that has been recorded by git as one entry in its log",
   "Commit access", "Ability to make changes to a repository directly, without making a pull request",
   "Contributor", "User that has made at least one commit to a specified repository",
@@ -79,8 +79,8 @@ tribble(
 We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, which are designed to facilitate open source software development by hosting public git repositories.
 Git is a protocol designed to facilitate open and distributed contributions to a common code base. <!-- mention other version control systems like SVN and mercurial maybe? -->
 It operates by providing mechanisms for synchronizing communal, web-based public repositories with local iterations stored on contributors' private workstations.
-Contributors who volunteer or are assigned to develop, inspect, or revise a specific aspect of a code base download a copy of the public repository into their own work environment, create a branch in which they apply their modifications, and then request that their branch be merged into the central code base.
-After a public repository's maintainers decide to merge the proposed changes into the communal code base, other developers may use git to download these changes while keeping their own independent branches intact.
+Contributors who volunteer or are assigned to develop, inspect, or revise a specific aspect of a code base download a copy of the public repository into their own work environment, create a fork in which they apply their modifications, and then request that their fork be merged into the central code base.
+After a public repository's maintainers decide to merge the proposed changes into the communal code base, other developers may use git to download these changes while keeping their own independent forks intact.
 
 Git is also designed to facilitate code review.
 All modifications are tracked as "diffs", which highlight additions or deletions to the code base, including changes within individual files.
@@ -88,8 +88,8 @@ Typically, a contributor will group a series of changes into a more comprehensiv
 Commits are always accompanied by a message, in which the contributor (ideally) describes the reason and context for the changes included in the commit.
 Moreover, git assigns each commit a unique identifier and identifies the contributor by name and email address to ensure some degree of public accountability.
 
-In addition to serving as hosting providers for public git repositories, platforms like as GitHub, GitLab and Codeberg support common software developer and project management practices, such as issue and bug tracking, code-commenting, task management, identity and permissions management, web publishing, vulnerability detection, creation and maintenance of metadata, and financial sponsorship.
-They also implement standard social media functions, like the ability to follow projects and individual users to receive updates on their activities, identify certain repositories as "favourites" and maintain a public-facing profile that includes personally-identifying information (e.g. profile picture, username, real name, employer or affiliation), references to all public activity on the platform, and links to the user's other social media profiles.
+In addition to serving as hosting providers for public git repositories, platforms like GitHub, GitLab and Codeberg support common software developer and project management practices, such as issue and bug tracking, code-commenting, task management, identity and permissions management, web publishing, vulnerability detection, creation and maintenance of metadata, and financial sponsorship.
+They also implement standard social media functions, like the ability to follow projects and individual users to receive updates on their activities, "star" certain repositories as favourites, and maintain a public-facing profile that includes personally-identifying information (e.g. profile picture, username, real name, employer or affiliation), references to all public activity on the platform, and links to the user's other social media profiles.
 Code-sharing platforms thus serve as comprehensive developer portfolios and community networking resources.
 However, these additional features are meant to complement and enhance the experience of contributing to open source projects, but are not actually part of the git protocol.
 See @tbl-glossary for a glossary of terminology used to describe many of these concepts and features, and which we use throughout this paper.

@@ -121,9 +121,20 @@ oarch %>%
   )
 ```
 
+To enact their mandate of ensuring that anyone can access and modify software and other creative works, the open source and open science movements encourage developers and scientists to adopt open licenses.
+Licenses are legally-bindings statements that stipulate how a creative work can be accessed and used.
+Proprietary licenses usually require explicit permission to be granted so that the work can be accessed or modified, usually in exchange for financial compensation.
+Open licenses, on the other hand, are more permissive, and allow anyone to use creative works without such harsh restrictions.
+While it is certainly possible to write your own license, it is very common to simply use one of several standardized open licenses (see [choosealicense.com](https://choosealicense.com for a more comprehensive overview of various options)).
+Some licenses, like GNU, MIT and Apache, are explicitly suited for distributing software, and specify certain use cases that are afforded by digital media.
+Other licenses, like the Creative Commons variants, are more suited to other kinds of creative works like books, articles, movies, music, photographs, and websites.
+The Creative Commons licenses also include clauses that cater to academic or creative sensibilities, such as requirements to attribute credit to the original authors, to restrict commercial use, and to propagate similar restrictions in derivative works.
 
-<!-- TODO: expand. -->
-We found that many repositories do not explicitly denote an open source license, or any license at all [@tbl-repo-licenses].
+We found that the projects that host their code on GitHub use a wide variety of standard licenses.
+However, nearly half of all repositories <!-- TODO: encode the percentage --> do not explicitly denote an open source license, or any license at all [@tbl-repo-licenses].
+Maintainers may have assumed that making the code available, without explicitly stating permitting use, is enough to allow unrestricted access to the repository's contents.
+This is evocative of a similar ignorance among academics regarding the unsustainable use of GitHub as a long-term code and data hosting platform (@milliken2021; @escamilla2022; @escamilla2023).
+<!-- TODO: Expand with additional info after seeing what is in the "other" category -->
 
 ```{r tbl-repo-licenses}
 #| tbl-cap: Summary of licenses used by projects with GitHub repositories.

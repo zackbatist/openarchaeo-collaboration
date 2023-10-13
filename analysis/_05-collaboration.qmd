@@ -8,7 +8,7 @@ oarch |>
 ```
 
 As well as hosting source code, GitHub and other software forges include systems for facilitating collaboration on code and other projects.
-The basic collaborative workflow is inherited from git, which allows multiple users to commit (see @tbl-glossary for definitions of this and other git terminology used in this section) code to the repository.
+The basic collaborative workflow is inherited from git, which allows multiple users to commit code to the repository (see @tbl-glossary for definitions of this and other git terminology used in this section).
 A user with commit access to a repository can change any of its contents at will, so this is usually reserved for the project maintainer and known, trusted collaborators.
 GitHub extends this model with its pull request feature, by which any user can fork a repository to which they don't have commit access, make changes, then offer to contribute those changes back to the original repository.
 The maintainer can choose to merge (accept) or decline the pull request, facilitating contributions from a wider network of collaborators without the need for permission to be sought in advance.
@@ -163,7 +163,7 @@ Those repositories that do use issues do not not use them very extensively; `r p
 Another way GitHub users can engage with repositories and other users is with social media-like features such as starring a repository, commenting on an existing issue, or following a user.
 These actions populate a timeline of through which users can see recent activity and discover new projects related to those they have interacted with in the past.^[This feature of GitHub's timeline was one of the primary ways we compiled open-archaeo.]
 While not as a direct a contribution as pull requests or issues, these features can facilitate the formation and maintenance of collaborative networks, in the same way that other social media platforms serve other professional networks.
-These features are more used more widely than forks, issues and pull requests (@fig-collab-features): `r percent(p_with_stars)` of repositories have at least one star and, in those repositories that use issues, `r percent(p_issues_with_comments)` of them has received at least one additional comment.
+These features are used more widely than forks, issues and pull requests (@fig-collab-features): `r percent(p_with_stars)` of repositories have at least one star and, in those repositories that use issues, `r percent(p_issues_with_comments)` of them has received at least one additional comment.
 
 ```{r data-contributions}
 oarch_contributions <- oarch_gh |>
@@ -216,11 +216,18 @@ oarch_contribs_by_repo |>
 Perhaps unsurprisingly, given the low uptake of GitHub's collaborative features, `r percent(p_one_contrib)` of open-archaeo repositories only contain commits from a single user.
 Even in the minority of projects that have more than one contributor, work (as measured by number of recorded commits) is distributed highly unevenly (@fig-contributions).
 The lead maintainer almost always does the lion share of the work: they are responsible for more than half of commits in `r percent(p_big_boy_50)` of projects and more than three-quarters in `r percent(p_big_boy_50)`.
-<!-- TODO: what do we make of this observation? -->
+This may be attributed to the steep learning curve commonly attributed to working with git.
+While git can be a great way to track changes and manage distributed contributions to a common code base, it can also be unwieldy in situations when multiple users (especially those with less experience using git for collaborative purposes) are expected to contribute within short spans of time.
+This meshes with our prior observations that projects which tend to exhibiting higher commit rates have less contributors.
+Additionally, our analyses neglects to account for contributions that are not tracked via git or GitHub.
+Those who do not code may provide creative guidance or feedback during in-person meetings, via email, or using alternative online messaging or social media platforms.
+A more focused qualitative assessment of these non-coding and supportive work practices would shed more light on the totality of effort that goes into producing and maintaining open source projects.
 
-The prototypical collaborative open source project on GitHub has a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through forks and pull requests, plus an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
-<!-- TODO: note that we don't know if maintainers actually aimed for that model, or leave that for the discussion? -->
-Only a small number of open-archaeo projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) approach this model.
-The majority of projects are short-lived, with few contributors and a small number of commits.
+<!-- TODO: Abrupt transition, need to revise -->
+The prototypical and idyllic collaborative open source project ingrained into the common consciousness hypothetically comprises a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through forks and pull requests, plus an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
+It is unclear whether archaeological software developers actually aim to operate following this model, or whether it is even suitable for supporting what open science aims to achieve.
+However it is clear that only a small number of open-archaeo projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) operate according to this model.
+The majority of projects are in fact short-lived, with few contributors and a small number of commits.
 Use of GitHub's collaboration features is also generally low (@fig-collab-features), although the data also shows a divergence between the uptake of features that facilitate direct code contributions (forks, issues, pull requests), which have markedly zero-skewed distributions, versus more indirect, social media-like features (comments, stars), which are moderately well-used.
 We hypothesise that this shows a preference for passive/reactive rather than active/proactive engagement with others work – a point we will return to in the conclusion.
+
