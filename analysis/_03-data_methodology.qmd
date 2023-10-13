@@ -55,6 +55,7 @@ tribble(
   "Contributor", "User that has made at least one commit to a specified repository",
   "Follow", "Add activity by another user to a user's timeline",
   "Forge", "Web-based platform for hosting, distributing and facilitating collaboration on version controlled computer code, e.g. GitHub, GitLab, Codeberg",
+  "Fork", "Copy of a repository owned by another user; forking is a prerequisite to making a pull request",
   "git", "Open source version control software",
   "GitHub", "Commercial platform that freely hosts git repositories and provides extended collaboration and social networking features, such as pull requests, issues and stars",
   "GitLab", "Open source alternative to GitHub",
