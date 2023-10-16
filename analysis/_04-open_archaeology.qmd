@@ -19,8 +19,10 @@ bibliography: references.bib
 -->
 
 As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists.
-This primarily constitutes software but also includes various forms of open documents. @tbl-categories summarizes the kinds if resources that appear in open-archaeo, and breaks them down into more precise categories.
-
+It includes both software and documents, but not research compendiums.^[see https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code for a similar list of archaeology publications that include R code]
+We annotated each record with categories and tags that describe what aspect of archaeological research each tool or resource was meant to address.
+We categorized all records based on how each tool or resource is meant to be accessed or used, and assigned tags based on how developers identified their projects' purpose and scope.
+See [batist2023] for a more comprehensive overview of the tags and categories applied to open-archaeo.
 
 ```{r tbl-categories}
 #| tbl-cap: Categories of open archaeology projects included in open-archaeo.
@@ -47,6 +49,7 @@ tribble(
 p_platform <- sum(!is.na(oarch$platform)) / nrow(oarch)
 ```
 
+In our breakdown of open-archaeo by category (see @tbl-categories), we demonstrate the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold.
 Most resources (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language or a plugin for an application.
 The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes.
 Others create standalone software <!-- percent --> that can be run independently of such platforms, for example desktop or web apps.
@@ -80,7 +83,7 @@ Many of these are targeted by only one or two developers; the larger platforms t
 At first glance, the relative popularity of R versus Python is perhaps surprising; Python is regularly ranked as the most popular programming language in the world, with R a distant runner-up.
 However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
 
-We also annotated each record with "tags" that describe aspects of archaeological work that each tool contributes to [@fig-tags].
+Our analysis of tags highlights aspects of archaeological work that software developers are inclined to contribute to [@fig-tags].
 The most common tags unsurprisingly deal with work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
 Educational resources and practical guides are also well represented due to the web's usefulness as a medium for sharing and communication.
 
