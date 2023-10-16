@@ -77,7 +77,7 @@ tribble(
 ```
 
 We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, which are designed to facilitate open source software development by hosting public git repositories.
-Git is a protocol designed to facilitate open and distributed contributions to a common code base. <!-- mention other version control systems like SVN and mercurial maybe? -->
+Git is a protocol designed to facilitate open and distributed contributions to a common code base. <!-- mention other version control systems like SVN and mercurial, maybe? -->
 It operates by providing mechanisms for synchronizing communal, web-based public repositories with local iterations stored on contributors' private workstations.
 Contributors who volunteer or are assigned to develop, inspect, or revise a specific aspect of a code base download a copy of the public repository into their own work environment, create a fork in which they apply their modifications, and then request that their fork be merged into the central code base.
 After a public repository's maintainers decide to merge the proposed changes into the communal code base, other developers may use git to download these changes while keeping their own independent forks intact.
@@ -174,7 +174,12 @@ This included metadata on the GitHub repository and the programming languages it
 We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
 This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
 
-<!-- TODO: add something on EDA and network analysis methodology -->
+The open-archaeo dataset and the supplemental data from the GitHub API provide us with a rich resource to explore the makeup of the archaeological software development scene.
+We apply exploratory data analysis methods to break down and visualize the data, so that we may ascertain overall trends [@tukey1977].
+In Section 4, <!-- encode section, see https://quarto.org/docs/authoring/cross-references.html#sections --> our focus is on examining the general state of open source archaeological software and resource development.
+In Section 5, <!-- encode section --> we refine our analysis to examine development processes, with specific focus on collaborative experiences.
+Finally, in Section 6, <!-- encode section --> we apply network analysis methods to investigate the formation of broader collaborative communities.
+Our analyses combine to support our objectives of understanding what kinds of software and resources archaeologists are making, and how they create these tools in response to specific needs and use-cases, as afforded by offline social and professional connections, and within the context of an emerging community of practice.
 
 The quantitative analyses and figures presented here were generated with `r version$version.string` (@Manual).
 The full data and code is available in the compendium that accompanies this paper (@Compendium).
