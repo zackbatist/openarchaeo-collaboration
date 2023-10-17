@@ -19,10 +19,10 @@ bibliography: references.bib
 -->
 
 As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists.
-It includes both software and documents, but not research compendiums.^[see https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code for a similar list of archaeology publications that include R code]
+It includes both software and documents, but not research compendiums.^[see [https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code](https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code) for a similar list of archaeology publications that include R code]
 We annotated each record with categories and tags that describe what aspect of archaeological research each tool or resource was meant to address.
 We categorized all records based on how each tool or resource is meant to be accessed or used, and assigned tags based on how developers identified their projects' purpose and scope.
-See [batist2023] for a more comprehensive overview of the tags and categories applied to open-archaeo.
+See [@batist2023] for a more comprehensive overview of the tags and categories applied to open-archaeo.
 
 ```{r tbl-categories}
 #| tbl-cap: Categories of open archaeology projects included in open-archaeo.
@@ -125,7 +125,7 @@ oarch %>%
 ```
 
 To enact their mandate of ensuring that anyone can access and modify software and other creative works, the open source and open science movements encourage developers and scientists to adopt open licenses.
-Licenses are legally-bindings statements that stipulate how a creative work can be accessed and used.
+Licenses are legally-binding statements that stipulate how a creative work can be accessed and used.
 Proprietary licenses usually require explicit permission to be granted so that the work can be accessed or modified, usually in exchange for financial compensation.
 Open licenses, on the other hand, are more permissive, and allow anyone to use creative works without such harsh restrictions.
 While it is certainly possible to write your own license, it is very common to simply use one of several standardized open licenses (see [choosealicense.com](https://choosealicense.com for a more comprehensive overview of various options)).
@@ -162,13 +162,11 @@ oarch |>
 
 Roughly half of open-archaeo repositories are accompanied by an explicit license [@tbl-repo-licenses].
 Two common free software licenses account for the majority of these: the GNU General Public License (GPL, `r percent(p_license_gpl)`) and the MIT License (`r percent(p_license_mit)`).
-These differ primarily in the restricts they place on reuse: the MIT License aims to be maximally permissive, while the GPL is a 'copyleft' license that specifies that all derivative works must be distributed under similar terms (in other words, it prohibits the use of FOSS software within non-FOSS software, [@cite?]).
-Archaeologists' preference for the more restrictive of these two licenses is the reverse of the general trend seen in open source projects on GitHub [@Balter2015].
-Creative Commons licenses are a distant third place (`r percent(p_license_cc)` of repositories), in contrast to their widespread use for other forms of scholarly output [@cite?].
-Many repositories do not specify a license; their maintainers may have assumed that making the code available, without explicitly stating permitting use, is enough to allow unrestricted access to the repository's contents.
-This is evocative of a similar ignorance among academics regarding the unsustainable use of GitHub as a long-term code and data hosting platform [@milliken2021; @escamilla2022; @escamilla2023].
-<!-- TODO: Seems like a pair of slightly uncharitable assumptions? -JR -->
-<!-- TODO: (ZB) Expand with additional info after seeing what is in the "other" category -->
+These differ primarily in the restrictions they place on reuse: the MIT License aims to be maximally permissive, while the GPL is a 'copyleft' license that specifies that all derivative works must be distributed under similar terms (in other words, it prohibits the use of FOSS software within non-FOSS software, [@dusollier2007]).
+Archaeologists' preference for the more restrictive of these two licenses is the reverse of the general trend seen in open source projects on GitHub [@balter2015].
+Creative Commons licenses are a distant third place (`r percent(p_license_cc)` of repositories), in contrast to their widespread use for other forms of scholarly output [@kim2007].
+Many repositories do not specify a license; given a documented misconception among academics that GitHub can serve as a sustainable and long-term code and data hosting platform [@milliken2021; @escamilla2022; @escamilla2023], it is possible that many maintainers whose work is included in open-archaeo similarly assumed that making their work available, without explicitly stating permissible use, is enough to allow unrestricted access to the repository's contents.
+However, we can not verify this potential explanation given the methods we currently employ, and more discursive qualitative research is needed to explore the rationales behind such decisions.
 
 Archaeological software development activity has increased significantly over the years.
 @fig-github-cumulative shows the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.

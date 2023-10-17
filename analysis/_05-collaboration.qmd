@@ -215,7 +215,7 @@ oarch_contribs_by_repo |>
 
 Perhaps unsurprisingly, given the low uptake of GitHub's collaborative features, `r percent(p_one_contrib)` of open-archaeo repositories only contain commits from a single user.
 Even in the minority of projects that have more than one contributor, work (as measured by number of recorded commits) is distributed highly unevenly (@fig-contributions).
-The lead maintainer almost always does the lion share of the work: they are responsible for more than half of commits in `r percent(p_big_boy_50)` of projects and more than three-quarters in `r percent(p_big_boy_50)`.
+The lead maintainer almost always does the lion share of the work: they are responsible for more than half of commits in `r percent(p_big_boy_50)` of projects and more than three-quarters in `r percent(p_big_boy_75)`.
 This may be attributed to the steep learning curve commonly attributed to working with git.
 While git can be a great way to track changes and manage distributed contributions to a common code base, it can also be unwieldy in situations when multiple users (especially those with less experience using git for collaborative purposes) are expected to contribute within short spans of time.
 This meshes with our prior observations that projects which tend to exhibiting higher commit rates have less contributors.
@@ -223,10 +223,9 @@ Additionally, our analyses neglects to account for contributions that are not tr
 Those who do not code may provide creative guidance or feedback during in-person meetings, via email, or using alternative online messaging or social media platforms.
 A more focused qualitative assessment of these non-coding and supportive work practices would shed more light on the totality of effort that goes into producing and maintaining open source projects.
 
-<!-- TODO: Abrupt transition, need to revise -->
 The prototypical and idyllic collaborative open source project ingrained into the common consciousness hypothetically comprises a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through forks and pull requests, plus an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
 It is unclear whether archaeological software developers actually aim to operate following this model, or whether it is even suitable for supporting what open science aims to achieve.
-However it is clear that only a small number of open-archaeo projects (<!-- TODO: do these share any characteristics in terms of platform or subject? -->) operate according to this model.
+However it is clear that only a small number of open-archaeo projects operate according to this model.
 The majority of projects are in fact short-lived, with few contributors and a small number of commits.
 Use of GitHub's collaboration features is also generally low (@fig-collab-features), although the data also shows a divergence between the uptake of features that facilitate direct code contributions (forks, issues, pull requests), which have markedly zero-skewed distributions, versus more indirect, social media-like features (comments, stars), which are moderately well-used.
 We hypothesise that this shows a preference for passive/reactive rather than active/proactive engagement with others work – a point we will return to in the conclusion.
