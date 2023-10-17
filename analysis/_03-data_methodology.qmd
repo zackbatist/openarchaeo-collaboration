@@ -98,6 +98,17 @@ We rely heavily on the social networking features provided by GitHub, GitLab and
 More specifically, we update open-archaeo by manually crawling through archaeologists' profiles on these platforms, as well as on other personal, professional, and institutional websites that describe and host additional archaeological software.
 We supplement this quasi-systematic collection strategy with word-of-mouth contributions made by interested individuals who identified relevant work that we initially overlooked.
 
+```{r data-oarch-filter}
+oarch_filter <- read_csv(here("analysis/data/raw_data/open-archaeo_filter.csv"))
+n_items_removed <- nrow(filter(oarch_filter, !item_name %in% oarch$item_name))
+oarch |>
+  filter(!item_name %in% oarch_filter$item_name) ->
+  oarch
+
+# Exclude from GitHub API data collection because does not have own repo
+oarch$gh_repo[oarch$item_name == "ArchaeoLines"] <- NA
+```
+
 Open-archaeo is a relatively comprehensive list.
 While our initial intention was to only list open source software, its scope has expanded to include all software created by and for archaeologists.
 Apart from regular updates by its primary maintainer (ZB), it has been expanded by a wider network of contributors and has benefited from the wider range of domain specialisms this has brought.
@@ -105,6 +116,7 @@ However, open-archaeo generally lacks software written before archaeologists sta
 The dataset is also limited by the experiences of its primary maintainers.
 We welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to help fill in these gaps.
 
+We excluded `r n_items_removed` records from open-archaeo from this analysis because they did not fit our "made by archaeologists, for archaeologists" criteria.
 
 ```{r data-github}
 # If cached data at `analysis/data/derived_data/oarch.RData` is present, this

@@ -81,11 +81,7 @@ oarch_graph |>
   # Remove non-human users
   filter(!str_detect(user, coll("[bot]"))) |>
   filter(!user %in% c("ghost", "codecov-io", "coveralls", "codecov-commenter",
-                      "gitter-badger", "dependabot-support")) |>
-  # Remove big, non-archaeology projects that flood the network
-  filter(!repo %in% c("Stellarium/stellarium", 
-                     "opengisch/QField",
-                     "lutraconsulting/input")) ->
+                      "gitter-badger", "dependabot-support")) ->
   oarch_graph
 ```
 
