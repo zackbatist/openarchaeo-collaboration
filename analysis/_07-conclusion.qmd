@@ -13,15 +13,20 @@ There is an emerging community of practice around open source in archaeology.
 * The members of this community face structural challenges in academia
 -->
 
-Archaeology is a "magpie" discipline, using tools and methods that originate from a variety of other disciplines and industries to better understand the past. 
-Moreover, archaeologists are accustomed to working on shoestring budgets, having to adapt their tools to suit specific, non-generalizable situations, and applying a DIY work ethic to create and co-creating with others to get the job done (Batist et al 2021; Morgan and Eve 2012; Caraher 2019). 
-It is therefore unsurprising that archaeologists are prolific open source software developers.
+Archaeology is a "magpie" discipline, in that it assembles tools and methods that originate from a variety of other disciplines and industries to better understand the past [@wylie1989; @nilssonstutz2018]. 
+Moreover, archaeologists are accustomed to working on shoestring budgets, having to adapt their tools to suit specific, non-generalizable situations, and applying a DIY work ethic to create and co-create with others [@morgan2012;  @caraher2019; @batist2021]. 
+The freedom to reuse, modify and extend code for a variety of purposes is a boon for the development of improvized tech stacks and workflows called up in contexts of archaeological fieldwork and analysis, and archaeologists share with open source software developers a pragmatic mindset with regards to planning collective work and evaluating outcomes [@scollar1999]. 
+It is therefore unsurprising that archaeologists are prolific users and developers of open source software. 
 
-In this study, we documented an emerging community of open source software engineers in archaeology and assessed the extent to which collaboration within this community resembles conventional 'open source' forms. 
-We operationalised 'open-source collaborative practices' as the use of certain features of git and GitHub visible to us in data from the GitHub API. 
-This excludes a wide range of other potential practices, most obviously the use of other software (though as we demonstrate in section X.X, the git/GitHub combination is overwhelmingly the most popular), but also collaboration through offline or private channels, or forms of collaboration we don't know about. 
-We have not directly interviewed those doing the collaborating, though our conclusions do draw heavily from our experience as members of that community ourselves. 
-Our earliest data is from XXX and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it (@ducke2013 10.4324/9781315431932-12; @whallon1972 10.1007/BF02403759). 
+Our goal in this study was to investigate the under-explored research practices involved in research software engineering. 
+We sought to identify not only _what_ kinds of software archaeologists are making, but _how_ archaeologists create these tools as part of a broader community of practice. 
+Our emphasis on the collaborative experiences involved in open source software development emerged from our experience maintaining open-archaeo, through which we observed that making one's code openly available on the web does not necessarily garner the benefits often touted by open science advocates, namely that source code can be audited, forked, and appropriated for alternative use cases, which are effectively social and collaborative experiences.
+
+To investigate these concerns, we operationalised open-source collaborative experiences as the use of certain features of git and GitHub visible to us in data from the GitHub API. 
+This excludes a wide range of other potential practices, most obviously the use of other means of version-control and code-hosting (though as we demonstrate in <!-- encode the section --> Section 3, the git/GitHub combination is overwhelmingly the most popular). 
+It also excludes collaboration through offline or private channels, or forms of collaboration we don't know about. 
+We did not directly observe or interview archaeological software developers, though our conclusions do draw heavily from our experience as members of that community ourselves. 
+Our earliest data is from XXX and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it [@ducke2013 ; @whallon1972]. 
 
 These caveats notwithstanding, we have documented that open source software development in archaeology has seen a rapid and sustained rise beginning around 2014. 
 This is marked by a variety of applications and use cases, including the use of git and GitHub to track and host content other than code. 
@@ -40,16 +45,27 @@ While there is an emerging community of practice around open source in archaeolo
 Most work is performed individually and is short-lived. 
 The vast majority of repositories have 1--3 contributors, with only a few distinguished by an active and diverse developer base. 
 Our analysis also shows an uneven use of git and GitHub's extended features, beyond their basic usage as a version control system and repository host. 
-Generally speaking, we believe that this is because people do not want to step on other people's shoes by raising issues or intruding on other people's projects. 
+Generally speaking, we believe that this is because people do not want to step on other people's toes by raising issues or intruding on other people's projects. 
 This may relate to the fact that most developers on this list are academics who hold different values relative to the designers of open source development environments, regarding how collaboration should occur, for example, when dealing with how projects and ideas are 'owned' by individuals or communities, and how work should be iteratively improved upon.
 
-However, we seem to have entered a period of critical reflection on the practical ramifications of infrastructures developed to support open science. 
-For instance, Huggett (2022) identified social frictions as a necessary aspect of productive research, which open science infrastructures effectively seek to eliminate. 
-Numerous other studies by Batist (2023), Huvila (2022), Haciguzeller et al. (2021), Opitz et al. (2021) Sobotkova (2018), Wylie (2017) Atici et al. (2013), Faniel et al. (2013) (among others) highlighted the need to account for the work involved in preparing and making use of materials shared openly on the web, and which are effectively muted by infrastructures developed in pursuit of open science.
-
+<!-- This entire paragraph is subject to change based on revised network analysis -->
 Our network analysis similarly draws attention to the real-world collaborative ties that underpin archaeological open source software development. We identified three clusters of close associations between projects: 
 the first is centred around a highly specialized supdiscipline exhibiting a very enthusiastic attitude (**ZB NOTE: or maybe even pressure?**) toward working in the open; 
 the second is concerned with developing solutions to a very common and discipline-wide problem, specifically relating to data collection and management in fieldwork; 
 and the third deals with several topic of concern, but represents an emerging community of practice. 
 This third cluster comprises efforts performed by members of a close-knit community, many of whom already collaborate at local research centres or participate in relatively private interest groups. 
 This indicates that open source is firmly embedded within existing social and institutional support and power structures that permeate academic life, both online and offline. 
+
+There is thus little evidence to support the notion that archaeologists benefit from the positive outcomes that are commonly argued to be the natural results of open source development models -- namely, greater degrees of transparency, extensibility and participatory action.
+While opening the source code may facilitate these positive outcomes as necessary preconditional factors, we argue that this only amounts to establishing the _potential_ for people to put these values into practice. 
+Moreover, we argue that the objectives and circumstances that frame archaeological practice significantly influence how far archaeologists (and academics in general) are willing to push for these values, and limit the ability for archaeologists to do open source in ways that resemble more mainstream open source projects. 
+For instance, successful open source projects like the Linux kernel or the Firefox web browser are driven by collective and popular interest in ensuring that code remains functional, and the code base is therefore constantly in flux and bears an accumulating list of contributing members; this significantly differs from the organizational principles that govern archaeological work, namely that a project's leaders runs the whole show from the top down and operationalize all other actors as instruments of their central directives. 
+Moreover, archaeological projects ultimately seek to produce stable textual outcomes bearing clear delineation of authorship and that require no upkeep whatsoever. 
+Sustaining an open source project is simply not compatible with the factors that currently drive the momentum behind archaeological work.
+
+As such, we advocate for more focused attention on specific disciplinary norms and institutional support structures that inform how knowledge is created and validated, and how varied contributions to the scholarly enterprise are mediated, credited, and valued. 
+These factors, which are often ignored in open science discourse, vary from discipline to discipline and are rarely accounted for in the infrastructures themselves and in the policies that dictate or guide their implementation. 
+However these factors should be considered as equal, if not more important, elements contributing to the success of open science, relative to the technical apparatus.
+
+
+
