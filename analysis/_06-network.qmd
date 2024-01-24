@@ -165,14 +165,9 @@ oarch_graph_repo_repo |>
   mutate(n_commits = map_int(gh_commits, nrow)) |>
   unite(tags, tag1:tag5, sep = "; ", na.rm = TRUE) |>
   select(repo, centrality, category, tags, n_commits) |>
-  gt() |>
-  cols_label(
-    repo = "Repository", 
-    centrality = "Betweenness Centrality",
-    category = "Category",
-    tags = "Tags",
-    n_commits = "Commits"
-  )
+  rename(repository = repo, commits = n_commits) |>
+  rename_with(tools::toTitleCase) |>
+  tt()
 ```
 
 

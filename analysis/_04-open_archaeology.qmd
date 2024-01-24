@@ -41,8 +41,8 @@ tribble(
   count(category, kind, scope) |>
   group_by(kind) |>
   arrange(-n) |>
-  gt() |>
-  cols_label_with(fn = tools::toTitleCase)
+  rename_with(tools::toTitleCase) |>
+  tt()
 ```
 
 ```{r num-p_platform}
@@ -67,8 +67,8 @@ oarch |>
   group_by(platform) |>
   summarise(n = sum(n)) |>
   arrange(platform == "Other", -n) |>
-  gt() |>
-  cols_label_with(fn = tools::toTitleCase)
+  rename_with(tools::toTitleCase) |>
+  tt()
 ```
 
 ```{r num-p_platform_r}
@@ -156,8 +156,8 @@ oarch |>
   count(license) |>
   mutate(license = replace_na(license, "None detected")) |>
   arrange(-n) |>
-  gt() |>
-    cols_label(license = "License", n = "N")
+  rename_with(tools::toTitleCase) |>
+  tt()
 ```
 
 Roughly half of open-archaeo repositories are accompanied by an explicit license [@tbl-repo-licenses].

@@ -43,4 +43,5 @@ Imports:
     dplyr,
     rlang,
     lubridate,
-    english
+    english,
+    tinytable

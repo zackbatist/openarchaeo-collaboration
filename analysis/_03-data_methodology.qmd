@@ -1,6 +1,7 @@
 # Data and methodology
 
 ```{r data-oarch}
+# TODO: update and replace with local file before submission
 read_csv("https://github.com/zackbatist/open-archaeo/raw/2023-08-29/open-archaeo.csv") |>
   mutate(category = na_if(category, "?")) ->
   oarch
@@ -71,9 +72,9 @@ tribble(
   "User", "On GitHub, an individual with an account that can own repositories",
   "Version control", "System for tracking changes (additions, alterations, or deletions) in a set of files, typically but not exclusively computer code"
 ) |>
-  gt() |>
-  cols_label_with(fn = tools::toTitleCase) |>
-  fmt_markdown(definition)
+  rename_with(tools::toTitleCase) |>
+  tt() |>
+  format_tt(2, markdown = TRUE)
 ```
 
 We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, which are designed to facilitate open source software development by hosting public git repositories.
@@ -174,11 +175,13 @@ p_no_github <- sum(filter(oarch_forges, repo_host != "None" & repo_host != "GitH
 
 ```{r tbl-forges}
 #| tbl-cap: Software forges used by open-archaeo projects
-gt(oarch_forges) |>
-  cols_label(repo_host = "Host", total = "Total") |>
-  cols_merge_n_pct(total, p_total) |>
-  fmt_percent(p_total) |>
-  tab_spanner("By category", Guides:`Standalone software`)
+oarch_forges |>
+  mutate(
+    total = glue("{total} ({format(p_total * 100, trim = TRUE, digits = 1)}%)")
+  ) |>
+  select(-p_total) |>
+  rename(Host = repo_host, Total = total) |>
+  tt()
 ```
 
 Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API using the R package `gh` [@csardi2023].
