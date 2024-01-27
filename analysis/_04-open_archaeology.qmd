@@ -73,10 +73,12 @@ oarch |>
 
 ```{r num-p_platform_r}
 p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
+p_platform_python <- sum(oarch$platform == "Python", na.rm = TRUE) / nrow(oarch)
+p_platform_qgis <- sum(oarch$platform == "QGIS", na.rm = TRUE) / nrow(oarch)
 ```
 
 `r percent(p_platform_r)` of projects are extensions to the statistical programming language R, making it the most widely-used platform by a large margin (@tbl-platforms).
-Python, another programming language, is also relatively popular <!-- TODO: percent -->, as are plugins for the open source geographic information system QGIS <!-- TODO: percent -->.
+Python, another programming language, is also relatively popular (`r percent(p_platform_python)`), as are plugins for the open source geographic information system QGIS (`r percent(p_platform_qgis)`).
 Beyond that, there is a rather fragmented landscape of plugins for other desktop software (e.g. AutoCAD, ArcGIS), a number of lesser used programming languages, and a genre consisting of custom forms and spreadsheet templates.
 Many of these are targeted by only one or two developers; the larger platforms tend to be more diverse.
 
@@ -91,9 +93,6 @@ When we compare categories with tags, we see the general domains that each kind 
 We see that packages are fairly common across the board.
 Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling.
 These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
-
-<!-- TODO: can we say anything more concrete about the tags? 
-ZB response: We can look at the development of tags over time. For instance, a chart documenting year-over-year growth of each tag based on date of each project's first commit. I imagine this as a stacked bar chart (similar to below) but with segments coded to represent year of first commit. This would fit at the end of this section, under fog-github-cumulative. We can add charts documenting growth of platforms and licenses too. -->
 
 ```{r fig-tags}
 #| fig-cap: Tags by category
