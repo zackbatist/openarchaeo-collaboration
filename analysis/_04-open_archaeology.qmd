@@ -2,7 +2,7 @@
 bibliography: references.bib
 ---
 
-# Open archaeology
+# Open archaeology {#sec-open-archaeology}
 
 <!-- Results I: description of open archaeology projects
 
@@ -26,7 +26,6 @@ See [@batist2023] for a more comprehensive overview of the tags and categories a
 
 ```{r tbl-categories}
 #| tbl-cap: Categories of open archaeology projects included in open-archaeo.
-# TODO: Include sum for the "Software" and "Documents" supercategories, and make them appear in bold.
 tribble(
   ~category,                               ~kind,       ~scope,
   "Packages and libraries",                "Software", "Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.",
@@ -133,6 +132,7 @@ Other licenses, like the Creative Commons variants, are more suited to other kin
 The Creative Commons licenses also include clauses that cater to academic or creative sensibilities, such as requirements to attribute credit to the original authors, to restrict commercial use, and to propagate similar restrictions in derivative works.
 
 ```{r data-licenses}
+# open-archaeo_licenses.csv contains a list of licenses that had to be manually verified. This is necessary due to the fact that GitHub and CRAN have different conventions for naming the files containing the license.
 oarch_licenses <- read_csv(here("analysis/data/raw_data/open-archaeo_licenses.csv"))
 oarch_licenses |>
   select(gh_repo = url, other_license = license) |>
@@ -149,7 +149,6 @@ p_license_cc <- n_filter(oarch, str_detect(license, "CC")) / n_filter(oarch, !is
 
 ```{r tbl-repo-licenses}
 #| tbl-cap: Summary of licenses used by projects with GitHub repositories
-# TODO: group small categories into "other"
 oarch |>
   mutate(license = str_remove(license, "-?\\d\\.\\d$")) |>
   count(license) |>

@@ -1,4 +1,4 @@
-# Data and methodology
+# Data and methodology {#sec-data-methodology}
 
 ```{r data-oarch}
 # TODO: update and replace with local file before submission
@@ -43,7 +43,7 @@ oarch <- mutate(oarch, rough_category = recode(category,
 # * aDNA??
 ```
 
-We present an exploratory analysis of open-archaeo [[open-archaeo.info](open-archaeo.info), @batist2023], a directory of `r nrow(oarch)` <!-- TODO: make this consistent with what appears in Section 4, based on the filter --> pieces of open source archaeological software and other digital resources.
+We present an exploratory analysis of open-archaeo [[open-archaeo.info](open-archaeo.info), @batist2023], a directory of `r nrow(oarch)` pieces of open source archaeological software and other digital resources.
 
 
 ```{r tbl-glossary}
@@ -191,10 +191,10 @@ This means that projects that do not use version control (`r percent(p_no_vc)` o
 
 The open-archaeo dataset and the supplemental data from the GitHub API provide us with a rich resource to explore the makeup of the archaeological software development scene.
 We apply exploratory data analysis methods to break down and visualize the data, so that we may ascertain overall trends [@tukey1977].
-In Section 4, <!-- encode section, see https://quarto.org/docs/authoring/cross-references.html#sections --> our focus is on examining the general state of open source archaeological software and resource development.
-In Section 5, <!-- encode section --> we refine our analysis to examine development processes, with specific focus on collaborative experiences.
-Finally, in Section 6, <!-- encode section --> we apply network analysis methods to investigate the formation of broader collaborative communities.
+In @sec-open-archaeology, our focus is on examining the general state of open source archaeological software and resource development.
+In @sec-collaboration, we refine our analysis to examine development processes, with specific focus on collaborative experiences.
+Finally, in @sec-network, we apply network analysis methods to investigate the formation of broader collaborative communities.
 Our analyses combine to support our objectives of understanding what kinds of software and resources archaeologists are making, and how they create these tools in response to specific needs and use-cases, as afforded by offline social and professional connections, and within the context of an emerging community of practice.
 
-The quantitative analyses and figures presented here were generated with `r version$version.string` (@Manual).
-The full data and code is available in the compendium that accompanies this paper (@Compendium).
+The quantitative analyses and figures presented here were generated with `r version$version.string` [@rcoreteam2023].
+The full data and code is available in the compendium that accompanies this paper [@roe2023] <!-- reference should be updated to reflect the actual version number and date -->.

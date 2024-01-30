@@ -1,4 +1,4 @@
-# An emerging community of practice?
+# An emerging community of practice? {#sec-network}
 
 ```{r data-oarch_contributors}
 oarch |>
@@ -110,10 +110,10 @@ graph_n_repos <- length(oarch_graph_repo_repo)
 graph_n_users <- length(oarch_graph_user_user)
 ```
 
-```{r fig-graph-repo-user, eval=FALSE}
+```{r fig-graph-repo-user}
 #| fig-cap: Interactive repository–user graph.
 # TODO: is there a khroma scale that can accomodate this many groups?
-g_repo_repo <- oarch_graph_repo_user |>
+g_repo_user <- oarch_graph_repo_user |>
   ggraph(layout = "graphopt", mass = 100) +
   geom_edge_link(aes(group = contrib, alpha = n_contrib)) +
   geom_point_interactive(aes(x, y, colour = node_type, tooltip = node)) + 
@@ -122,11 +122,11 @@ g_repo_repo <- oarch_graph_repo_user |>
   labs(edge_alpha = "Common contributors") +
   theme(panel.background = element_rect(fill = "white"))
 
-girafe(ggobj = g_repo_repo)
+girafe(ggobj = g_repo_user)
 ```
 
 ```{r fig-graph-repo-repo}
-#| fig-cap: Interactive repository–repository graph. Repositories are connected by contributions by common users, with darker edges indicating more common contributors. Node colour indicates cluster membership according to .
+#| fig-cap: Interactive repository–repository graph. Repositories are connected by contributions by common users, with darker edges indicating more common contributors. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_repo_repo <- oarch_graph_repo_repo |>
   ggraph(layout = "graphopt", mass = 100) +
@@ -140,52 +140,35 @@ g_repo_repo <- oarch_graph_repo_repo |>
 girafe(ggobj = g_repo_repo)
 ```
 
-```{r fig-graph-user-user, eval=FALSE}
-#| fig-cap: Interactive user–user graph. Users are connected by contributions by common repositories, with darker edges indicating more common repositories. Node colour indicates cluster membership according to the edge–betweenness method [@Girvan Newman2002].
+```{r fig-graph-user-user}
+#| fig-cap: Interactive user–user graph. Users are connected by contributions by common repositories, with darker edges indicating more common repositories. Node colour indicates cluster membership according to the edge–betweenness method [girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
-g_repo_repo <- oarch_graph_user_user |>
+g_user_user <- oarch_graph_user_user |>
   filter(degree > 170) |>
   ggraph(layout = "graphopt", mass = 100) +
   geom_edge_link(aes(alpha = n)) +
   geom_point_interactive(aes(x, y, tooltip = user)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
-  labs(edge_alpha = "Common contributors") +
+  labs(edge_alpha = "Common repositories") +
   theme(panel.background = element_rect(fill = "white"))
 
-girafe(ggobj = g_repo_repo)
+girafe(ggobj = g_user_user)
 ```
 
 <!-- Is there a network? How big is it? -->
 Our data shows that there is a significant network of archaeologists collaborating on GitHub.
-`r percent(graph_n_repos / graph_n_repos_total)` of repositories and `r percent(graph_n_users / graph_n_users_total)` of users in our dataset are connected to at least one other repository/user.
+`r percent(graph_n_repos / graph_n_repos_total)` of repositories and `r percent(graph_n_users / graph_n_users_total)` of users in our dataset are connected to at least one other repository or user.
 Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-repo).
 
-```{r fig-graph-repo-repo-edge-betweenness-dendrogram}
-# ZB Note: What we really want out of this is the identification of groups or clusters, as well as the relationships between clusters. In theory, the dendrogram provides the best visualization for this information. I wonder if we can improve it by colour-coding the algorithmically-identified clusters (which should appear side by side), and making the names of the repositories appear vertically aligned perpendicular to the x axis. Additionally, we can colour-code the names of the repositories with their corresponding colours, or indicate that they are part of a cluster using a bracket (like "{" but turned 180 degrees).
-# @ZB: do we need both this and the graph viz. with clusters, though?
-xx <- igraph::edge.betweenness.community(oarch_graph_repo_repo)
-xx <- as.dendrogram(xx)
-plot(xx)
-
-# TODO: not working
-#ggraph(xx, 'dendrogram', height = height)
-```
-
 <!-- Clustering within the network -->
-To explore the topography of this network, we applied the edge–betweenness community detection method [@GirvanNewman2002] to delimit `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters in the repository–repository network (@fig-graph-repo-repo-edge-betweenness-dendrogram).
-While many of these clusters are interconnected, some discrete components containing between 2-7 repositories appear as distinct from a primary core.
-The core clusters are characterized by repositories whose contributors commit to projects other than their own. 
-The other peripheral clusters largely correspond with the work of single individuals, and sometimes also their close colleagues.
+To explore the topography of this network, we applied the edge–betweenness community detection method [@girvan2002] to delimit `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters in the repository–repository network.
+While many of these clusters are interconnected, some discrete components containing between 2-20 repositories appear as distinct from a primary core.
+The core cluster is characterized by repositories whose contributors commit to projects other than their own, and it includes a smorgasbord of projects whose contributors share varied interests.
+This indicates the formation of a central software development community rather than a focus on any specific topic of work.
+The other peripheral clusters situated around the core largely correspond with the work of single individuals, and sometimes also their close colleagues.
+Many of the projects represented in the core emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
 Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
-
-<!-- @ZB: Can you check that this is still valid, after we removed a lot of the genetics entries? -->
-The three core clusters, have distinct characters.
-One has a focus on archaeogenetics, which consists of a very well established collaborative network and general reliance on data modelling and processing tools. 
-A second cluster is mostly centred on fieldwork-oriented data collection tools, and particularly the emergence of well-funded and well-supported dominant platforms that attract more attention than other independent projects scattered across the network. 
-The third and most significant cluster includes a smorgasbord of projects whose contributors share varied interests. 
-The emphasis in this latter cluster is on the formation of a central software development community rather than on any specific topic of work. 
-Many of the projects represented in this third cluster emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
 
 ```{r tbl-repo-betweenness}
 #| tbl-cap: Most central repositories (weighted node betweenness) in the repository–repository network
@@ -278,9 +261,10 @@ top / bottom
 ```
 
 The highest mean centrality is seen in repositories that contain lists/datasets, standalone software, or packages/libraries, and in repositories based on Python, R or QGIS [@fig-repo-betweenness-category-platform].
-Interestingly, these trends depart from the observed popularity of different categories/platform in the open-archaeo dataset as a whole (see section XXX<!-- TODO: How do you do section references in Quarto? -->): standalone software is more central than packages/libraries, even though there are more of the latter by a significant margin.
+Interestingly, these trends depart from the observed popularity of different categories/platform in the open-archaeo dataset as a whole (see @sec-open-archaeology): standalone software is more central than packages/libraries, even though there are more of the latter by a significant margin.
 Similarly, Python packages tend to be more central than R packages, despite being the minority language.
 <!-- @ZB: I think this is interesting, but I couldn't really think of a general observation to make here. Maybe you can? -->
+<!-- Possibly that R packages are easier to spin up solo, whereas standalone tends to have more financial/institutional backing, and thus greater potential to support teams of developers -->
 
 ```{r fig-user-betweenness-contribs, eval=TRUE}
 #| fig-cap: Log-log correlation between user centrality (weighted node betweenness) in the user-user graph and total number of contributions
@@ -298,8 +282,6 @@ oarch_graph_user_user |>
 
 <!-- Predictors of user centrality -->
 Centrality to the user–user graph is weakly predicted by a user's overall rate of activity, as measured by their total number of contributions [@fig-user-betweenness-contribs]. 
-<!-- @ZB: Have softened the following, not because I think it's wrong, just because I'm a bit uncomfortable making strong claims without a reproducible analysis to back it up. 
-Also N.B.: I don't think they write code for a living. I don't know of anybody that rights code for a living in archaeology. I think it's the opposite, actually. -->
 We did not collect demographic data on users that appear in our dataset, but based on our own knowledge of the community we can observe that those highly central to the network tend to be employed in (junior) academic positions, or in a few cases in cultural heritage authorities, rather than specifically as research software engineers.
 Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs, and are increasingly precarious.
 This obviously poses a serious risk to the sustainability and growth of open source software in archaeology: if the people who occupy central positions in the network cease to be active, then it is likely that the overall network would fragment.

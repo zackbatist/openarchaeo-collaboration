@@ -1,4 +1,4 @@
-# Collaborative practices 
+# Collaborative practices {#sec-collaboration}
 
 ```{r data-oarch_github}
 # Subset of dataset with GitHub data

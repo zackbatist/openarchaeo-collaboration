@@ -1,4 +1,4 @@
-# Open science and open source
+# Open science and open source {#sec-background}
 
 <!--
 * What is open source?
