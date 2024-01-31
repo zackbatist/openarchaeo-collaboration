@@ -283,7 +283,7 @@ oarch_graph_user_user |>
 <!-- Predictors of user centrality -->
 Centrality to the user–user graph is weakly predicted by a user's overall rate of activity, as measured by their total number of contributions [@fig-user-betweenness-contribs]. 
 We did not collect demographic data on users that appear in our dataset, but based on our own knowledge of the community we can observe that those highly central to the network tend to be employed in (junior) academic positions, or in a few cases in cultural heritage authorities, rather than specifically as research software engineers.
-Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs, and are increasingly precarious.
+Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs [@baxter2012], and are increasingly precarious [@Cornelius-BellBell2021].
 This obviously poses a serious risk to the sustainability and growth of open source software in archaeology: if the people who occupy central positions in the network cease to be active, then it is likely that the overall network would fragment.
 Assessing and mitigating this risk should be a high priority for future research in this area.
 
