@@ -108,6 +108,14 @@ oarch_graph_user_user <- filter(oarch_graph_user_user, degree > 1)
 # Network stats (ignoring isolates)
 graph_n_repos <- length(oarch_graph_repo_repo)
 graph_n_users <- length(oarch_graph_user_user)
+
+# Export as gexf
+write.gexf(igraph.to.gexf(oarch_graph_repo_user), 
+           output = here("analysis/data/derived_data/oarch_repo_user.gexf"))
+write.gexf(igraph.to.gexf(oarch_graph_repo_repo), 
+           output = here("analysis/data/derived_data/oarch_repo_repo.gexf"))
+write.gexf(igraph.to.gexf(oarch_graph_user_user), 
+           output = here("analysis/data/derived_data/oarch_user_user.gexf"))
 ```
 
 ```{r fig-graph-repo-user}
