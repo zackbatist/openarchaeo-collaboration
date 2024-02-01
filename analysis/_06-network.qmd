@@ -59,8 +59,16 @@ oarch_graph |>
   oarch_graph
 
 # Repo-user
-oarch_graph_repo_user <- tbl_graph(nodes_repos_users(oarch_graph),
-                                   edges_user_to_repo(oarch_graph))
+tbl_graph(nodes_repos_users(oarch_graph),
+          edges_user_to_repo(oarch_graph),
+          directed = FALSE) |>
+          mutate(
+            degree = centrality_degree(),
+            betweenness = centrality_betweenness(),
+            subgraph = as_factor(group_components()),
+            group = as_factor(group_edge_betweenness())
+            ) ->
+            oarch_graph_repo_user
 
 # Repo-repo
 tbl_graph(nodes_repos(oarch_graph),
@@ -82,6 +90,7 @@ tbl_graph(nodes = nodes_users(oarch_graph),
     degree = centrality_degree(),
     betweenness = centrality_betweenness(weights = n),
     subgraph = as_factor(group_components())
+    # group = as_factor(group_edge_betweenness()) # <- very slow!
   ) ->
   oarch_graph_user_user
 
@@ -118,13 +127,13 @@ write.gexf(igraph.to.gexf(oarch_graph_user_user),
            output = here("analysis/data/derived_data/oarch_user_user.gexf"))
 ```
 
-```{r fig-graph-repo-user}
+```{r fig-graph-repo-user, eval=FALSE}
 #| fig-cap: Interactive repository–user graph.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_repo_user <- oarch_graph_repo_user |>
-  ggraph(layout = "graphopt", mass = 100) +
+  ggraph(layout = "fr", repulserad = 10, area = 10000, niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(group = contrib, alpha = n_contrib)) +
-  geom_point_interactive(aes(x, y, colour = node_type, tooltip = node)) + 
+  geom_point_interactive(aes(x, y, colour = group, shape=node_type, tooltip = node)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
   labs(edge_alpha = "Common contributors") +
@@ -133,7 +142,7 @@ g_repo_user <- oarch_graph_repo_user |>
 girafe(ggobj = g_repo_user)
 ```
 
-```{r fig-graph-repo-repo}
+```{r fig-graph-repo-repo, eval=FALSE}
 #| fig-cap: Interactive repository–repository graph. Repositories are connected by contributions by common users, with darker edges indicating more common contributors. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_repo_repo <- oarch_graph_repo_repo |>
@@ -148,12 +157,12 @@ g_repo_repo <- oarch_graph_repo_repo |>
 girafe(ggobj = g_repo_repo)
 ```
 
-```{r fig-graph-user-user}
+```{r fig-graph-user-user, eval=FALSE}
 #| fig-cap: Interactive user–user graph. Users are connected by contributions by common repositories, with darker edges indicating more common repositories. Node colour indicates cluster membership according to the edge–betweenness method [girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_user_user <- oarch_graph_user_user |>
   filter(degree > 170) |>
-  ggraph(layout = "graphopt", mass = 100) +
+  ggraph(layout = "fr", repulserad = 10, area = 100000, niter = 10000000, grid = "nogrid") +
   geom_edge_link(aes(alpha = n)) +
   geom_point_interactive(aes(x, y, tooltip = user)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
@@ -167,16 +176,23 @@ girafe(ggobj = g_user_user)
 <!-- Is there a network? How big is it? -->
 Our data shows that there is a significant network of archaeologists collaborating on GitHub.
 `r percent(graph_n_repos / graph_n_repos_total)` of repositories and `r percent(graph_n_users / graph_n_users_total)` of users in our dataset are connected to at least one other repository or user.
-Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-repo).
+Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-repo and @fig-graph-user-user).
 
 <!-- Clustering within the network -->
 To explore the topography of this network, we applied the edge–betweenness community detection method [@girvan2002] to delimit `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters in the repository–repository network.
 While many of these clusters are interconnected, some discrete components containing between 2-20 repositories appear as distinct from a primary core.
 The core cluster is characterized by repositories whose contributors commit to projects other than their own, and it includes a smorgasbord of projects whose contributors share varied interests.
-This indicates the formation of a central software development community rather than a focus on any specific topic of work.
-The other peripheral clusters situated around the core largely correspond with the work of single individuals, and sometimes also their close colleagues.
-Many of the projects represented in the core emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (SSLA).
-Peripheral clusters that are connected to core clusters by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
+
+Likewise, we applied the same edge-betweenness community detection method to identify clusters in the user-user network, which reveal collaborative groupings.
+We again see a complementary primary core connected to several more peripheral clusters, which are internally-cohesive and exhibit few connections with other peripheral clusters.
+The central core bridges all the peripheral clusters.
+The central core is not uniform, and comprises several relatively discrete sub-groups representing collaborative sub-communities.
+While these sub-groups are internally cohesive, they exhibit enough connections to other members of the central core so as to not be considered as separate or peripheral clusters.
+
+In both the repository-repository and user-user networks, the peripheral clusters correspond with either the connections surrounding specific projects or the series of repositories created by single individuals and sometimes also their close colleagues.
+On the other hand, the central cores exhibit greater internal variety that may correspond with social connections and the formation of a complex software development community.
+This is evident through the fact that many of the connections represented in the cores emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (CAA-SSLA).
+Peripheral clusters that are connected to the central core by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
 
 ```{r tbl-repo-betweenness}
 #| tbl-cap: Most central repositories (weighted node betweenness) in the repository–repository network
@@ -270,9 +286,15 @@ top / bottom
 
 The highest mean centrality is seen in repositories that contain lists/datasets, standalone software, or packages/libraries, and in repositories based on Python, R or QGIS [@fig-repo-betweenness-category-platform].
 Interestingly, these trends depart from the observed popularity of different categories/platform in the open-archaeo dataset as a whole (see @sec-open-archaeology): standalone software is more central than packages/libraries, even though there are more of the latter by a significant margin.
-Similarly, Python packages tend to be more central than R packages, despite being the minority language.
+This may be due to the fact that many packages are developed to support specific practices or use-cases (often inspired by personal need), or are designed to run relatively stable statistical functions that need not change over time.
+These are therefore relatively stable and require little additional input after release.
+On the other hand, as discussed in @sec-open-archaeology, standalone software tend to integrate multiple system components and may evolve over time to add new features or support new workflows.
+Moreover, standalone software are generally rooted in longer-term and community-held objectives, and their development may therefore be backed by insitutions with funding and resources to support developers.
+
+Despite being the minority language, Python packages tend to be more central than R packages, on average.
+This might relate to the different ways in which R and Python developers call dependencies ???
 <!-- @ZB: I think this is interesting, but I couldn't really think of a general observation to make here. Maybe you can? -->
-<!-- Possibly that R packages are easier to spin up solo, whereas standalone tends to have more financial/institutional backing, and thus greater potential to support teams of developers -->
+<!-- I wonder what the median is? Also: cltk is a python script, and is the massive pink blob in the repo-repo and user-user networks, so that might skew things slightly -->
 
 ```{r fig-user-betweenness-contribs, eval=TRUE}
 #| fig-cap: Log-log correlation between user centrality (weighted node betweenness) in the user-user graph and total number of contributions
