@@ -138,7 +138,7 @@ oarch_gh |>
 ```
 
 ```{r fig-collab-features}
-#| fig-cap: Use of GitHub collaboration features in open archaeology repositories
+#| fig-cap: Box plot showing use of GitHub collaboration features in open archaeology repositories
 oarch_gh |>
   pivot_longer(c(forks, issues, comments, stars), 
                names_to = "feature", values_to = "n") |>
