@@ -12,11 +12,6 @@ oarch |>
     gh_repo = str_match(oarch$github, "^https://github.com/([\\w-\\.]+/[\\w-\\.]+)/?.*?$")[,2]
   ) ->
   oarch
-
-# TODO: exclude peripheral repos that throw things off
-# * Big boys like QField (see _06-network.qmd)
-# * ArchaeoLines – ends up picking up the whole stellarium repo, which is huge
-# * aDNA??
 ```
 
 We present an exploratory analysis of open-archaeo [[open-archaeo.info](open-archaeo.info), @batist2023], a directory of `r nrow(oarch)` pieces of open source archaeological software and other digital resources.
