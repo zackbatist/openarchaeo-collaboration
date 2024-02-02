@@ -39,7 +39,6 @@ library("openarchaeoCollaboration") # this package, install with devtools::build
 
 library("english")
 library("fs")
-library("ggdist")
 library("ggiraph")
 library("ggraph")
 library("here")
