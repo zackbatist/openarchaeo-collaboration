@@ -29,3 +29,12 @@ This analysis is not yet published.
 To cite the [preliminary results presented at CAA](https://github.com/zackbatist/caa2021-openarchaeo/releases/tag/v0.1) as:
 
 * Batist, Zack and Joe Roe. 2021. *Open archaeology: a survey of collaborative software engineering in archaeological research*. Presented at Computer Applications & Quantitative Methods in Archaeology, Limassol (Virtual), 14–18 June 2021.
+
+## License
+
+This work is copyright 2021 Zack Batist and Joe Roe and licensed as follows:
+
+* Original data (from <https://open-archaeo.info>) – [CC0 No Rights Reserved](https://creativecommons.org/public-domain/cc0/)
+* Code – [MIT License](https://choosealicense.com/licenses/mit/), except
+  * `R/forceatlas2.R` is derived from <https://github.com/analyxcompany/ForceAtlas2> and licensed [GPL-2.0-or-later](https://choosealicense.com/licenses/gpl-2.0/)
+* Text and images – [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
