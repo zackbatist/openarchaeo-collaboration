@@ -66,7 +66,7 @@ tbl_graph(nodes_repos_users(oarch_graph),
             degree = centrality_degree(),
             betweenness = centrality_betweenness(),
             subgraph = as_factor(group_components()),
-            group = as_factor(group_edge_betweenness())
+            cluster = as_factor(group_edge_betweenness())
             ) ->
             oarch_graph_repo_user
 
@@ -78,7 +78,7 @@ tbl_graph(nodes_repos(oarch_graph),
     degree = centrality_degree(),
     betweenness = centrality_betweenness(weights = n),
     subgraph = as_factor(group_components()),
-    group = as_factor(group_edge_betweenness())
+    cluster = as_factor(group_edge_betweenness())
   ) ->
   oarch_graph_repo_repo
 
@@ -90,7 +90,7 @@ tbl_graph(nodes = nodes_users(oarch_graph),
     degree = centrality_degree(),
     betweenness = centrality_betweenness(weights = n),
     subgraph = as_factor(group_components())
-    # group = as_factor(group_edge_betweenness()) # <- very slow!
+    # cluster = as_factor(group_edge_betweenness()) # <- very slow!
   ) ->
   oarch_graph_user_user
 
@@ -108,7 +108,7 @@ subgraphs_n_users <- oarch_graph_user_user |>
 
 clusters_n_repos <- oarch_graph_repo_repo |>
   as_tibble() |>
-  count(group)
+  count(cluster)
 
 # Filter out isolates
 oarch_graph_repo_repo <- filter(oarch_graph_repo_repo, degree > 1)
@@ -128,12 +128,18 @@ write.gexf(igraph.to.gexf(oarch_graph_user_user),
 ```
 
 ```{r fig-graph-repo-user}
-#| fig-cap: Graph of open archaeology repositories and users connected by contributions. Darker edges indicate a great number of contributions. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
-# TODO: is there a khroma scale that can accomodate this many groups?
+#| fig-cap: Graph of open archaeology repositories and users connected by contributions. Darker edges indicate a great number of contributions. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 g_repo_user <- oarch_graph_repo_user |>
+  group_by(cluster) |>
+  mutate(cluster_n = n()) |>
+  ungroup() |>
+  mutate(
+    cluster_rank = dense_rank(desc(cluster_n)),
+    cluster = if_else(cluster_rank < 7, cluster, NA)
+  ) |>
   ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(group = contrib, alpha = n_contrib)) +
-  geom_point_interactive(aes(x, y, colour = group, shape=node_type, tooltip = node)) + 
+  geom_point_interactive(aes(x, y, colour = cluster, shape=node_type, tooltip = node)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
   labs(shape = NULL) +
@@ -143,12 +149,18 @@ girafe(ggobj = g_repo_user)
 ```
 
 ```{r fig-graph-repo-repo}
-#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
-# TODO: is there a khroma scale that can accomodate this many groups?
+#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 g_repo_repo <- oarch_graph_repo_repo |>
-  ggraph(layout = "graphopt", mass = 100) +
+  group_by(cluster) |>
+  mutate(cluster_n = n()) |>
+  ungroup() |>
+  mutate(
+    cluster_rank = dense_rank(desc(cluster_n)),
+    cluster = if_else(cluster_rank < 7, cluster, NA)
+  ) |>
+  ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(alpha = n)) +
-  geom_point_interactive(aes(x, y, colour = group, tooltip = repo)) + 
+  geom_point_interactive(aes(x, y, colour = cluster, tooltip = repo)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
   theme(panel.background = element_rect(fill = "white"))
@@ -157,8 +169,7 @@ girafe(ggobj = g_repo_repo)
 ```
 
 ```{r fig-graph-user-user, eval=FALSE}
-#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
-# TODO: is there a khroma scale that can accomodate this many groups?
+#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 g_user_user <- oarch_graph_user_user |>
   filter(degree > 170) |>
   ggraph(layout = "fr", niter = 10000000, grid = "nogrid") +
