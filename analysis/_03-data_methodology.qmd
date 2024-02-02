@@ -1,17 +1,15 @@
 # Data and methodology {#sec-data-methodology}
 
 ```{r data-oarch}
-# TODO: update and replace with local file before submission
-read_csv("https://github.com/zackbatist/open-archaeo/raw/master/open-archaeo.csv") |>
-  mutate(category = na_if(category, "?")) ->
-  oarch
+# open-archaeo version 2024-02-02
+# https://doi.org/10.5281/zenodo.10611198
+oarch <- read_csv(here("analysis/data/raw_data/open-archaeo_2024-02-02.csv"))
 
 # Extract clean repos from GitHub URLs
-oarch |>
-  mutate(
-    gh_repo = str_match(oarch$github, "^https://github.com/([\\w-\\.]+/[\\w-\\.]+)/?.*?$")[,2]
-  ) ->
-  oarch
+oarch <- mutate(
+  oarch,
+  gh_repo = str_match(oarch$github, "^https://github.com/([\\w-\\.]+/[\\w-\\.]+)/?.*?$")[,2]
+)
 ```
 
 We present an exploratory analysis of open-archaeo [[open-archaeo.info](open-archaeo.info), @batist2023], a directory of `r nrow(oarch)` pieces of open source archaeological software and other digital resources.
@@ -78,8 +76,10 @@ oarch |>
   filter(!item_name %in% oarch_filter$item_name) ->
   oarch
 
-# Exclude from GitHub API data collection because does not have own repo
+# Exclude from GitHub API data collection because they part of a larger
+# repository (or forked from one)
 oarch$gh_repo[oarch$item_name == "ArchaeoLines"] <- NA
+oarch$gh_repo[oarch$gh_repo == "carpentries-incubator/R-archaeology-lesson"] <- NA
 ```
 
 Open-archaeo is a relatively comprehensive list.
@@ -116,6 +116,13 @@ if (!file_exists(cached_gh_data)) {
   saveRDS(oarch, cached_gh_data)
 }
 oarch <- readRDS(cached_gh_data)
+
+n_repos <- n_filter(oarch, !is.na(gh_repo))
+n_commits <- oarch |> drop_na(gh_repo) |> unnest(gh_commits) |> nrow()
+n_issues <- oarch |> drop_na(gh_repo) |> unnest(gh_issues) |> nrow()
+n_comments <- oarch |> drop_na(gh_repo) |> unnest(gh_comments) |> nrow()
+n_contributors <- oarch |> drop_na(gh_repo) |> unnest(gh_contribs) |> 
+  distinct(contributor) |> nrow()
 ```
 
 ```{r data-oarch_forges}
@@ -159,17 +166,17 @@ oarch_forges |>
   format_tt(1, markdown = TRUE)
 ```
 
-Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API using the R package `gh` [@csardi2023].
-This included metadata on the GitHub repository and the programming languages it uses, as well as detailed data on each repository's individual contributors, commits, issues and comments.
+Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API (application programming interface).
 We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
 This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
+In total, we analysed data on `r n_repos` repositories, comprising `r n_commits` commits, `r n_issues` issues/pull requests, and `r n_comments` from `r n_contributors` distinct users, as well as repository metadata on programming languages used, licensing, stars and forks, and so on.
 
-The open-archaeo dataset and the supplemental data from the GitHub API provide us with a rich resource to explore the makeup of the archaeological software development scene.
-We apply exploratory data analysis methods to break down and visualize the data, so that we may ascertain overall trends [@tukey1977].
+Taken together the open-archaeo directory and the supplemental data from the GitHub API provide a rich resource to explore the nature of collaborative software engineering in archaeology.
+Here we employ exploratory data analysis [@tukey1977] to identify and characterise overall trends visible in this rich dataset.
 In @sec-open-archaeology, our focus is on examining the general state of open source archaeological software and resource development.
 In @sec-collaboration, we refine our analysis to examine development processes, with specific focus on collaborative experiences.
 Finally, in @sec-network, we apply network analysis methods to investigate the formation of broader collaborative communities.
 Our analyses combine to support our objectives of understanding what kinds of software and resources archaeologists are making, and how they create these tools in response to specific needs and use-cases, as afforded by offline social and professional connections, and within the context of an emerging community of practice.
 
 The quantitative analyses and figures presented here were generated with `r version$version.string` [@rcoreteam2023].
-The full data and code is available in the compendium that accompanies this paper [@roe2023] <!-- reference should be updated to reflect the actual version number and date -->.
+The full data and code is available in the compendium that accompanies this paper [@roe2023] <!-- TODO: reference should be updated to reflect the actual version number and date -->.

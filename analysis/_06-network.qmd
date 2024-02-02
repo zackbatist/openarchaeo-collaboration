@@ -90,7 +90,7 @@ tbl_graph(nodes = nodes_users(oarch_graph),
     degree = centrality_degree(),
     betweenness = centrality_betweenness(weights = n),
     subgraph = as_factor(group_components()),
-    cluster = as_factor(group_edge_betweenness())
+    cluster = as_factor(group_edge_betweenness()) # <- slow!
   ) ->
   oarch_graph_user_user
 
@@ -139,11 +139,13 @@ g_repo_user <- oarch_graph_repo_user |>
   ) |>
   ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(group = contrib, alpha = n_contrib)) +
-  geom_point_interactive(aes(x, y, colour = cluster, shape=node_type, tooltip = node)) + 
+  geom_point_interactive(aes(x, y, colour = cluster, shape = node_type, 
+                             tooltip = node)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
   labs(shape = NULL) +
-  theme(panel.background = element_rect(fill = "white"), legend.position = "bottom")
+  theme(panel.background = element_rect(fill = "white"), 
+        legend.position = "bottom")
 
 girafe(ggobj = g_repo_user)
 ```
@@ -258,6 +260,7 @@ left + right
 ```
 
 <!-- Predictors of repo centrality -->
+<!-- TODO: Needs an update. These repos are no longer in the top 10, and it's probably best not to be so specific given how volatile that is. -->
 The repositories most central to the network as a whole [@tbl-repo-betweenness] include several lists and directories, including open-archaeo itself.
 Four of the top ten most central repositories (ISAAKiel/mortAAR, ISAAKiel/shapAAR, ISAAKiel/quantAAR, ropensci/c14bazAAR) are associated with the ISAA-Kiel group, emphasising the importance of existing 'real world' collaborations in structuring the network.
 Three (ropensci/c14bazAAR, ahb108/rcarbon, Chronomodel/chronomodel) are R packages relating to radiocarbon data and modelling, probably reflecting the fact that this has long been a prominent focus of statistical software development in archaeology.
