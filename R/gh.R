@@ -19,7 +19,7 @@
 #' @name gh_query
 #'
 #' @examples
-#' gh_repo("joeroe/era")
+#' gh_repo_info("joeroe/era")
 #' gh_lang("joeroe/era")
 #' gh_contrib("joeroe/era")
 #' gh_issue("joeroe/era")
@@ -201,7 +201,7 @@ ghq <- function(endpoint, ...) {
   if (any(is.na(list(...)))) NA
   else {
     res <- tryCatch(
-      gh(endpoint, ..., .limit = Inf),
+      gh::gh(endpoint, ..., .limit = Inf),
       http_error_404 = gh_warn_404
     )
     if (length(res) > 0) res
@@ -209,6 +209,8 @@ ghq <- function(endpoint, ...) {
   }
 }
 
+#' keyword internal
+#' @noRd
 gh_warn_404 <- function(c) {
   w <- stringr::str_extract(as.character(c), "URL not found:.*$")
   rlang::warn(paste0("GitHub API ", w), class = "http_error_404")

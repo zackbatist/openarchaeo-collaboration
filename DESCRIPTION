@@ -1,6 +1,7 @@
 Package: openarchaeoCollaboration
 Type: Package
-Title: Data and Code for an Analysis of Open-Archaeo
+Title: Data and Code for an Analysis of Collaborative Practices in an Emerging
+  Community of Archaeological Software Engineers
 Version: 0.1.0
 Authors@R: 
   c(person(family = "Batist",
@@ -13,22 +14,26 @@ Authors@R:
            role = "aut",
            email = "joe@joeroe.io",
            comment = c(ORCID = "0000-0002-1011-1244")))
-Description: Research compendium containing data and code for our analysis of 
-    the state of the art in archaeological software engineering, using the list
-    compiled at open-archaeo <https://open-archaeo.info>.
+Description: Research compendium containing data and code for our paper 'Open
+    archaeology, open source? Collaborative practices in an emerging community 
+    of archaeological software engineers', submitted to Internet Archaeology.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: 
-    tidyverse,
-    purrr,
+Imports: 
+    dplyr,
     gh,
-    glue
+    purrr,
+    rlang,
+    stringr,
+    tibble,
+    tidyr
 Suggests:
+    english,
     fs,
-    geomtextpath,
     ggiraph,
     ggraph,
+    glue,
     gt,
     here,
     khroma,
@@ -36,13 +41,7 @@ Suggests:
     patchwork,
     rgexf,
     tidygraph,
-    tidyverse
+    tidyverse,
+    tinytable
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Imports: 
-    vctrs,
-    dplyr,
-    rlang,
-    lubridate,
-    english,
-    tinytable

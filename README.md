@@ -41,6 +41,5 @@ To cite the [preliminary results presented at CAA](https://github.com/zackbatist
 This work is copyright 2021 Zack Batist and Joe Roe and licensed as follows:
 
 * Original data (from <https://open-archaeo.info>) – [CC0 No Rights Reserved](https://creativecommons.org/public-domain/cc0/)
-* Code – [MIT License](https://choosealicense.com/licenses/mit/), except
-  * `R/forceatlas2.R` is derived from <https://github.com/analyxcompany/ForceAtlas2> and licensed [GPL-2.0-or-later](https://choosealicense.com/licenses/gpl-2.0/)
+* Code – [MIT License](https://choosealicense.com/licenses/mit/)
 * Text and images – [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

@@ -38,7 +38,7 @@ Queries use \code{\link[=ghq]{ghq()}}, a thin wrapper for \code{\link[gh:gh]{gh:
 always returns a value.
 }
 \examples{
-gh_repo("joeroe/era")
+gh_repo_info("joeroe/era")
 gh_lang("joeroe/era")
 gh_contrib("joeroe/era")
 gh_issue("joeroe/era")
