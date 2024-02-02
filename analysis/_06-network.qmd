@@ -127,23 +127,23 @@ write.gexf(igraph.to.gexf(oarch_graph_user_user),
            output = here("analysis/data/derived_data/oarch_user_user.gexf"))
 ```
 
-```{r fig-graph-repo-user, eval=FALSE}
-#| fig-cap: Interactive repository–user graph.
+```{r fig-graph-repo-user}
+#| fig-cap: Graph of open archaeology repositories and users connected by contributions. Darker edges indicate a great number of contributions. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_repo_user <- oarch_graph_repo_user |>
-  ggraph(layout = "fr", repulserad = 10, area = 10000, niter = 5000, grid = "nogrid") +
+  ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(group = contrib, alpha = n_contrib)) +
   geom_point_interactive(aes(x, y, colour = group, shape=node_type, tooltip = node)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
-  labs(edge_alpha = "Common contributors") +
-  theme(panel.background = element_rect(fill = "white"))
+  labs(shape = NULL) +
+  theme(panel.background = element_rect(fill = "white"), legend.position = "bottom")
 
 girafe(ggobj = g_repo_user)
 ```
 
-```{r fig-graph-repo-repo, eval=FALSE}
-#| fig-cap: Interactive repository–repository graph. Repositories are connected by contributions by common users, with darker edges indicating more common contributors. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
+```{r fig-graph-repo-repo}
+#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_repo_repo <- oarch_graph_repo_repo |>
   ggraph(layout = "graphopt", mass = 100) +
@@ -151,23 +151,21 @@ g_repo_repo <- oarch_graph_repo_repo |>
   geom_point_interactive(aes(x, y, colour = group, tooltip = repo)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
-  labs(edge_alpha = "Common contributors") +
   theme(panel.background = element_rect(fill = "white"))
 
 girafe(ggobj = g_repo_repo)
 ```
 
 ```{r fig-graph-user-user, eval=FALSE}
-#| fig-cap: Interactive user–user graph. Users are connected by contributions by common repositories, with darker edges indicating more common repositories. Node colour indicates cluster membership according to the edge–betweenness method [girvan2002]. Excludes isolate nodes.
+#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates cluster membership according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 # TODO: is there a khroma scale that can accomodate this many groups?
 g_user_user <- oarch_graph_user_user |>
   filter(degree > 170) |>
-  ggraph(layout = "fr", repulserad = 10, area = 100000, niter = 10000000, grid = "nogrid") +
+  ggraph(layout = "fr", niter = 10000000, grid = "nogrid") +
   geom_edge_link(aes(alpha = n)) +
   geom_point_interactive(aes(x, y, tooltip = user)) + 
   scale_edge_alpha(trans = "log", guide = guide_none()) +
   scale_colour_discrete(guide = guide_none()) +
-  labs(edge_alpha = "Common repositories") +
   theme(panel.background = element_rect(fill = "white"))
 
 girafe(ggobj = g_user_user)
@@ -176,7 +174,7 @@ girafe(ggobj = g_user_user)
 <!-- Is there a network? How big is it? -->
 Our data shows that there is a significant network of archaeologists collaborating on GitHub.
 `r percent(graph_n_repos / graph_n_repos_total)` of repositories and `r percent(graph_n_users / graph_n_users_total)` of users in our dataset are connected to at least one other repository or user.
-Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-repo and @fig-graph-user-user).
+Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-user and @fig-graph-repo-repo).
 
 <!-- Clustering within the network -->
 To explore the topography of this network, we applied the edge–betweenness community detection method [@girvan2002] to delimit `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters in the repository–repository network.
@@ -195,23 +193,22 @@ This is evident through the fact that many of the connections represented in the
 Peripheral clusters that are connected to the central core by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
 
 ```{r tbl-repo-betweenness}
-#| tbl-cap: Most central repositories (weighted node betweenness) in the repository–repository network
+#| tbl-cap: Repositories ranked by centrality to the repository–repository network. Centrality is measured by node betweenness weighted by number of contributions.
 oarch_graph_repo_repo |>
-  mutate(betweenness = centrality_betweenness()) |>
   as_tibble() |>
   arrange(-betweenness) |>
   slice(1:10) |>
   left_join(oarch, c("repo" = "gh_repo")) |>
   mutate(n_commits = map_int(gh_commits, nrow)) |>
   unite(tags, tag1:tag5, sep = "; ", na.rm = TRUE) |>
-  select(repo, betweenness, category, tags, n_commits) |>
+  transmute(rank = row_number(), repo, category, tags, n_commits) |>
   rename(repository = repo, commits = n_commits) |>
   rename_with(tools::toTitleCase) |>
   tt()
 ```
 
 ```{r fig-repo-betweenness-age-length}
-#| fig-cap: Log-log correlation between repository centrality (weighted node betweenness), age (left) and length (right)
+#| fig-cap: Repository centrality by age (left) and length (right). Centrality is measured by node betweenness weighted by number of contributions.
 left <- oarch_graph_repo_repo |>
   as_tibble() |> 
   left_join(oarch, by = c("repo" = "gh_repo")) |>
@@ -223,7 +220,7 @@ left <- oarch_graph_repo_repo |>
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(method = "glm") +
-  labs(x = "Repository age (days)", y = "Centrality (betweenness)") +
+  labs(x = "Repository age (days)", y = "Centrality") +
   theme_oarch()
 
 right <- oarch_graph_repo_repo |>
@@ -251,7 +248,7 @@ Repository centrality is predicted by the total number of commits it has receive
 Tentatively, we interpret this as an indication that the network has become more connected over time, but we leave a fuller analysis of temporal trends in collaborative activity to future work.
 
 ```{r fig-repo-betweenness-category-platform}
-#| fig-cap: Mean repository centrality (weighted node betweenness) by open-archaeo category (top) and platform (bottom)
+#| fig-cap: Mean repository centrality by category (top) and platform (bottom). Centrality is measured by node betweenness weighted by number of contributions.
 top <- oarch_graph_repo_repo |>
   as_tibble() |> 
   left_join(oarch, by = c("repo" = "gh_repo")) |>
@@ -276,9 +273,9 @@ bottom <- oarch_graph_repo_repo |>
   mutate(platform = fct_reorder(platform, betweenness)) |>
   ggplot(aes(platform, betweenness)) +
   geom_col() +
-  scale_y_log10() +
+  scale_y_log10(labels = NULL) +
   coord_flip() +
-  labs(y = "Centrality (weighted betweenness)", x = NULL) +
+  labs(y = "Centrality →", x = NULL) +
   theme_oarch()
 
 top / bottom
@@ -296,17 +293,17 @@ This might relate to the different ways in which R and Python developers call de
 <!-- @ZB: I think this is interesting, but I couldn't really think of a general observation to make here. Maybe you can? -->
 <!-- I wonder what the median is? Also: cltk is a python script, and is the massive pink blob in the repo-repo and user-user networks, so that might skew things slightly -->
 
-```{r fig-user-betweenness-contribs, eval=TRUE}
-#| fig-cap: Log-log correlation between user centrality (weighted node betweenness) in the user-user graph and total number of contributions
+```{r fig-user-betweenness-contribs}
+#| fig-cap: User centrality by total number of contributions. Centrality is measured by node betweenness weighted by number of contributions.
 oarch_graph_user_user |>
   as_tibble() |> 
   left_join(oarch_contributors, by = c("user" = "contributor")) |>
-  ggplot(aes(betweenness, contribs)) +
+  ggplot(aes(contribs, betweenness)) +
   geom_point() +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(method = "glm") +
-  labs(x = "Centrality (betweenness)", y = "Total contributions") +
+  labs(x = "Total contributions", y = "Centrality") +
   theme_oarch()
 ```
 

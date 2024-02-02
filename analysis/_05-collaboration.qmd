@@ -14,7 +14,7 @@ GitHub extends this model with its pull request feature, by which any user can f
 The maintainer can choose to merge (accept) or decline the pull request, facilitating contributions from a wider network of collaborators without the need for permission to be sought in advance.
 
 ```{r fig-lifespan}
-#| fig-cap: Lifespan of repositories. Each point indicates a commit; excludes repositories with only one commit.
+#| fig-cap: Lifespan of open archaeology repositories. Each point indicates a commit; excludes repositories with only one commit.
 oarch_gh |>
   unnest(gh_commits) |>
   drop_na(datetime) |>
@@ -91,14 +91,16 @@ The longest-lived projects have been active for between `r english(round(lifespa
 The most active projects see up to `r round(max_commit_rate)` commits per day, but the majority of repositories (`r percent(p_commit_rate_1)`) receive less one commit per day.
 
 ```{r fig-lifespan-rate}
-#| fig-cap: Lifespan, commit rate and contributors to repositories. Note that both scales are logarithmic.
-# TODO: add marginal histograms?
+#| fig-cap: Lifespan and commit rate of open archaeology repositories
 oarch_lifespan %>%
-  ggplot(aes(x = lifespan, y = commit_rate, size = n_contribs)) +
-  geom_point(shape = 21, colour = "black", fill = alpha("black", 0.3)) +
+  ggplot(aes(x = lifespan, y = commit_rate, fill = category, 0.3, size = n_contribs)) +
+  geom_point(shape = 21, colour = "black", alpha = 0.7) +
   scale_x_log10() +
   scale_y_log10() +
-  labs(x = "Lifespan (days)", y = "Commits per day", size = "Contributors") +
+  scale_fill_bright() +
+  scale_size(trans = "log10") +
+  labs(x = "Lifespan (days)", y = "Commits per day", 
+       fill = "Category", size = "Contributors") +
   theme_oarch()
 ```
 
@@ -136,7 +138,7 @@ oarch_gh |>
 ```
 
 ```{r fig-collab-features}
-#| fig-cap: Use of GitHub collaboration features (forks, issues, comments, stars) across repositories
+#| fig-cap: Use of GitHub collaboration features in open archaeology repositories
 oarch_gh |>
   pivot_longer(c(forks, issues, comments, stars), 
                names_to = "feature", values_to = "n") |>
@@ -196,7 +198,7 @@ p_big_boy_75 <- n_filter(oarch_contribs_by_repo, p_big_boy > 0.75) / nrow(oarch_
 
 
 ```{r fig-contributions}
-#| fig-cap: Distribution of contributions in multi-contributor projects
+#| fig-cap: Distribution of contributions in multi-contributor open archaeology repositories
 oarch_contribs_by_repo |>
   mutate(item_name = fct_reorder(item_name, p_big_boy, .desc = TRUE)) |> 
   ggplot(aes(x = item_name, y = contributions,
@@ -204,7 +206,7 @@ oarch_contribs_by_repo |>
   geom_col(position = "fill", linewidth = 0, width = 1) +
   geom_hline(yintercept = c(0.25, 0.5, 0.75), alpha = 0.5) +
   scale_y_continuous(labels = scales::percent) +
-  scale_fill_highcontrast() +
+  scale_fill_bright() +
   labs(x = "Individual repositories", y = "Contributions", fill = NULL) +
   theme_oarch() +
   theme(

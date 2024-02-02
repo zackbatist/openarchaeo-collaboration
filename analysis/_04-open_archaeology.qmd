@@ -25,7 +25,7 @@ We categorized all records based on how each tool or resource is meant to be acc
 See [@batist2023] for a more comprehensive overview of the tags and categories applied to open-archaeo.
 
 ```{r tbl-categories}
-#| tbl-cap: Categories of open archaeology projects included in open-archaeo.
+#| tbl-cap: Categories of open archaeology projects
 tribble(
   ~category,                               ~kind,       ~scope,
   "Packages and libraries",                "Software", "Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.",
@@ -37,11 +37,39 @@ tribble(
   "Lists and datasets",                    "Documents", "A series of consistently organized observations assembled with purpose."
 ) |>
   left_join(oarch, by = "category") |>
-  count(category, kind, scope) |>
-  group_by(kind) |>
-  arrange(-n) |>
+  count(kind, category, scope) |>
+  mutate(
+    p = n / sum(n),
+    p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")
+  ) |>
+  arrange(desc(kind), -n) |>
+  select(-kind) |>
   rename_with(tools::toTitleCase) |>
-  tt()
+  rename(`%` = p) |>
+  tt() |>
+  group_tt(list("Software" = 1, "Documents" = 4))
+```
+
+```{r data-merge-categories}
+# Merge smaller categories for subsequent analyses
+oarch <- mutate(
+  oarch,
+  category = recode(
+    category,
+    "Specifications, protocols and schemas" = "Other documents",
+    "Products" = "Other documents",
+    "Guides" = "Other documents",
+    .default = category
+  ),
+  category = factor(
+    category, 
+    c("Packages and libraries", 
+      "Standalone software",
+      "Scripts",
+      "Lists and datasets",
+      "Other documents")
+  )
+)
 ```
 
 ```{r num-p_platform}
@@ -55,7 +83,7 @@ Others create standalone software <!-- percent --> that can be run independently
 A significant number of projects also comprise of datasets <!-- percent --> and non-packaged code snippets <!-- percent --> that have been made available for general use.
 
 ```{r tbl-platforms}
-#| tbl-cap: Platforms and programming languages used by open archaeology projects.
+#| tbl-cap: Platforms and programming languages used by open archaeology projects
 oarch |>
   drop_na(platform) |>
   count(platform) |>
@@ -65,6 +93,10 @@ oarch |>
   ) |>
   group_by(platform) |>
   summarise(n = sum(n)) |>
+  mutate(
+    p = n / sum(n),
+    p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")
+  ) |>
   arrange(platform == "Other", -n) |>
   rename_with(tools::toTitleCase) |>
   tt()
@@ -84,7 +116,7 @@ Many of these are targeted by only one or two developers; the larger platforms t
 At first glance, the relative popularity of R versus Python is perhaps surprising; Python is regularly ranked as the most popular programming language in the world, with R a distant runner-up.
 However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
 
-Our analysis of tags highlights aspects of archaeological work that software developers are inclined to contribute to [@fig-tags].
+Our analysis of tags highlights aspects of archaeological work that software developers are inclined to contribute to [@tbl-tags].
 The most common tags unsurprisingly deal with work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
 Educational resources and practical guides are also well represented due to the web's usefulness as a medium for sharing and communication.
 
@@ -93,33 +125,21 @@ We see that packages are fairly common across the board.
 Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling.
 These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
 
-```{r fig-tags}
-#| fig-cap: Tags by category
-oarch %>%
+```{r tbl-tags}
+#| tbl-cap: Themes of open archaeology projects
+oarch |>
   pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
-               values_drop_na = TRUE) %>%
-  drop_na(tag) %>%
-  mutate(category = recode(category,
-                                  "Specifications, protocols and schemas" = "Documents",
-                                  "Products" = "Documents",
-                                  "Guides" = "Documents",
-                                  "Lists and datasets" = "Documents",
-                                  .default = category)) %>%
-  group_by(tag, category) %>%
-  summarise(n = n(), .groups = "drop_last") %>%
-  mutate(total = sum(n)) %>%
-  ggplot(aes(fct_reorder(tag, total), n, fill = category)) +
-  geom_col() +
-  scale_fill_bright() +
-  coord_flip() +
-  labs(
-    x = NULL, y = "Number of projects",
-    fill = NULL
-  ) +
-  theme_oarch() +
-  theme(
-    axis.text.y = element_text(size = 7)
-  )
+               values_drop_na = TRUE) |>
+  drop_na(tag) |>
+  group_by(tag, category) |>
+  summarise(n = n(), .groups = "drop_last") |>
+  mutate(total = sum(n)) |>
+  pivot_wider(names_from = category, values_from = n) |>
+  mutate(across(everything(), \(x) replace_na(x, 0))) |>
+  arrange(-total) |>
+  rename(theme = tag) |>
+  rename_with(tools::toTitleCase) |>
+  tt()
 ```
 
 To enact their mandate of ensuring that anyone can access and modify software and other creative works, the open source and open science movements encourage developers and scientists to adopt open licenses.
@@ -132,7 +152,9 @@ Other licenses, like the Creative Commons variants, are more suited to other kin
 The Creative Commons licenses also include clauses that cater to academic or creative sensibilities, such as requirements to attribute credit to the original authors, to restrict commercial use, and to propagate similar restrictions in derivative works.
 
 ```{r data-licenses}
-# open-archaeo_licenses.csv contains a list of licenses that had to be manually verified. This is necessary due to the fact that GitHub and CRAN have different conventions for naming the files containing the license.
+# open-archaeo_licenses.csv contains a list of licenses that had to be manually 
+# verified. This is necessary due to the fact that GitHub and CRAN have 
+# different conventions for naming the files containing the license.
 oarch_licenses <- read_csv(here("analysis/data/raw_data/open-archaeo_licenses.csv"))
 oarch_licenses |>
   select(gh_repo = url, other_license = license) |>
@@ -148,13 +170,18 @@ p_license_cc <- n_filter(oarch, str_detect(license, "CC")) / n_filter(oarch, !is
 ```
 
 ```{r tbl-repo-licenses}
-#| tbl-cap: Summary of licenses used by projects with GitHub repositories
+#| tbl-cap: Licenses used by open archaeology projects on GitHub
 oarch |>
   mutate(license = str_remove(license, "-?\\d\\.\\d$")) |>
   count(license) |>
-  mutate(license = replace_na(license, "None detected")) |>
+  mutate(
+    license = replace_na(license, "None detected"),
+    p = n / sum(n),
+    p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")
+  ) |>
   arrange(-n) |>
   rename_with(tools::toTitleCase) |>
+  rename(`%` = p) |>
   tt()
 ```
 
@@ -170,32 +197,17 @@ Archaeological software development activity has increased significantly over th
 @fig-github-cumulative shows the cumulative growth of code contributions committed and pushed to GitHub repositories, and the number of GitHub repositories that host archaeological software and resources.
 
 ```{r fig-github-cumulative}
-#| fig-cap: Cumulative growth of open archaeological software in terms of number of commits and number of repositories, and broken down by category.
-oarch %>% 
-  mutate(
-    lumped_category = recode(category,
-                             "Specifications etc." = "Documents",
-                             "Products" = "Documents",
-                             "Guides" = "Documents",
-                             "Lists and datasets" = "Documents",
-                             .default = category),
-    lumped_category = factor(lumped_category, c("Scripts",
-                                                "Documents",
-                                                "Packages and libraries",
-                                                "Standalone software")) ) ->
-  oarch_lumped
-
-p_gh_commits_cum <- oarch_lumped %>%
-  unnest(gh_commits) %>%
-  drop_na(sha) %>%
-  mutate(date = floor_date(datetime, "week")) %>%
-  group_by(lumped_category, date) %>%
-  summarise(n_commits = n(), .groups = "drop_last") %>%
-  mutate(cum_commits = cumsum(n_commits)) %>%
+#| fig-cap: Growth of open archaeology projects on GitHub
+p_gh_commits_cum <- oarch |>
+  unnest(gh_commits) |>
+  drop_na(sha) |>
+  mutate(date = floor_date(datetime, "week")) |>
+  group_by(category, date) |>
+  summarise(n_commits = n(), .groups = "drop_last") |>
+  mutate(cum_commits = cumsum(n_commits)) |>
   ggplot(aes(date, cum_commits,
-             fill = lumped_category,
-             colour = lumped_category,
-             label = lumped_category)) +
+             fill = fct_rev(category),
+             colour = fct_rev(category))) +
   geom_area() +
   annotate("segment", 
            x = ymd("2008-04-01", tz = "UTC"), 
@@ -206,31 +218,40 @@ p_gh_commits_cum <- oarch_lumped %>%
            x = ymd("2008-04-01", tz = "UTC"), y = 19000,
            label = "GitHub\nlaunched",
            vjust = 0) +
-  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_x_datetime(limits = c(ymd("2006-12-31", tz = "UTC"), now("UTC")),
+                   date_breaks = "2 years", 
+                   date_labels = "%Y",
+                   expand = c(0,0)) +
   scale_y_continuous(labels = scales::comma) +
   scale_colour_bright(guide = guide_none()) +
   scale_fill_bright() +
   labs(
-    y = "cumulative commits",
+    y = "Cumulative commits",
     x = NULL, fill = NULL
   ) +
   theme_oarch() +
   theme(legend.position = "top")
 
-# TODO: extend to end
-p_gh_repos_cum <- oarch_lumped %>%
-  unnest(gh_commits) %>%
-  drop_na(sha) %>%
-  group_by(repo) %>% 
-  filter(datetime == min(datetime)) %>% # Only first commits
-  mutate(date = floor_date(datetime, "week")) %>%
-  group_by(lumped_category, date) %>%
-  summarise(n_commits = n(), .groups = "drop_last") %>%
-  mutate(cat_total = sum(n_commits)) %>%
-  mutate(cum_commits = cumsum(n_commits)) %>%
+p_gh_repos_cum <- oarch |>
+  unnest(gh_commits) |>
+  drop_na(sha) |>
+  group_by(repo) |> 
+  filter(datetime == min(datetime)) |> # Only first commits
+  mutate(date = floor_date(datetime, "week")) |>
+  group_by(category, date) |>
+  summarise(n_commits = n(), .groups = "drop_last") |>
+  mutate(cat_total = sum(n_commits)) |>
+  mutate(cum_commits = cumsum(n_commits)) |>
+  select(category, date, cum_commits) |>
+  group_by(category) |>
+  nest() |>
+  mutate(data = map(data, \(x) { # Extend the range of each category to today
+    bind_rows(x, list(date = today(), cum_commits = max(x$cum_commits)))
+  })) |>
+  unnest(c(data)) |>
   ggplot(aes(date, cum_commits,
-             fill = lumped_category,
-             colour = lumped_category)) +
+             fill = fct_rev(category),
+             colour = fct_rev(category))) +
   geom_area() +
   annotate("segment",
            x = ymd("2008-04-01", tz = "UTC"),
@@ -241,12 +262,15 @@ p_gh_repos_cum <- oarch_lumped %>%
            x = ymd("2008-04-01", tz = "UTC"), y = 50,
            label = "GitHub\nlaunched",
            vjust = 0) +
-  scale_x_datetime(date_breaks = "2 years", date_labels = "%Y") +
+  scale_x_datetime(limits = c(ymd("2006-12-31", tz = "UTC"), now("UTC")),
+                   date_breaks = "2 years", 
+                   date_labels = "%Y",
+                   expand = c(0,0)) +
   scale_y_continuous(labels = scales::comma) +
   scale_colour_bright(guide = guide_none()) +
   scale_fill_bright(guide = guide_none()) +
   labs(
-    y = "cumulative repositories",
+    y = "Cumulative repositories",
     x = NULL, fill = NULL
   ) +
   theme_oarch()

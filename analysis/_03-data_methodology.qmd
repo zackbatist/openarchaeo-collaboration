@@ -13,30 +13,6 @@ oarch |>
   ) ->
   oarch
 
-# Amalgamate categories into fewer rough categories
-# TODO: redo
-oarch <- mutate(oarch, rough_category = recode(category,
-                                 "R" = "Packages (R, Python, etc.)",
-                                 "Web apps" = "Standalone apps",
-                                 "Datasets" = "Analyses & datasets",
-                                 "Tutorials" = "Lists & tutorials",
-                                 "Python" = "Packages (R, Python, etc.)",
-                                 "Desktop apps" = "Standalone apps",
-                                 "QGIS" = "Plugins",
-                                 "Lists" = "Lists & tutorials",
-                                 "Mobile apps" = "Standalone apps",
-                                 "Analyses" = "Analyses & datasets",
-                                 "Spreadsheets" = "Forms & spreadsheets",
-                                 "Command line tools" = "Standalone apps",
-                                 "Plugins" = "Plugins",
-                                 "ArcGis" = "Plugins",
-                                 "Filemaker" = "Plugins",
-                                 "ODK" = "Forms & spreadsheets",
-                                 "Lisp" = "Packages (R, Python, etc.)",
-                                 .default = "Other",
-                                 .missing = "Other"
-                                 ))
-
 # TODO: exclude peripheral repos that throw things off
 # * Big boys like QField (see _06-network.qmd)
 # * ArchaeoLines – ends up picking up the whole stellarium repo, which is huge
@@ -74,7 +50,8 @@ tribble(
 ) |>
   rename_with(tools::toTitleCase) |>
   tt() |>
-  format_tt(2, markdown = TRUE)
+  format_tt(2, markdown = TRUE) |>
+  style_tt(j = 1, italic = TRUE)
 ```
 
 We compiled the dataset by browsing collaborative software development platforms such as GitHub, GitLab and Codeberg, which are designed to facilitate open source software development by hosting public git repositories.
@@ -153,14 +130,9 @@ oarch_forges <- oarch |>
   pivot_longer(c(github, gitlab, bitbucket, launchpad, codeberg, none),
                names_to = "repo_host", values_to = "repo_url") |>
   drop_na(repo_url) |>
-  count(category, repo_host) |>
-  pivot_wider(names_from = category, values_from = n, values_fill = 0) |>
-  mutate(
-    total = rowSums(across(Guides:`Standalone software`)), 
-    p_total = total / sum(total),
-    .before = Guides
-  ) |>
-  arrange(repo_host == "none", desc(total)) |>
+  count(repo_host) |>
+  mutate(p = n / sum(n)) |>
+  arrange(repo_host == "none", desc(n)) |>
   mutate(repo_host = recode(repo_host,
                             github = "GitHub",
                             codeberg = "Codeberg",
@@ -169,18 +141,15 @@ oarch_forges <- oarch |>
                             launchpad = "Launchpad",
                             none = "None"))
 
-p_no_vc <- filter(oarch_forges, repo_host == "None")[["p_total"]]
-p_no_github <- sum(filter(oarch_forges, repo_host != "None" & repo_host != "GitHub")$p_total)
+p_no_vc <- filter(oarch_forges, repo_host == "None")$p
+p_no_github <- sum(filter(oarch_forges, repo_host != "None" & repo_host != "GitHub")$p)
 ```
 
 ```{r tbl-forges}
-#| tbl-cap: Software forges used by open-archaeo projects
+#| tbl-cap: Software forges used by open archaeology projects
 oarch_forges |>
-  mutate(
-    total = glue("{total} ({format(p_total * 100, trim = TRUE, digits = 1)}%)")
-  ) |>
-  select(-p_total) |>
-  rename(Host = repo_host, Total = total) |>
+  mutate(p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")) |>
+  rename(Host = repo_host, `%` = p) |>
   tt()
 ```
 

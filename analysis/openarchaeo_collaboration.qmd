@@ -39,7 +39,7 @@ library("openarchaeoCollaboration") # this package, install with devtools::build
 
 library("english")
 library("fs")
-library("geomtextpath")
+library("ggdist")
 library("ggiraph")
 library("ggraph")
 library("here")
