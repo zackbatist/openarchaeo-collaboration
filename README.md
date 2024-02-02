@@ -17,11 +17,17 @@ To reproduce the analysis in full:
 2. Build and install the package with `devtools::install(dependencies = TRUE)` (shortcut `Ctrl+Shift+B` in RStudio)
 3. Render the analysis with `quarto render analysis/openarchaeo_collaboration.qmd`
 
-You will need to set up a personal access token (PAT) to access the GitHub API:
+You can also step through the individual sections of the analysis in the RMarkdown documents under `analysis/` (`_01-introduction.qmd`, `_02-background.qmd`, etc.)
+These must be run in sequence and after the main document `openarchaeo_collaboration.qmd`, which loads the packages the analysis uses.
+
+The GitHub data we used for the published analysis is cached in `analysis/data/derived_data/oarch.RData`.
+If you want to update or re-acquire it, you will need to set up a personal access token (PAT):
 
 ```r
 usethis::create_github_token()
 ```
+
+Note that this is time-consuming and must be done in batches to stay within GitHub's rate limit.
 
 ## Citation
 
