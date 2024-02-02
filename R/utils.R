@@ -7,3 +7,15 @@
 n_filter <- function(.data, ...) {
   nrow(dplyr::filter(.data, ...))
 }
+
+#' Mimic hugo's slugification algorithm
+#'
+#' @param x Character vector to slugify
+#'
+#' @export
+slugify <- function(x) {
+  x |>
+    tolower() |>
+    stringr::str_remove_all(",") |>
+    stringr::str_replace_all("\\W", "-")
+}

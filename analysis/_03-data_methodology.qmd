@@ -2,7 +2,7 @@
 
 ```{r data-oarch}
 # TODO: update and replace with local file before submission
-read_csv("https://github.com/zackbatist/open-archaeo/raw/2023-08-29/open-archaeo.csv") |>
+read_csv("https://github.com/zackbatist/open-archaeo/raw/master/open-archaeo.csv") |>
   mutate(category = na_if(category, "?")) ->
   oarch
 
@@ -143,9 +143,20 @@ p_no_github <- sum(filter(oarch_forges, repo_host != "None" & repo_host != "GitH
 ```{r tbl-forges}
 #| tbl-cap: Software forges used by open archaeology projects
 oarch_forges |>
-  mutate(p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")) |>
+  mutate(
+    repo_host = recode(
+      repo_host,
+      "GitHub" = "[GitHub](https://github.com/)",
+      "Codeberg" = "[Codeberg](https://codeberg.org/)",
+      "GitLab" = "[GitLab](https://about.gitlab.com/)",
+      "BitBucket" = "[Bitbucket](https://bitbucket.org/product/)",
+      "Launchpad" = "[Launchpad](https://launchpad.net/)"
+    ),
+    p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")
+  ) |>
   rename(Host = repo_host, `%` = p) |>
-  tt()
+  tt() |>
+  format_tt(1, markdown = TRUE)
 ```
 
 Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API using the R package `gh` [@csardi2023].

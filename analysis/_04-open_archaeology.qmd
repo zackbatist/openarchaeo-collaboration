@@ -27,18 +27,19 @@ See [@batist2023] for a more comprehensive overview of the tags and categories a
 ```{r tbl-categories}
 #| tbl-cap: Categories of open archaeology projects
 tribble(
-  ~category,                               ~kind,       ~scope,
-  "Packages and libraries",                "Software", "Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.",
-  "Standalone software",                   "Software", "Software that may be operated without needing to first access an underlying platform.",
-  "Scripts",                               "Software", "Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.",
-  "Specifications, protocols and schemas", "Documents", "A formal data structure or framework intended to be used as a model.",
-  "Products",                              "Documents", "Stable outcomes of creative work.",
-  "Guides",                                "Documents", "An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.",
-  "Lists and datasets",                    "Documents", "A series of consistently organized observations assembled with purpose."
+  ~category, ~url,                               ~kind,       ~scope,
+  "Packages and libraries", "https://open-archaeo.info/categories/packages-and-libraries/",                "Software", "Sets of functions assembled with clear purpose, and made accessible using standards established by an underlying platform.",
+  "Standalone software", "https://open-archaeo.info/categories/standalone-software/",                   "Software", "Software that may be operated without needing to first access an underlying platform.",
+  "Scripts", "https://open-archaeo.info/categories/scripts/",                               "Software", "Sets of pragmatically assembled mutable functions, often lacking complete documentation or adherence to protocols that would otherwise facilitate secondary use outside their original contexts of creation.",
+  "Specifications, protocols and schemas", "https://open-archaeo.info/categories/specifications-protocols-and-schemas/", "Documents", "A formal data structure or framework intended to be used as a model.",
+  "Products", "https://open-archaeo.info/categories/products/",                              "Documents", "Stable outcomes of creative work.",
+  "Guides", "https://open-archaeo.info/categories/guides/",                                "Documents", "An educational resource or documented protocol meant to instruct readers how to apply relevant tools or techniques.",
+  "Lists and datasets", "https://open-archaeo.info/categories/lists-and-datasets/",                    "Documents", "A series of consistently organized observations assembled with purpose."
 ) |>
   left_join(oarch, by = "category") |>
-  count(kind, category, scope) |>
+  count(kind, category, url, scope) |>
   mutate(
+    category = glue("[{category}]({url})"),
     p = n / sum(n),
     p = paste0(format(p * 100, trim = TRUE, digits = 1), "%")
   ) |>
@@ -47,7 +48,8 @@ tribble(
   rename_with(tools::toTitleCase) |>
   rename(`%` = p) |>
   tt() |>
-  group_tt(list("Software" = 1, "Documents" = 4))
+  group_tt(list("Software" = 1, "Documents" = 4)) |>
+  format_tt(1, markdown = TRUE)
 ```
 
 ```{r data-categories-platforms}
@@ -145,7 +147,10 @@ oarch |>
   summarise(n = n(), .groups = "drop_last") |>
   mutate(total = sum(n)) |>
   pivot_wider(names_from = category, values_from = n) |>
-  mutate(across(everything(), \(x) replace_na(x, 0))) |>
+  mutate(
+    tag = glue("[{tag}](https://open-archaeo.info/{slugify(tag)})"),
+    across(everything(), \(x) replace_na(x, 0))
+  ) |>
   arrange(-total) |>
   rename(theme = tag) |>
   rename_with(tools::toTitleCase) |>
@@ -181,6 +186,7 @@ p_license_cc <- n_filter(oarch, str_detect(license, "CC")) / n_filter(oarch, !is
 
 ```{r tbl-repo-licenses}
 #| tbl-cap: Licenses used by open archaeology projects on GitHub
+# TODO: Add links to licenses?
 oarch |>
   mutate(license = str_remove(license, "-?\\d\\.\\d$")) |>
   count(license) |>

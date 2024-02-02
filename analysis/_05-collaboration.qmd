@@ -15,7 +15,7 @@ The maintainer can choose to merge (accept) or decline the pull request, facilit
 
 ```{r fig-lifespan}
 #| fig-cap: Lifespan of open archaeology repositories. Each point indicates a commit; excludes repositories with only one commit.
-oarch_gh |>
+fig_lifespan <- oarch_gh |>
   unnest(gh_commits) |>
   drop_na(datetime) |>
   filter(datetime > ymd("2001-01-02")) |> # Apparent error
@@ -43,6 +43,8 @@ oarch_gh |>
     panel.grid.minor.x = element_blank(),
     panel.grid.major.x = element_blank()
   )
+
+girafe(fig_lifespan)
 ```
 
 ```{r data-oarch_lifespan}
