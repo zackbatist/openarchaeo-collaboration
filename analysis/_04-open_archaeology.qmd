@@ -303,10 +303,10 @@ p_gh_repos_cum <- oarch |>
 p_gh_commits_cum / p_gh_repos_cum
 ```
 
-As we can see, archaeologists have been using git from even before GitHub was launched in 2008.
-But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth that has continued ever since.
-<!-- TODO: Update and note plateau -->
-
+As we can see <!-- this is no longer evident in the figure -->, archaeologists have been using git from even before GitHub was launched in 2008.
+But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth.
 Around this time we also see that GitHub starts being used to host documents and scripts.
 This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
 
+However, since around 2022, the number of new GitHub repositories has significantly plateaud, while the cumulative number of commits has continued to rise.
+This may relate to a general emphasis on maintaining existing code and working on established projects, rather than spinning up new ones.

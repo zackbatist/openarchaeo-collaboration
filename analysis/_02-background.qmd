@@ -26,4 +26,59 @@ The idea that scientists should generally contribute to a public domain of knowl
 
 Open science is typically compared with the open source movement in that they both involve a distributed, digitally-mediated and worldwide labour force, who somehow derive rough consensus directed towards assets held in the public domain [@tennant2020]. But they differ in terms of the contexts in which they operate, the stakeholders involved, and the kinds of outcomes they produce. Whereas open source emerged from concern of consumer rights and then developed as a means of maintaining resilient and collectively motivated projects, open science comes out of a desire to make research practices more transparent and accessible. Open source is performed by professional and hobbyist software developers alike, and participants contribute in a wide variety of ways (including: programming, writing documentation, translating software and documentation, bug reporting, and financial support), but, in open science, scientists are usually the only participants actively involved in creating and maintaining contributions. Moreover, whereas open source projects often attract participants with varied stakes in the software and use cases in mind, open science projects are typically bounded by small communities of specialists with very particular needs, and rarely anticipate use of their work beyond the limited scope of their primary targeted audience. Additionally, open science is bounded by the professional contexts in which science operates, and as such, produces outputs that can be easily credited to specific sets of individuals for reasons of tenure and promotion. Open science projects whose contributions are supported by research funding also face sustainability concerns, as participants lose motivation to contribute once funding runs out. Once a project is completed, papers have been published, and credit has been allocated, it is common for scientists to mark their projects as finished and move on to new endeavours. Open source projects, on the other hand, are motivated by a more practical need for the software to function properly in perpetuity, and contributors may remain actively or sporadically involved to satisfy users' needs, or to direct users to derivative and functional forks of abandoned software.
 
-The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a genuine desire to facilitate novel research opportunities, to make participation in scientific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. However, the predominant concern with implementing best tools to use, adopting optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards [cf. @kansa2014; @kintigh2015; @roosevelt2015] distract from fundamental tensions and contradictions regarding the actual value of working in the open. For instance, Faniel et al. [-@faniel2013 299-301], Atici et al. [-@atici2013 676-677], Huggett [-@huggett2018; -@huggett2022], @sobotkova2018, @opitz2021, @haciguzeller2021, and @batist2023a demonstrate that to make the reuse of archaeological data feasible and useful in a practical sense, it is necessary to re-introduce social friction that these infrastructures are designed to eliminate. In other words, the pressures and circumstances of being an archaeologist and doing archaeological research assert themselves when attempting to make practical use of these infrastructures, and therefore must be accounted for in their design and implementation. Here we aim to identify similar sources of dissonance with regards to the promise, potential, and actual implementation of open source software development models among archaeologists.
+The adoption of open source development models among archaeologists is generally informed by the broader open science movement, which is motivated by a genuine desire to facilitate novel research opportunities, to make participation in scientific research more equitable, to reclaim science as a public good, and to enhance the means of validating findings. However, the predominant concern with implementing best tools to use, adopting optimal data processing pipelines, and tying into global, web-based infrastructures, protocols and standards [cf. @kansa2014; @kintigh2015; @roosevelt2015] distract from fundamental tensions and contradictions regarding the actual value of working in the open. For instance, Faniel et al. [-@faniel2013 299-301], Atici et al. [-@atici2013 676-677], Huggett [-@huggett2018; -@huggett2022], @sobotkova2018, @opitz2021, @haciguzeller2021, and @batist2023a demonstrate that to make the reuse of archaeological data feasible and useful in a practical sense, it is necessary to re-introduce social friction that these infrastructures are designed to eliminate. In other words, the pressures and circumstances of being an archaeologist and doing archaeological research assert themselves when attempting to make practical use of these infrastructures, and therefore must be accounted for in their design and implementation. In this paper we aim to identify similar sources of dissonance with regards to the promise, potential, and actual implementation of open source software development models among archaeologists.
+
+## Open Source Infrastructure
+
+Open source is an inherently internet-based development model and is supported by technical infrastructures which facilitate global distribution of labour and code.
+Here we provide a brief overview of key technologies that archaeologists have come to rely on as they develop open source software.
+
+Chief among these is git, a protocol designed to facilitate open and distributed contributions to a common code base.
+It operates by providing mechanisms for synchronizing communal, web-based public repositories with local iterations stored on contributors' private workstations.
+Contributors who volunteer or are assigned to develop, inspect, or revise a specific aspect of a code base download a copy of the public repository into their own work environment, create a fork in which they apply their modifications, and then request that their fork be merged into the central code base.
+After a public repository's maintainers decide to merge the proposed changes into the communal code base, other developers may use git to download these changes while keeping their own independent forks intact.
+
+Git is also designed to facilitate code review and version control.
+All modifications are tracked as "diffs", which highlight additions or deletions to the code base, including changes within individual files.
+Typically, a contributor will group a series of changes into a more comprehensive "commit" based on a specific task or part of a workflow.
+Commits are always accompanied by a message, in which the contributor (ideally) describes the reason and context for the changes included in the commit.
+Moreover, git assigns each commit a unique identifier and identifies the contributor by name and email address to ensure some degree of public accountability.
+
+Forges, or collaborative software development platforms like GitHub, GitLab and Codeberg are designed to facilitate open source software development by hosting public git repositories.
+However, they also support common software developer and project management practices, such as issue and bug tracking, code-commenting, task management, identity and permissions management, web publishing, vulnerability detection, creation and maintenance of metadata, and financial sponsorship.
+These platforms also implement standard social media functions, like the ability to follow projects and individual users to receive updates on their activities, "star" certain repositories as favourites, and maintain a public-facing profile that includes personally-identifying information (e.g. profile picture, username, real name, employer or affiliation), references to all public activity on the platform, and links to the user's other social media profiles.
+Code-sharing platforms thus serve as comprehensive developer portfolios and community networking resources.
+While these additional features are meant to complement and enhance the experience of contributing to open source projects, they are not actually part of the git protocol.
+See @tbl-glossary for a glossary of terminology used to describe many of these concepts and features, and which we use throughout this paper.
+
+```{r tbl-glossary}
+#| tbl-cap: Glossary of git and GitHub terminology
+tribble(
+  ~term, ~definition,
+  "Comment", "On GitHub, text post attached to an issue, including the first one that describes the issue",
+  "Commit", "Set of changes (addition, alteration, or deletion) to files in a repository that has been recorded by git as one entry in its log",
+  "Commit access", "Ability to make changes to a repository directly, without making a pull request",
+  "Contributor", "User that has made at least one commit to a specified repository",
+  "Follow", "Add activity by another user to a user's timeline",
+  "Forge", "Web-based platform for hosting, distributing and facilitating collaboration on version controlled computer code, e.g. GitHub, GitLab, Codeberg",
+  "Fork", "Copy of a repository owned by another user; forking is a prerequisite to making a pull request",
+  "git", "Open source version control software",
+  "GitHub", "Commercial platform that freely hosts git repositories and provides extended collaboration and social networking features, such as pull requests, issues and stars",
+  "GitLab", "Open source alternative to GitHub",
+  "CodeBerg", "Open source alternative to GitHub",
+  "Issue", "Feature of GitHub that records and tracks a bug report, feature request or other suggestion in a repository",
+  "Maintainer", "Individual that has overall control of a repository, generally assumed to be its primary contributor. Repositories can have multiple users with commit access in addition to the maintainer.",
+  "Merge", "Accept a pull request and incorporate its changes into a repository.",
+  "Organization", "Entity representing a group of users, which can also own repositories",
+  "Pull request", "Mechanism by which users that don't have commit access to a repository can contribute to it. The repository's maintainer or another user with commit access must decide whether to merge (accept) the changes, or decline them.",
+  "Repository", "Individual project that uses git for version control. Can include a mix of different types of files.",
+  "Star", "GitHub's version of a 'like', applied by users to a repository.",
+  "Timeline", "Chronological feed of GitHub activity from repositories a user has starred and other users they follow. Also includes repositories that a user is not following if they are 'trending' or determined relevant by GitHub's algorithm.",
+  "User", "On GitHub, an individual with an account that can own repositories",
+  "Version control", "System for tracking changes (additions, alterations, or deletions) in a set of files, typically but not exclusively computer code"
+) |>
+  rename_with(tools::toTitleCase) |>
+  tt() |>
+  format_tt(2, markdown = TRUE) |>
+  style_tt(j = 1, italic = TRUE)
+```

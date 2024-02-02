@@ -151,7 +151,7 @@ girafe(ggobj = g_repo_user)
 ```
 
 ```{r fig-graph-repo-repo}
-#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
+#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes repositories with only a single user.
 g_repo_repo <- oarch_graph_repo_repo |>
   group_by(cluster) |>
   mutate(cluster_n = n()) |>
@@ -171,7 +171,7 @@ girafe(ggobj = g_repo_repo)
 ```
 
 ```{r fig-graph-user-user}
-#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
+#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes users that have only contributed to a single repository.
 g_user_user <- oarch_graph_user_user |>
   group_by(cluster) |>
   mutate(cluster_n = n()) |>
@@ -203,8 +203,8 @@ The core cluster is characterized by repositories whose contributors commit to p
 Likewise, we applied the same edge-betweenness community detection method to identify clusters in the user-user network, which reveal collaborative groupings.
 We again see a complementary primary core connected to several more peripheral clusters, which are internally-cohesive and exhibit few connections with other peripheral clusters.
 The central core bridges all the peripheral clusters.
-The central core is not uniform, and comprises several relatively discrete sub-groups representing collaborative sub-communities.
-While these sub-groups are internally cohesive, they exhibit enough connections to other members of the central core so as to not be considered as separate or peripheral clusters.
+The central core is not uniform, and comprises several relatively discrete sub-clusters representing collaborative sub-communities.
+While these sub-clusters are internally cohesive, they exhibit enough connections to other members of the central core so as to not be considered as separate or peripheral clusters.
 
 In both the repository-repository and user-user networks, the peripheral clusters correspond with either the connections surrounding specific projects or the series of repositories created by single individuals and sometimes also their close colleagues.
 On the other hand, the central cores exhibit greater internal variety that may correspond with social connections and the formation of a complex software development community.
@@ -309,9 +309,8 @@ On the other hand, as discussed in @sec-open-archaeology, standalone software te
 Moreover, standalone software are generally rooted in longer-term and community-held objectives, and their development may therefore be backed by insitutions with funding and resources to support developers.
 
 Despite being the minority language, Python packages tend to be more central than R packages, on average.
-This might relate to the different ways in which R and Python developers call dependencies ???
-<!-- @ZB: I think this is interesting, but I couldn't really think of a general observation to make here. Maybe you can? -->
-<!-- I wonder what the median is? Also: cltk is a python script, and is the massive pink blob in the repo-repo and user-user networks, so that might skew things slightly -->
+Python projects in archaeology tend to be large, highly collaborative, and either infrastructural or of interest to other fields, so they have disproportionately high centrality.
+Our findings support the notion that there are significant development patterns when working with these two languages, and further analysis to qualify this observation is warranted.
 
 ```{r fig-user-betweenness-contribs}
 #| fig-cap: User centrality by total number of contributions. Centrality is measured by node betweenness weighted by number of contributions.
@@ -330,9 +329,6 @@ oarch_graph_user_user |>
 <!-- Predictors of user centrality -->
 Centrality to the user–user graph is weakly predicted by a user's overall rate of activity, as measured by their total number of contributions [@fig-user-betweenness-contribs]. 
 We did not collect demographic data on users that appear in our dataset, but based on our own knowledge of the community we can observe that those highly central to the network tend to be employed in (junior) academic positions, or in a few cases in cultural heritage authorities, rather than specifically as research software engineers.
-Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs [@baxter2012], and are increasingly precarious [@Cornelius-BellBell2021].
+Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs [@baxter2012], and are increasingly precarious [@cornelius-bell2021].
 This obviously poses a serious risk to the sustainability and growth of open source software in archaeology: if the people who occupy central positions in the network cease to be active, then it is likely that the overall network would fragment.
 Assessing and mitigating this risk should be a high priority for future research in this area.
-
-<!-- TODO: this should be backed up with a table or figure. The analysis seems to have got lost somewhere. Or just cut? -->
-We also applied the same betweenness centrality algorithm on a subnetwork whose links are based only on issues and comments, and not code contributions. In this subnetwork, people who commit less code have higher betweenness scores. However, many of the people with high betweenness from the graph representing all contributions also appear here. These people who appear in both of these lists have a tendency to contribute as both committers and as commenters. This list also includes a series of contributors who never or rarely commit code. Although it is out of this study's scope a qualitative analysis of issues and comments may yield more insight on the kinds of contributions that each of these participants make.
