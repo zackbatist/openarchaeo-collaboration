@@ -260,11 +260,12 @@ left + right
 ```
 
 <!-- Predictors of repo centrality -->
-<!-- TODO: Needs an update. These repos are no longer in the top 10, and it's probably best not to be so specific given how volatile that is. -->
-The repositories most central to the network as a whole [@tbl-repo-betweenness] include several lists and directories, including open-archaeo itself.
-Four of the top ten most central repositories (ISAAKiel/mortAAR, ISAAKiel/shapAAR, ISAAKiel/quantAAR, ropensci/c14bazAAR) are associated with the ISAA-Kiel group, emphasising the importance of existing 'real world' collaborations in structuring the network.
-Three (ropensci/c14bazAAR, ahb108/rcarbon, Chronomodel/chronomodel) are R packages relating to radiocarbon data and modelling, probably reflecting the fact that this has long been a prominent focus of statistical software development in archaeology.
-Repository centrality is predicted by the total number of commits it has received but, somewhat surprisingly, it is younger repositories rather than older ones that tend to be more central.
+The repositories most central to the network as a whole (@tbl-repo-betweenness) include three lists and directories, including open-archaeo itself.
+Three relate to making large data repositories accessible for analysis, and one is a very well-supported field recording application.
+Community input is therefore centred on infrastructural projects, including those which index and publicize available tools and resources.
+Moreover, three relate to radiocarbon data modelling and two relate to palaeoenvironment reconstruction, which reflects the fact that these have long been prominent foci of statistical software development in archaeology.
+
+Repository centrality is predicted by the total number of commits it has received but, somewhat surprisingly, younger repositories rather than older ones tend to be more central (@fig-repo-betweenness-age-length).
 Tentatively, we interpret this as an indication that the network has become more connected over time, but we leave a fuller analysis of temporal trends in collaborative activity to future work.
 
 ```{r fig-repo-betweenness-category-platform}
@@ -301,8 +302,8 @@ bottom <- oarch_graph_repo_repo |>
 top / bottom
 ```
 
-The highest mean centrality is seen in repositories that contain lists/datasets, standalone software, or packages/libraries, and in repositories based on Python, R or QGIS [@fig-repo-betweenness-category-platform].
-Interestingly, these trends depart from the observed popularity of different categories/platform in the open-archaeo dataset as a whole (see @sec-open-archaeology): standalone software is more central than packages/libraries, even though there are more of the latter by a significant margin.
+When comparing across categories and platforms, the highest mean centrality is seen in repositories that contain lists and datasets, standalone software, or packages and libraries, and in repositories based on Python, R or QGIS (@fig-repo-betweenness-category-platform).
+Interestingly, these trends depart from the observed popularity of different categories and platforms in the open-archaeo dataset as a whole (see @sec-open-archaeology): standalone software is more central than packages/libraries, even though there are more of the latter by a significant margin.
 This may be due to the fact that many packages are developed to support specific practices or use-cases (often inspired by personal need), or are designed to run relatively stable statistical functions that need not change over time.
 These are therefore relatively stable and require little additional input after release.
 On the other hand, as discussed in @sec-open-archaeology, standalone software tend to integrate multiple system components and may evolve over time to add new features or support new workflows.
@@ -327,7 +328,7 @@ oarch_graph_user_user |>
 ```
 
 <!-- Predictors of user centrality -->
-Centrality to the user–user graph is weakly predicted by a user's overall rate of activity, as measured by their total number of contributions [@fig-user-betweenness-contribs]. 
+Centrality to the user–user graph is weakly predicted by a user's overall rate of activity, as measured by their total number of contributions (@fig-user-betweenness-contribs). 
 We did not collect demographic data on users that appear in our dataset, but based on our own knowledge of the community we can observe that those highly central to the network tend to be employed in (junior) academic positions, or in a few cases in cultural heritage authorities, rather than specifically as research software engineers.
 Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs [@baxter2012], and are increasingly precarious [@cornelius-bell2021].
 This obviously poses a serious risk to the sustainability and growth of open source software in archaeology: if the people who occupy central positions in the network cease to be active, then it is likely that the overall network would fragment.

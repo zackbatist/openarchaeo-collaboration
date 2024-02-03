@@ -104,7 +104,7 @@ oarch_lifespan %>%
   theme_oarch()
 ```
 
-The interaction between project longevity, activity, and number of contributors is multifaceted [@fig-lifespan-rate].
+The interaction between project longevity, activity, and number of contributors is multifaceted (@fig-lifespan-rate).
 Highly active projects (one commit per day or more) tend to be either very long-lived or very short-lived; few fall in the centre of the distribution.
 Short-lived projects tend to be characterised by a 'spree' of activity (a high commit rate), while long-lived projects have a broader range of activity profiles.
 The most "successful" projects according to open source norms (i.e. long-lived and active) are with few exceptions those projects with the largest contributor base in our dataset.

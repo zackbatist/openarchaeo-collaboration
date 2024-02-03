@@ -128,7 +128,7 @@ Many of these are targeted by only one or two developers; the larger platforms t
 At first glance, the relative popularity of R versus Python is perhaps surprising; Python is regularly ranked as the most popular programming language in the world, with R a distant runner-up.
 However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
 
-Our analysis of tags highlights aspects of archaeological work that software developers are inclined to contribute to [@tbl-tags].
+Our analysis of tags highlights aspects of archaeological work that software developers are inclined to contribute to (@tbl-tags).
 The most common tags unsurprisingly deal with work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
 Educational resources and practical guides are also well represented due to the web's usefulness as a medium for sharing and communication.
 
@@ -202,9 +202,9 @@ oarch |>
   tt()
 ```
 
-Roughly half of open-archaeo repositories are accompanied by an explicit license [@tbl-repo-licenses].
+Roughly half of open-archaeo repositories are accompanied by an explicit license (@tbl-repo-licenses).
 Two common free software licenses account for the majority of these: the GNU General Public License (GPL, `r percent(p_license_gpl)`) and the MIT License (`r percent(p_license_mit)`).
-These differ primarily in the restrictions they place on reuse: the MIT License aims to be maximally permissive, while the GPL is a 'copyleft' license that specifies that all derivative works must be distributed under similar terms (in other words, it prohibits the use of FOSS software within non-FOSS software, [@dusollier2007]).
+These differ primarily in the restrictions they place on reuse: the MIT License aims to be maximally permissive, while the GPL is a 'copyleft' license that specifies that all derivative works must be distributed under similar terms (in other words, it prohibits the use of open source software within non-open software, [@dusollier2007]).
 Archaeologists' preference for the more restrictive of these two licenses is the reverse of the general trend seen in open source projects on GitHub [@balter2015].
 Creative Commons licenses are a distant third place (`r percent(p_license_cc)` of repositories), in contrast to their widespread use for other forms of scholarly output [@kim2007].
 Many repositories do not specify a license; given a documented misconception among academics that GitHub can serve as a sustainable and long-term code and data hosting platform [@milliken2021; @escamilla2022; @escamilla2023], it is possible that many maintainers whose work is included in open-archaeo similarly assumed that making their work available, without explicitly stating permissible use, is enough to allow unrestricted access to the repository's contents.
