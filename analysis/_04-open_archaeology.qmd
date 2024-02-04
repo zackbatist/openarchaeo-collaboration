@@ -22,7 +22,7 @@ As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and 
 It includes both software and documents, but not research compendiums.^[see [https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code](https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code) for a similar list of archaeology publications that include R code]
 We annotated each record with categories and tags that describe what aspect of archaeological research each tool or resource was meant to address.
 We categorized all records based on how each tool or resource is meant to be accessed or used, and assigned tags based on how developers identified their projects' purpose and scope.
-See [@batist2023] for a more comprehensive overview of the tags and categories applied to open-archaeo.
+See @batist2023 for a more comprehensive overview of the tags and categories applied to open-archaeo.
 
 ```{r tbl-categories}
 #| tbl-cap: Categories of open archaeology projects

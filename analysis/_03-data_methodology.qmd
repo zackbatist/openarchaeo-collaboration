@@ -3,7 +3,7 @@
 ```{r data-oarch}
 # open-archaeo version 2024-02-03
 # https://doi.org/10.5281/zenodo.10613694
-oarch <- read_csv(here("analysis/data/raw_data/open-archaeo_2024-02-03.csv"))
+oarch <- read_csv(here("analysis/data/raw_data/open-archaeo_2024-02-04.csv"))
 
 # Extract clean repos from GitHub URLs
 oarch <- mutate(

@@ -309,9 +309,12 @@ These are therefore relatively stable and require little additional input after 
 On the other hand, as discussed in @sec-open-archaeology, standalone software tend to integrate multiple system components and may evolve over time to add new features or support new workflows.
 Moreover, standalone software are generally rooted in longer-term and community-held objectives, and their development may therefore be backed by insitutions with funding and resources to support developers.
 
-Despite being the minority language, Python packages tend to be more central than R packages, on average.
-Python projects in archaeology tend to be large, highly collaborative, and either infrastructural or of interest to other fields, so they have disproportionately high centrality.
-Our findings support the notion that there are significant development patterns when working with these two languages, and further analysis to qualify this observation is warranted.
+Despite being a minority language, Blender packages are more central than all other package platforms on average, but this is a statistical anomaly caused by uneven sampling.
+R is naturally the platform with the next highest average centrality since it serves as a _lingua franca_ that draws developers from across the discipline.
+Many of the QGIS plugins add various specialized features to the extensible GIS platform, and are therefore developed by interdisciplinary teams, which explains its high rank.
+Python projects, which tend to be infrastructural or are of interest to members of other fields, are also highly ranked in terms of average centrality.
+It should be noted that while Blender and QGIS plugins are written using the Python language, our intent while categorizing platforms was to get a sense of the developer ecosystems in which archaeological software engineers participate, rather than to simply gauge the popularity of different languages [@batist2023 2].
+Our findings support the notion that there are significant development patterns when working across different languages and platforms, and further analysis to qualify these observation is warranted.
 
 ```{r fig-user-betweenness-contribs}
 #| fig-cap: User centrality by total number of contributions. Centrality is measured by node betweenness weighted by number of contributions.
