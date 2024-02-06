@@ -120,7 +120,7 @@ We opted to only collect repository data from GitHub because it is the most popu
 This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data included in open-archaeo itself.
 We also exclude collaboration through offline or private channels, or forms of collaboration we do not know about. 
 We did not directly observe or interview archaeological software developers, though our conclusions do draw heavily from our experience as members of that community ourselves. 
-Our earliest data is from 2005 and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it [@ducke2013 ; @whallon1972].
+Our earliest data is from 2005 and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it [@ducke2013; @whallon1972].
 
 These caveats notwithstanding, the open-archaeo directory and the supplemental data from the GitHub API provide a rich resource to explore the nature of collaborative software engineering in archaeology.
 Here we employ exploratory data analysis [@tukey1977] to identify and characterise overall trends visible in this rich dataset.
