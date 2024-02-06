@@ -4,24 +4,10 @@ bibliography: references.bib
 
 # Open archaeology {#sec-open-archaeology}
 
-<!-- Results I: description of open archaeology projects
-
-- What kind of projects comprise open archaeology?
-  x Breakdown of tags and categories
-  x Breakdown of platforms and languages
-  x Tags by category
-  x Licenses?
-- How has this changed over time?
-  - Growth of open archaeology by number of commits
-  - Growth of open archaeology by number of repos
-  - Compare changing proportions of each category on a year by year basis
-  - Identify periods associated with different rates of growth, and relate these with different general attitudes in the history of digital archaeology
--->
-
 As of writing, open-archaeo catalogues `r nrow(oarch)` resources created by and for archaeologists.
 It includes both software and documents, but not research compendiums.^[see [https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code](https://github.com/benmarwick/ctv-archaeology#publications-that-include-r-code) for a similar list of archaeology publications that include R code]
 We annotated each record with categories and tags that describe what aspect of archaeological research each tool or resource was meant to address.
-We categorized all records based on how each tool or resource is meant to be accessed or used, and assigned tags based on how developers identified their projects' purpose and scope.
+We also categorized all records based on how each tool or resource is meant to be accessed or used, and assigned tags based on how developers identified their projects' purpose and scope.
 See @batist2023 for a more comprehensive overview of the tags and categories applied to open-archaeo.
 
 ```{r tbl-categories}
@@ -90,7 +76,7 @@ p_scripts <- n_scripts / nrow(oarch)
 
 In our breakdown of open-archaeo by category (see @tbl-categories), we demonstrate the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold.
 Most resources (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language or a plugin for an application.
-The designers of this code are basically creating additional functions within the base platform that are useful for archaeological purposes.
+Essentially such projects create additional functions within the base platform that are useful for archaeological purposes.
 Others create standalone software (`r percent(p_standalone)`) that can be run independently of such platforms, for example desktop or web apps.
 A significant number of projects also comprise of datasets (`r percent(p_datasets)`) and non-packaged code snippets (`r percent(p_scripts)`) that have been made available for general use.
 
@@ -128,11 +114,11 @@ Many of these are targeted by only one or two developers; the larger platforms t
 At first glance, the relative popularity of R versus Python is perhaps surprising; Python is regularly ranked as the most popular programming language in the world, with R a distant runner-up.
 However, it accords with the popularity of R as a tool for data analysis in archaeology [@schmidt2020] and other scientific disciplines [@lai2019].
 
-Our analysis of tags highlights aspects of archaeological work that software developers are inclined to contribute to (@tbl-tags).
-The most common tags unsurprisingly deal with work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
+Our analysis of thematic tags highlights aspects of archaeological work that software developers are inclined to contribute to (@tbl-tags).
+The most common themes are work that naturally benefits from advanced information processing afforded by computers, such as statistical analysis, sample calibration, geographical analysis, data management, and chronological modelling.
 Educational resources and practical guides are also well represented due to the web's usefulness as a medium for sharing and communication.
 
-When we compare categories with tags, we see the general domains that each kind of resource is designed to serve.
+When we compare categories with thematic tags, we see the general domains that each kind of resource is designed to serve.
 We see that packages are fairly common across the board.
 Tags that are notable for having a higher proportion of standalone software include archaeogenetics, data management, 3D modelling, photogrammetry, drivers and IO, and simulations or agent based modelling.
 These tools may require greater access to system resources, or may require more complex user interfaces than are more complex than what R or Python IDEs (integrated development environments) tend to provide.
@@ -204,8 +190,8 @@ oarch |>
 
 Roughly half of open-archaeo repositories are accompanied by an explicit license (@tbl-repo-licenses).
 Two common free software licenses account for the majority of these: the GNU General Public License (GPL, `r percent(p_license_gpl)`) and the MIT License (`r percent(p_license_mit)`).
-These differ primarily in the restrictions they place on reuse: the MIT License aims to be maximally permissive, while the GPL is a 'copyleft' license that specifies that all derivative works must be distributed under similar terms (in other words, it prohibits the use of open source software within non-open software, [@dusollier2007]).
-Archaeologists' preference for the more restrictive of these two licenses is the reverse of the general trend seen in open source projects on GitHub [@balter2015].
+These differ primarily in the restrictions they place on reuse: the MIT License aims to be maximally permissive, while the GPL is a 'copyleft' license that specifies that all derivative works must be distributed under similar terms (in other words, it prohibits the use of open source software within non-open software, [@dusollier2007].
+Interestingly, archaeologists' preference for the more restrictive of these two licenses is the reverse of the general trend seen in open source projects on GitHub [@balter2015].
 Creative Commons licenses are a distant third place (`r percent(p_license_cc)` of repositories), in contrast to their widespread use for other forms of scholarly output [@kim2007].
 Many repositories do not specify a license; given a documented misconception among academics that GitHub can serve as a sustainable and long-term code and data hosting platform [@milliken2021; @escamilla2022; @escamilla2023], it is possible that many maintainers whose work is included in open-archaeo similarly assumed that making their work available, without explicitly stating permissible use, is enough to allow unrestricted access to the repository's contents.
 However, we can not verify this potential explanation given the methods we currently employ, and more discursive qualitative research is needed to explore the rationales behind such decisions.

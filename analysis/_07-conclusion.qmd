@@ -23,7 +23,7 @@ This is marked by a variety of applications and use cases, including the use of 
 Moreover, archaeologists are very involved in broader scripting ecosystems, as is evident through the predominant creation of R packages and Python libraries designed to process the rich variety of archaeological information. 
 At the same time, archaeologists also create standalone software for more intensive tasks that require greater access to system resources or that warrant more complex user interfaces than what R and Python IDEs are capable of providing.
 
-Looking at the distribution of tags, we note that, among items listed as software, repositories tend to be focused on 
+Turning to the thematic distribution of open archaeology projects, we note that, among items listed as software, repositories tend to be focused on 
 various means of identifying distribution patterns (spatial, temporal, statistical), 
 calibrating data obtained from various instrumental methods (XRF, luminescence dating), 
 supporting specialized finds analysis (zooarchaeology, palaeobotany, archaeogenetics), 
@@ -43,6 +43,8 @@ We identify a core cluster representing a series of collaborative ties among mem
 This core exhibits complexity that corresponds with social patterns, such as the presence of various sub-clusters representing interconnected interest or affinity groups.
 Indeed, we demonstrate that real-world social connections and institutional support structures are strong predictors of centrality, since these sub-clusters are representative of established professional partnerships.
 This indicates that archaeological open source is firmly embedded within existing power structures that permeate academic life, both online and offline.
+
+Overall, we found that the vast majority of projects lack any collective effort and activity tends to abruptly end shortly after work is initiated. Projects that are maintained by multiple contributors tend to be backed by funded initiatives who employ locally and socially engaged individuals, or are warranted by participation in a scholarly community exhibiting genuine need for a particular kind of resource. Moreover, we found that the individuals who play critical roles in supporting the archaeological open source community are precariously employed workers. Contrary to popular claims about open source being inherently distributed, resilient, and open-ended, we found that, overall, archaeological open source is actually quite centralized, fragile, and based nearly exclusively on existing professional connections and endeavours.
 
 There is thus little evidence to support the notion that archaeologists benefit from the positive outcomes that are commonly argued to be the natural results of open source development models -- namely, greater degrees of transparency, extensibility and participatory action.
 While opening the source code may facilitate these positive outcomes as necessary preconditional factors, we argue that this only amounts to establishing the _potential_ for people to put these values into practice. 

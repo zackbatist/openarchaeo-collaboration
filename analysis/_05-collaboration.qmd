@@ -225,7 +225,7 @@ Additionally, our analyses neglects to account for contributions that are not tr
 Those who do not code may provide creative guidance or feedback during in-person meetings, via email, or using alternative online messaging or social media platforms.
 A more focused qualitative assessment of these non-coding and supportive work practices would shed more light on the totality of effort that goes into producing and maintaining open source projects.
 
-The prototypical and idyllic collaborative open source project ingrained into the common consciousness hypothetically comprises a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through forks and pull requests, plus an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
+The prototypical open source project comprises a core group of developers (often a single maintainer) that regularly commit new code, a wider network of collaborators that contribute through forks and pull requests, plus an active user base that create and comment on issues, who have indicated their support for the project by starring its repository.
 It is unclear whether archaeological software developers actually aim to operate following this model, or whether it is even suitable for supporting what open science aims to achieve.
 However it is clear that only a small number of open-archaeo projects operate according to this model.
 The majority of projects are in fact short-lived, with few contributors and a small number of commits.

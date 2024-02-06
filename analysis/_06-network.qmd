@@ -196,11 +196,11 @@ Our data shows that there is a significant network of archaeologists collaborati
 Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-user and @fig-graph-repo-repo).
 
 <!-- Clustering within the network -->
-To explore the topography of this network, we applied the edge–betweenness community detection method [@girvan2002] to delimit `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters in the repository–repository network.
+We delimited `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters that outline the topography of the repository–repository network.
 While many of these clusters are interconnected, some discrete components containing between 2-20 repositories appear as distinct from a primary core.
 The core cluster is characterized by repositories whose contributors commit to projects other than their own, and it includes a smorgasbord of projects whose contributors share varied interests.
 
-Likewise, we applied the same edge-betweenness community detection method to identify clusters in the user-user network, which reveal collaborative groupings.
+Clustering also reveals distinct collaborative networks within the user-user graph.
 We again see a complementary primary core connected to several more peripheral clusters, which are internally-cohesive and exhibit few connections with other peripheral clusters.
 The central core bridges all the peripheral clusters.
 The central core is not uniform, and comprises several relatively discrete sub-clusters representing collaborative sub-communities.
@@ -208,7 +208,7 @@ While these sub-clusters are internally cohesive, they exhibit enough connection
 
 In both the repository-repository and user-user networks, the peripheral clusters correspond with either the connections surrounding specific projects or the series of repositories created by single individuals and sometimes also their close colleagues.
 On the other hand, the central cores exhibit greater internal variety that may correspond with social connections and the formation of a complex software development community.
-This is evident through the fact that many of the connections represented in the cores emerge from underlying professional partnerships, namely research labs (e.g. ISAA-Kiel) and special interest groups (CAA-SSLA).
+This is evident through the fact that many of the connections represented in the cores emerge from more conventional professional networks, e.g. [ISAAKiel](https://isaakiel.github.io/), a working group centered around the University of Kiel), or [CAA-SSLA](https://sslarch.github.io/), a special interest group of the international scholarly society 'Computational and Quantitative Applications in Archaeology' (CAA) focused on scientific programming.
 Peripheral clusters that are connected to the central core by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
 
 ```{r tbl-repo-betweenness}
@@ -313,7 +313,7 @@ Despite being a minority language, Blender packages are more central than all ot
 R is naturally the platform with the next highest average centrality since it serves as a _lingua franca_ that draws developers from across the discipline.
 Many of the QGIS plugins add various specialized features to the extensible GIS platform, and are therefore developed by interdisciplinary teams, which explains its high rank.
 Python projects, which tend to be infrastructural or are of interest to members of other fields, are also highly ranked in terms of average centrality.
-It should be noted that while Blender and QGIS plugins are written using the Python language, our intent while categorizing platforms was to get a sense of the developer ecosystems in which archaeological software engineers participate, rather than to simply gauge the popularity of different languages [@batist2023 2].
+^[While Blender and QGIS plugins are written using the Python language, our intent while categorizing platforms was to get a sense of the developer ecosystems in which archaeological software engineers participate, rather than to simply gauge the popularity of different languages [@batist2023 2].]
 Our findings support the notion that there are significant development patterns when working across different languages and platforms, and further analysis to qualify these observation is warranted.
 
 ```{r fig-user-betweenness-contribs}
