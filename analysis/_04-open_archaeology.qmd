@@ -229,7 +229,7 @@ p_gh_commits_cum <- oarch |>
            x = ymd("2008-04-01", tz = "UTC"), y = 19000,
            label = "GitHub\nlaunched",
            vjust = 0) +
-  scale_x_datetime(limirs = c(ymd("2004-12-31", tz = "UTC"), dt_last_commit),
+  scale_x_datetime(limits = c(ymd("2004-12-31", tz = "UTC"), dt_last_commit),
                    date_breaks = "2 years", 
                    date_labels = "%Y",
                    expand = c(0,0)) +
