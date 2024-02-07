@@ -123,4 +123,4 @@ Finally, in @sec-network, we apply network analysis methods to investigate the f
 Our analyses combine to support our objectives of understanding what kinds of software and resources archaeologists are making, and how they create these tools in response to specific needs and use-cases, as afforded by offline social and professional connections, and within the context of an emerging community of practice.
 
 The quantitative analyses and figures presented here were generated with `r version$version.string` [@rcoreteam2023].
-The full data and code is available in the compendium that accompanies this paper [@roe2023] <!-- TODO: reference should be updated to reflect the actual version number and date -->.
+The full data and code is available in the compendium that accompanies this paper [@roe2024].
