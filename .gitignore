@@ -5,3 +5,5 @@
 .DS_Store
 analysis/openarchaeo_collaboration_files
 analysis/openarchaeo_collaboration_cache
+/.quarto/
+/_site/
