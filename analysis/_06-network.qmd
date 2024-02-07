@@ -209,8 +209,8 @@ The core cluster is characterized by repositories whose contributors commit to p
 Clustering also reveals distinct collaborative networks within the user-user graph.
 We again see a complementary primary core connected to several more peripheral clusters, which are internally-cohesive and exhibit few connections with other peripheral clusters.
 The central core bridges all the peripheral clusters.
-The central core is not uniform, and comprises several relatively discrete sub-clusters representing collaborative sub-communities.
-While these sub-clusters are internally cohesive, they exhibit enough connections to other members of the central core so as to not be considered as separate or peripheral clusters.
+The central core is not uniform, and comprises several relatively discrete clusters representing collaborative sub-communities.
+While these clusters are internally cohesive, they exhibit enough connections to other members of the central core so as to not be considered as separate or peripheral clusters.
 
 In both the repository-repository and user-user networks, the peripheral clusters correspond with either the connections surrounding specific projects or the series of repositories created by single individuals and sometimes also their close colleagues.
 On the other hand, the central cores exhibit greater internal variety that may correspond with social connections and the formation of a complex software development community.

@@ -13,15 +13,16 @@ author:
     orcid: 0000-0002-1011-1244
 date: "`r Sys.Date()`"
 abstract: |
-  Surveying the first quarter-century of computer applications in archaeology, Scollar [-@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines.  25 years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer [@baxter2012; @schmidt2020], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparent embrace of practices from free and open source software . Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system git and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of open source software using patterns that can diverge quite radically from conventional scholarly norms [@tennant2020].
+  Surveying the first quarter-century of computer applications in archaeology, Scollar [-@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines. Twenty five years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer [@baxter2012; @schmidt2020], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparent embrace of practices from free and open source software. Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system git and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of open source software using patterns that can diverge quite radically from conventional scholarly norms [@tennant2020].
 
-  In this paper, we investigate modes of collaboration in this emerging community of practice using open-archaeo [open-archaeo.info](open-archaeo.info), a curated list of archaeological software, augmented where available with data on their activity on GitHub.
-  We apply network analysis to map the networks of collaboration that have emerged among archaeologists using GitHub, and conduct a quantitative exploratory analysis to characterize the nature and intensity of these collaborations.
-  Our results show uneven adoption of open source collaborative practices beyond the basic use of git as a version control system and GitHub to host source code.
-  For instance, a majority of repositories have 1–3 contributors, with only a few projects distinguished by an active and diverse developer base.
-  Furthermore, community-oriented features, such as GitHub's 'issues' and 'comments', are used in only a minority of repositories.
-  Our network analysis similarly demonstrates that archaeological open source is firmly embedded within existing power structures that permeate academic life, and that apparent connections are representative of established professional partnerships.
-  As such, we find little evidence to support the notion that archaeologists benefit from the potential positive outcomes that are commonly argued to be the natural results of open source development models – namely, greater degrees of transparency, extensibility and participatory action.
+  In this paper, we investigate modes of collaboration in this emerging community of practice using 'open-archaeo', a curated list of archaeological software, and data on the activity of associated GitHub repositories and users.
+  We conduct an exploratory quantitative analysis to characterize the nature and intensity of these collaborations and map the collaborative networks that emerge from them.
+  We document uneven adoption of open source collaborative practices beyond the basic use of git as a version control system and GitHub to host source code.
+  Most projects do make use of collaborative features and, through shared contributions, we can can trace a collaborative network that includes the majority of archaeologists active on GitHub.
+  However, a majority of repositories have 1–3 contributors, with only a few projects distinguished by an active and diverse developer base.
+  Direct collaboration on code or other repository content—as opposed to the more passive, social media-style interaction that GitHub supports—remains very limited.
+  In other words, there is little evidence that archaeologists' adoption of open source *tools* (git and GitHub) has been accompanied by the decentralized, participatory forms of collaboration that characterise other open source communities.
+  On the contrary, our results indicate that research software engineering in archaeology remains largely embedded in conventional professional norms and organizational structures of academia.
 bibliography: references.bib
 format:
   html:
@@ -31,6 +32,8 @@ format:
     embed-resources: true
 execute:
   echo: false
+  message: false
+  warning: false
 ---
 
 ```{r setup}
