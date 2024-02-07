@@ -29,6 +29,8 @@ format:
     toc: true
     number-sections: true
     embed-resources: true
+execute:
+  cache: true
 ---
 
 ```{r setup, include=FALSE}

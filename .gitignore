@@ -3,6 +3,5 @@
 .RData
 .Ruserdata
 .DS_Store
-analysis/paper.html
-analysis/paper_files
-analysis/paper.rmarkdown
+analysis/openarchaeo_collaboration_files
+analysis/openarchaeo_collaboration_cache
