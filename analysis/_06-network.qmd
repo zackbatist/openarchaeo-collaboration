@@ -139,9 +139,11 @@ g_repo_user <- oarch_graph_repo_user |>
   ) |>
   ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(group = contrib, alpha = n_contrib)) +
-  geom_point_interactive(aes(x, y, colour = cluster, shape = node_type, 
-                             tooltip = node)) + 
-  scale_edge_alpha(trans = "log", guide = guide_none()) +
+  geom_point_interactive(
+    aes(x, y, colour = cluster, shape = node_type, tooltip = node),
+    alpha = 0.8
+  ) + 
+  scale_edge_alpha(trans = "log", guide = guide_none(), range = c(0.05, 0.25)) +
   scale_colour_discrete(guide = guide_none()) +
   labs(shape = NULL) +
   theme(panel.background = element_rect(fill = "white"), 
@@ -151,7 +153,7 @@ girafe(ggobj = g_repo_user)
 ```
 
 ```{r fig-graph-repo-repo}
-#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes repositories with only a single user.
+#| fig-cap: Graph of open archaeology repositories connected by common contributors. Darker edges indicate a great number of common contributors. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 g_repo_repo <- oarch_graph_repo_repo |>
   group_by(cluster) |>
   mutate(cluster_n = n()) |>
@@ -162,8 +164,11 @@ g_repo_repo <- oarch_graph_repo_repo |>
   ) |>
   ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(alpha = n)) +
-  geom_point_interactive(aes(x, y, colour = cluster, tooltip = repo)) + 
-  scale_edge_alpha(trans = "log", guide = guide_none()) +
+  geom_point_interactive(
+    aes(x, y, colour = cluster, tooltip = repo),
+    alpha = 0.8
+  ) + 
+  scale_edge_alpha(guide = guide_none(), range = c(0.05, 0.25)) +
   scale_colour_discrete(guide = guide_none()) +
   theme(panel.background = element_rect(fill = "white"))
 
@@ -171,7 +176,7 @@ girafe(ggobj = g_repo_repo)
 ```
 
 ```{r fig-graph-user-user}
-#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes users that have only contributed to a single repository.
+#| fig-cap: Graph of open archaeology users connected by contributions to common repositories. Darker edges indicate a great number of common repositories. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 g_user_user <- oarch_graph_user_user |>
   group_by(cluster) |>
   mutate(cluster_n = n()) |>
@@ -182,20 +187,21 @@ g_user_user <- oarch_graph_user_user |>
   ) |>
   ggraph(layout = "fr", niter = 5000, grid = "nogrid") +
   geom_edge_link(aes(alpha = n)) +
-  geom_point_interactive(aes(x, y, colour = cluster, tooltip = user)) + 
-  scale_edge_alpha(trans = "log", guide = guide_none()) +
+  geom_point_interactive(
+    aes(x, y, colour = cluster, tooltip = user),
+    alpha = 0.8
+  ) + 
+  scale_edge_alpha(guide = guide_none(), range = c(0.05, 0.25)) +
   scale_colour_discrete(guide = guide_none()) +
   theme(panel.background = element_rect(fill = "white"))
 
 girafe(ggobj = g_user_user)
 ```
 
-<!-- Is there a network? How big is it? -->
 Our data shows that there is a significant network of archaeologists collaborating on GitHub.
 `r percent(graph_n_repos / graph_n_repos_total)` of repositories and `r percent(graph_n_users / graph_n_users_total)` of users in our dataset are connected to at least one other repository or user.
 Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-user and @fig-graph-repo-repo).
 
-<!-- Clustering within the network -->
 We delimited `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters that outline the topography of the repository–repository network.
 While many of these clusters are interconnected, some discrete components containing between 2-20 repositories appear as distinct from a primary core.
 The core cluster is characterized by repositories whose contributors commit to projects other than their own, and it includes a smorgasbord of projects whose contributors share varied interests.
@@ -237,9 +243,9 @@ left <- oarch_graph_repo_repo |>
   ggplot(aes(age, betweenness)) +
   geom_point() +
   scale_x_log10() +
-  scale_y_log10() +
+  scale_y_log10(labels = NULL) +
   geom_smooth(method = "glm") +
-  labs(x = "Repository age (days)", y = "Centrality") +
+  labs(x = "Days", y = "Log centrality →") +
   theme_oarch()
 
 right <- oarch_graph_repo_repo |>
@@ -251,15 +257,14 @@ right <- oarch_graph_repo_repo |>
   ggplot(aes(length, betweenness)) +
   geom_point() +
   scale_x_log10() +
-  scale_y_log10() +
+  scale_y_log10(labels = NULL) +
   geom_smooth(method = "glm") +
-  labs(x = "Number of commits", y = NULL) +
+  labs(x = "Commits", y = NULL) +
   theme_oarch()
 
 left + right
 ```
 
-<!-- Predictors of repo centrality -->
 The repositories most central to the network as a whole (@tbl-repo-betweenness) include three lists and directories, including open-archaeo itself.
 Three relate to making large data repositories accessible for analysis, and one is a very well-supported field recording application.
 Community input is therefore centred on infrastructural projects, including those which index and publicize available tools and resources.
@@ -278,7 +283,7 @@ top <- oarch_graph_repo_repo |>
   mutate(category = fct_reorder(category, betweenness)) |>
   ggplot(aes(category, betweenness)) +
   geom_col() +
-  scale_y_log10() +
+  scale_y_log10(labels = NULL) +
   coord_flip() +
   labs(y = NULL, x = NULL) +
   theme_oarch()
@@ -296,7 +301,7 @@ bottom <- oarch_graph_repo_repo |>
   geom_col() +
   scale_y_log10(labels = NULL) +
   coord_flip() +
-  labs(y = "Centrality →", x = NULL) +
+  labs(y = "Log centrality →", x = NULL) +
   theme_oarch()
 
 top / bottom
@@ -330,7 +335,6 @@ oarch_graph_user_user |>
   theme_oarch()
 ```
 
-<!-- Predictors of user centrality -->
 Centrality to the user–user graph is weakly predicted by a user's overall rate of activity, as measured by their total number of contributions (@fig-user-betweenness-contribs). 
 We did not collect demographic data on users that appear in our dataset, but based on our own knowledge of the community we can observe that those highly central to the network tend to be employed in (junior) academic positions, or in a few cases in cultural heritage authorities, rather than specifically as research software engineers.
 Such positions tend to not to actively reward or encourage software development, at least not on a par with more traditional academic outputs [@baxter2012], and are increasingly precarious [@cornelius-bell2021].
