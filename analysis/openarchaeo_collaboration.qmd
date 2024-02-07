@@ -29,16 +29,7 @@ format:
     toc: true
     number-sections: true
     embed-resources: true
-  pdf:
-    documentclass: article
-    pagesize: a4
-    toc: true
-    number-sections: true
-    extra_dependencies: [ tabularray ]
-    includes:
-      in_header: fix-tables.tex # workaround for https://tex.stackexchange.com/questions/611786/misplaced-noalign-because-input-before-booktabs-rule
 execute:
-  cache: true
   echo: false
 ---
 
