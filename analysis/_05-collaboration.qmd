@@ -1,6 +1,6 @@
 # Collaborative practices {#sec-collaboration}
 
-```{r data-oarch_github}
+```{r data-oarch-github}
 # Subset of dataset with GitHub data
 oarch |> 
   filter(!is.na(gh_repo_info)) ->
@@ -45,7 +45,7 @@ oarch_gh |>
   )
 ```
 
-```{r data-oarch_lifespan}
+```{r data-oarch-lifespan}
 oarch_gh %>% 
   unnest(gh_commits) %>% 
   drop_na(datetime) %>% 

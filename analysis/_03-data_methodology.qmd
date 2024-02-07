@@ -66,7 +66,7 @@ n_contributors <- oarch |> drop_na(gh_repo) |> unnest(gh_contribs) |>
   distinct(contributor) |> nrow()
 ```
 
-```{r data-oarch_forges}
+```{r data-oarch-forges}
 oarch_forges <- oarch |>
   mutate(none = ifelse(is.na(github) & is.na(gitlab) & is.na(bitbucket) &
                          is.na(launchpad) & is.na(codeberg), "", NA)) |>

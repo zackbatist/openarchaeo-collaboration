@@ -1,6 +1,6 @@
 # An emerging community of practice? {#sec-network}
 
-```{r data-oarch_contributors}
+```{r data-oarch-contributors}
 oarch |>
   unnest(gh_contribs) |>
   drop_na(contributor) |>
@@ -149,7 +149,7 @@ g_repo_user <- oarch_graph_repo_user |>
   theme(panel.background = element_rect(fill = "white"), 
         legend.position = "bottom")
 
-girafe(ggobj = g_repo_user)
+if(knitr::is_html_output()) girafe(ggobj = g_repo_user) else g_repo_user
 ```
 
 ```{r fig-graph-repo-repo}
@@ -172,7 +172,7 @@ g_repo_repo <- oarch_graph_repo_repo |>
   scale_colour_discrete(guide = guide_none()) +
   theme(panel.background = element_rect(fill = "white"))
 
-girafe(ggobj = g_repo_repo)
+if(knitr::is_html_output()) girafe(ggobj = g_repo_repo) else g_repo_user
 ```
 
 ```{r fig-graph-user-user}
@@ -195,7 +195,7 @@ g_user_user <- oarch_graph_user_user |>
   scale_colour_discrete(guide = guide_none()) +
   theme(panel.background = element_rect(fill = "white"))
 
-girafe(ggobj = g_user_user)
+if(knitr::is_html_output()) girafe(ggobj = g_user_user) else g_user_user
 ```
 
 Our data shows that there is a significant network of archaeologists collaborating on GitHub.

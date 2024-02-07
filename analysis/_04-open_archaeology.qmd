@@ -100,7 +100,7 @@ oarch |>
   tt()
 ```
 
-```{r num-p_platform_r}
+```{r data-platforms}
 p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
 p_platform_python <- sum(oarch$platform == "Python", na.rm = TRUE) / nrow(oarch)
 p_platform_qgis <- sum(oarch$platform == "QGIS", na.rm = TRUE) / nrow(oarch)

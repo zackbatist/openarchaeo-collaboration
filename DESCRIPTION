@@ -34,7 +34,6 @@ Suggests:
     ggiraph,
     ggraph,
     glue,
-    gt,
     here,
     khroma,
     lubridate,

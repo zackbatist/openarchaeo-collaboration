@@ -29,21 +29,25 @@ format:
     toc: true
     number-sections: true
     embed-resources: true
+  pdf:
+    documentclass: article
+    pagesize: a4
+    toc: true
+    number-sections: true
+    extra_dependencies: [ tabularray ]
+    includes:
+      in_header: fix-tables.tex # workaround for https://tex.stackexchange.com/questions/611786/misplaced-noalign-because-input-before-booktabs-rule
 execute:
   cache: true
+  echo: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-	echo = FALSE,
-	message = FALSE,
-	warning = FALSE
-)
+```{r setup}
+options("tinytable_tabularray_placement" = "H")
+library("openarchaeoCollaboration") # this package, install with devtools::build()
 ```
 
-```{r dependencies, include=FALSE}
-library("openarchaeoCollaboration") # this package, install with devtools::build()
-
+```{r dependencies}
 library("english")
 library("fs")
 library("ggiraph")
