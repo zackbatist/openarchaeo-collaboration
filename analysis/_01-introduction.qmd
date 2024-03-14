@@ -1,19 +1,23 @@
 # Introduction {#sec-introduction}
 
-In their seminal vision for open archaeology, Beck and Neylon [-@beck2012 480-481] identified the movement as comprising a series of principles and practices "predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain" with the aim of "maximizing transparency, reuse and engagement while maintaining professional probity". Open archaeology therefore promotes more thoughtful scholarly communication practices, most notably in operations relating to publishing, data-sharing, education, and review processes. Archaeologists are also actively engaged in open source software development as means of sharing their research processes and creating tools and resources for general use.
+In a 2012 special issue of World Archaeology, Beck and Neylon [-@beck2012 480-481] idenfified open archaeology as comprising a series of principles and practices "predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain" with the aim of "maximizing transparency, reuse and engagement while maintaining professional probity".
+They situate open archaeology as a disciplinary branch of the open science movement, which promotes more thoughtful scholarly communication practices, most notably in operations relating to publishing, data-sharing, education, and review processes.
+@ducke2012 similarly argued that archaeologists should more actively engage in open source software development, which involves making source code available for anyone to freely access, modify or reuse, and which complements a common vision of open science as a communal, community-driven, self-correcting and wholly-transparent mode of production.
 
-The relationship between open science and open source is complicated by rhetorical claims that have a questionable connection to how academics actually _do_ open source. 
+However, the relationship between open science and open source is complicated by rhetorical claims that have a questionable connection to how academics actually _do_ open source. 
 Does academic open source actually make research processes more transparent and improve research outcomes? 
 Is it actually boosting efficiency by establishing a common store of knowledge and productive code? 
 Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass?
 Basically, is there more to it than just uploading code and data files to the internet?
 
-Despite hopeful aspirations espoused by open archaeology advocates [see @kansa2014; @kintigh2015], these outcomes are not a given. As per @nguyen2022, @pownall2023 and @leonelli2023 we believe that these outcomes only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results. However, practical circumstances and systemic value regimes that frame what it means to work as an archaeologist presently inhibit the potential for radical transformation, even among open science's most ardent supporters.
+Despite these hopeful aspirations espoused by open archaeology advocates [see @kansa2014; @kintigh2015], these beneficial outcomes are not a given.
+As per @nguyen2022, @pownall2023 and @leonelli2023 we believe that these outcomes only actually arise in contexts where participants adhere to and are motivated by warrants, professional norms, and governance strategies that encourage these results.
+However, practical circumstances and systemic value regimes that frame what it means to work as an archaeologist presently inhibit the potential for radical transformation, even among open science's most ardent supporters.
 
 There is no question that archaeologists are prolific software developers [@batist2023].
 But beyond simply making their code available on the web, do archaeologists also implement social strategies to advance open source ideals? Does archaeological open source actually help achieve greater transparency, sustainability, and community participation? And if not, what does it actually achieve?
 
-This article presents a survey of archaeological software development with two goals in mind:
+This article presents a survey of open source archaeological software development with two goals in mind:
 
 (1) we identify *what* kinds of software archaeologists are making; and
 (2) we evaluate *how* archaeologists create these tools, with particular emphasis on practices of collaboration.

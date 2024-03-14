@@ -318,7 +318,6 @@ Despite being a minority language, Blender packages are more central than all ot
 R is naturally the platform with the next highest average centrality since it serves as a _lingua franca_ that draws developers from across the discipline.
 Many of the QGIS plugins add various specialized features to the extensible GIS platform, and are therefore developed by interdisciplinary teams, which explains its high rank.
 Python projects, which tend to be infrastructural or are of interest to members of other fields, are also highly ranked in terms of average centrality.
-^[While Blender and QGIS plugins are written using the Python language, our intent while categorizing platforms was to get a sense of the developer ecosystems in which archaeological software engineers participate, rather than to simply gauge the popularity of different languages [@batist2023 2].]
 Our findings support the notion that there are significant development patterns when working across different languages and platforms, and further analysis to qualify these observation is warranted.
 
 ```{r fig-user-betweenness-contribs}

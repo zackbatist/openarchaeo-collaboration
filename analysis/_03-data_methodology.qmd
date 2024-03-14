@@ -12,7 +12,7 @@ oarch <- mutate(
 )
 ```
 
-We present an exploratory quantitative analysis of open-archaeo [[open-archaeo.info](open-archaeo.info), @batist2023], a directory of `r nrow(oarch)` pieces of open source archaeological software and other digital resources maintained primarily by one of us (ZB) since 2018.
+We present an exploratory quantitative analysis of open-archaeo [open-archaeo.info, @batist2023], a directory of `r nrow(oarch)` pieces of open source archaeological software and other digital resources maintained primarily by one of us (ZB) since 2018.
 
 We compiled the dataset by browsing collaborative software development platforms, relying heavily on their social networking features.
 More specifically, we update open-archaeo by manually crawling through archaeologists' profiles on these platforms, as well as on other personal, professional, and institutional websites that describe and host additional archaeological software.
@@ -29,6 +29,7 @@ Open-archaeo is a relatively comprehensive list.
 While our initial intention was to only list open source software, its scope has expanded to include all software created by and for archaeologists.
 Apart from regular updates by its primary maintainer (ZB), it has been expanded by a wider network of contributors and has benefited from the wider range of domain specialisms this has brought.
 However, open-archaeo generally lacks software written before archaeologists started using collaborative software development platforms such as GitHub, and software that is not shared on the web at all.
+It also includes numerous non-software resources, as well as software developed and distributed without the use of software forges.
 The dataset is also limited by the experiences of its primary maintainers.^[We welcome anyone, especially domain specialists who are familiar with the kinds of tools commonly used in their specific fields, to help fill in these gaps. Instructions for contributing to open-archaeo can be found at <https://github.com/zackbatist/open-archaeo>.]
 
 ```{r data-github}
@@ -107,11 +108,13 @@ oarch_forges |>
 ```
 
 Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API (application programming interface).
-Our analysis incorporates data on `r n_repos` repositories, comprising `r n_commits` commits, `r n_issues` issues/pull requests, and `r n_comments` from `r n_contributors` distinct users, as well as repository metadata on programming languages used, licensing, stars and forks, and so on.
+Our analysis incorporates data on `r n_repos` repositories^[We excluded three GitHub repositories from the analysis for technical reasons. For example, https://github.com/carpentries-incubator/R-archaeology-lesson is a repository within the scope of open-archaeo, but it was forked from a pre-existing repository that is not (https://github.com/datacarpentry/R-ecology-lesson) and thus includes in its commit history irrelevant data from the parent repository.], comprising `r n_commits` commits, `r n_issues` issues/pull requests, and `r n_comments` from `r n_contributors` distinct users, as well as repository metadata on programming languages used, licensing, stars and forks, and so on.
 
 We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
-This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or host it elsewhere (`r percent(p_no_github)` of the total), are excluded from these parts of the analysis, though we were still able to perform an analysis of their contents and authorship from the data compiled in open-archaeo itself.
-We also cannot include collaboration through offline or private channels, or forms of collaboration we do not know about. 
+This means that projects that do not use version control (`r percent(p_no_vc)` of the total), or which develop and host code on platforms other than GitHub (`r percent(p_no_github)` of the total), were excluded from parts of the analysis that examine *how* archaelogists develop software.
+However, we were still able to draw from all records to ascertain the general composition of open-archaeo, and by extension, to address *what* kinds of software and resources archaeologists make.
+
+That being said, we cannot account for practices that occur through offline or private channels, or forms of collaboration we do not know about. 
 We did not directly observe or interview archaeological software developers, though our conclusions do draw heavily from our experience as members of that community ourselves. 
 Our earliest data is from 2005 and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it [@ducke2013; @whallon1972].
 
