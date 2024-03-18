@@ -214,7 +214,7 @@ While these clusters are internally cohesive, they exhibit enough connections to
 
 In both the repository-repository and user-user networks, the peripheral clusters correspond with either the connections surrounding specific projects or the series of repositories created by single individuals and sometimes also their close colleagues.
 On the other hand, the central cores exhibit greater internal variety that may correspond with social connections and the formation of a complex software development community.
-This is evident through the fact that many of the connections represented in the cores emerge from more conventional professional networks, e.g. [ISAAKiel](https://isaakiel.github.io/), a working group centered around the University of Kiel), or [CAA-SSLA](https://sslarch.github.io/), a special interest group of the international scholarly society 'Computational and Quantitative Applications in Archaeology' (CAA) focused on scientific programming.
+This is evident through the fact that many of the connections represented in the cores emerge from more conventional professional networks, e.g. the [ISAAKiel](https://isaakiel.github.io/) group based at the University of Kiel or [CAA-SSLA](https://sslarch.github.io/), a special interest group of the international scholarly society 'Computational and Quantitative Applications in Archaeology' (CAA) focused on scientific programming, and which clusters around users 'nevrome' and 'martinHinz', who are core members of both organizations.
 Peripheral clusters that are connected to the central core by only a few relationships represent the sole (or perhaps initial) integration of lone developers into a broader community.
 
 ```{r tbl-repo-betweenness}
