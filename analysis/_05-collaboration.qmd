@@ -230,5 +230,11 @@ It is unclear whether archaeological software developers actually aim to operate
 However it is clear that only a small number of open-archaeo projects operate according to this model.
 The majority of projects are in fact short-lived, with few contributors and a small number of commits.
 Use of GitHub's collaboration features is also generally low (@fig-collab-features), although the data also shows a divergence between the uptake of features that facilitate direct code contributions (forks, issues, pull requests), which have markedly zero-skewed distributions, versus more indirect, social media-like features (comments, stars), which are moderately well-used.
-We hypothesise that this shows a preference for passive/reactive rather than active/proactive engagement with others work – a point we will return to in the conclusion.
+
+We hypothesise that these findings show a preference for passive/reactive rather than active/proactive engagement with others' work.
+This attitude is not conducive to achieving the desired outcomes of opening source code, namely enabling greater engagement, reuse and critique.
+The technical apparatus provides the _potential_ for archaeologists to perform these actions, but these are inherently social activities, and as such, are circumscribed by social norms, including expectations and taboos surrounding the permeability of a grant-funded project's boundaries, or whether or not it is proper to actively engage or interfere with the work directed under another the aegis of another project, during or after the project's completion.
+Our findings therefore suggest that there is no strong will to radically re-arrange the collaborative commitments that govern research practice.
+If we want to make open source effective in relation to the aforementioned goals, we also need to foster a culture that supports active, pragmatic and humble critique, and which instills a de-territorialized attitude concerning what it means to contribute to collective knowledge.
+This means fighting against the pathological power-relations that scaffold all aspects of academic life, and not fooling ourselves into believing that technical solutions (i.e. using git) will on their own resolve wicked social problems.
 
