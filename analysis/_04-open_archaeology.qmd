@@ -289,10 +289,14 @@ p_gh_repos_cum <- oarch |>
 p_gh_commits_cum / p_gh_repos_cum
 ```
 
-As we can see, archaeologists have been using git from even before GitHub was launched in 2008.
-But use of git really began to take off around 2014--2015, when we see an uptick in the rate of growth.
-Around this time we also see that GitHub starts being used to host documents and scripts.
-This may represent a recognition of GitHub's ability to track things other than code, and a willingness to experiment with version control systems as a medium for disseminating work in an open and somewhat nerdy way.
+Archaeologists have been using git from the early 2000s, before GitHub was launched,^[Commits dated to before GitHub's launch in 2008 come from repositories that were created earlier and later imported to GitHub's platform. We have excluded commits that have obviously erroneous dates, e.g. `2001-01-01` in projects started in the mid–late 2010s.].
+but it saw a marked increase in popularity c. 2014--2015.
+From that point and until recently there was an exponential uptake of GitHub by archaeologists,
+but while we were preparing this paper (c. 2022) the first signs of a diminishing growth have appeared,
+with the number of cumulative commits continuing to rise but the number of repositories hitting a sharp plateau.
+This could be explained by market exhaustion, a shift in emphasis to maintaining existing code and working on established projects, and/or growing doubts about the appropriateness and sustainability of GitHub following its acquisition by Microsoft [@kansa2022].^[Concerns we very much share.]
 
-However, since around 2022, the number of new GitHub repositories has significantly plateaued, while the cumulative number of commits has continued to rise.
-This may relate to a general emphasis on maintaining existing code and working on established projects, rather than spinning up new ones.
+GitHub's entry into the digital archaeology mainstream in 2014--2015 also marks the point at which we see it being used for things other than packaged source code (e.g. documents and scripts).
+This suggests that the 'early adopters' of GitHub, pre-2014, were more directly embedded in existing (open source) software development communities,
+while those that came later also saw version control systems as a potential medium for dissemination and archiving.
+It may also reflect a general move towards git- and GitHub-based workflows by archaeologists attracted to open, participatory, and/or generally 'nerdy' academic practices.
