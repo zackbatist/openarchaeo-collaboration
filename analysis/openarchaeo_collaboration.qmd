@@ -72,3 +72,4 @@ theme_oarch <- function() {
 {{< include _05-collaboration.qmd >}}
 {{< include _06-network.qmd >}}
 {{< include _07-conclusion.qmd >}}
+{{< include _99-appendices.qmd >}}

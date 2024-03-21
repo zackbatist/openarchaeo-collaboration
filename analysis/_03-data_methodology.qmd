@@ -55,6 +55,7 @@ if (!file_exists(cached_gh_data)) {
   oarch$gh_comments <- map(oarch$gh_repo, gh_comment, .progress = TRUE)
   oarch$gh_commits <- map(oarch$gh_repo, gh_commit, .progress = TRUE)
   saveRDS(oarch, cached_gh_data)
+  # TODO: save as CSVs too
 }
 oarch <- readRDS(cached_gh_data)
 
