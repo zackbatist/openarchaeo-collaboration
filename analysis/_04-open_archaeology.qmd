@@ -124,7 +124,7 @@ Tags that are notable for having a higher proportion of standalone software incl
 These tools may require greater access to system resources, or may require more complex user interfaces than what R or Python IDEs (integrated development environments) tend to provide.
 
 ```{r tbl-tags}
-#| tbl-cap: Themes of open archaeology projects. See https://github.com/zackbatist/open-archaeo/blob/master/tags.md for a more comprehensive description of each tag's scope.
+#| tbl-cap: Themes of open archaeology projects. See Batist and Roe [-@batist2023 table 1] for a description of each tag's scope.
 oarch |>
   pivot_longer(c(tag1, tag2, tag3, tag4, tag5), values_to = "tag",
                values_drop_na = TRUE) |>
