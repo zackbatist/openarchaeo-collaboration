@@ -127,6 +127,12 @@ write.gexf(igraph.to.gexf(oarch_graph_user_user),
            output = here("analysis/data/derived_data/oarch_user_user.gexf"))
 ```
 
+```{r setup-girafe}
+set_girafe_defaults(
+  opts_zoom = opts_zoom(min = 1, max = 9) 
+)
+```
+
 ```{r fig-graph-repo-user}
 #| fig-cap: Graph of open archaeology repositories and users connected by contributions. Darker edges indicate a great number of contributions. Node colour indicates membership of the largest clusters according to the edge–betweenness method [@girvan2002]. Excludes isolate nodes.
 g_repo_user <- oarch_graph_repo_user |>
