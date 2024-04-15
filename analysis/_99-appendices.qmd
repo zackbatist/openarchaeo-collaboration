@@ -1,7 +1,7 @@
 # Data availability {.appendix}
 
 The results presented here are based on the directory of open archaeology projects maintained at <https://open-archaeo.info> [@batist2023].
-The specific version we used is available from Zenodo at <https://doi.org/10.5281/zenodo.10625236> as well as in the compendium associated with this paper [@roe2024, https://doi.org/10.5281/zenodo.8393043], in CSV format under `analysis/raw_data`.
+The specific version we used is available from Zenodo at <https://doi.org/10.5281/zenodo.10625236> as well as in the compendium associated with this paper [@roe2024, <https://doi.org/10.5281/zenodo.8393043>], in CSV format under `analysis/raw_data`.
 
 Further data on activity in the git repositories associated with these projects was obtained via the GitHub API.
 This data is available from Zenodo in the compendium associated with this paper [@roe2024, <https://doi.org/10.5281/zenodo.8393043>], in RData and CSV format under `analysis/derived_data`.
