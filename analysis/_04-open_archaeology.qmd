@@ -289,7 +289,7 @@ p_gh_repos_cum <- oarch |>
 p_gh_commits_cum / p_gh_repos_cum
 ```
 
-Archaeologists have been using git from the early 2000s, before GitHub was launched,^[Commits dated to before GitHub's launch in 2008 come from repositories that were created earlier and later imported to GitHub's platform. We have excluded commits that have obviously erroneous dates, e.g. `2001-01-01` in projects started in the mid–late 2010s.].
+Archaeologists have been using git from at least the late 2000s, shortly after GitHub was launched,^[We excluded commits that have obviously erroneous dates, e.g. `2001-01-01` in projects started in the mid–late 2010s.].
 but it saw a marked increase in popularity c. 2014--2015.
 From that point and until recently there was an exponential uptake of GitHub by archaeologists,
 but while we were preparing this paper (c. 2022) the first signs of a diminishing growth have appeared,
