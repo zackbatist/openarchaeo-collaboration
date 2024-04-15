@@ -294,7 +294,7 @@ but it saw a marked increase in popularity c. 2014--2015.
 From that point and until recently there was an exponential uptake of GitHub by archaeologists,
 but while we were preparing this paper (c. 2022) the first signs of a diminishing growth have appeared,
 with the number of cumulative commits continuing to rise but the number of repositories hitting a sharp plateau.
-This could be explained by market exhaustion, a shift in emphasis to maintaining existing code and working on established projects, and/or growing doubts about the appropriateness and sustainability of GitHub following its acquisition by Microsoft [@kansa2022b].^[Concerns we very much share.]
+This could be explained by market exhaustion, a shift in emphasis to maintaining existing code and working on established projects, and/or growing doubts about the appropriateness and sustainability of GitHub following its acquisition by Microsoft [@kansa2022].^[Concerns we very much share.]
 
 GitHub's entry into the digital archaeology mainstream in 2014--2015 also marks the point at which we see it being used for things other than packaged source code (e.g. documents and scripts).
 This suggests that the 'early adopters' of GitHub, pre-2014, were more directly embedded in existing (open source) software development communities,
