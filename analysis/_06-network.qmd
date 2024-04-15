@@ -232,10 +232,12 @@ oarch_graph_repo_repo |>
   left_join(oarch, c("repo" = "gh_repo")) |>
   mutate(n_commits = map_int(gh_commits, nrow)) |>
   unite(tags, tag1:tag5, sep = "; ", na.rm = TRUE) |>
+  mutate(repo = glue("[{repo}](https://github.com/{repo})")) |>
   transmute(rank = row_number(), repo, category, tags, n_commits) |>
   rename(repository = repo, commits = n_commits) |>
   rename_with(tools::toTitleCase) |>
-  tt()
+  tt() |>
+  format_tt(2, markdown = TRUE)
 ```
 
 ```{r fig-repo-betweenness-age-length}
