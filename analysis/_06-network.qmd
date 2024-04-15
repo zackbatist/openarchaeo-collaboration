@@ -241,7 +241,7 @@ oarch_graph_repo_repo |>
 ```
 
 ```{r fig-repo-betweenness-age-length}
-#| fig-cap: Repository centrality by age (left) and length (right). Centrality is measured by node betweenness weighted by number of contributions.
+#| fig-cap: Repository centrality by age (left) and length (right). Centrality is measured by node betweenness weighted by number of contributions. Blue line indicates a generalized linear regression, with confidence envelope shaded in grey.
 left <- oarch_graph_repo_repo |>
   as_tibble() |> 
   left_join(oarch, by = c("repo" = "gh_repo")) |>
@@ -329,7 +329,7 @@ Python projects, which tend to be infrastructural or are of interest to members 
 Our findings support the notion that there are significant development patterns when working across different languages and platforms, and further analysis to qualify these observation is warranted.
 
 ```{r fig-user-betweenness-contribs}
-#| fig-cap: User centrality by total number of contributions. Centrality is measured by node betweenness weighted by number of contributions.
+#| fig-cap: User centrality by total number of contributions. Centrality is measured by node betweenness weighted by number of contributions.  Blue line indicates a generalized linear regression, with confidence envelope shaded in grey.
 oarch_graph_user_user |>
   as_tibble() |> 
   left_join(oarch_contributors, by = c("user" = "contributor")) |>
