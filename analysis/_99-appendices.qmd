@@ -9,11 +9,9 @@ This data is available from Zenodo in the compendium associated with this paper 
 # Acknowledgements {.appendix}
 
 The impetus for this work was a session at the Computer Applications and Quantitative Methods in Archaeology (CAA) virtual annual meeting in Cyprus in June 2021.
-Our thanks to Martin Hinz, Clemens Schmid, Sophie Schmidt and other members of the 'scientific scripting languages in archaeology (CAA-SSLA, <https://sslarch.github.io/>) for organizing the session and encouraging us to develop the work further.
+Our thanks to Martin Hinz, Clemens Schmid, Sophie Schmidt and other members of the Scientific Scripting Languages in Archaeology Special Interest Group (CAA-SSLA, <https://sslarch.github.io/>) for organizing the session and encouraging us to develop the work further.
 
 Our original manuscript benefited greatly from the insights of the anonymous reviewer for *Internet Archaeology*.
 We are also grateful to *IA* editor Judith Winters for managing the process and facilitating the interactive figures.
 
 JR was supported by the Swiss National Science Foundation (SNSF Project #198152) for the duration of the production of this work.
-
-<!-- TODO: Zack: anything to add? -->
