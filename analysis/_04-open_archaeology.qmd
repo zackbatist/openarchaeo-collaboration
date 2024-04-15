@@ -75,7 +75,7 @@ p_scripts <- n_scripts / nrow(oarch)
 ```
 
 In our breakdown of open-archaeo by category (see @tbl-categories), we demonstrate the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold.
-Most resources (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language or a plugin for an application.
+Most resources (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language (e.g. radiocarbon calibration is implemented in R in the package 'rcarbon' or Python in the package 'iosacal') or a plugin for an application (e.g. 'ArchaeoAstroInsight' adds tools for measuring astronomical alignments to QGIS).
 Essentially such projects create additional functions within the base platform that are useful for archaeological purposes.
 Others create standalone software (`r percent(p_standalone)`) that can be run independently of such platforms, for example desktop or web apps.
 A significant number of projects also comprise of datasets (`r percent(p_datasets)`) and non-packaged code snippets (`r percent(p_scripts)`) that have been made available for general use.

@@ -79,3 +79,14 @@ However, they also support common software developer and project management prac
 These platforms also implement standard social media functions, like the ability to follow projects and individual users to receive updates on their activities, "star" certain repositories as a combine bookmarking and 'like' feature, and maintain a public-facing profile that includes personally-identifying information (e.g. profile picture, username, real name, employer or affiliation), references to all public activity on the platform, and links to the user's other social media profiles.
 Code-sharing platforms thus serve as comprehensive developer portfolios and community networking resources.
 While these additional features are meant to complement and enhance the experience of contributing to open source projects, they are not actually part of the git protocol.
+
+As a concrete example of how git and GitHub is used by archaeologists, we can take <https://open-archaeo.info> itself.
+The website at that address was at the time of writing generated from a *git* source repository containing the data on the individual entries, a set of HTML templates, and some R scripts that translate between them.
+A copy of this repository can be downloaded and worked on locally by anyone, who will have access not just to the current state of the source code but its full history through the git *version control* software.
+The authoritative version is hosted on *GitHub* at <https://github.com/zackbatist/open-archaeo>.
+The GitHub URL indicates the primary *maintainer* of the repository, 'zackbatist' – that is, one of us (Zack) – who created and has ultimate control over it.
+However, various other *contributors* (such as the other of us, Joe) have added entries, corrected entries, or added functionality to the website using the *fork* and *pull request* features of GitHub.
+The basic unit of this type of contribution is the *commit*, which is a discrete set of changes (e.g. adding an entry) associated with one contributor at a single point of time.
+Others have contributed by raising *issues* describing problems with or suggestions for the project, leaving *comments* on these issues, or more loosely by using GitHub's social media features (*stars* and *following*).
+The full history of all these types of contributions to open-archaeo can be accessed through GitHub – or, as we use here, its programmatic API.
+This basic workflow is the same whether the project in question is a document like open-archaeo, or a piece of software, or a research paper; though actual patterns of collaboration vary markedly, as we will see.
