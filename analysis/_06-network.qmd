@@ -21,8 +21,9 @@ oarch |>
 ```
 
 By contributing to shared repositories—whether with code (commits), issues, or comments—archaeologists using GitHub form a collaborative network which we can map using data from the GitHub API.
-Here we consider two facets of this network: repositories connected by common contributors (the repository–repository graph), and users connected by contributions to common repositories (the user–user graph).
+From a two-mode network with edges representing users’ contributions to repositories (Figure 6), we derived two one-mode networks that render co-contributions as connections in themselves: repositories connected by common contributors (the repository–repository graph, presented in Figure 7), and users connected by contributions to common repositories (the user–user graph, presented in Figure 8).
 In both cases, number of contributions constitutes a natural measure of the strength or weight of the connection, which can be further broken down by type of contribution (commit, issue/pull request, or comment).
+We identified clusters using the edge-betweenness community detection method, which operates by locating the edges that are situated along the shortest paths between all pairs of nodes, and which therefore exhibit high betweenness centrality; these edges form indirect links between otherwise completely unconnected sections of the network, and as such are the loci that distinguish groups of nodes that are more highly connected to each other than they are to others [@girvan2002].
 
 ```{r data-graph}
 oarch |>
@@ -204,19 +205,21 @@ g_user_user <- oarch_graph_user_user |>
 if(knitr::is_html_output()) girafe(ggobj = g_user_user) else g_user_user
 ```
 
-Our data shows that there is a significant network of archaeologists collaborating on GitHub.
+Our data show that there is a significant network of archaeologists collaborating on GitHub.
 `r percent(graph_n_repos / graph_n_repos_total)` of repositories and `r percent(graph_n_users / graph_n_users_total)` of users in our dataset are connected to at least one other repository or user.
 Of these, `r percent(max(subgraphs_n_repos$n) / graph_n_repos)` of repositories and `r percent(max(subgraphs_n_users$n) / graph_n_users)` of users belong to a single connected subgraph (@fig-graph-repo-user and @fig-graph-repo-repo).
+This indicates that most repositories that have had more than one contributor, or whose contributors have worked independently on more than one repository, are not isolated, and that at least one of their contributors have, at least one time, worked with members of a broader interconnected population.
 
-We delimited `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters that outline the topography of the repository–repository network.
+We delimited `r nrow(filter(clusters_n_repos, n > 1))` distinct clusters that outline the topography of the repository–repository network (@fig-graph-repo-repo).
 While many of these clusters are interconnected, some discrete components containing between 2-20 repositories appear as distinct from a primary core.
 The core cluster is characterized by repositories whose contributors commit to projects other than their own, and it includes a smorgasbord of projects whose contributors share varied interests.
 
-Clustering also reveals distinct collaborative networks within the user-user graph.
-We again see a complementary primary core connected to several more peripheral clusters, which are internally-cohesive and exhibit few connections with other peripheral clusters.
-The central core bridges all the peripheral clusters.
-The central core is not uniform, and comprises several relatively discrete clusters representing collaborative sub-communities.
-While these clusters are internally cohesive, they exhibit enough connections to other members of the central core so as to not be considered as separate or peripheral clusters.
+Clustering also reveals distinct collaborative networks within the user-user graph (@fig-graph-user-user).
+We again see a complementary primary interconnected subgraph and several unconnected subgraphs.
+The primary subgraph comprises several connected clusters, including one central cluster and several more peripheral clusters, which are internally-cohesive and exhibit few connections with other peripheral clusters.
+The central cluster bridges all the peripheral clusters.
+Moreover, the central cluster is not uniform, and comprises several relatively discrete components representing collaborative sub-communities.
+While these components are internally cohesive, they exhibit enough connections to other members of the central cluster so as to not be considered as separate or peripheral clusters.
 
 In both the repository-repository and user-user networks, the peripheral clusters correspond with either the connections surrounding specific projects or the series of repositories created by single individuals and sometimes also their close colleagues.
 On the other hand, the central cores exhibit greater internal variety that may correspond with social connections and the formation of a complex software development community.
@@ -319,14 +322,14 @@ When comparing across categories and platforms, the highest mean centrality is s
 Interestingly, these trends depart from the observed popularity of different categories and platforms in the open-archaeo dataset as a whole (see @sec-open-archaeology): standalone software is more central than packages/libraries, even though there are more of the latter by a significant margin.
 This may be due to the fact that many packages are developed to support specific practices or use-cases (often inspired by personal need), or are designed to run relatively stable statistical functions that need not change over time.
 These are therefore relatively stable and require little additional input after release.
-On the other hand, as discussed in @sec-open-archaeology, standalone software tend to integrate multiple system components and may evolve over time to add new features or support new workflows.
+On the other hand, standalone software tend to integrate multiple system components and may evolve over time to add new features or support new workflows.
 Moreover, standalone software are generally rooted in longer-term and community-held objectives, and their development may therefore be backed by insitutions with funding and resources to support developers.
 
 Despite being a minority language, Blender packages are more central than all other package platforms on average, but this is a statistical anomaly caused by uneven sampling.
 R is naturally the platform with the next highest average centrality since it serves as a _lingua franca_ that draws developers from across the discipline.
 Many of the QGIS plugins add various specialized features to the extensible GIS platform, and are therefore developed by interdisciplinary teams, which explains its high rank.
-Python projects, which tend to be infrastructural or are of interest to members of other fields, are also highly ranked in terms of average centrality.
-Our findings support the notion that there are significant development patterns when working across different languages and platforms, and further analysis to qualify these observation is warranted.
+Python projects, which tend to relate to the development of information infrastructures or are of interest to members of other fields (e.g., palaeo-ecology, other fieldwork-based disciplines), are also highly ranked in terms of average centrality.
+Further analysis is warranted to qualify these observations regarding the significance of development patterns when working across different languages and platforms.
 
 ```{r fig-user-betweenness-contribs}
 #| fig-cap: User centrality by total number of contributions. Centrality is measured by node betweenness weighted by number of contributions.  Blue line indicates a generalized linear regression, with confidence envelope shaded in grey.

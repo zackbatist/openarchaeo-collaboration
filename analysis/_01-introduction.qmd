@@ -1,13 +1,13 @@
 # Introduction {#sec-introduction}
 
 A 2012 special issue of *World Archaeology* marked the coming of age of 'open archaeology',
-a new, digitally-oriented archaeology "predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain" with the aim of "maximizing transparency, reuse and engagement while maintaining professional probity" [@beck2012 480-481],
+a new, digitally orientated archaeology "predicated on promoting open redistribution and access to the data, processes and syntheses generated within the archaeological domain" with the aim of "maximizing transparency, reuse and engagement while maintaining professional probity" [@beck2012 480-481],
 situated within the wider the open science movement [@lake2012 and @beck2012].
-In the same issue, @ducke2012 specifically called attention to software, calling on archaeologists to more actively engage in open source practices – making software with source code available for anyone to freely access, modify or reuse.
+In the same issue, @ducke2012 specifically drew attention to software -- the programs and other operating information used by a computer to analyse archaeological information -- calling on archaeologists to more actively engage in open-source practices – making software with source code available for anyone to freely access, modify or reuse.
 Open source, though originating outside academy, emerged as an important component and complement of open science, sharing its vision for a communal, self-correcting and transparent mode of knowledge production.
-Where before archaeologists had relied almost exclusively on "hand-me-down" software re-purposed from other fields [@scollar1999], open archaeology envisaged a community of archaeological research software engineers oriented around open source development practices and tools.
+Where before archaeologists had relied almost exclusively on "hand-me-down" software re-purposed from other fields [@scollar1999], open archaeology envisaged a community of archaeological research software engineers oriented around open-source development practices and tools.
 
-More than decade on, we are in a position to ask whether this hopeful early rhetoric of open archaeology has been borne out in actually-existing open source research software engineering in the field. 
+More than decade on, we are in a position to ask whether this hopeful early rhetoric of open archaeology has been borne out in actually existing open-source research software engineering in the field. 
 Does academic open source actually make research processes more transparent and improve research outcomes? 
 Is it actually boosting efficiency by establishing a common store of knowledge and productive code? 
 Is it actually helping to foster new globe-spanning connections and lead to novel research trajectories that would not otherwise come to pass?
@@ -27,4 +27,5 @@ This article presents a survey of open source archaeological software developmen
 (1) we identify *what* kinds of software archaeologists are making; and
 (2) we evaluate *how* archaeologists create these tools, with particular emphasis on practices of collaboration.
 
-We use quantitative analysis to consider how archaeological software development may be benefiting from, or missing out on, the affordances that open source development models provide, specifically the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency. 
+We use quantitative analysis to consider how archaeological software development may be benefiting from, or missing out on, the affordances that open-source development models provide, specifically the value added through working as part of a broader community of invested stakeholders, processes of iterative improvement, and increased code transparency.
+As such, our work examines whether archaeologists are harnessing the collaborative potential that the open science movement ascribes to the use of open source software and resources.

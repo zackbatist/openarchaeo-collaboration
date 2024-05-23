@@ -81,7 +81,7 @@ max_commit_rate <- max(oarch_lifespan$commit_rate, na.rm = TRUE)
 p_commit_rate_1 <- nrow(filter(oarch_lifespan, commit_rate < 1)) / nrow(oarch_lifespan)
 ```
 
-We measured the lifespan of a repository as the time between the first and latest commit, and its activity as the rate of commits.
+We measured the lifespan of a repository as the time between the first and latest commit, and its activity as the number of commits per day.
 Here therefore we refer to the *development* lifespan of a project, which is not necessary related to its use-life.
 By these metrics, the lifespan and activity of repositories in open-archaeo vary greatly (@fig-lifespan).
 The average project lasts `r round(mean(oarch_lifespan$lifespan))` days with `r round(mean(oarch_lifespan$commit_rate, na.rm = TRUE), 2)` commits per day.
@@ -220,7 +220,7 @@ Even in the minority of projects that have more than one contributor, work (as m
 The lead maintainer almost always does the lion share of the work: they are responsible for more than half of commits in `r percent(p_big_boy_50)` of projects and more than three-quarters in `r percent(p_big_boy_75)`.
 This may be attributed to the steep learning curve commonly attributed to working with git.
 While git can be a great way to track changes and manage distributed contributions to a common code base, it can also be unwieldy in situations when multiple users (especially those with less experience using git for collaborative purposes) are expected to contribute within short spans of time.
-This meshes with our prior observations that projects exhibiting higher commit rates have less contributors.
+This corresponds with our prior observations that projects exhibiting higher commit rates have less contributors.
 Additionally, our analyses neglect to account for contributions that are not tracked via git or GitHub.
 Those who do not code may provide creative guidance or feedback during in-person meetings, via email, or using alternative online messaging or social media platforms.
 A more focused qualitative assessment of these non-coding and supportive work practices would shed more light on the totality of effort that goes into producing and maintaining open source projects.
