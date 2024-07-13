@@ -35,7 +35,7 @@ tribble(
   rename(`%` = p) |>
   tt() |>
   group_tt(list("Software" = 1, "Documents" = 4)) |>
-  format_tt(1, markdown = TRUE)
+  format_tt(j = 1, markdown = TRUE)
 ```
 
 ```{r data-categories-platforms}
@@ -59,8 +59,8 @@ oarch <- mutate(
   )
 )
 
-n_packages <- nrow(filter(oarch, category == "Packages and libraries"))
-p_packages <- n_packages / nrow(oarch)
+n_platform <- sum(!is.na(oarch$platform))
+p_platform <- n_platform / nrow(oarch)
 
 n_standalone <- nrow(filter(oarch, category == "Standalone software"))
 p_standalone <- n_standalone / nrow(oarch)
@@ -68,20 +68,14 @@ p_standalone <- n_standalone / nrow(oarch)
 n_scripts <- nrow(filter(oarch, category == "Scripts"))
 p_scripts <- n_scripts / nrow(oarch)
 
-n_datasets <- nrow(filter(oarch, category == "Lists and datasets"))
+n_datasets <- nrow(filter(oarch, tag1 == "Datasets" | tag2 == "Datasets" | 
+                            tag3 == "Datasets" | tag4 == "Datasets" | 
+                            tag5 == "Datasets"))
 p_datasets <- n_datasets / nrow(oarch)
-
-# n_platform <- sum(!is.na(oarch$platform))
-# p_platform <- n_platform / nrow(oarch)
-
-# n_datasets <- nrow(filter(oarch, tag1 == "Datasets" | tag2 == "Datasets" | 
-#                             tag3 == "Datasets" | tag4 == "Datasets" | 
-#                             tag5 == "Datasets"))
-# p_datasets <- n_datasets / nrow(oarch)
 ```
 
 From our breakdown of open-archaeo by category (see @tbl-categories), we can infer the pervasiveness of various development models, and the requisite technical capabilities that developers assume users hold.
-Most resources (`r percent(p_packages)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language (e.g. radiocarbon calibration is implemented in R in the package 'rcarbon' or Python in the package 'iosacal') or a plugin for an application (e.g. 'ArchaeoAstroInsight' adds tools for measuring astronomical alignments to QGIS).
+Most resources (`r percent(p_platform)`) included in open-archaeo are designed to be used atop an existing "platform" -- for example a package that extends a programming language (e.g. radiocarbon calibration is implemented in R in the package 'rcarbon' or Python in the package 'iosacal') or a plugin for an application (e.g. 'ArchaeoAstroInsight' adds tools for measuring astronomical alignments to QGIS).
 Essentially such projects create additional functions within the base platform that are useful for archaeological purposes.
 Others create standalone software (`r percent(p_standalone)`) that can be run independently of such platforms, for example desktop or web apps.
 A significant number of projects also comprise of datasets (`r percent(p_datasets)`) and non-packaged code snippets (`r percent(p_scripts)`) that have been made available for general use.
@@ -106,10 +100,10 @@ oarch |>
   tt()
 ```
 ```{r data-platforms}
-  p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / sum(!is.na(oarch$platform))
-  p_platform_python <- sum(oarch$platform == "Python", na.rm = TRUE) / sum(!is.na(oarch$platform))
-  p_platform_qgis <- sum(oarch$platform == "QGIS", na.rm = TRUE) / sum(!is.na(oarch$platform))
-  ```
+p_platform_r <- sum(oarch$platform == "R", na.rm = TRUE) / nrow(oarch)
+p_platform_python <- sum(oarch$platform == "Python", na.rm = TRUE) / nrow(oarch)
+p_platform_qgis <- sum(oarch$platform == "QGIS", na.rm = TRUE) / nrow(oarch)
+```
 
 Some `r percent(p_platform_r)` of projects are extensions to the statistical programming language R, making it the most widely-used platform by a large margin (@tbl-platforms).
 Python, another programming language, is also relatively popular (`r percent(p_platform_python)`), as are plugins for the open source geographic information system QGIS (`r percent(p_platform_qgis)`).^[While Blender and QGIS plugins are written using the Python language, our intent while categorizing platforms was to get a sense of the developer ecosystems in which archaeological software engineers participate, rather than to simply gauge the popularity of different languages [@batist2023 2].]
@@ -146,7 +140,7 @@ oarch |>
   rename(theme = tag) |>
   rename_with(tools::toTitleCase) |>
   tt() |>
-  format_tt(1, markdown = TRUE)
+  format_tt(j = 1, markdown = TRUE)
 ```
 
 To enact their mandate of ensuring that anyone can access and modify software and other creative works, the open source and open science movements encourage developers and scientists to adopt open licenses.
@@ -171,9 +165,9 @@ oarch_licenses |>
   select(-other_license) ->
   oarch
 
-p_license_gpl <- n_filter(oarch, str_detect(license, "GPL")) / sum(!is.na(oarch$license))
-p_license_mit <- n_filter(oarch, str_detect(license, "MIT")) / sum(!is.na(oarch$license))
-p_license_cc <- n_filter(oarch, str_detect(license, "CC")) / sum(!is.na(oarch$license))
+p_license_gpl <- n_filter(oarch, str_detect(license, "GPL")) / n_filter(oarch, !is.na(license))
+p_license_mit <- n_filter(oarch, str_detect(license, "MIT")) / n_filter(oarch, !is.na(license))
+p_license_cc <- n_filter(oarch, str_detect(license, "CC")) / n_filter(oarch, !is.na(license))
 ```
 
 ```{r tbl-repo-licenses}

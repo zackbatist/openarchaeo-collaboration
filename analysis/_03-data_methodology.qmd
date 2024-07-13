@@ -90,7 +90,7 @@ p_no_github <- sum(filter(oarch_forges, repo_host != "None" & repo_host != "GitH
 ```
 
 ```{r tbl-forges}
-#| tbl-cap: Software forges used by open archaeology projects, as per open-archaeo
+#| tbl-cap: Software forges used by open archaeology projects
 oarch_forges |>
   mutate(
     repo_host = recode(
@@ -105,18 +105,18 @@ oarch_forges |>
   ) |>
   rename(Host = repo_host, `%` = p) |>
   tt() |>
-  format_tt(1, markdown = TRUE)
+  format_tt(j = 1, markdown = TRUE)
 ```
 
 Where applicable, we obtained more detailed information about each repository's contents and contribution histories from the GitHub API (application programming interface).
-Our analysis incorporates data on `r n_repos` repositories^[We excluded three GitHub repositories from the analysis for technical reasons. For example, https://github.com/carpentries-incubator/R-archaeology-lesson is a repository within the scope of open-archaeo, but it was forked from a pre-existing repository that is not (https://github.com/datacarpentry/R-ecology-lesson) and thus includes in its commit history irrelevant data from the parent repository.], comprising `r n_commits` commits and `r n_issues` issues/pull requests from `r n_contributors` distinct users, as well as repository metadata on programming languages used, licensing, stars and forks, and so on.
+Our analysis incorporates data on `r n_repos` repositories^[We excluded three GitHub repositories from the analysis for technical reasons. For example, https://github.com/carpentries-incubator/R-archaeology-lesson is a repository within the scope of open-archaeo, but it was forked from a pre-existing repository that is not (https://github.com/datacarpentry/R-ecology-lesson) and thus includes in its commit history irrelevant data from the parent repository.], `r n_commits` commits, `r n_issues` issues/pull requests, and `r n_comments` from `r n_contributors` distinct users, as well as repository metadata on programming languages used, licensing, stars and forks, and so on.
 
 We opted to only collect repository data from GitHub because it is the most popular forge platform used by open-archaeo projects (@tbl-forges).
 This means that we excluded projects that do not use version control (`r percent(p_no_vc)` of the total) or which develop and host code on platforms other than GitHub (`r percent(p_no_github)` of the total) from the parts of the analysis that examine *how* archaelogists develop software.
 However, we were still able to draw from all records to ascertain the general composition of open-archaeo, and by extension, to address *what* kinds of software and resources archaeologists make.
 
 That being said, we cannot account for practices that occur through offline or private channels, or forms of collaboration we do not know about. 
-We did not directly observe or interview archaeological software developers, though our conclusions do draw heavily from our experience as members of that community ourselves.^[JR is an extremely prolific archaeological open source software developer, who actively builds code, teaches programming methods, and conducts code reviews. Through his maintenance of open-archaeo over the past 5+ years, ZB has honed an extensive understanding of the people who create archaeological software and the institutional ecology that supports their work.] 
+We did not directly observe or interview archaeological software developers, though our conclusions do draw heavily from our experience as members of that community ourselves.^[JR has been active in the development of open source research software for archaeology for about ten years. Through his maintenance of open-archaeo over the past 5+ years, ZB has honed an extensive understanding of the people who create archaeological software and the institutional ecology that supports their work.] 
 Our earliest data is from 2005 and our study can say little about collaborative software development in archaeology before this point, though we know there was a significant amount of it [@ducke2013; @whallon1972].
 
 These caveats notwithstanding, the open-archaeo directory and the supplemental data from the GitHub API provide a rich resource to explore the nature of collaborative software engineering in archaeology.

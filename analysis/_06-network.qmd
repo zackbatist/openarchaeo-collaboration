@@ -20,8 +20,8 @@ oarch |>
   oarch_contributors
 ```
 
-By contributing to shared repositories—whether with code (commits), issues, or comments—archaeologists using GitHub form a collaborative network which we can map using data from the GitHub API.
-From a two-mode network with edges representing users’ contributions to repositories (Figure 6), we derived two one-mode networks that render co-contributions as connections in themselves: repositories connected by common contributors (the repository–repository graph, presented in Figure 7), and users connected by contributions to common repositories (the user–user graph, presented in Figure 8).
+By contributing to shared repositories—whether with code (commits), issues, or comments—archaeologists using GitHub form a collaborative network which we can map using data from the GitHub API [@fig-graph-repo-user].
+Here we consider two facets of this network: repositories connected by common contributors (the repository–repository graph, @fig-graph-repo-repo), and users connected by contributions to common repositories (the user–user graph, @fig-graph-user-user).
 In both cases, number of contributions constitutes a natural measure of the strength or weight of the connection, which can be further broken down by type of contribution (commit, issue/pull request, or comment).
 We identified clusters using the edge-betweenness community detection method, which operates by locating the edges that are situated along the shortest paths between all pairs of nodes, and which therefore exhibit high betweenness centrality; these edges form indirect links between otherwise completely unconnected sections of the network, and as such are the loci that distinguish groups of nodes that are more highly connected to each other than they are to others [@girvan2002].
 
@@ -240,7 +240,7 @@ oarch_graph_repo_repo |>
   rename(repository = repo, commits = n_commits) |>
   rename_with(tools::toTitleCase) |>
   tt() |>
-  format_tt(2, markdown = TRUE)
+  format_tt(j = 2, markdown = TRUE)
 ```
 
 ```{r fig-repo-betweenness-age-length}
