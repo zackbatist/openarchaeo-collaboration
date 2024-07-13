@@ -33,6 +33,7 @@ Suggests:
     fs,
     ggiraph,
     ggraph,
+    ggpmisc,
     glue,
     here,
     khroma,

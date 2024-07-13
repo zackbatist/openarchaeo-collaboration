@@ -255,7 +255,8 @@ left <- oarch_graph_repo_repo |>
   geom_point() +
   scale_x_log10() +
   scale_y_log10(labels = NULL) +
-  geom_smooth(method = "glm") +
+  geom_smooth(method = "lm") +
+  stat_poly_eq(method = "lm") +
   labs(x = "Days", y = "Log centrality →") +
   theme_oarch()
 
@@ -269,7 +270,8 @@ right <- oarch_graph_repo_repo |>
   geom_point() +
   scale_x_log10() +
   scale_y_log10(labels = NULL) +
-  geom_smooth(method = "glm") +
+  geom_smooth(method = "lm") +
+  stat_poly_eq(method = "lm") +
   labs(x = "Commits", y = NULL) +
   theme_oarch()
 
@@ -340,7 +342,8 @@ oarch_graph_user_user |>
   geom_point() +
   scale_x_log10() +
   scale_y_log10() +
-  geom_smooth(method = "glm") +
+  geom_smooth(method = "lm") +
+  stat_poly_eq(method = "lm") +
   labs(x = "Total contributions", y = "Centrality") +
   theme_oarch()
 ```
