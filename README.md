@@ -1,6 +1,6 @@
 # Open archaeology: a survey of collaborative software engineering in archaeological research
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10631068.svg)](https://doi.org/10.5281/zenodo.10631068)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8393043.svg)](https://doi.org/10.5281/zenodo.8393043)
 
 Zack Batist, University of Toronto  
 Joe Roe, University of Bern  
