@@ -1,11 +1,16 @@
 # Open archaeology: a survey of collaborative software engineering in archaeological research
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10631068.svg)](https://doi.org/10.5281/zenodo.10631068)
+
 Zack Batist, University of Toronto  
 Joe Roe, University of Bern  
 
-This [research compendium](https://research-compendium.science/) contains the data and code for our analysis of the state of the art in archaeological software engineering, using the list compiled at [open-archaeo](https://open-archaeo.info/).
+This [research compendium](https://research-compendium.science/) contains the data and code for an [analysis of the state of the art in archaeological software engineering](https://intarch.ac.uk/journal/issue67/13/index.html) using the [open-archaeo](https://open-archaeo.info/) directory and data from the [GitHub REST API](https://docs.github.com/en/rest). 
+It accompanies our paper in *Internet Archaeology*:
 
-Preliminary results were presented at the [CAA2021 Virtual Conference](https://2021.caaconference.org/) hosted by the Cyprus Institute of Technology, in *[S17, Tools for the Revolution: developing packages for scientific programming in archaeology?](https://sslarch.github.io/sessions/sessioni/)*, a session organised by the special interest group for scientific scripting languages.
+> Batist, Z. & Roe, J., 2024. Open archaeology, open source? Collaborative practices in an emerging community of archaeological software engineers. *Internet Archaeology* 67. <https://doi.org/10.11141/ia.67.13>
+
+Preliminary results were also presented at the [CAA2021 Virtual Conference](https://2021.caaconference.org/) hosted by the Cyprus Institute of Technology, in *[S17, Tools for the Revolution: developing packages for scientific programming in archaeology?](https://sslarch.github.io/sessions/sessioni/)*, a session organised by the special interest group for scientific scripting languages.
 
 ## Usage
 
@@ -31,10 +36,9 @@ Note that this is time-consuming and must be done in batches to stay within GitH
 
 ## Citation
 
-This analysis is not yet published.
-To cite the [preliminary results presented at CAA](https://github.com/zackbatist/caa2021-openarchaeo/releases/tag/v0.1) as:
+Please cite the original paper as:
 
-* Batist, Zack and Joe Roe. 2021. *Open archaeology: a survey of collaborative software engineering in archaeological research*. Presented at Computer Applications & Quantitative Methods in Archaeology, Limassol (Virtual), 14–18 June 2021.
+> Batist, Z. & Roe, J., 2024. Open archaeology, open source? Collaborative practices in an emerging community of archaeological software engineers. *Internet Archaeology* 67. <https://doi.org/10.11141/ia.67.13>
 
 ## License
 
