@@ -1,4 +1,4 @@
-# Open archaeology: a survey of collaborative software engineering in archaeological research
+# Open archaeology, open source? Collaborative practices in an emerging community of archaeological software engineers
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8393043.svg)](https://doi.org/10.5281/zenodo.8393043)
 
