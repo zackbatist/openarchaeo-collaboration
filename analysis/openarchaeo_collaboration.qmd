@@ -11,7 +11,7 @@ author:
     affiliation: Institute of Archaeological Sciences, University of Bern
     affiliation-url: https://www.iaw.unibe.ch/
     orcid: 0000-0002-1011-1244
-date: "`r Sys.Date()`"
+date: 2024-07-18
 abstract: |
   Surveying the first quarter-century of computer applications in archaeology, Scollar [-@scollar1999] lamented that the field relied almost exclusively on "hand-me-down" tools repurposed from other disciplines. Twenty five years later, this is no longer the case: computational archaeologists often find themselves practicing the dual roles of data analyst and research software engineer [@baxter2012; @schmidt2020], developing and applying new tools that are tailored specifically to archaeological problems and archaeological methods. Though this trend can be traced to the very earliest days of the field [@cowgill1967], its most recent manifestation is distinguished by its apparent embrace of practices from free and open source software. Most prominently, since around 2015, there has been a rapid uptake of workflow tools designed for open source development communities, such as the version control system git and associated online source code management platforms (e.g. GitHub, GitLab). These tools facilitate collaboration among developers and users of open source software using patterns that can diverge quite radically from conventional scholarly norms [@tennant2020].
 
@@ -23,6 +23,19 @@ abstract: |
   Direct collaboration on code or other repository content—as opposed to the more passive, social media-style interaction that GitHub supports—remains very limited.
   In other words, there is little evidence that archaeologists' adoption of open source *tools* (git and GitHub) has been accompanied by the decentralized, participatory forms of collaboration that characterise other open source communities.
   On the contrary, our results indicate that research software engineering in archaeology remains largely embedded in conventional professional norms and organizational structures of academia.
+keywords:
+  - open archaeology
+  - open source
+  - open science
+  - archaeological practice
+  - collaboration
+license: CC BY
+citation:
+  title: "Open archaeology, open source? Collaborative practices in an emerging community of archaeological software engineers"
+  container-title: Internet Archaeology
+  volume: 67
+  doi: 10.11141/ia.67.13
+funding: "Open access funding was provided by the University of Bern and swissuniversities"
 bibliography: references.bib
 format:
   html:
@@ -35,10 +48,6 @@ execute:
   message: false
   warning: false
 ---
-
-::: {.callout-note}
-This is a preprint version of an article published in _Internet Archaeology_. Please cite the version of record: [https://doi.org/10.11141/ia.67.13](https://doi.org/10.11141/ia.67.13).
-:::
 
 ```{r setup}
 options("tinytable_tabularray_placement" = "H")
